@@ -1,4 +1,4 @@
-let $auction := doc("xmlgen/auction.xml") return
+let $auction := doc("auction.xml") return
 for $i in
   distinct-values($auction/site/people/person/profile/interest/@category)
 let $p :=

@@ -1,4 +1,4 @@
-let $auction := doc("xmlgen/auction.xml") return
+let $auction := doc("auction.xml") return
 for $a in
   $auction/site/closed_auctions/closed_auction/annotation/description/parlist/
    listitem/

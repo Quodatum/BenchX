@@ -1,4 +1,4 @@
-let $auction := doc("xmlgen/auction.xml") return
+let $auction := doc("auction.xml") return
 count(
   for $i in $auction/site/closed_auctions/closed_auction
   where $i/price/text() >= 40
