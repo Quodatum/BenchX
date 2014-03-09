@@ -1,5 +1,7 @@
 (: evaluate xmark test :)
-declare function local:time(
+declare namespace sys="java.lang.System";
+
+declare function local:time-xmark(
   $index
 ){
   let $f:=resolve-uri(
@@ -14,13 +16,16 @@ declare function local:time(
      "permission" := "create","timeout":=10
   }
   let $r:=try{
-    xquery:eval(
-      $xq,$bindings,$opts
-    )
+    xquery:eval($xq,$bindings,$opts)
   }catch * 
   {
     -1
   }
   return prof:current-ms()-$t1
 };
-( 1 to 20)!local:time(.)
+let $res:=( 1 to 20)!local:time-xmark(.)
+let $java:=("java.version",
+            "java.vendor",
+            "java.vm.version","java.vm.specification.version",
+            "os.name","os.version")!sys:getProperty(.)
+return ($java)
