@@ -1,0 +1,4 @@
+
+rsync --verbose  --progress --stats --compress   \
+      --recursive --times --perms --links   \
+        src/* basex@velvet:~/webapp    
