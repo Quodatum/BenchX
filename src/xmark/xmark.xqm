@@ -37,7 +37,7 @@ declare function time-xmark(
 };
 
 (:~
- : return execution time of $xq or $timeout if no result before $timeout
+ : return execution time of $xq in ms or $timeout if no result before $timeout
  :) 
 declare function time($xq as xs:string,$timeout as xs:double){
  let $bindings:=map{}
@@ -51,7 +51,7 @@ declare function time($xq as xs:string,$timeout as xs:double){
        return prof:current-ms()-$t1
       }catch * 
       {
-        $timeout
+        $timeout * 1000
       }
 };
 
@@ -82,5 +82,5 @@ declare %updating function manage-db($create as xs:boolean){
         db:create("xmark"
                     ,$xm:base-dir ||"xmark/auction.xml"
                     ,"auction.xml")
-    else db:drop("xmark")                
+    else if (db:exists("xmark"))then db:drop("xmark") else ()               
  };      

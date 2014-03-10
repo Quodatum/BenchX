@@ -20,6 +20,9 @@ function xmark() {
     <form method="post">
     <div>auction file size:{$size}</div>
     <button type="submit" >run XMark</button>
+     <label>Timeout (secs):
+    <input type="number" name="timeout" value="15"/>
+    </label>
     </form>
     <hr/>
     <div>fn:static-base-uri():{fn:static-base-uri()}</div>
@@ -27,7 +30,10 @@ function xmark() {
     <div> db 'xmark': {$db}</div>
      <div> db 'xmark': {$db}</div>
     <form method="post" action="xmark/xmlgen">
-    <input type="number" name="factor" value="0.1"/>
+    <label>Factor:
+    <input type="number" name="factor" value="0.5"/>
+    </label>
+   
     <button type="submit" >run XMLgen</button>
     </form>
     
@@ -42,23 +48,26 @@ function xmark() {
  :)
 declare 
 %rest:POST %rest:path("xmark")
+%restxq:form-param("timeout", "{$timeout}","15")  
 %output:method("html")   
-function xmark-post() {
-    let $res:=( 1 to 20)!xm:time-xmark(.,10)
+function xmark-post($timeout) {
+    let $res:=( 1 to 20)!xm:time-xmark(.,fn:number($timeout))
+    let $avg:=fn:sum($res) div 20
     let $res2:= $res!<div>{.}</div>
-    return <div>{$res2}</div>
+    return <div>{$res2}<div>Avg:{$avg}</div></div>
 };
 
 (:~
  : xmark create source file.
  :)
-declare 
+declare %updating
 %rest:POST %rest:path("xmark/xmlgen")
-%restxq:form-param("factor", "{$factor}","0.1")  
+%restxq:form-param("factor", "{$factor}","0.5")  
 %output:method("html")   
 function xmlgen($factor) {
  let $go:=xm:xmlgen($factor)
- return <rest:redirect>/xmark</rest:redirect>
+ return (xm:manage-db(fn:false())
+        ,db:output(<rest:redirect>/xmark</rest:redirect>))
 }; 
 
 (:~
