@@ -1,8 +1,8 @@
 (:~ 
- :  interface for running XMark benchmark.
- :  create source file
- :  time a xmark query from file or db
- :  create database
+ :  interface for running [XMark](http://www.xml-benchmark.org) benchmark.
+ :  create source file using xmlgen, windows or unix
+ :  create/drop database
+ :  time an XMark query from file or db
  : @author Andy Bunce
  : @since March 2014
  :)
