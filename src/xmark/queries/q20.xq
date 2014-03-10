@@ -1,4 +1,4 @@
-let $auction := doc("auction.xml") return
+let $auction := doc("xmark/auction.xml") return
 <result>
   <preferred>
     {count($auction/site/people/person/profile[@income >= 100000])}

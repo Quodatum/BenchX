@@ -1,4 +1,4 @@
-let $auction := doc("auction.xml") return
+let $auction := doc("xmark/auction.xml") return
 for $a in $auction/site/closed_auctions/closed_auction
 where
   not(

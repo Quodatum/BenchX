@@ -1,4 +1,4 @@
-let $auction := doc("auction.xml") return
+let $auction := doc("xmark/auction.xml") return
 for $b in $auction/site/open_auctions/open_auction
 where
   some $pr1 in $b/bidder/personref[@person = "person20"],

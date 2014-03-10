@@ -13,7 +13,8 @@ declare
 %rest:GET %rest:path("xmark")
 %output:method("html")   
 function xmark() {
-  let $size:="?"
+  let $size:=xm:file-size()
+  let $db:=db:exists("xmark")
   return 
   <body>
     <form method="post">
@@ -23,9 +24,15 @@ function xmark() {
     <hr/>
     <div>fn:static-base-uri():{fn:static-base-uri()}</div>
     <div> eval static-base-uri():{xquery:eval("fn:static-base-uri()||'~'")}</div>
-    <form method="post" action="xmark/create">
+    <div> db 'xmark': {$db}</div>
+     <div> db 'xmark': {$db}</div>
+    <form method="post" action="xmark/xmlgen">
     <input type="number" name="factor" value="0.1"/>
     <button type="submit" >run XMLgen</button>
+    </form>
+    
+    <form method="post" action="xmark/manage">
+    <button type="submit" >create db</button>
     </form>
     </body>
 };
@@ -46,10 +53,21 @@ function xmark-post() {
  : xmark create source file.
  :)
 declare 
-%rest:POST %rest:path("xmark/create")
+%rest:POST %rest:path("xmark/xmlgen")
 %restxq:form-param("factor", "{$factor}","0.1")  
 %output:method("html")   
-function create($factor) {
- let $go:=xm:create($factor)
- return <div>Not yet: {$factor}</div>
+function xmlgen($factor) {
+ let $go:=xm:xmlgen($factor)
+ return <rest:redirect>/xmark</rest:redirect>
+}; 
+
+(:~
+ : xmark create db
+ :)
+declare %updating
+%rest:POST %rest:path("xmark/manage")
+%output:method("html")   
+function create() {
+ (xm:manage-db(fn:true()),
+ db:output(<rest:redirect>/xmark</rest:redirect>))
 }; 
