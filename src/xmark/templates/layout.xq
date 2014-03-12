@@ -1,4 +1,5 @@
 declare  variable $body external;
+declare  variable $version external;
 <html>
 <head>
  <meta charset="utf-8"/>
@@ -16,7 +17,8 @@ declare  variable $body external;
           <div class="navbar-header">
             
             <a class="navbar-brand" href=".">XMark</a>
-            <p class="navbar-text">Time the XMark queries</p>
+            <p class="navbar-text">queries timed using</p>
+            <p class="navbar-text">BaseX:{$version}</p>
           </div>
           </div>
           </div>

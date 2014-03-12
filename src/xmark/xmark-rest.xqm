@@ -6,6 +6,7 @@ module namespace sr = 'apb.xmark.rest';
 declare default function namespace 'apb.xmark.rest'; 
 import module namespace xm='apb.xmark.test' at 'xmark.xqm';
 import module namespace txq = 'apb.txq' at 'lib.xq/txq.xqm';
+import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
 
 (:~
  : xmark application entry point.
@@ -16,7 +17,10 @@ declare
 function xmark() {
   let $size:=xm:file-size()
   let $db:=db:exists("xmark")
-  return render("main.xq",map{"size":=xm:file-size(),"db":=db:exists("xmark")})
+  let $map:=map{"size":=xm:file-size()
+                ,"db":=db:exists("xmark")
+                ,"env":=props()}
+  return render("main.xq",$map)
  
 };
 
@@ -25,14 +29,20 @@ function xmark() {
  :)
 declare 
 %rest:POST %rest:path("xmark/results")
-%restxq:form-param("timeout", "{$timeout}","15")  
+%restxq:form-param("timeout", "{$timeout}","15")
+%restxq:form-param("repeat", "{$repeat}","1")   
 %output:method("html")   
-function xmark-post($timeout) {
+function xmark-post($timeout,$repeat) {
     let $res:=( 1 to 20)!xm:time-xmark(.,fn:number($timeout))
     let $avg:=fn:sum($res) div 20
-    let $res2:= $res!<div>{.}</div>
+    let $res2:= $res!<tr><td >{fn:position()}</td>
+                        <td><span class="pull-right">{.}</span></td> 
+                    </tr>
     return render("results.xq",map{
-    "out":=<div>{$res2}<div>Avg:{$avg}</div></div>})
+    "out":=(<div class="col-xs-2"><table class="table table-striped">
+                    <tbody>{$res2}</tbody>
+                </table></div>
+            ,<div>Avg:{$avg}</div>)})
 };
 
 (:~
@@ -60,8 +70,22 @@ function create() {
 }; 
 
 declare function render($template,$map){
-txq:render(fn:resolve-uri("./templates/" || $template)
+let $defaults:=map{"version":=env:basex-version()}
+let $map:=map:new(($map,$defaults))
+return txq:render(
+            fn:resolve-uri("./templates/" || $template)
             ,$map
             ,fn:resolve-uri("./templates/layout.xq")
             )
+};
+
+declare function props(){
+<table class="table table-striped">
+<thead><tr><th>Name</th><th>Value</th></tr></thead>
+<tbody>
+{for $p in $env:core return <tr><td>{$p}</td>
+                                <td>{env:getProperty($p)}</td>
+                             </tr>}
+</tbody>
+</table>
 };
