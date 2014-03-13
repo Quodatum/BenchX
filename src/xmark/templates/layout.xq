@@ -16,7 +16,7 @@ declare  variable $version external;
         <div class="container-fluid">
           <div class="navbar-header">
             
-            <a class="navbar-brand" href=".">XMark</a>
+            <a class="navbar-brand" href="/xmark/">XMark</a>
             <p class="navbar-text">queries timed using</p>
             <p class="navbar-text">BaseX:{$version}</p>
           </div>

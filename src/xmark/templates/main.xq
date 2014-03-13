@@ -28,5 +28,5 @@ declare  variable $env external;
     <form method="post" action="xmark/manage" class="form-inline">
     <button class="btn btn-primary" type="submit" >create db</button>
     </form>
-    <div class="col-xs-4">{$env}</div>
+    <div class="col-xs-6">{$env}</div>
     </div>

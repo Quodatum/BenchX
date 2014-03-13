@@ -1,6 +1,6 @@
 xquery version "3.0";
 (:~
-: Get information about the BaseX environment
+: Get information about the BaseX environment, often java properties
 :
 : @author andy bunce
 : @since sept 2012

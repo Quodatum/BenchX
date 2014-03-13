@@ -37,6 +37,15 @@ declare function time-xmark(
 };
 
 (:~
+ : run xmark query
+ :)
+declare function time-xmark-all(
+  $timeout as xs:double
+) {
+  let $res:=(1 to 20)!<query id="{.}">{time-xmark(.,fn:number($timeout))}</query>
+  return <run>{$res}</run>
+};
+(:~
  : return execution time of $xq in ms or $timeout if no result before $timeout
  :) 
 declare function time($xq as xs:string,$timeout as xs:double){

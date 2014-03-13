@@ -7,6 +7,7 @@ declare default function namespace 'apb.xmark.rest';
 import module namespace xm='apb.xmark.test' at 'xmark.xqm';
 import module namespace txq = 'apb.txq' at 'lib.xq/txq.xqm';
 import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
+import module namespace bootstrap = 'apb.basex.bootstrap' at 'lib.xq/bootstrap.xqm';
 
 (:~
  : xmark application entry point.
@@ -17,9 +18,10 @@ declare
 function xmark() {
   let $size:=xm:file-size()
   let $db:=db:exists("xmark")
+  let $props:=bootstrap:property-table($env:core,env:getProperty#1)
   let $map:=map{"size":=xm:file-size()
                 ,"db":=db:exists("xmark")
-                ,"env":=props()}
+                ,"env":=bootstrap:panel("Properties",$props)}
   return render("main.xq",$map)
  
 };
@@ -88,4 +90,15 @@ declare function props(){
                              </tr>}
 </tbody>
 </table>
+};
+
+declare function panel($title,$body){
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">{$title}</h3>
+  </div>
+  <div class="panel-body">
+    {$body}
+  </div>
+</div>
 };
