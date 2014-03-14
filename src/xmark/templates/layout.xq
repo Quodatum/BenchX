@@ -1,5 +1,7 @@
 declare  variable $body external;
 declare  variable $version external;
+declare  variable $mode external;
+declare  variable $size external;
 <html>
 <head>
  <meta charset="utf-8"/>
@@ -18,7 +20,13 @@ declare  variable $version external;
             
             <a class="navbar-brand" href="/xmark/">XMark</a>
             <p class="navbar-text">queries timed using</p>
+            
             <p class="navbar-text">BaseX:{$version}</p>
+            <form method="post" action="/xmark/manage" class="navbar-form navbar-left">
+            <button class="btn btn-primary" type="submit" >{$mode}</button>
+            </form>
+            <h3 class="navbar-text"><span class="label label-default">{$size}</span></h3>
+     
           </div>
           </div>
           </div>

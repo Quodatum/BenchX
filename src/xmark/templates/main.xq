@@ -1,10 +1,6 @@
-declare  variable $size external;
-declare  variable $db external;
 declare  variable $env external;
  <div>
-   <div>auction file size:{$size}</div>
-   <div> db 'xmark': {$db}</div>
- 
+    <p>Run all queries</p>
     <form method="post" action="/xmark/results" role="form" class="form-inline">
     <button class="btn btn-primary" type="submit" >run XMark</button>
      <label>Timeout (secs):
@@ -14,19 +10,14 @@ declare  variable $env external;
     <input type="number" name="repeat" value="1"/>
     </label>
     </form>
-    
- 
-     
+    <p>Run XMLgen to generate a file using the given factor. 
+    Any existing database will be dropped.</p>     
      <form method="post" action="/xmark/xmlgen" role="form" class="form-inline">
     <label>Factor:
     <input type="number" name="factor" value="0.5"/>
-    </label>
-   
+    </label>  
     <button class="btn btn-primary" type="submit" >run XMLgen</button>
     </form>
-  
-    <form method="post" action="xmark/manage" class="form-inline">
-    <button class="btn btn-primary" type="submit" >create db</button>
-    </form>
+
     <div class="col-xs-6">{$env}</div>
     </div>

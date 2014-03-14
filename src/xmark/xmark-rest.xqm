@@ -16,12 +16,8 @@ declare
 %rest:GET %rest:path("xmark")
 %output:method("html")   
 function xmark() {
-  let $size:=xm:file-size()
-  let $db:=db:exists("xmark")
   let $props:=bootstrap:property-table($env:core,env:getProperty#1)
-  let $map:=map{"size":=xm:file-size()
-                ,"db":=db:exists("xmark")
-                ,"env":=bootstrap:panel("Properties",$props)}
+  let $map:=map{"env":=bootstrap:panel("Environment Java Properties",$props)}
   return render("main.xq",$map)
  
 };
@@ -72,33 +68,14 @@ function create() {
 }; 
 
 declare function render($template,$map){
-let $defaults:=map{"version":=env:basex-version()}
+  let $defaults:=map{
+                 "size":=prof:human(xm:file-size())
+                ,"mode":=if(db:exists("xmark"))then "Database" else "File"
+                ,"version":=env:basex-version()}
 let $map:=map:new(($map,$defaults))
 return txq:render(
             fn:resolve-uri("./templates/" || $template)
             ,$map
             ,fn:resolve-uri("./templates/layout.xq")
             )
-};
-
-declare function props(){
-<table class="table table-striped">
-<thead><tr><th>Name</th><th>Value</th></tr></thead>
-<tbody>
-{for $p in $env:core return <tr><td>{$p}</td>
-                                <td>{env:getProperty($p)}</td>
-                             </tr>}
-</tbody>
-</table>
-};
-
-declare function panel($title,$body){
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">{$title}</h3>
-  </div>
-  <div class="panel-body">
-    {$body}
-  </div>
-</div>
 };

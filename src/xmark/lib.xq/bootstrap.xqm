@@ -22,7 +22,7 @@ declare function property-table($names,$getFun){
 };
 
 declare function panel($title,$body){
-<div class="panel panel-default">
+<div class="panel  panel-info">
   <div class="panel-heading">
     <h3 class="panel-title">{$title}</h3>
   </div>
