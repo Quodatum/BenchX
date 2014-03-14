@@ -71,7 +71,8 @@ declare function render($template,$map){
   let $defaults:=map{
                  "size":=prof:human(xm:file-size())
                 ,"mode":=if(db:exists("xmark"))then "Database" else "File"
-                ,"version":=env:basex-version()}
+                ,"version":=env:basex-version()
+                ,"error":=""}
 let $map:=map:new(($map,$defaults))
 return txq:render(
             fn:resolve-uri("./templates/" || $template)

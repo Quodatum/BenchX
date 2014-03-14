@@ -2,6 +2,7 @@ declare  variable $body external;
 declare  variable $version external;
 declare  variable $mode external;
 declare  variable $size external;
+declare  variable $error external;
 <html>
 <head>
  <meta charset="utf-8"/>
@@ -29,8 +30,10 @@ declare  variable $size external;
             <h3 class="navbar-text"><span class="label label-default">{$size}</span></h3>
      
           </div>
-          </div>
-          </div>
+         </div>
+        </div>
+        <div class="alert alert-error ">{$error}</div>
+        
 {$body}
 </div>
 </body>
