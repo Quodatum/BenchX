@@ -92,4 +92,11 @@ declare %updating function manage-db($create as xs:boolean){
                     ,$xm:base-dir ||"xmark/auction.xml"
                     ,"auction.xml")
     else if (db:exists("xmark"))then db:drop("xmark") else ()               
+ }; 
+ 
+ (:~
+ : create or drop xmark db with auction.xml
+ :)
+declare %updating function toggle-db(){
+   manage-db(fn:not(db:exists("xmark")))               
  };      

@@ -63,7 +63,7 @@ declare %updating
 %rest:POST %rest:path("xmark/manage")
 %output:method("html")   
 function create() {
- (xm:manage-db(fn:true()),
+ (xm:toggle-db(),
  db:output(<rest:redirect>/xmark</rest:redirect>))
 }; 
 

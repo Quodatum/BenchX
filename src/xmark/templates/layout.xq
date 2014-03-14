@@ -23,7 +23,8 @@ declare  variable $size external;
             
             <p class="navbar-text">BaseX:{$version}</p>
             <form method="post" action="/xmark/manage" class="navbar-form navbar-left">
-            <button class="btn btn-primary" type="submit" >{$mode}</button>
+            <button class="btn btn-primary" type="submit" 
+            title="Click to toggle mode: File or Database">{$mode}</button>
             </form>
             <h3 class="navbar-text"><span class="label label-default">{$size}</span></h3>
      
