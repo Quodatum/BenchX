@@ -17,19 +17,28 @@ declare variable $xm:exec:=$xm:base-dir ||$xm:bin;
 (:~
  : get xmark query
  :)
-declare function get-xmark($query as xs:integer
+declare function get-xmark($query as xs:string
 ) {
   let $f:=fn:resolve-uri(
-    "queries/q" || $query || ".xq"
+    "queries/" || $query 
   )
   return fn:unparsed-text($f) 
+};
+
+(:~
+ : list query file names
+ :)
+declare function list-tests($dir as xs:string) {
+  for $f in file:list(fn:resolve-uri($dir),fn:false(),"*.xq")
+  order by fn:number(fn:replace($f,"[^0-9]","")) (: sort by number :)
+  return $f
 };
 
 (:~
  : run xmark query
  :)
 declare function time-xmark(
-  $query as xs:integer,$timeout as xs:double
+  $query as xs:string,$timeout as xs:double
 ) {
   let $xq:=get-xmark($query)
   let $xq:='declare base-uri "' || fn:static-base-uri() ||'";' || $xq
@@ -37,14 +46,15 @@ declare function time-xmark(
 };
 
 (:~
- : run xmark query
+ : run all query
  :)
-declare function time-xmark-all(
+declare function time-all($folder as xs:string,
   $timeout as xs:double
 ) {
-  let $res:=(1 to 20)!<query id="{.}">{time-xmark(.,fn:number($timeout))}</query>
+  let $res:=list-tests($folder)!<query id="{.}">{time-xmark(.,fn:number($timeout))}</query>
   return <run>{$res}</run>
 };
+
 (:~
  : return execution time of $xq in ms or $timeout if no result before $timeout
  :) 

@@ -31,14 +31,15 @@ declare
 %restxq:form-param("repeat", "{$repeat}","1")   
 %output:method("html")   
 function xmark-post($timeout,$repeat) {
-    let $res:=( 1 to 20)!xm:time-xmark(.,fn:number($timeout))
+    let $files:=xm:list-tests("queries")
+    let $res:=$files!xm:time-xmark(.,fn:number($timeout))
     let $avg:=fn:sum($res) div 20
-    let $res2:= $res!<tr><td >{fn:position()}</td>
-                        <td><span class="pull-right">{.}</span></td> 
-                    </tr>
+    let $res2:= $res!<td><span class="pull-right">{.}</span></td> 
+                    
     return render("results.xq",map{
     "out":=(<div class="col-xs-2"><table class="table table-striped">
-                    <tbody>{$res2}</tbody>
+                    <thead>{$files!<th>{.}</th>}</thead>
+                    <tbody><tr>{$res2}</tr></tbody>
                 </table></div>
             ,<div>Avg:{$avg}</div>)})
 };
