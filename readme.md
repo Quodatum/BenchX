@@ -12,7 +12,7 @@ Version 7.8.2 of BaseX is required as the query timeout functionality of xquery:
 1. In browser navigate to `/xmark`
 
 # Target file or database
-The queries reference `doc("xmark/auction.xml") so will run against the database `xmark`
+The queries reference `doc("xmark/auction.xml")` so will run against the database `xmark`
 if it exists otherwise they use the file system.
 
 # xmlgen
