@@ -5,8 +5,18 @@ Version 7.8.2 of BaseX is required as the query timeout functionality of xquery:
 
 
 
-# installation
+# Installation
 
-copy the `xmark` folder to your `webapp` folder 
-Start `basexhttp`
-In browser navigate to `/xmark`
+1. copy the `xmark` folder to your `webapp` folder 
+1. Start `basexhttp`
+1. In browser navigate to `/xmark`
+
+# Target file or database
+The queries reference `doc("xmark/auction.xml") so will run against the database `xmark`
+if it exists otherwise they use the file system.
+
+# xmlgen
+Binaries are supplied for windows and x86 linux. For other platforms e.g. Arm you 
+must recompile from the supplied `unix.c`. E.g.
+`gcc -o xmlgen unix.c`
+
