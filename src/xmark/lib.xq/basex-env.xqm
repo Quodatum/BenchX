@@ -10,9 +10,8 @@ xquery version "3.0";
 module namespace env = 'apb.basex.env';
 declare default function namespace 'apb.basex.env';
 declare namespace sys="java.lang.System";
-declare variable $env:core:=("java.version",
-            "java.vendor",
-            "java.vm.version","java.vm.specification.version",
+declare variable $env:core:=(
+            "java.version","java.vendor","java.vm.version",
             "os.name","os.version","os.arch");
             
 (:~ @return BaseX version string :)

@@ -16,7 +16,7 @@ The queries reference `doc("xmark/auction.xml")` so will run against the databas
 if it exists otherwise they use the file system.
 
 # xmlgen
-Binaries are supplied for windows and x86 linux. For other platforms e.g. Arm you 
+Binaries are supplied for Windows and x86 Linux. For other platforms e.g. ARM you 
 must recompile from the supplied `unix.c`. E.g.
 `gcc -o xmlgen unix.c`
 

@@ -33,15 +33,12 @@ declare
 function xmark-post($timeout,$repeat) {
     let $files:=xm:list-tests("queries")
     let $res:=$files!xm:time-xmark(.,fn:number($timeout))
-    let $avg:=fn:sum($res) div 20
-    let $res2:= $res!<td><span class="pull-right">{.}</span></td> 
-                    
+ 
     return render("results.xq",map{
-    "out":=(<div class="col-xs-2"><table class="table table-striped">
-                    <thead>{$files!<th>{.}</th>}</thead>
-                    <tbody><tr>{$res2}</tr></tbody>
-                </table></div>
-            ,<div>Avg:{$avg}</div>)})
+     "avg":=fn:sum($res) div 20,
+     "results":= $res!<td><span class="pull-right">{.}</span></td>,
+     "sources":= $files!<th ><a href="#" class="pull-right">{fn:substring-before(.,".")}</a></th> 
+     })
 };
 
 (:~
@@ -64,8 +61,12 @@ declare %updating
 %rest:POST %rest:path("xmark/manage")
 %output:method("html")   
 function create() {
+try{
  (xm:toggle-db(),
  db:output(<rest:redirect>/xmark</rest:redirect>))
+ }catch * {
+ db:output("Error")
+ }
 }; 
 
 declare function render($template,$map){

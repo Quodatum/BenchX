@@ -26,7 +26,7 @@ return xquery:invoke($template,$map)
  
 (:~
 : template function with wrapping layout
-: @param layout outer template with $body placeholder to insert template
+: @param $layout outer template with $body placeholder to insert $template
 : @return updated doc from map
 :)
 declare function render($template as xs:string,$map as map(*),$layout as xs:string){
