@@ -10,6 +10,7 @@ xquery version "3.0";
 module namespace env = 'apb.basex.env';
 declare default function namespace 'apb.basex.env';
 declare namespace sys="java.lang.System";
+declare namespace Runtime="java.lang.Runtime";
 declare variable $env:core:=(
             "java.version","java.vendor","java.vm.version",
             "os.name","os.version","os.arch");
@@ -30,8 +31,20 @@ declare function basex-minversion($minver as xs:string) as xs:boolean{
 declare function getProperty($name as xs:string) as xs:string{
     sys:getProperty($name)
 };
+(: 
+ : memory status
+ :http://javarevisited.blogspot.co.uk/2012/01/find-max-free-total-memory-in-java.html
+:)
+declare function memory()as map(*){
+map{
+    "memory.free":=Runtime:freeMemory(Runtime:getRuntime()),
+    "memory.max":=Runtime:maxMemory(Runtime:getRuntime()),
+    "memory.total":=Runtime:totalMemory(Runtime:getRuntime())
+    }
+};
 
 (:~ useful java properties :)
-declare function about(){
-  $env:core!sys:getProperty(.)
+declare function about() as map(*){
+ let $c:= map:new($env:core!map:entry(.,sys:getProperty(.)))
+ return map:new(($c,memory()))
 };

@@ -16,7 +16,9 @@ declare
 %rest:GET %rest:path("xmark")
 %output:method("html")   
 function xmark() {
-  let $props:=bootstrap:property-table($env:core,env:getProperty#1)
+  let $props:=env:about()
+  let $keys:=for $k in map:keys($props) order by $k return $k
+  let $props:=bootstrap:property-table($keys,map:get($props,?))
   let $map:=map{"env":=bootstrap:panel("Environment Java Properties",$props)}
   return render("main.xq",$map)
  
