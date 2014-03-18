@@ -12,6 +12,8 @@ declare  variable $error external;
     <meta name="author" content="andy bunce"/>
 <title>XMark tests v0.5</title>
 <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.css" rel="stylesheet" type="text/css" />  
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"  ></script>
+<script src="/xmark/script"  ></script>
 </head>
 <body> 
 <div class="container">

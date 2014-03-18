@@ -82,6 +82,21 @@ try{
  }
 }; 
 
+(:~
+ : xmark create db
+ :)
+declare 
+%rest:GET %rest:path("xmark/script")
+%output:method("text")   
+function script() {
+ <rest:response>
+    <output:serialization-parameters>
+      <output:media-type value='text/javascript'/>
+    </output:serialization-parameters>
+  </rest:response>,
+ fn:unparsed-text("templates/app.js")
+}; 
+
 declare function render($template,$map){
   let $defaults:=map{
                  "size":=prof:human(xm:file-size())
