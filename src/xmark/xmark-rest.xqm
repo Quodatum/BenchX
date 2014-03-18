@@ -37,10 +37,21 @@ function xmark-post($timeout,$repeat) {
     return render("results.xq",map{
      "avg":=fn:sum($res) div 20,
      "results":= $res!<td><span class="pull-right">{.}</span></td>,
-     "sources":= $files!<th ><a href="#" class="pull-right">{fn:substring-before(.,".")}</a></th> 
+     "sources":= $files!<th >
+                <a href="#" class="pull-right" title="{xm:get-xmark(.)}">{fn:substring-before(.,".")}</a>
+                </th> 
      })
 };
 
+(:~
+ : UI xmark create source file.
+ :)
+declare 
+%rest:GET %rest:path("xmark/xmlgen")
+%output:method("html")   
+function xmlgen-get() {
+ render("xmlgen.xq",map{})
+}; 
 (:~
  : xmark create source file.
  :)

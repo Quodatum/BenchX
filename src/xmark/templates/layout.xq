@@ -10,7 +10,7 @@ declare  variable $error external;
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content="XMark for BaseX"/>
     <meta name="author" content="andy bunce"/>
-<title>XMark tests</title>
+<title>XMark tests v0.5</title>
 <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.css" rel="stylesheet" type="text/css" />  
 </head>
 <body> 
@@ -27,14 +27,16 @@ declare  variable $error external;
             <button class="btn btn-primary" type="submit" 
             title="Click to toggle mode: File or Database">{$mode}</button>
             </form>
-            <h3 class="navbar-text"><span class="label label-default">{$size}</span></h3>
-     
+            <h3 class="navbar-text">
+            <a href="/xmark/xmlgen" class="label label-default" title="Click to set size">
+            <span class="">{$size}</span></a></h3>
+            
           </div>
          </div>
         </div>
-        <div class="alert alert-error ">{$error}</div>
+        {$error}
         
-{$body}
+        {$body}
 </div>
 </body>
 </html>
