@@ -2,8 +2,8 @@
  : restxq interface for XMark benchmark
  :
  :)
-module namespace sr = 'apb.xmark.rest';
-declare default function namespace 'apb.xmark.rest'; 
+module namespace sr = 'apb.benchmark.rest';
+declare default function namespace 'apb.benchmark.rest'; 
 import module namespace xm='apb.xmark.test' at 'xmark.xqm';
 import module namespace txq = 'apb.txq' at 'lib.xq/txq.xqm';
 import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
@@ -12,23 +12,34 @@ import module namespace bootstrap = 'apb.basex.bootstrap' at 'lib.xq/bootstrap.x
 (:~
  : xmark application entry point.
  :)
-declare 
-%rest:GET %rest:path("xmark")
+declare %updating
+%rest:GET %rest:path("benchmark")
 %output:method("html")   
-function xmark() {
-  let $props:=env:about()
-  let $keys:=for $k in map:keys($props) order by $k return $k
-  let $props:=bootstrap:property-table($keys,map:get($props,?))
-  let $map:=map{"env":=bootstrap:panel("Environment Java Properties",$props)}
-  return render("main.xq",$map)
- 
+function benchmark() {
+(
+    if(db:exists("benchmark")) then ()else db:create("benchmark"),
+    db:output(<rest:forward>/static/benchmark</rest:forward>)
+) 
+};
+
+declare 
+%rest:POST("{$body}") %rest:path("benchmark/execute")
+%output:method("json")   
+function execute($body) {
+let $j:=fn:trace($body,"json")
+let $name:=$j/json/name/fn:string()
+let $time:=xm:time-xmark($name,10)
+ return <json objects="json">
+  <name>{$name}</name>
+  <time type="number">{$time}</time>
+  </json>
 };
 
 (:~
  : run xmark
  :)
 declare 
-%rest:POST %rest:path("xmark/results")
+%rest:POST %rest:path("benchmark/results")
 %restxq:form-param("timeout", "{$timeout}","15")
 %restxq:form-param("repeat", "{$repeat}","1")   
 %output:method("html")   
@@ -49,7 +60,7 @@ function xmark-post($timeout,$repeat) {
  : UI xmark create source file.
  :)
 declare 
-%rest:GET %rest:path("xmark/xmlgen")
+%rest:GET %rest:path("benchmark/xmlgen")
 %output:method("html")   
 function xmlgen-get() {
  render("xmlgen.xq",map{})
@@ -58,25 +69,25 @@ function xmlgen-get() {
  : xmark create source file.
  :)
 declare %updating
-%rest:POST %rest:path("xmark/xmlgen")
+%rest:POST %rest:path("benchmark/xmlgen")
 %restxq:form-param("factor", "{$factor}","0.5")  
 %output:method("html")   
 function xmlgen($factor) {
  let $go:=xm:xmlgen($factor)
  return (xm:manage-db(fn:false())
-        ,db:output(<rest:redirect>/xmark</rest:redirect>))
+        ,db:output(<rest:redirect>/benchmark</rest:redirect>))
 }; 
 
 (:~
  : xmark create db
  :)
 declare %updating
-%rest:POST %rest:path("xmark/manage")
+%rest:POST %rest:path("benchmark/manage")
 %output:method("html")   
 function create() {
 try{
  (xm:toggle-db(),
- db:output(<rest:redirect>/xmark</rest:redirect>))
+ db:output(<rest:redirect>/benchmark</rest:redirect>))
  }catch * {
  db:output("Error")
  }
@@ -86,16 +97,32 @@ try{
  : xmark create db
  :)
 declare 
-%rest:GET %rest:path("xmark/script")
-%output:method("text")   
-function script() {
- <rest:response>
-    <output:serialization-parameters>
-      <output:media-type value='text/javascript'/>
-    </output:serialization-parameters>
-  </rest:response>,
- fn:unparsed-text("templates/app.js")
+%rest:GET %rest:path("benchmark/status")
+%output:method("json")   
+function status() {
+<json objects="json _ state" >
+    <state>
+        <version>{env:basex-version()}</version>
+        <mode>{if (xm:is-db-mode()) then "Database" else "File"}</mode>
+        <size>{prof:human(xm:file-size())}</size>
+    </state>
+</json>
 }; 
+
+declare 
+%rest:GET %rest:path("benchmark/queries")
+%output:method("json")   
+function queries() {
+<json objects="json _ " arrays="queries runs">
+    <queries>{ for  $file in xm:list-tests("queries")
+            return <_>
+                <name>{$file}</name>
+                <runs/>
+                </_>
+    }</queries>
+</json>
+}; 
+
 
 declare function render($template,$map){
   let $defaults:=map{

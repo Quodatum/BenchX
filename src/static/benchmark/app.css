@@ -1,0 +1,14 @@
+/* app.css */
+/* busy indicator http://jsfiddle.net/dBR2r/8/ */
+#loading {
+	position: absolute;
+	left: 4px;
+	top: 4px;
+	z-index: 2000;
+}
+.runtime{
+	width:6em;
+	text-align:right;
+	background-color:yellow;
+	margin-left:2px;
+}

@@ -1,0 +1,13 @@
+<div>
+	Queries...
+	<button class="btn" ng-click="executeAll()">Run All</button>
+	<button class="btn" ng-click="clearAll()">clear All</button>
+	 <ul ng-repeat="query in queries">
+	<li><button class="btn" ng-click="execute($index)">Run</button>
+	{{query.name}}
+	<div class="container-fluid">
+	<div  ng-repeat="run in query.runs" style="display:inline-block">
+	<div class="runtime">{{run.time}}ms</div>
+	</div>
+	</div>
+</div>

@@ -1,0 +1,26 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+
+			<a class="navbar-brand" href="/benchmark/">Benchmark v0.1.1</a>
+			<p class="navbar-text">queries timed using</p>
+
+			<p class="navbar-text">BaseX:{{state.version}}</p>
+			<form method="post" action="/benchmark/manage" class="navbar-form navbar-left">
+				<button class="btn btn-primary" type="submit"
+					title="Click to toggle mode: File or Database">{{state.mode}}</button>
+			</form>
+			<h3 class="navbar-text">
+				<a href="/benchmark/xmlgen" class="label label-default" title="Click to set size">
+					<span class="">{{state.size}}</span>
+				</a>
+			</h3>
+			<div class="nav navbar-nav navbar-right" >
+			<h3 class="navbar-text">
+				Q:
+				<span class="">{{queue.length()}}</span>
+			</h3>
+			</div>
+		</div>
+	</div>
+</nav>
