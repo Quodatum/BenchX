@@ -93,8 +93,8 @@ declare function file-size(){
     return if(file:exists($f)) then file:size($f) else 0
  };
  
-declare function is-db-mode() as xs:boolean{
-    db:exists("xmark")
+declare function mode() as xs:string{
+    if (db:exists("xmark")) then "D" else "F"
 };
 
  (:~
@@ -105,12 +105,12 @@ declare %updating function manage-db($create as xs:boolean){
         db:create("xmark"
                     ,$xm:base-dir ||"xmark/auction.xml"
                     ,"auction.xml")
-    else if (is-db-mode()) then db:drop("xmark") else ()               
+    else if (mode()="D") then db:drop("xmark") else ()               
  }; 
  
  (:~
  : create or drop xmark db with auction.xml
  :)
 declare %updating function toggle-db(){
-   manage-db(fn:not(is-db-mode()))               
+   manage-db(mode()="F")               
  };      

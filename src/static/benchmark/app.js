@@ -26,7 +26,10 @@ var App = angular.module(
 		'rootController',
 		[ '$rootScope', 'httpRequestTracker', 'api', 'queries',
 				function($rootScope, httpRequestTracker, api, queries) {
-
+					function updateStatus(data){
+						console.log("update status:",data)
+						$rootScope.state = data.state;
+					};
 					$rootScope.queries = [];
 
 					$rootScope.queue = async.queue(function(index, callback) {
@@ -48,9 +51,7 @@ var App = angular.module(
 						}).then(function(res) {
 							// Dig into the responde to get the relevant data
 							console.log("exe", res);
-							$rootScope.queries[index].runs.unshift({
-								time : res.time
-							});
+							$rootScope.queries[index].runs.unshift(res);
 						})
 					};
 					$rootScope.executeAll = function() {
@@ -63,12 +64,19 @@ var App = angular.module(
 							v.runs = [];
 						})
 					};
+					$rootScope.toggleMode = function() {
+						api.toggleMode().success(function(d){
+							api.status().success(updateStatus);
+						});
+					};
+					$rootScope.xmlgen = function() {
+						api.xmlgen(0.3).success(function(d){
+							api.status().success(updateStatus);
+						});
+					};
 					console.log("rooT");
-					api.status().success(function(res) {
-						// Dig into the responde to get the relevant data
-						console.log(res)
-						$rootScope.state = res.state;
-					});
+					
+					api.status().success(updateStatus);
 					$rootScope.hasPendingRequests = function() {
 						return httpRequestTracker.hasPendingRequests();
 					};
@@ -94,9 +102,22 @@ var App = angular.module(
 				method : 'GET',
 				url : apiRoot + 'status'
 			});
-		}
+		},
+		xmlgen:function(factor) {
+			return $http({
+				method : 'POST',
+				url : apiRoot + 'xmlgen',
+				params:{factor:factor}
+			});
+	},
+	toggleMode:function() {
+		return $http({
+			method : 'POST',
+			url : apiRoot + 'manage'
+		});
 	}
-} ])
+	}
+}])
 
 .factory('queries', [ '$http', '$q', 'apiRoot', function($http, $q, apiRoot) {
 	var q = [];

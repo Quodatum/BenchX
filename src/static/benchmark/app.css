@@ -7,8 +7,10 @@
 	z-index: 2000;
 }
 .runtime{
-	width:6em;
+	width:8em;
 	text-align:right;
 	background-color:yellow;
-	margin-left:2px;
+	margin:2px;
+	display:inline-block;
+
 }

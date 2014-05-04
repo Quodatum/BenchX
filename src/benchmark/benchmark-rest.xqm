@@ -26,12 +26,13 @@ declare
 %rest:POST("{$body}") %rest:path("benchmark/execute")
 %output:method("json")   
 function execute($body) {
-let $j:=fn:trace($body,"json")
-let $name:=$j/json/name/fn:string()
+let $name:=$body/json/name/fn:string()
 let $time:=xm:time-xmark($name,10)
  return <json objects="json">
   <name>{$name}</name>
-  <time type="number">{$time}</time>
+  <runtime type="number">{$time}</runtime>
+  <mode>{xm:mode()}</mode>
+  <created>{fn:current-dateTime()}</created>
   </json>
 };
 
@@ -56,26 +57,19 @@ function xmark-post($timeout,$repeat) {
      })
 };
 
-(:~
- : UI xmark create source file.
- :)
-declare 
-%rest:GET %rest:path("benchmark/xmlgen")
-%output:method("html")   
-function xmlgen-get() {
- render("xmlgen.xq",map{})
-}; 
+
 (:~
  : xmark create source file.
+ : note this switches to file mode
  :)
 declare %updating
 %rest:POST %rest:path("benchmark/xmlgen")
 %restxq:form-param("factor", "{$factor}","0.5")  
-%output:method("html")   
+%output:method("json")   
 function xmlgen($factor) {
  let $go:=xm:xmlgen($factor)
  return (xm:manage-db(fn:false())
-        ,db:output(<rest:redirect>/benchmark</rest:redirect>))
+        ,db:output(status()))
 }; 
 
 (:~
@@ -83,11 +77,11 @@ function xmlgen($factor) {
  :)
 declare %updating
 %rest:POST %rest:path("benchmark/manage")
-%output:method("html")   
+%output:method("json")   
 function create() {
 try{
  (xm:toggle-db(),
- db:output(<rest:redirect>/benchmark</rest:redirect>))
+ db:output(status()))
  }catch * {
  db:output("Error")
  }
@@ -103,7 +97,7 @@ function status() {
 <json objects="json _ state" >
     <state>
         <version>{env:basex-version()}</version>
-        <mode>{if (xm:is-db-mode()) then "Database" else "File"}</mode>
+        <mode>{xm:mode()}</mode>
         <size>{prof:human(xm:file-size())}</size>
     </state>
 </json>

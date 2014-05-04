@@ -7,9 +7,9 @@ Version 7.8.2 of BaseX is required as the query timeout functionality of xquery:
 
 # Installation
 
-1. copy the `xmark` folder to your `webapp` folder 
+1. copy the contents of the `src` folder to your `webapp` folder 
 1. Start `basexhttp`
-1. In browser navigate to `/xmark`
+1. In browser navigate to `/benchmark`
 
 # Target file or database
 The queries reference `doc("xmark/auction.xml")` so will run against the database `xmark`

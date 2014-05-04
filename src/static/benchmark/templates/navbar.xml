@@ -6,21 +6,44 @@
 			<p class="navbar-text">queries timed using</p>
 
 			<p class="navbar-text">BaseX:{{state.version}}</p>
-			<form method="post" action="/benchmark/manage" class="navbar-form navbar-left">
-				<button class="btn btn-primary" type="submit"
+			<form  class="navbar-form navbar-left">
+				<button class="btn btn-primary" ng-click="toggleMode()"
 					title="Click to toggle mode: File or Database">{{state.mode}}</button>
 			</form>
-			<h3 class="navbar-text">
-				<a href="/benchmark/xmlgen" class="label label-default" title="Click to set size">
-					<span class="">{{state.size}}</span>
-				</a>
-			</h3>
-			<div class="nav navbar-nav navbar-right" >
+			<form  class="navbar-form navbar-left">
+				<button class="btn btn-primary" ng-click="xmlgen(0.5)"
+					title="Click to set size">{{state.size}}</button>
+			</form>
+			<div class="nav navbar-nav " >
 			<h3 class="navbar-text">
 				Q:
 				<span class="">{{queue.length()}}</span>
 			</h3>
 			</div>
+			<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					About
+						<b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="#/general" tabindex="-1">
+							<i class="glyphicon glyphicon-dashboard"></i> System </a>
+						</li>
+						<li>
+							<a href="#/environment" tabindex="-1"> Environment </a>
+						</li>
+						
+						<li class="divider"></li>
+						<li>
+							<a href="#/about" tabindex="-1">
+							<i class="glyphicon glyphicon-info-sign"></i> About Benchmark</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			
 		</div>
 	</div>
 </nav>
