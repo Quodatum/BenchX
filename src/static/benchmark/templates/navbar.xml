@@ -2,48 +2,53 @@
 	<div class="container">
 		<div class="navbar-header">
 
-			<a class="navbar-brand" href="/benchmark/">Benchmark v0.1.1</a>
-			<p class="navbar-text">queries timed using</p>
+			<a class="navbar-brand" href="/benchmark">
+				<img src="benchmark.svg" style="width:20px;height:20px" />
+				Benchmark
+			</a>
 
-			<p class="navbar-text">BaseX:{{state.version}}</p>
-			<form  class="navbar-form navbar-left">
-				<button class="btn btn-primary" ng-click="toggleMode()"
-					title="Click to toggle mode: File or Database">{{state.mode}}</button>
-			</form>
-			<form  class="navbar-form navbar-left">
-				<button class="btn btn-primary" ng-click="xmlgen(0.5)"
-					title="Click to set size">{{state.size}}</button>
-			</form>
-			<div class="nav navbar-nav " >
-			<h3 class="navbar-text">
-				Q:
-				<span class="">{{queue.length()}}</span>
-			</h3>
-			</div>
+		
+			<button class="btn  btn-sm navbar-btn " 
+			ng-click="queue.kill()" ng-class="{'btn-warning':queue.length()}"
+				title="Queued tasks, click to stop">
+				<div style="width:3em">{{queue.length()}} 
+				<i class="glyphicon glyphicon-tasks"></i></div>
+			</button>
+			
+	<a class="btn  btn-sm navbar-btn " href="#/results"
+				title="Queued tasks, click to stop">
+				Results
+			</a>
+
+
 			<ul class="nav navbar-nav navbar-right">
-			<li class="dropdown">
+				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					About
+						About
 						<b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
 						<li>
 							<a href="#/general" tabindex="-1">
-							<i class="glyphicon glyphicon-dashboard"></i> System </a>
+								<i class="glyphicon glyphicon-dashboard"></i>
+								System
+							</a>
 						</li>
 						<li>
 							<a href="#/environment" tabindex="-1"> Environment </a>
 						</li>
-						
+
 						<li class="divider"></li>
 						<li>
 							<a href="#/about" tabindex="-1">
-							<i class="glyphicon glyphicon-info-sign"></i> About Benchmark</a>
+								<i class="glyphicon glyphicon-info-sign"></i>
+								About Benchmark
+							</a>
 						</li>
 					</ul>
 				</li>
 			</ul>
-			
+
 		</div>
 	</div>
 </nav>

@@ -1,3 +1,10 @@
 <div>
-	about this app
+	<p>This application times the execution of sets of XQuery queries using BaseX.
+	The XMark queries are supplied.
+	</p>
+	<p>The intended use is to compare the relative performance of different hardware and 
+	software platforms.</p>
+	<p>This application is not designed for multiple session use.</p>
+	<p>http://simpleicon.com/stopwatch-1.html
+	</p>
 </div>

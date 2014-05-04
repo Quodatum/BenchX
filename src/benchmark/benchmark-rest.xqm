@@ -111,12 +111,28 @@ function queries() {
     <queries>{ for  $file in xm:list-tests("queries")
             return <_>
                 <name>{$file}</name>
+                <src>{xm:get-xmark($file)}</src>
                 <runs/>
                 </_>
     }</queries>
 </json>
 }; 
 
+declare 
+%rest:GET %rest:path("benchmark/environment")
+%output:method("json")   
+function env() {
+let $map:=env:about()
+return <json objects="json _ " arrays="env">
+    <env>{ for  $key in map:keys($map)
+           order by $key
+           return <_>
+                <name>{$key}</name>
+                <value>{$map($key)}</value>
+                </_>
+    }</env>
+</json>
+}; 
 
 declare function render($template,$map){
   let $defaults:=map{

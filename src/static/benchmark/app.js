@@ -12,6 +12,9 @@ var App = angular.module(
 	}).when('/results', {
 		templateUrl : '/static/benchmark/templates/query.xml',
 		controller : "queriesController"
+	}).when('/environment', {
+		templateUrl : '/static/benchmark/templates/environment.xml',
+		controller : "envController"
 	}).when('/about', {
 		templateUrl : '/static/benchmark/templates/about.xml'
 	}).when('/404', {
@@ -24,8 +27,8 @@ var App = angular.module(
 
 .controller(
 		'rootController',
-		[ '$rootScope', 'httpRequestTracker', 'api', 'queries',
-				function($rootScope, httpRequestTracker, api, queries) {
+		[ '$rootScope', 'httpRequestTracker', 'api', 'queries','$modal',
+				function($rootScope, httpRequestTracker, api, queries,$modal) {
 					function updateStatus(data){
 						console.log("update status:",data)
 						$rootScope.state = data.state;
@@ -59,6 +62,7 @@ var App = angular.module(
 							$rootScope.queue.push(index)
 						})
 					};
+					
 					$rootScope.clearAll = function() {
 						angular.forEach($rootScope.queries, function(v) {
 							v.runs = [];
@@ -69,14 +73,41 @@ var App = angular.module(
 							api.status().success(updateStatus);
 						});
 					};
-					$rootScope.xmlgen = function() {
-						api.xmlgen(0.3).success(function(d){
-							api.status().success(updateStatus);
-						});
-					};
-					console.log("rooT");
 					
+					$rootScope.xmlgen = function() {
+						 var modalInstance = $modal.open({
+						      templateUrl: 'templates/xmlgen.xml',
+						      controller: ModalInstanceCtrl,
+						      size:"sm"
+						    });
+
+						    modalInstance.result.then(function (factor) {
+						    	alert("factor:"+factor);
+						    	api.xmlgen(0.3).success(function(d){
+									api.status().success(updateStatus);
+								});
+						    });
+						};
+
+						// Please note that $modalInstance represents a modal window (instance) dependency.
+						// It is not the same as the $modal service used above.
+
+						var ModalInstanceCtrl = function ($scope, $modalInstance) {
+
+						  $scope.factor = 2;
+						 
+
+						  $scope.ok = function () {
+						    $modalInstance.close($scope.factor);
+						  };
+
+						  $scope.cancel = function () {
+						    $modalInstance.dismiss('cancel');
+						  };
+						
+					};
 					api.status().success(updateStatus);
+					
 					$rootScope.hasPendingRequests = function() {
 						return httpRequestTracker.hasPendingRequests();
 					};
@@ -88,12 +119,19 @@ var App = angular.module(
 				function($scope, $rootScope, queries) {
 					console.log("queries");
 					queries.getData().then(function(data) {
-						// Dig into the responde to get the relevant data
-						console.log("queries", data);
 						$rootScope.queries = data;
 					});
 				} ])
-
+				
+.controller(
+		'envController',
+		[ "$scope","api",
+				function($scope,api) {
+					api.environment().success(function(d){
+						$scope.envs=d.env;
+					});
+				} ])
+				
 .factory('api', [ '$http', 'apiRoot', function($http, apiRoot) {
 	return {
 
@@ -114,6 +152,12 @@ var App = angular.module(
 		return $http({
 			method : 'POST',
 			url : apiRoot + 'manage'
+		});
+	},
+	environment:function() {
+		return $http({
+			method : 'GET',
+			url : apiRoot + 'environment'
 		});
 	}
 	}
