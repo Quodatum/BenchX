@@ -3,6 +3,7 @@
 
 	<div class="container-fluid">
 		<button class="btn" ng-click="executeAll()">Run All</button>
+		<button class="btn" ng-click="copyToClip()">copy</button>
 		<button class="btn" ng-click="clearAll()">clear All</button>
 		<div class="row">
 			<div class="col-md-1" title="{{query.src}}">Queries...</div>

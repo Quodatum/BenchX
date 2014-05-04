@@ -11,8 +11,8 @@
 			<button class="btn  btn-sm navbar-btn " 
 			ng-click="queue.kill()" ng-class="{'btn-warning':queue.length()}"
 				title="Queued tasks, click to stop">
-				<div style="width:3em">{{queue.length()}} 
-				<i class="glyphicon glyphicon-tasks"></i></div>
+				<div style="width:3em">
+				<i class="glyphicon glyphicon-tasks"></i> {{queue.length()}} </div>
 			</button>
 			
 	<a class="btn  btn-sm navbar-btn " href="#/results"

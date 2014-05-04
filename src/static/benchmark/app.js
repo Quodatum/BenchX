@@ -27,12 +27,13 @@ var App = angular.module(
 
 .controller(
 		'rootController',
-		[ '$rootScope', 'httpRequestTracker', 'api', 'queries','$modal',
-				function($rootScope, httpRequestTracker, api, queries,$modal) {
-					function updateStatus(data){
-						console.log("update status:",data)
+		[ '$rootScope', 'httpRequestTracker', 'api', 'queries', '$modal',
+				function($rootScope, httpRequestTracker, api, queries, $modal) {
+					function updateStatus(data) {
+						console.log("update status:", data)
 						$rootScope.state = data.state;
-					};
+					}
+					;
 					$rootScope.queries = [];
 
 					$rootScope.queue = async.queue(function(index, callback) {
@@ -62,52 +63,44 @@ var App = angular.module(
 							$rootScope.queue.push(index)
 						})
 					};
-					
+
 					$rootScope.clearAll = function() {
 						angular.forEach($rootScope.queries, function(v) {
 							v.runs = [];
 						})
 					};
 					$rootScope.toggleMode = function() {
-						api.toggleMode().success(function(d){
+						api.toggleMode().success(function(d) {
 							api.status().success(updateStatus);
 						});
 					};
-					
-					$rootScope.xmlgen = function() {
-						 var modalInstance = $modal.open({
-						      templateUrl: 'templates/xmlgen.xml',
-						      controller: ModalInstanceCtrl,
-						      size:"sm"
-						    });
-
-						    modalInstance.result.then(function (factor) {
-						    	alert("factor:"+factor);
-						    	api.xmlgen(0.3).success(function(d){
-									api.status().success(updateStatus);
-								});
-						    });
-						};
-
-						// Please note that $modalInstance represents a modal window (instance) dependency.
-						// It is not the same as the $modal service used above.
-
-						var ModalInstanceCtrl = function ($scope, $modalInstance) {
-
-						  $scope.factor = 2;
-						 
-
-						  $scope.ok = function () {
-						    $modalInstance.close($scope.factor);
-						  };
-
-						  $scope.cancel = function () {
-						    $modalInstance.dismiss('cancel');
-						  };
-						
+					$rootScope.copyToClip = function() {
+						function copyToClipboard (text) {
+						     window.prompt ("Copy to clipboard: Ctrl+C, Enter", text);
+						 };
+						 var txt=[];
+						 angular.forEach($rootScope.queries, function(v) {
+								txt.push(v.runs[0].runtime);
+							});
+						 alert(txt.join("\n"));
+						 copyToClipboard(txt.join("\n"));
 					};
+
+					$rootScope.xmlgen = function() {
+						$modal.open({
+							templateUrl : 'templates/xmlgen.xml',
+							size : "sm"
+						})
+
+						.result.then(function(factor) {
+							api.xmlgen(factor).success(function(d) {
+								api.status().success(updateStatus);
+							});
+						});
+					};
+
 					api.status().success(updateStatus);
-					
+
 					$rootScope.hasPendingRequests = function() {
 						return httpRequestTracker.hasPendingRequests();
 					};
@@ -122,16 +115,13 @@ var App = angular.module(
 						$rootScope.queries = data;
 					});
 				} ])
-				
-.controller(
-		'envController',
-		[ "$scope","api",
-				function($scope,api) {
-					api.environment().success(function(d){
-						$scope.envs=d.env;
-					});
-				} ])
-				
+
+.controller('envController', [ "$scope", "api", function($scope, api) {
+	api.environment().success(function(d) {
+		$scope.envs = d.env;
+	});
+} ])
+
 .factory('api', [ '$http', 'apiRoot', function($http, apiRoot) {
 	return {
 
@@ -141,27 +131,29 @@ var App = angular.module(
 				url : apiRoot + 'status'
 			});
 		},
-		xmlgen:function(factor) {
+		xmlgen : function(factor) {
 			return $http({
 				method : 'POST',
 				url : apiRoot + 'xmlgen',
-				params:{factor:factor}
+				params : {
+					factor : factor
+				}
 			});
-	},
-	toggleMode:function() {
-		return $http({
-			method : 'POST',
-			url : apiRoot + 'manage'
-		});
-	},
-	environment:function() {
-		return $http({
-			method : 'GET',
-			url : apiRoot + 'environment'
-		});
+		},
+		toggleMode : function() {
+			return $http({
+				method : 'POST',
+				url : apiRoot + 'manage'
+			});
+		},
+		environment : function() {
+			return $http({
+				method : 'GET',
+				url : apiRoot + 'environment'
+			});
+		}
 	}
-	}
-}])
+} ])
 
 .factory('queries', [ '$http', '$q', 'apiRoot', function($http, $q, apiRoot) {
 	var q = [];
@@ -174,13 +166,13 @@ var App = angular.module(
 				method : 'GET',
 				url : apiRoot + 'queries'
 			}).success(function(data) {
-				q=data.queries;
+				q = data.queries;
 				defer.resolve(q);
 			});
 
 			return defer.promise;
 		},
-		execute:function(data){
+		execute : function(data) {
 			var defer = $q.defer();
 			$http({
 				url : apiRoot + 'execute',

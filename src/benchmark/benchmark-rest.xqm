@@ -64,7 +64,7 @@ function xmark-post($timeout,$repeat) {
  :)
 declare %updating
 %rest:POST %rest:path("benchmark/xmlgen")
-%restxq:form-param("factor", "{$factor}","0.5")  
+%restxq:form-param("factor", "{$factor}",0)  
 %output:method("json")   
 function xmlgen($factor) {
  let $go:=xm:xmlgen($factor)
