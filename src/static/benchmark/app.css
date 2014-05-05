@@ -2,7 +2,7 @@
 /* busy indicator http://jsfiddle.net/dBR2r/8/ */
 #loading {
 	position: absolute;
-	left: 4px;
+	left: 50%;
 	top: 4px;
 	z-index: 2000;
 }

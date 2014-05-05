@@ -1,25 +1,31 @@
 <nav class="navbar navbar-default navbar-static-top" role="navigation">
-	<div class="container">
+	<div class="container-fluid">
 		<div class="navbar-header">
 
 			<a class="navbar-brand" href="/benchmark">
 				<img src="benchmark.svg" style="width:20px;height:20px" />
 				Benchmark
 			</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-		
-			<button class="btn  btn-sm navbar-btn " 
-			ng-click="queue.kill()" ng-class="{'btn-warning':queue.length()}"
-				title="Queued tasks, click to stop">
-				<div style="width:3em">
-				<i class="glyphicon glyphicon-tasks"></i> {{queue.length()}} </div>
-			</button>
-			
-	<a class="btn  btn-sm navbar-btn " href="#/results"
-				title="Queued tasks, click to stop">
-				Results
-			</a>
-
+			<ul class="nav navbar-nav">
+				<li>
+					<button class="btn  btn-sm navbar-btn " ng-click="queue.kill()"
+						ng-class="{'btn-warning':queue.length()}" title="Queued tasks, click to stop">
+						<div style="width:3em">
+							<i class="glyphicon glyphicon-tasks"></i>
+							{{queue.length()}}
+						</div>
+					</button>
+				</li>
+				<li>
+					<a  href="#/results"
+						title="Timings">
+						Results
+					</a>
+				</li>
+			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
@@ -29,13 +35,10 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li>
-							<a href="#/general" tabindex="-1">
-								<i class="glyphicon glyphicon-dashboard"></i>
-								System
+							<a href="#/environment" tabindex="-1">
+								<i class="glyphicon glyphicon-barcode"></i>
+								Environment
 							</a>
-						</li>
-						<li>
-							<a href="#/environment" tabindex="-1"> Environment </a>
 						</li>
 
 						<li class="divider"></li>
