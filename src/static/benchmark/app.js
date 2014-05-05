@@ -74,16 +74,14 @@ var App = angular.module(
 							api.status().success(updateStatus);
 						});
 					};
-					$rootScope.copyToClip = function() {
-						function copyToClipboard (text) {
-						     window.prompt ("Copy to clipboard: Ctrl+C, Enter", text);
-						 };
+					$rootScope.saveAs = function() {
+						
 						 var txt=[];
 						 angular.forEach($rootScope.queries, function(v) {
 								txt.push(v.runs[0].runtime);
 							});
-						 alert(txt.join("\n"));
-						 copyToClipboard(txt.join("\n"));
+						 var blob= new Blob([txt.join("\n")], {type : 'text/csv'})
+						 saveAs(blob,"results.csv");
 					};
 
 					$rootScope.xmlgen = function() {
