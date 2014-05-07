@@ -7,9 +7,10 @@ declare default function namespace 'apb.benchmark.rest';
 import module namespace xm='apb.xmark.test' at 'xmark.xqm';
 import module namespace dbtools = 'apb.dbtools' at 'lib.xq/dbtools.xqm';
 import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
-
+import module namespace xqdoc = 'apb.xqdoc' at 'lib.xq/xqdoc.xqm';
 (:~
- : xmark application entry point.
+ : Benchmark html application entry point.
+ : Will create db if required
  :)
 declare %updating
 %rest:GET %rest:path("benchmark")
@@ -22,6 +23,11 @@ function benchmark()
     db:output(<rest:forward>/static/benchmark</rest:forward>)
 )};
 
+(:~
+ : Execute one test
+ : @param name the test to run
+ : @param time
+ :)
 declare 
 %rest:POST("{$body}") %rest:path("benchmark/execute")
 %output:method("json")   
@@ -41,24 +47,27 @@ let $time:=xm:time-xmark($name,10)
 (:~
  : xmark create source file.
  : note this switches to file mode
+ : @param xmlgen factor size for file to create
  :)
 declare %updating
 %rest:POST %rest:path("benchmark/xmlgen")
 %restxq:form-param("factor", "{$factor}",0)  
 %output:method("json")   
-function xmlgen($factor) {
+function xmlgen($factor)
+{
  let $go:=xm:xmlgen($factor)
  return (xm:manage-db(fn:false())
         ,db:output(status()))
 }; 
 
 (:~
- : xmark create db
+ : xmark create db from file
  :)
 declare %updating
 %rest:POST %rest:path("benchmark/manage")
 %output:method("json")   
-function create() {
+function create()
+{
 try{
  (xm:toggle-db(),
  db:output(status()))
@@ -68,12 +77,13 @@ try{
 }; 
 
 (:~
- : xmark create db
+ : get information about application state
  :)
 declare 
 %rest:GET %rest:path("benchmark/status")
 %output:method("json")   
-function status() {
+function status() 
+{
 <json objects="json _ state" >
     <state>
         <version>{env:basex-version()}</version>
@@ -83,10 +93,14 @@ function status() {
 </json>
 }; 
 
+(:~
+ : @return list of tests in suite
+ :)
 declare 
 %rest:GET %rest:path("benchmark/queries")
 %output:method("json")   
-function queries() {
+function queries() 
+{
 <json objects="json _ " arrays="queries runs">
     <queries>{ for  $file in xm:list-tests("queries")
             return <_>
@@ -98,10 +112,14 @@ function queries() {
 </json>
 }; 
 
+(:~
+ : @return information about the server platform
+ :)
 declare 
 %rest:GET %rest:path("benchmark/environment")
 %output:method("json")   
-function env() {
+function env() 
+{
 let $map:=env:about()
 return <json objects="json _ " arrays="env">
     <env>{ for  $key in map:keys($map)
@@ -114,3 +132,12 @@ return <json objects="json _ " arrays="env">
 </json>
 }; 
 
+(:~
+ : @return information about the server platform
+ :)
+declare 
+%rest:GET %rest:path("benchmark/xqdoc")  
+function xqdoc() 
+{
+    xqdoc:generate-html(fn:static-base-uri())
+}; 

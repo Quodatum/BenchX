@@ -17,6 +17,8 @@ var App = angular.module(
 		controller : "envController"
 	}).when('/about', {
 		templateUrl : '/static/benchmark/templates/about.xml'
+	}).when('/xqdoc', {
+		templateUrl : '/static/benchmark/templates/xqdoc.xml'		
 	}).when('/404', {
 		templateUrl : '/static/benchmark/templates/404.xml',
 		controller : "queriesController"

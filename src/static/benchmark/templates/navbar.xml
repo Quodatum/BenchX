@@ -40,7 +40,12 @@
 								Environment
 							</a>
 						</li>
-
+						<li>
+							<a href="#/xqdoc" tabindex="-1">
+								<i class="glyphicon glyphicon-eye-open"></i>
+								XQdoc
+							</a>
+						</li>
 						<li class="divider"></li>
 						<li>
 							<a href="#/about" tabindex="-1">

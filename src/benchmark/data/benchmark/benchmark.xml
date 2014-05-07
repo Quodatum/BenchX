@@ -1,4 +1,7 @@
-<benchmark created="2014-05-07T15:44:33.437+01:00">
+<benchmark>
+	<meta>
+		<created>2014-05-07T15:44:33.437+01:00</created>
+	</meta>
 	<environment>
 		<basex.version>7.8.2</basex.version>
 		<java.vendor>Oracle Corporation</java.vendor>
@@ -12,6 +15,13 @@
 		<os.version>6.2</os.version>
 	</environment>
 	<suite name="xmark">
-	<result query="q1.xqm">123</result>
+		<_>
+			<result>
+				<name>q1.xqm</name>
+				<runtime>124</runtime>
+				<factor>0</factor>
+				<mode>F</mode>
+			</result>
+		</_>
 	</suite>
 </benchmark>

@@ -35,7 +35,8 @@ declare function getProperty($name as xs:string) as xs:string{
  : memory status
  :http://javarevisited.blogspot.co.uk/2012/01/find-max-free-total-memory-in-java.html
 :)
-declare function memory($human as xs:boolean)as map(*){
+declare function memory($human as xs:boolean)
+as map(*){
 let $f:=if($human)then prof:human#1 else function($x){$x}
 let $r:=Runtime:getRuntime()
 return map{
@@ -46,8 +47,8 @@ return map{
 };
 
 (:~ useful properties :)
-declare function about() as map(*)
-{
+declare function about() 
+as map(*){
  let $c:= map:new($env:core!map:entry(.,sys:getProperty(.)))
  return map:new((
                 $c,
