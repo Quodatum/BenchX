@@ -5,9 +5,8 @@
 module namespace sr = 'apb.benchmark.rest';
 declare default function namespace 'apb.benchmark.rest'; 
 import module namespace xm='apb.xmark.test' at 'xmark.xqm';
-import module namespace txq = 'apb.txq' at 'lib.xq/txq.xqm';
+import module namespace dbtools = 'apb.dbtools' at 'lib.xq/dbtools.xqm';
 import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
-import module namespace bootstrap = 'apb.basex.bootstrap' at 'lib.xq/bootstrap.xqm';
 
 (:~
  : xmark application entry point.
@@ -15,17 +14,19 @@ import module namespace bootstrap = 'apb.basex.bootstrap' at 'lib.xq/bootstrap.x
 declare %updating
 %rest:GET %rest:path("benchmark")
 %output:method("html")   
-function benchmark() {
-(
-    if(db:exists("benchmark")) then ()else db:create("benchmark"),
+function benchmark()
+{(
+    if(db:exists("benchmark")) then ()
+    else dbtools:sync-from-path("benchmark",fn:resolve-uri("data/benchmark")),
+    
     db:output(<rest:forward>/static/benchmark</rest:forward>)
-) 
-};
+)};
 
 declare 
 %rest:POST("{$body}") %rest:path("benchmark/execute")
 %output:method("json")   
-function execute($body) {
+function execute($body)
+{
 let $name:=$body/json/name/fn:string()
 let $time:=xm:time-xmark($name,10)
  return <json objects="json">
@@ -34,27 +35,6 @@ let $time:=xm:time-xmark($name,10)
   <mode>{xm:mode()}</mode>
   <created>{fn:current-dateTime()}</created>
   </json>
-};
-
-(:~
- : run xmark
- :)
-declare 
-%rest:POST %rest:path("benchmark/results")
-%restxq:form-param("timeout", "{$timeout}","15")
-%restxq:form-param("repeat", "{$repeat}","1")   
-%output:method("html")   
-function xmark-post($timeout,$repeat) {
-    let $files:=xm:list-tests("queries")
-    let $res:=$files!xm:time-xmark(.,fn:number($timeout))
- 
-    return render("results.xq",map{
-     "avg":=fn:sum($res) div 20,
-     "results":= $res!<td><span class="pull-right">{.}</span></td>,
-     "sources":= $files!<th >
-                <a href="#" class="pull-right" title="{xm:get-xmark(.)}">{fn:substring-before(.,".")}</a>
-                </th> 
-     })
 };
 
 
@@ -134,16 +114,3 @@ return <json objects="json _ " arrays="env">
 </json>
 }; 
 
-declare function render($template,$map){
-  let $defaults:=map{
-                 "size":=prof:human(xm:file-size())
-                ,"mode":=if(db:exists("xmark"))then "Database" else "File"
-                ,"version":=env:basex-version()
-                ,"error":=""}
-let $map:=map:new(($map,$defaults))
-return txq:render(
-            fn:resolve-uri("./templates/" || $template)
-            ,$map
-            ,fn:resolve-uri("./templates/layout.xq")
-            )
-};

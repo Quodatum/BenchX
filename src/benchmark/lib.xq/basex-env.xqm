@@ -45,8 +45,13 @@ return map{
     }
 };
 
-(:~ useful java properties :)
-declare function about() as map(*){
+(:~ useful properties :)
+declare function about() as map(*)
+{
  let $c:= map:new($env:core!map:entry(.,sys:getProperty(.)))
- return map:new(($c,memory(fn:true())))
+ return map:new((
+                $c,
+                memory(fn:true()),
+                map:entry("basex.version",basex-version())
+                ))
 };

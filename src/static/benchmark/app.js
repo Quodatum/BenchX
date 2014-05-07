@@ -119,7 +119,17 @@ var App = angular.module(
 		$scope.envs = d.env;
 	});
 } ])
-
+.filter('readablizeBytes', function() {
+    return function (bytes) {
+        var s = ['bytes', 'kB', 'MB', 'GB', 'TB', 'PB'];
+        var e = Math.floor(Math.log(bytes) / Math.log(1024));
+        return (bytes / Math.pow(1024, Math.floor(e))).toFixed(2) + " " + s[e]; }
+})
+.filter('factorBytes', function() {
+  return function(input) {
+    return (116.47106113642*input -0.00057972324877298)*1000000;
+  }
+})
 .factory('api', [ '$http', 'apiRoot', function($http, apiRoot) {
 	return {
 

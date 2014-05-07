@@ -1,17 +1,21 @@
 
 <div>
 	<div class="modal-header">
-		<h3 class="modal-title">Run XMLgen to generate a file using the given factor.</h3>
+		<h3 class="modal-title">XMLgen</h3>
 	</div>
 	<div class="modal-body">
-	<p>Any existing database will be dropped.
-	</p>
+	<p>This will run XMLgen on the server to generate a test 
+	file using the given factor.</p>
+		</div>
 	<form  role="form" class="well form-inline">
 		<label>
 			Factor:
 			<input  ng-model="factor"  type="number" value="0.1"/>
+			Size: {{factor | factorBytes | readablizeBytes}}
 		</label>
 	</form>
+	<div class="alert alert-warning"><strong>Note: </strong>Any existing database will be dropped.
+	
 	</div>
 	<div class="modal-footer">
 		<button ng-click="$dismiss('cancel')" class="btn ">Cancel</button>
