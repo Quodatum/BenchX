@@ -20,7 +20,7 @@ declare variable $xm:exec:=$xm:base-dir ||$xm:bin;
 declare function get-xmark($query as xs:string
 ) {
   let $f:=fn:resolve-uri(
-    "queries/" || $query 
+    "suites/xmark/" || $query 
   )
   return fn:unparsed-text($f) 
 };

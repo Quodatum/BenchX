@@ -77,11 +77,14 @@ var App = angular.module(
 						});
 					};
 					$rootScope.saveAs = function() {
-						
-						 var txt=[];
-						 angular.forEach($rootScope.queries, function(v) {
-								txt.push(v.runs[0].runtime);
+						 var heads=["name","mode","factor","runtime"];
+						 var txt=[heads.join(",")];
+						 angular.forEach($rootScope.queries, function(v) {	
+							 angular.forEach(v.runs, function(r) {
+								 line=[v.name,r.mode,r.factor,r.runtime];
+								 txt.push(line.join(","));
 							});
+						 });
 						 var blob= new Blob([txt.join("\n")], {type : 'text/csv'})
 						 saveAs(blob,"results.csv");
 					};

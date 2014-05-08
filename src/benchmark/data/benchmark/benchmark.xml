@@ -1,6 +1,7 @@
 <benchmark>
 	<meta>
 		<created>2014-05-07T15:44:33.437+01:00</created>
+		<description>about the test</description>
 	</meta>
 	<environment>
 		<basex.version>7.8.2</basex.version>

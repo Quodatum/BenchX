@@ -1,32 +1,37 @@
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
-
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
 			<a class="navbar-brand" href="/benchmark">
 				<img src="benchmark.svg" style="width:20px;height:20px" />
 				Benchmark
 			</a>
 		</div>
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-			<ul class="nav navbar-nav">
-				<li>
-					<button class="btn  btn-sm navbar-btn " ng-click="queue.kill()"
-						ng-class="{'btn-warning':queue.length()}" title="Queued tasks, click to stop">
-						<div style="width:3em">
-							<i class="glyphicon glyphicon-tasks"></i>
-							{{queue.length()}}
-						</div>
-					</button>
-				</li>
-				<li>
-					<a  href="#/results"
-						title="Timings">
-						Results
-					</a>
-				</li>
-			</ul>
 
+		<ul class="nav navbar-nav">
+			<li>
+				<button class="btn  btn-sm navbar-btn " ng-click="queue.kill()"
+					ng-class="{'btn-warning':queue.length()}" title="Queued tasks, click to stop">
+					<div style="width:3em">
+						<i class="glyphicon glyphicon-tasks"></i>
+						{{queue.length()}}
+					</div>
+				</button>
+			</li>
+			<li>
+				<a href="#/results" title="Timings">
+					Results
+				</a>
+			</li>
+		</ul>
+		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -4,10 +4,13 @@
  :)
 module namespace sr = 'apb.benchmark.rest';
 declare default function namespace 'apb.benchmark.rest'; 
+
 import module namespace xm='apb.xmark.test' at 'xmark.xqm';
 import module namespace dbtools = 'apb.dbtools' at 'lib.xq/dbtools.xqm';
 import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
-import module namespace xqdoc = 'apb.xqdoc' at 'lib.xq/xqdoc.xqm';
+import module namespace xqdoc = 'apb.xqdoc' at 'lib.xq/doctools.xqm';
+import module namespace session = "http://basex.org/modules/session";
+
 (:~
  : Benchmark html application entry point.
  : Will create db if required
@@ -39,6 +42,7 @@ let $time:=xm:time-xmark($name,10)
   <name>{$name}</name>
   <runtime type="number">{$time}</runtime>
   <mode>{xm:mode()}</mode>
+  <factor>{0.5}</factor>
   <created>{fn:current-dateTime()}</created>
   </json>
 };
@@ -86,7 +90,7 @@ function status()
 {
 <json objects="json _ state" >
     <state>
-        <version>{env:basex-version()}</version>
+        <session>{session:id()}</session>
         <mode>{xm:mode()}</mode>
         <size>{prof:human(xm:file-size())}</size>
     </state>
@@ -102,7 +106,7 @@ declare
 function queries() 
 {
 <json objects="json _ " arrays="queries runs">
-    <queries>{ for  $file in xm:list-tests("queries")
+    <queries>{ for  $file in xm:list-tests("suites/xmark")
             return <_>
                 <name>{$file}</name>
                 <src>{xm:get-xmark($file)}</src>
@@ -133,7 +137,7 @@ return <json objects="json _ " arrays="env">
 }; 
 
 (:~
- : @return information about the server platform
+ : show xqdoc for rest api
  :)
 declare 
 %rest:GET %rest:path("benchmark/xqdoc")  
