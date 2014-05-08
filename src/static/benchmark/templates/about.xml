@@ -1,10 +1,26 @@
 <div>
-	<p>This application times the execution of sets of XQuery queries using BaseX.
-	The XMark queries are supplied.
-	</p>
-	<p>The intended use is to compare the relative performance of different hardware and 
-	software platforms.</p>
-	<p>This application is not designed for multiple session use.</p>
-	<p>http://simpleicon.com/stopwatch-1.html
-	</p>
+	<div class="jumbotron">
+		<h1>
+			<img src="benchmark.svg" style="width:60px;height:60px" />
+			Benchmark BaseX
+		</h1>
+		<p>This application times the execution of sets of XQuery queries
+			using BaseX. The XMark queries are supplied.
+		</p>
+		<p>The intended use is to compare the relative performance of
+			different hardware and software platforms.
+		</p>
+		<p>This application is not designed for multiple session use.</p>
+	</div>
+	<h2>Components used</h2>
+	<ul>
+		<li>twitter-bootstrap/3.0.3</li>
+		<li>angularjs/1.2.14</li>
+		<li>angular-ui-bootstrap/0.10.0</li>
+		<li>http://simpleicon.com/stopwatch-1.html</li>
+		<li>http://chieffancypants.github.io/angular-hotkeys/</li>
+		<li>async/0.8.0</li>
+		<li>https://github.com/eligrey/FileSaver.js/</li>
+	</ul>
+
 </div>

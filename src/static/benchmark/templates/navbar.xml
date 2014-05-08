@@ -26,8 +26,13 @@
 				</button>
 			</li>
 			<li>
-				<a href="#/results" title="Timings">
-					Results
+				<a href="#/session" title="Timings">
+					Session
+				</a>
+			</li>
+			<li>
+				<a href="#/library" title="Timings">
+					Library
 				</a>
 			</li>
 		</ul>

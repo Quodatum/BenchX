@@ -30,7 +30,7 @@ declare function get-xmark($query as xs:string
  :)
 declare function list-tests($dir as xs:string) {
   for $f in file:list(fn:resolve-uri($dir),fn:false(),"*.xq")
-  order by fn:number(fn:replace($f,"[^0-9]","")) (: sort by number :)
+  order by $f (: sort by number :)
   return $f
 };
 

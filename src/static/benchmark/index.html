@@ -7,41 +7,40 @@
 <meta name="description" content="Benchmark for BaseX" />
 <meta name="author" content="andy bunce" />
 <title>Benchmark for BaseX</title>
-<link rel="shortcut icon" href="benchmark.svg"/>
+<link rel="shortcut icon" href="benchmark-64x64.png" />
 <link
 	href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.css"
 	rel="stylesheet" type="text/css" />
-<link
-	href="app.css"
-	rel="stylesheet" type="text/css" />
-<link
-	href="xqdoc.css"
-	rel="stylesheet" type="text/css" />			
-<script
-	src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
-<script
-	src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-route.min.js"></script>
-<script
-	src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
-<script
-	src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-resource.min.js"></script>
+<link href="lib/angular-hotkeys/1.2.0/hotkeys.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="app.css" rel="stylesheet" type="text/css" />
+<link href="xqdoc.css" rel="stylesheet" type="text/css" />
 
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/async/0.8.0/async.js"></script>
-<script src="lib/httpRequestTracker.js"></script>
-<script src="lib/FileSaver.js"></script>	
-<script src="app.js"></script>
 </head>
 <body ng-app="benchapp" ng-controller="rootController">
- 	<div id="loading" ng:show="hasPendingRequests()">  
-				<img src="ajax-loader.gif"/> 
-     </div>
+	<div id="loading" ng:show="hasPendingRequests()">
+		<img src="ajax-loader.gif" />
+	</div>
 	<div class="container-fluid" ng-include="'templates/navbar.xml'">
-		</div>
-		<div class="container">
-			<ng:view class="view-animate" style="position:relative;">Loading...</ng:view>
-		</div>
+	</div>
+	<div class="container">
+		<ng:view class="view-animate" style="position:relative;">Loading...</ng:view>
+	</div>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-route.min.js"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-resource.min.js"></script>
+
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/async/0.8.0/async.js"></script>
+	<script src="lib/angular-hotkeys/1.2.0/hotkeys.min.js"></script>
+	<script src="lib/httpRequestTracker.js"></script>
+	<script src="lib/FileSaver.js"></script>
+	<script src="app.js"></script>
 </body>
 </html>

@@ -22,6 +22,6 @@
 		</div>
 	</div>
 	<div class="col-md-4">
-BaseX:{{state.version}}
+SessionId: <span class="label label-default">{{state.session}}</span>
 </div>
 </div>

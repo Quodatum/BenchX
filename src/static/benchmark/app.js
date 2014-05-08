@@ -8,15 +8,17 @@ var App = angular.module(
 .config([ '$routeProvider', function($routeProvider) {
 	console.log("APP config");
 	$routeProvider.when('/', {
-		redirectTo : '/results'
-	}).when('/results', {
-		templateUrl : '/static/benchmark/templates/query.xml',
+		redirectTo : '/session'
+	}).when('/session', {
+		templateUrl : '/static/benchmark/templates/session.xml',
 		controller : "queriesController"
 	}).when('/environment', {
 		templateUrl : '/static/benchmark/templates/environment.xml',
 		controller : "envController"
 	}).when('/about', {
 		templateUrl : '/static/benchmark/templates/about.xml'
+	}).when('/library', {
+		templateUrl : '/static/benchmark/templates/library.xml'		
 	}).when('/xqdoc', {
 		templateUrl : '/static/benchmark/templates/xqdoc.xml'		
 	}).when('/404', {
@@ -36,8 +38,12 @@ var App = angular.module(
 						$rootScope.state = data.state;
 					}
 					;
+					$rootScope.$on('$routeChangeError', 
+							function(event, cur, prev, rejection) {
+						alert("bad thing");
+					});
 					$rootScope.queries = [];
-
+					$rootScope.logmsg="Welcome to Benchmark";
 					$rootScope.queue = async.queue(function(index, callback) {
 						console.log('start ' + index);
 						$rootScope.execute(index).then(function(res) {
@@ -120,7 +126,7 @@ var App = angular.module(
 				} ])
 
 .controller('envController', [ "$scope", "api", function($scope, api) {
-	api.environment().success(function(d) {
+	api.environment().then(function(d) {
 		$scope.envs = d.env;
 	});
 } ])
@@ -135,7 +141,7 @@ var App = angular.module(
     return (116.47106113642*input -0.00057972324877298)*1000000;
   }
 })
-.factory('api', [ '$http', 'apiRoot', function($http, apiRoot) {
+.factory('api', [ '$http', '$resource','apiRoot', function($http,$resource, apiRoot) {
 	return {
 
 		status : function() {
@@ -160,10 +166,8 @@ var App = angular.module(
 			});
 		},
 		environment : function() {
-			return $http({
-				method : 'GET',
-				url : apiRoot + 'environment'
-			});
+			return $resource(apiRoot + 'environment').get().$promise;
+				
 		}
 	}
 } ])
