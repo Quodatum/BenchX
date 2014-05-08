@@ -36,6 +36,9 @@
 				</a>
 			</li>
 		</ul>
+		<p class="navbar-text bg-success logmsg">
+		<i class="glyphicon glyphicon-hand-right"></i>
+		{{logmsg}}</p>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">

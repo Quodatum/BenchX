@@ -17,3 +17,6 @@
 .table-responsive{
     overflow-x: auto;
 }
+.logmsg{
+	padding-right:8px;
+}
