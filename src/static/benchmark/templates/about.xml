@@ -5,13 +5,13 @@
 			Benchmark BaseX
 		</h1>
 		<p>This application times the execution of sets of XQuery queries
-			using BaseX. The XMark queries are supplied.
-		</p>
-		<p>The intended use is to compare the relative performance of
+			using BaseX. The intended use is to compare the relative performance of
 			different hardware and software platforms.
 		</p>
 		<p>This application is not designed for multiple session use.</p>
 	</div>
+	<p>The XMark queries are supplied as an example suite.</p>
+		
 	<h2>Components used</h2>
 	<ul>
 		<li>twitter-bootstrap/3.1.0</li>
@@ -21,6 +21,7 @@
 		<li>http://chieffancypants.github.io/angular-hotkeys/</li>
 		<li>async/0.8.0 https://github.com/caolan/async</li>
 		<li>https://github.com/eligrey/FileSaver.js/</li>
+		<li>https://github.com/bouil/angular-google-chart</li>
 	</ul>
 
 </div>

@@ -1,8 +1,13 @@
-<benchmark>
+<benchmark id="6b534f9a-798f-4a4f-aef2-11db7b024912">
 	<meta>
 		<created>2014-05-07T15:44:33.437+01:00</created>
-		<description>about the test</description>
+		<description>This is test data</description>
 	</meta>
+	<server>
+		<id>79da1774-256b-4131-bd90-0e23cd44a957</id>
+		<description>redfish</description>
+		<suite>xmark</suite>
+	</server>
 	<environment>
 		<basex.version>7.8.2</basex.version>
 		<java.vendor>Oracle Corporation</java.vendor>
@@ -15,14 +20,12 @@
 		<os.name>Windows NT (unknown)</os.name>
 		<os.version>6.2</os.version>
 	</environment>
-	<suite name="xmark">
-		<_>
+	<results type="array">	
 			<result>
 				<name>q1.xqm</name>
 				<runtime>124</runtime>
 				<factor>0</factor>
 				<mode>F</mode>
 			</result>
-		</_>
-	</suite>
+	</results>
 </benchmark>

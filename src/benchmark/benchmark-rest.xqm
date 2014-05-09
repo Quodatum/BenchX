@@ -2,7 +2,7 @@
  : restxq interface for XMark benchmark
  :
  :)
-module namespace sr = 'apb.benchmark.rest';
+module namespace bm = 'apb.benchmark.rest';
 declare default function namespace 'apb.benchmark.rest'; 
 
 import module namespace xm='apb.xmark.test' at 'xmark.xqm';
@@ -11,6 +11,8 @@ import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
 import module namespace xqdoc = 'apb.xqdoc' at 'lib.xq/doctools.xqm';
 import module namespace session = "http://basex.org/modules/session";
 
+declare variable $bm:factor:=db:open("benchmark","state.xml")/state/factor;
+declare variable $bm:mode:=db:open("benchmark","state.xml")/state/mode;
 (:~
  : Benchmark html application entry point.
  : Will create db if required
@@ -42,7 +44,7 @@ let $time:=xm:time-xmark($name,10)
   <name>{$name}</name>
   <runtime type="number">{$time}</runtime>
   <mode>{xm:mode()}</mode>
-  <factor>{0.5}</factor>
+  <factor>{$bm:factor/fn:string()}</factor>
   <created>{fn:current-dateTime()}</created>
   </json>
 };
@@ -60,8 +62,9 @@ declare %updating
 function xmlgen($factor)
 {
  let $go:=xm:xmlgen($factor)
- return (xm:manage-db(fn:false())
-        ,db:output(status()))
+ return (xm:manage-db(fn:false()),
+        replace value of node $bm:factor with $factor,
+        db:output(status()))
 }; 
 
 (:~
@@ -92,6 +95,7 @@ function status()
     <state>
         <session>{session:id()}</session>
         <mode>{xm:mode()}</mode>
+        <factor>{$bm:factor/fn:string()}</factor>
         <size>{prof:human(xm:file-size())}</size>
     </state>
 </json>

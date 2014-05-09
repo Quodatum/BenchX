@@ -1,3 +1,4 @@
 <div>
-	<div google-chart chart="chartObject" style="height:600px; width:100%;"></div>
+	<div google-chart chart="chartObject" onReady="chartReady"
+	style="height:400px; width:100%;"></div>
 </div>

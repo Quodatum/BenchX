@@ -1,7 +1,7 @@
 var App = angular.module(
 		'benchapp',
-		[ 'ngRoute', 'ngResource', 'ui.bootstrap', 'cfp.hotkeys','googlechart',
-				'services.httpRequestTracker' ])
+		[ 'ngRoute', 'ngResource', 'ui.bootstrap', 'cfp.hotkeys',
+				'googlechart', 'services.httpRequestTracker' ])
 
 .constant("apiRoot", "../../benchmark/")
 
@@ -23,7 +23,7 @@ var App = angular.module(
 		templateUrl : '/static/benchmark/templates/about.xml'
 	}).when('/graph', {
 		templateUrl : '/static/benchmark/templates/graph.xml',
-		controller :"GenericChartCtrl"
+		controller : "GenericChartCtrl"
 	}).when('/library', {
 		templateUrl : '/static/benchmark/templates/library.xml'
 	}).when('/xqdoc', {
@@ -47,23 +47,26 @@ var App = angular.module(
 		var promise;
 		switch (task.cmd) {
 		case "run":
-			$rootScope.logmsg = 'starting ' + task.data;
+			$rootScope.logmsg = 'Starting ' + task.data;
 			promise = $rootScope.execute(task.data);
 			break;
 		case "toggle":
-			$rootScope.logmsg = 'starting mode toggle';
+			$rootScope.logmsg = 'Starting mode toggle';
 			promise = $rootScope.toggleMode();
 			break;
 		default:
-			$rootScope.logmsg = 'Unknown command ignored: '+task.cmd;
+			$rootScope.logmsg = 'Unknown command ignored: ' + task.cmd;
 		}
 		;
 		promise.then(function(res) {
 			// Dig into the responde to get the relevant data
-			$rootScope.logmsg = 'end of ' + task.data;
+			$rootScope.logmsg = 'End of ' + task.data;
 			callback();
 		});
 	}, 1);
+	$rootScope.queue.drain=function(){
+		$rootScope.logmsg = 'Idle';
+	};
 } ])
 
 .controller(
@@ -88,13 +91,11 @@ var App = angular.module(
 							mode : $rootScope.state.mode,
 							size : $rootScope.state.size
 						}).then(function(res) {
-							// Dig into the responde to get the relevant data
-							console.log("exe", res);
 							$rootScope.queries[index].runs.unshift(res);
 						})
 					};
 					$rootScope.executeAll = function() {
-						var tasks=[];
+						var tasks = [];
 						angular.forEach($rootScope.queries, function(v, index) {
 							tasks.push({
 								cmd : "run",
@@ -172,44 +173,54 @@ var App = angular.module(
 	$scope.envs = data.env;
 } ])
 
-.controller("GenericChartCtrl", function ($scope, $routeParams) {
-    $scope.chartObject = {};
+.controller(
+		"GenericChartCtrl",
+		function($scope, $rootScope, $window) {
+			$scope.chartReady = function(chartWrapper) {
+				$window.google.visualization.events.addListener(chartWrapper,
+						'select', function() {
+							console.log('select event fired!');
+						});
+			};
 
-    $scope.onions = [
-        {v: "Onions"},
-        {v: 3},
-    ];
+			var cols = [ {
+				id : "t",
+				label : "Query",
+				type : "string"
+			} ];
+			angular.forEach($rootScope.queries[0].runs, function(v, index) {
+				cols.push({
+					id : "R" + index,
+					label : "Mode: "+v.mode +", Factor:"+v.factor,
+					type : "number"
+				});
+			});
+			var rows = [];
+			angular.forEach($rootScope.queries, function(q, i) {
+				var d = [ {
+					v : q.name
+				} ];
+				angular.forEach(q.runs, function(r, i2) {
+					d.push({
+						v : r.runtime
+					})
+				})
+				rows.push({
+					c : d
+				});
+			});
+			$scope.chartObject = {
+				type : "ColumnChart",
+				options : {
+					'title' : 'BaseX Benchmark: '+$rootScope.suite
+				},
+				data : {
+					"cols" : cols,
+					"rows" : rows
+				}
+			};
+		})
 
-    $scope.chartObject.data = {"cols": [
-        {id: "t", label: "Topping", type: "string"},
-        {id: "s", label: "Slices", type: "number"}
-    ], "rows": [
-        {c: [
-            {v: "Mushrooms"},
-            {v: 3},
-        ]},
-        {c: $scope.onions},
-        {c: [
-            {v: "Olives"},
-            {v: 31}
-        ]},
-        {c: [
-            {v: "Zucchini"},
-            {v: 1},
-        ]},
-        {c: [
-            {v: "Pepperoni"},
-            {v: 2},
-        ]}
-    ]};
-
-
-    // $routeParams.chartType == BarChart or PieChart or ColumnChart...
-    $scope.chartObject.type = "BarChart";
-    $scope.chartObject.options = {
-        'title': 'How Much Pizza I Ate Last Night'
-    }
-}) 
 .filter('readablizeBytes', function() {
 	return function(bytes) {
 		var s = [ 'bytes', 'kB', 'MB', 'GB', 'TB', 'PB' ];

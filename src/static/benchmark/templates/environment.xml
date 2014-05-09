@@ -1,5 +1,25 @@
 <div class="row">
-
+<div class="panel  panel-info panel-body col-md-6">
+		<div class="panel-heading">
+			<h3 class="panel-title">State</h3>
+		</div>
+		<div class="panel-body table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Value</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr >
+						<td>SessionId:</td>
+						<td>{{state.session}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 	<div class="panel  panel-info panel-body col-md-4">
 		<div class="panel-heading">
 			<h3 class="panel-title">Java environment values</h3>
@@ -21,7 +41,4 @@
 			</table>
 		</div>
 	</div>
-	<div class="col-md-4">
-SessionId: <span class="label label-default">{{state.session}}</span>
-</div>
 </div>
