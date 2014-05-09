@@ -14,12 +14,12 @@
 	</div>
 	<h2>Components used</h2>
 	<ul>
-		<li>twitter-bootstrap/3.0.3</li>
+		<li>twitter-bootstrap/3.1.0</li>
 		<li>angularjs/1.2.14</li>
 		<li>angular-ui-bootstrap/0.10.0</li>
 		<li>http://simpleicon.com/stopwatch-1.html</li>
 		<li>http://chieffancypants.github.io/angular-hotkeys/</li>
-		<li>async/0.8.0</li>
+		<li>async/0.8.0 https://github.com/caolan/async</li>
 		<li>https://github.com/eligrey/FileSaver.js/</li>
 	</ul>
 

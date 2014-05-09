@@ -1,12 +1,11 @@
 var App = angular.module(
 		'benchapp',
-		[ 'ngRoute', 'ngResource', 'ui.bootstrap', 'cfp.hotkeys',
+		[ 'ngRoute', 'ngResource', 'ui.bootstrap', 'cfp.hotkeys','googlechart',
 				'services.httpRequestTracker' ])
 
 .constant("apiRoot", "../../benchmark/")
 
 .config([ '$routeProvider', function($routeProvider) {
-	console.log("APP config");
 	$routeProvider.when('/', {
 		redirectTo : '/session'
 	}).when('/session', {
@@ -14,9 +13,17 @@ var App = angular.module(
 		controller : "queriesController"
 	}).when('/environment', {
 		templateUrl : '/static/benchmark/templates/environment.xml',
-		controller : "envController"
+		controller : "envController",
+		resolve : {
+			data : function(api) {
+				return api.environment();
+			}
+		}
 	}).when('/about', {
 		templateUrl : '/static/benchmark/templates/about.xml'
+	}).when('/graph', {
+		templateUrl : '/static/benchmark/templates/graph.xml',
+		controller :"GenericChartCtrl"
 	}).when('/library', {
 		templateUrl : '/static/benchmark/templates/library.xml'
 	}).when('/xqdoc', {
@@ -29,37 +36,43 @@ var App = angular.module(
 	});
 } ])
 
-.run(
-		[
-				'$rootScope',
-				'queries',
-				'httpRequestTracker',
-				function($rootScope, queries, httpRequestTracker) {
-					$rootScope.hasPendingRequests = function() {
-						return httpRequestTracker.hasPendingRequests();
-					};
-					$rootScope.$on('$routeChangeError', function(event, cur,
-							prev, rejection) {
-						alert("routeChangeError @TODO");
-					});
+.run([ '$rootScope', 'queries', function($rootScope, queries) {
 
-					$rootScope.logmsg = "Welcome to Benchmark";
-					queries.getData().then(function(data) {
-						$rootScope.queries = data;
-					});
-					$rootScope.queue = async.queue(function(index, callback) {
-						$rootScope.logmsg = 'starting ' + index;
-						$rootScope.execute(index).then(function(res) {
-							// Dig into the responde to get the relevant data
-							$rootScope.logmsg = 'end of ' + index;
-							callback();
-						});
-					}, 1);
-				} ])
+	$rootScope.logmsg = "Welcome to Benchmark";
+	$rootScope.suite = "xmark";
+	queries.getData().then(function(data) {
+		$rootScope.queries = data;
+	});
+	$rootScope.queue = async.queue(function(task, callback) {
+		var promise;
+		switch (task.cmd) {
+		case "run":
+			$rootScope.logmsg = 'starting ' + task.data;
+			promise = $rootScope.execute(task.data);
+			break;
+		case "toggle":
+			$rootScope.logmsg = 'starting mode toggle';
+			promise = $rootScope.toggleMode();
+			break;
+		default:
+			$rootScope.logmsg = 'Unknown command ignored: '+task.cmd;
+		}
+		;
+		promise.then(function(res) {
+			// Dig into the responde to get the relevant data
+			$rootScope.logmsg = 'end of ' + task.data;
+			callback();
+		});
+	}, 1);
+} ])
 
 .controller(
 		'rootController',
-		[ '$rootScope', 'api', 'queries', '$modal',
+		[
+				'$rootScope',
+				'api',
+				'queries',
+				'$modal',
 				function($rootScope, api, queries, $modal) {
 					function updateStatus(data) {
 						console.log("update status:", data);
@@ -81,9 +94,19 @@ var App = angular.module(
 						})
 					};
 					$rootScope.executeAll = function() {
+						var tasks=[];
 						angular.forEach($rootScope.queries, function(v, index) {
-							$rootScope.queue.push(index)
-						})
+							tasks.push({
+								cmd : "run",
+								data : index
+							})
+						});
+						$rootScope.queue.push(tasks);
+						$rootScope.queue.push({
+							cmd : "toggle",
+							data : 0
+						});
+						$rootScope.queue.push(tasks);
 					};
 
 					$rootScope.clearAll = function() {
@@ -92,16 +115,18 @@ var App = angular.module(
 						})
 					};
 					$rootScope.toggleMode = function() {
-						api.toggleMode().success(function(d) {
+						return api.toggleMode().then(function(d) {
 							api.status().success(updateStatus);
 						});
 					};
 					$rootScope.saveAs = function() {
-						var heads = [ "name", "mode", "factor", "runtime" ];
+						var heads = [ "suite", "query", "mode", "factor",
+								"runtime" ];
 						var txt = [ heads.join(",") ];
 						angular.forEach($rootScope.queries, function(v) {
 							angular.forEach(v.runs, function(r) {
-								line = [ v.name, r.mode, r.factor, r.runtime ];
+								line = [ $rootScope.suite, v.name, r.mode,
+										r.factor, r.runtime ];
 								txt.push(line.join(","));
 							});
 						});
@@ -143,21 +168,63 @@ var App = angular.module(
 
 				} ])
 
-.controller('envController', [ "$scope", "api", function($scope, api) {
-	api.environment().then(function(d) {
-		$scope.envs = d.env;
-	});
-} ]).filter('readablizeBytes', function() {
+.controller('envController', [ "$scope", "data", function($scope, data) {
+	$scope.envs = data.env;
+} ])
+
+.controller("GenericChartCtrl", function ($scope, $routeParams) {
+    $scope.chartObject = {};
+
+    $scope.onions = [
+        {v: "Onions"},
+        {v: 3},
+    ];
+
+    $scope.chartObject.data = {"cols": [
+        {id: "t", label: "Topping", type: "string"},
+        {id: "s", label: "Slices", type: "number"}
+    ], "rows": [
+        {c: [
+            {v: "Mushrooms"},
+            {v: 3},
+        ]},
+        {c: $scope.onions},
+        {c: [
+            {v: "Olives"},
+            {v: 31}
+        ]},
+        {c: [
+            {v: "Zucchini"},
+            {v: 1},
+        ]},
+        {c: [
+            {v: "Pepperoni"},
+            {v: 2},
+        ]}
+    ]};
+
+
+    // $routeParams.chartType == BarChart or PieChart or ColumnChart...
+    $scope.chartObject.type = "BarChart";
+    $scope.chartObject.options = {
+        'title': 'How Much Pizza I Ate Last Night'
+    }
+}) 
+.filter('readablizeBytes', function() {
 	return function(bytes) {
 		var s = [ 'bytes', 'kB', 'MB', 'GB', 'TB', 'PB' ];
 		var e = Math.floor(Math.log(bytes) / Math.log(1024));
 		return (bytes / Math.pow(1024, Math.floor(e))).toFixed(2) + " " + s[e];
 	}
-}).filter('factorBytes', function() {
+})
+// convert xmark factor to bytes
+.filter('factorBytes', function() {
 	return function(input) {
 		return (116.47106113642 * input - 0.00057972324877298) * 1000000;
 	}
-}).factory('api',
+})
+
+.factory('api',
 		[ '$http', '$resource', 'apiRoot', function($http, $resource, apiRoot) {
 			return {
 
@@ -177,10 +244,7 @@ var App = angular.module(
 					});
 				},
 				toggleMode : function() {
-					return $http({
-						method : 'POST',
-						url : apiRoot + 'manage'
-					});
+					return $resource(apiRoot + 'manage').save().$promise;
 				},
 				environment : function() {
 					return $resource(apiRoot + 'environment').get().$promise;

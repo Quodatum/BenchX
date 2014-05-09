@@ -10,7 +10,8 @@
 	<form  role="form" class="well form-inline">
 		<label>
 			Factor:
-			<input  ng-model="factor"  type="number" value="0.1"/>
+			<input  ng-model="factor"  type="number" 
+			min="0.0" max="1.0" step="0.25"/>
 			Size: {{factor | factorBytes | readablizeBytes}}
 		</label>
 	</form>

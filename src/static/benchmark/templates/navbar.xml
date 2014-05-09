@@ -9,7 +9,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="/benchmark">
-				<img src="benchmark.svg" style="width:20px;height:20px" />
+				<img src="benchmark.svg" style="width:20px;height:20px;vertical-align:top;" />
 				Benchmark
 			</a>
 		</div>
