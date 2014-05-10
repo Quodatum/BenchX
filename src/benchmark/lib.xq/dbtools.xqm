@@ -49,6 +49,8 @@ declare %updating function sync-from-files(
     $files as xs:string*,
     $filter as function(*)
 ){
+(: remove folders :)
+let $files:=fn:filter($files,function($f){fn:not(fn:ends-with($f,file:dir-separator()))})
 let $path:=$path || file:dir-separator()
 return if(db:exists($dbname)) then
        (
@@ -63,6 +65,7 @@ return if(db:exists($dbname)) then
        db:optimize($dbname)
        )
        else
-        let $full:=$files!fn:concat($path,.)!$filter(.) 
+        let $full:=$files!fn:concat($path,.)!$filter(.)
+        let $full:=fn:trace($full,"WWW") 
         return (db:create($dbname,$full,$files))
 };

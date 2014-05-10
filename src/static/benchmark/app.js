@@ -3,7 +3,7 @@ var App = angular.module(
 		[ 'ngRoute', 'ngResource', 'ui.bootstrap', 'cfp.hotkeys',
 				'googlechart', 'services.httpRequestTracker' ])
 
-.constant("apiRoot", "../../benchmark/")
+.constant("apiRoot", "../../benchmark/api/")
 
 .config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/', {
@@ -29,8 +29,7 @@ var App = angular.module(
 	}).when('/xqdoc', {
 		templateUrl : '/static/benchmark/templates/xqdoc.xml'
 	}).when('/404', {
-		templateUrl : '/static/benchmark/templates/404.xml',
-		controller : "queriesController"
+		templateUrl : '/static/benchmark/templates/404.xml'
 	}).otherwise({
 		redirectTo : '/404'
 	});
@@ -40,9 +39,7 @@ var App = angular.module(
 
 	$rootScope.logmsg = "Welcome to Benchmark";
 	$rootScope.suite = "xmark";
-	queries.getData().then(function(data) {
-		$rootScope.queries = data;
-	});
+	
 	$rootScope.queue = async.queue(function(task, callback) {
 		var promise;
 		switch (task.cmd) {
@@ -82,7 +79,9 @@ var App = angular.module(
 						$rootScope.state = data.state;
 					}
 					;
-
+					queries.getData().then(function(data) {
+						$rootScope.queries = data;
+					});
 					// run query with index
 					$rootScope.execute = function(index) {
 						var q = $rootScope.queries[index];
@@ -91,7 +90,7 @@ var App = angular.module(
 							mode : $rootScope.state.mode,
 							size : $rootScope.state.size
 						}).then(function(res) {
-							$rootScope.queries[index].runs.unshift(res);
+							$rootScope.queries[index].runs.unshift(res.run);
 						})
 					};
 					$rootScope.executeAll = function() {
@@ -264,22 +263,14 @@ var App = angular.module(
 			}
 		} ])
 
-.factory('queries', [ '$http', '$q', 'apiRoot', function($http, $q, apiRoot) {
+.factory('queries', [ '$http', '$q','$resource', 'apiRoot', 
+                      function($http, $q, $resource, apiRoot) {
 	var q = [];
 	return {
 
 		getData : function() {
 			console.log("GET");
-			var defer = $q.defer();
-			$http({
-				method : 'GET',
-				url : apiRoot + 'queries'
-			}).success(function(data) {
-				q = data.queries;
-				defer.resolve(q);
-			});
-
-			return defer.promise;
+			return $resource(apiRoot + 'suite/xmark',{}).query().$promise;
 		},
 		execute : function(data) {
 			var defer = $q.defer();

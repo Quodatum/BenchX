@@ -16,15 +16,7 @@
 
 
 		<ul class="nav navbar-nav">
-			<li>
-				<button class="btn  btn-sm navbar-btn " ng-click="queue.kill()"
-					ng-class="{'btn-warning':queue.length()}" title="Queued tasks, click to stop">
-					<div style="width:3em">
-						<i class="glyphicon glyphicon-tasks"></i>
-						{{queue.length()}}
-					</div>
-				</button>
-			</li>
+			
 			<li>
 				<a href="#/session" title="Timings">
 					Session
@@ -35,7 +27,17 @@
 					Library
 				</a>
 			</li>
+			<li>
+				<button class="btn  btn-sm navbar-btn " ng-click="queue.kill()"
+					ng-class="{'btn-warning':queue.length()}" title="Queued tasks, click to stop">
+					<div style="width:3em">
+						<i class="glyphicon glyphicon-tasks"></i>
+						{{queue.length()}}
+					</div>
+				</button>
+			</li>
 		</ul>
+		
 		<p class="navbar-text bg-success logmsg">
 		<i class="glyphicon glyphicon-hand-right"></i>
 		{{logmsg}}</p>

@@ -9,6 +9,9 @@
 module namespace xm = 'apb.xmark.test';
 declare default function namespace 'apb.xmark.test'; 
 
+declare variable $xm:factor:=db:open("benchmark","state.xml")/state/factor;
+declare variable $xm:mode:=db:open("benchmark","state.xml")/state/mode;
+
 declare variable $xm:isWin:=file:dir-separator()="\";
 declare variable $xm:bin:=if($xm:isWin) then "bin\win32.exe" else "bin/xmlgen";
 declare variable $xm:base-dir:=file:parent(fn:static-base-uri());
@@ -20,16 +23,25 @@ declare variable $xm:exec:=$xm:base-dir ||$xm:bin;
 declare function get-xmark($query as xs:string
 ) {
   let $f:=fn:resolve-uri(
-    "suites/xmark/" || $query 
+    "suite/xmark/" || $query 
   )
   return fn:unparsed-text($f) 
 };
 
 (:~
+ : get library doc query
+ :)
+declare function doc($id as xs:string
+) as document-node() {
+ db:open("benchmark","library/" || $id || ".xml")
+};
+
+
+(:~
  : list query file names
  :)
 declare function list-tests($dir as xs:string) {
-  for $f in file:list(fn:resolve-uri($dir),fn:false(),"*.xq")
+  for $f in file:list(fn:resolve-uri("suite/" || $dir),fn:false(),"*.xq")
   order by $f (: sort by number :)
   return $f
 };
@@ -45,15 +57,6 @@ declare function time-xmark(
   return time($xq,$timeout)
 };
 
-(:~
- : run all query
- :)
-declare function time-all($folder as xs:string,
-  $timeout as xs:double
-) {
-  let $res:=list-tests($folder)!<query id="{.}">{time-xmark(.,fn:number($timeout))}</query>
-  return <run>{$res}</run>
-};
 
 (:~
  : return execution time of $xq in ms or $timeout if no result before $timeout
