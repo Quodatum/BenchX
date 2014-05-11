@@ -10,7 +10,7 @@ var App = angular.module(
 		redirectTo : '/session'
 	}).when('/session', {
 		templateUrl : '/static/benchmark/templates/session.xml',
-		controller : "queriesController"
+		controller : "SessionController"
 	}).when('/environment', {
 		templateUrl : '/static/benchmark/templates/environment.xml',
 		controller : "envController",
@@ -23,9 +23,10 @@ var App = angular.module(
 		templateUrl : '/static/benchmark/templates/about.xml'
 	}).when('/graph', {
 		templateUrl : '/static/benchmark/templates/graph.xml',
-		controller : "GenericChartCtrl"
+		controller : "ChartController"
 	}).when('/library', {
-		templateUrl : '/static/benchmark/templates/library.xml'
+		templateUrl : '/static/benchmark/templates/library.xml',
+		controller : "LibraryController"
 	}).when('/xqdoc', {
 		templateUrl : '/static/benchmark/templates/xqdoc.xml'
 	}).when('/404', {
@@ -35,11 +36,11 @@ var App = angular.module(
 	});
 } ])
 
-.run([ '$rootScope', 'queries', function($rootScope, queries) {
+.run([ '$rootScope',  function($rootScope) {
 
 	$rootScope.logmsg = "Welcome to Benchmark";
 	$rootScope.suite = "xmark";
-	
+
 	$rootScope.queue = async.queue(function(task, callback) {
 		var promise;
 		switch (task.cmd) {
@@ -71,31 +72,30 @@ var App = angular.module(
 		[
 				'$rootScope',
 				'api',
-				'queries',
 				'$modal',
-				function($rootScope, api, queries, $modal) {
+				function($rootScope, api, $modal) {
 					function updateStatus(data) {
 						console.log("update status:", data);
 						$rootScope.state = data.state;
 					}
 					;
-					queries.getData().then(function(data) {
-						$rootScope.queries = data;
+					api.suite($rootScope.suite).then(function(data) {
+						$rootScope.session = data;
 					});
 					// run query with index
 					$rootScope.execute = function(index) {
-						var q = $rootScope.queries[index];
-						return queries.execute({
+						var q = $rootScope.session[index];
+						return api.execute({
 							name : q.name,
 							mode : $rootScope.state.mode,
 							size : $rootScope.state.size
 						}).then(function(res) {
-							$rootScope.queries[index].runs.unshift(res.run);
+							$rootScope.session[index].runs.unshift(res.run);
 						})
 					};
 					$rootScope.executeAll = function() {
 						var tasks = [];
-						angular.forEach($rootScope.queries, function(v, index) {
+						angular.forEach($rootScope.session, function(v, index) {
 							tasks.push({
 								cmd : "run",
 								data : index
@@ -110,20 +110,20 @@ var App = angular.module(
 					};
 
 					$rootScope.clearAll = function() {
-						angular.forEach($rootScope.queries, function(v) {
+						angular.forEach($rootScope.session, function(v) {
 							v.runs = [];
 						})
 					};
 					$rootScope.toggleMode = function() {
 						return api.toggleMode().then(function(d) {
-							api.status().success(updateStatus);
+							api.status().then(updateStatus);
 						});
 					};
 					$rootScope.saveAs = function() {
 						var heads = [ "suite", "query", "mode", "factor",
 								"runtime" ];
 						var txt = [ heads.join(",") ];
-						angular.forEach($rootScope.queries, function(v) {
+						angular.forEach($rootScope.session, function(v) {
 							angular.forEach(v.runs, function(r) {
 								line = [ $rootScope.suite, v.name, r.mode,
 										r.factor, r.runtime ];
@@ -144,24 +144,24 @@ var App = angular.module(
 
 						.result.then(function(factor) {
 							api.xmlgen(factor).success(function(d) {
-								api.status().success(updateStatus);
+								api.status().then(updateStatus);
 							});
 						});
 					};
 
-					api.status().success(updateStatus);
+					api.status().then(updateStatus);
 
 				} ])
 
 .controller(
-		'queriesController',
+		'SessionController',
 		[
 				"$scope",
 				"$rootScope",
-				"queries",
 				"hotkeys",
-				function($scope, $rootScope, queries, hotkeys) {
-					console.log("queries");
+				function($scope, $rootScope, hotkeys) {
+					console.log("session");
+					$scope.repeat = 2;
 					hotkeys.add("T", "toggles mode between file and database",
 							$rootScope.toggleMode);
 					hotkeys.add("X", "run all queries", $rootScope.executeAll);
@@ -172,8 +172,12 @@ var App = angular.module(
 	$scope.envs = data.env;
 } ])
 
+.controller('LibraryController', [ "$scope",  function($scope) {
+	console.log('LibraryController');
+} ])
+
 .controller(
-		"GenericChartCtrl",
+		"ChartController",
 		function($scope, $rootScope, $window) {
 			$scope.chartReady = function(chartWrapper) {
 				$window.google.visualization.events.addListener(chartWrapper,
@@ -187,7 +191,7 @@ var App = angular.module(
 				label : "Query",
 				type : "string"
 			} ];
-			angular.forEach($rootScope.queries[0].runs, function(v, index) {
+			angular.forEach($rootScope.session[0].runs, function(v, index) {
 				cols.push({
 					id : "R" + index,
 					label : "Mode: "+v.mode +", Factor:"+v.factor,
@@ -195,7 +199,7 @@ var App = angular.module(
 				});
 			});
 			var rows = [];
-			angular.forEach($rootScope.queries, function(q, i) {
+			angular.forEach($rootScope.session, function(q, i) {
 				var d = [ {
 					v : q.name
 				} ];
@@ -239,10 +243,7 @@ var App = angular.module(
 			return {
 
 				status : function() {
-					return $http({
-						method : 'GET',
-						url : apiRoot + 'status'
-					});
+					return $resource(apiRoot + 'status').get().$promise;
 				},
 				xmlgen : function(factor) {
 					return $http({
@@ -259,30 +260,15 @@ var App = angular.module(
 				environment : function() {
 					return $resource(apiRoot + 'environment').get().$promise;
 
+				},
+				suite : function(suite) {
+					return $resource(apiRoot + 'suite/:suite',{suite:"@suite"})
+					       .query({suite:suite}).$promise;
+				},
+				execute : function(data) {
+					return $resource(apiRoot + 'execute')
+					       .save(data).$promise;
 				}
 			}
 		} ])
-
-.factory('queries', [ '$http', '$q','$resource', 'apiRoot', 
-                      function($http, $q, $resource, apiRoot) {
-	var q = [];
-	return {
-
-		getData : function() {
-			console.log("GET");
-			return $resource(apiRoot + 'suite/xmark',{}).query().$promise;
-		},
-		execute : function(data) {
-			var defer = $q.defer();
-			$http({
-				url : apiRoot + 'execute',
-				method : 'POST',
-				data : data
-			}).success(function(data) {
-				defer.resolve(data);
-			});
-
-			return defer.promise;
-		}
-	}
-} ]);
+;

@@ -1,4 +1,4 @@
-let $auction := doc("xmark/auction.xml") return
+let $auction := doc("benchmark-db/auction.xml") return
 let $ca := $auction/site/closed_auctions/closed_auction return
 let
     $ei := $auction/site/regions/europe/item

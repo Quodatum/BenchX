@@ -1,6 +1,4 @@
 <div >
-
-
 	<div class="container-fluid">
 		<div class="row ">
 			<button class="btn" ng-click="executeAll()" title="Execute all queries">
@@ -12,7 +10,9 @@
 
 			<button class="factor btn btn-primary  btn-sm navbar-btn" ng-click="xmlgen(0.5)"
 				title="Click to set size">{{state.factor}}/{{state.size}}</button>
-						
+			<label  >Repeat:
+			<input class="input-sm" type="number" ng-mode="repeat"/>
+			</label>		
 			<button class="btn" ng-click="clearAll()" title="Clear all data">
 				<i class="glyphicon glyphicon-trash"></i>
 				clear All
@@ -32,7 +32,7 @@
 				blah blah
 			</div>
 		</div>
-		<div class="row" ng-repeat="query in queries">
+		<div class="row" ng-repeat="query in session">
 			<div class="col-md-1" title="{{query.src}}">{{query.name}}</div>
 			<div class="col-md-1">
 				<button class="btn" ng-click="execute($index)">Run</button>

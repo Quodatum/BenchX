@@ -11,10 +11,13 @@ import module namespace s='apb.benchmark.state' at 'state.xqm';
 import module namespace dbtools = 'apb.dbtools' at 'lib.xq/dbtools.xqm';
 import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
 import module namespace xqdoc = 'apb.xqdoc' at 'lib.xq/doctools.xqm';
+import module namespace web = 'apb.web.utils3' at 'lib.xq/webutils.xqm';
 
-
-
+(:~
+ : max time for execution of query
+ :)
 declare variable $bm:timeout as xs:integer:=10;
+
 (:~
  : Benchmark html application entry point.
  : Will create db if required
@@ -83,7 +86,7 @@ try{
  (xm:toggle-db(),
  db:output(status()))
  }catch * {
- db:output("Error")
+ db:output(web:status(500,$err:description))
  }
 }; 
 

@@ -1,4 +1,4 @@
-let $auction := doc("xmark/auction.xml") return
+let $auction := doc("benchmark-db/auction.xml") return
 for $i in
   distinct-values($auction/site/people/person/profile/interest/@category)
 let $p :=

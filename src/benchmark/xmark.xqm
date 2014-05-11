@@ -83,8 +83,8 @@ declare function time($xq as xs:string,$timeout as xs:double){
 declare function xmlgen($factor as xs:double){
     let $factor:=fn:string($factor)
     let $args:=if($xm:isWin)
-           then ("/f",$factor,"/o",$xm:base-dir ||"xmark\auction.xml")
-           else ("-f",$factor,"-o",$xm:base-dir ||"xmark/auction.xml")
+           then ("/f",$factor,"/o",$xm:base-dir ||"benchmark-db\auction.xml")
+           else ("-f",$factor,"-o",$xm:base-dir ||"benchmark-db/auction.xml")
     return proc:system($xm:exec,$args)
  };
  
@@ -92,12 +92,12 @@ declare function xmlgen($factor as xs:double){
  : @return filesize of auction.xml
  :)
 declare function file-size(){
-    let $f:=$xm:base-dir ||"xmark/auction.xml"
+    let $f:=$xm:base-dir ||"benchmark-db/auction.xml"
     return if(file:exists($f)) then file:size($f) else 0
  };
  
 declare function mode() as xs:string{
-    if (db:exists("xmark")) then "D" else "F"
+    if (db:exists("benchmark-db")) then "D" else "F"
 };
 
  (:~
@@ -105,14 +105,14 @@ declare function mode() as xs:string{
  :)
 declare %updating function manage-db($create as xs:boolean){
     if($create) then
-        db:create("xmark"
-                    ,$xm:base-dir ||"xmark/auction.xml"
+        db:create("benchmark-db"
+                    ,$xm:base-dir ||"benchmark-db/auction.xml"
                     ,"auction.xml")
-    else if (mode()="D") then db:drop("xmark") else ()               
+    else if (mode()="D") then db:drop("benchmark-db") else ()               
  }; 
  
  (:~
- : create or drop xmark db with auction.xml
+ : create or drop benchmark-db db with auction.xml
  :)
 declare %updating function toggle-db(){
    manage-db(mode()="F")               

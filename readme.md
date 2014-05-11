@@ -12,8 +12,8 @@ Version 7.8.2 of BaseX is required as the query timeout functionality of xquery:
 1. In browser navigate to `/benchmark`
 
 # Target file or database
-The queries reference `doc("xmark/auction.xml")` so will run against the database `xmark`
-if it exists otherwise they use the file system.
+The queries reference `doc("benchmark-db/auction.xml")` so will run against the 
+database `benchmark-db`if it exists otherwise they use the file system.
 
 # xmlgen
 Binaries are supplied for Windows and x86 Linux. For other platforms e.g. ARM you 

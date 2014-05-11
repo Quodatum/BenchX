@@ -42,7 +42,13 @@
 		<i class="glyphicon glyphicon-hand-right"></i>
 		{{logmsg}}</p>
 		<div class="collapse navbar-collapse">
+		
 			<ul class="nav navbar-nav navbar-right">
+			<li>	
+			<p class="navbar-text label" ng-class="{'bg-danger':1!=state.sessions}"
+			style="width:3em" title="Session count">
+			<i class="glyphicon glyphicon-user"></i>{{state.sessions}}</p>
+			</li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						About
