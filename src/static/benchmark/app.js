@@ -1,7 +1,7 @@
 var App = angular.module(
 		'benchapp',
 		[ 'ngRoute', 'ngResource', 'ui.bootstrap', 'cfp.hotkeys',
-				'googlechart', 'services.httpRequestTracker' ])
+				'googlechart', 'services.httpRequestTracker', 'dialog' ])
 
 .constant("apiRoot", "../../benchmark/api/")
 
@@ -78,11 +78,11 @@ var App = angular.module(
 						console.log("update status:", data);
 						$rootScope.state = data.state;
 					}
-					 
+
 					$rootScope.$watch("session", function() {
 						$rootScope.$broadcast("session");
 					}, true);
-					
+
 					// run query with index
 					$rootScope.execute = function(index) {
 						var q = $rootScope.session[index];
@@ -96,27 +96,7 @@ var App = angular.module(
 							$rootScope.$broadcast("session");
 						});
 					};
-					$rootScope.executeAll = function() {
-						var tasks = [];
-						angular.forEach($rootScope.session, function(v, index) {
-							tasks.push({
-								cmd : "run",
-								data : index
-							})
-						});
-						$rootScope.queue.push(tasks);
-						$rootScope.queue.push({
-							cmd : "toggle",
-							data : 0
-						});
-						$rootScope.queue.push(tasks);
-					};
 
-					$rootScope.clearAll = function() {
-						angular.forEach($rootScope.session, function(v) {
-							v.runs = [];
-						})
-					};
 					$rootScope.toggleMode = function() {
 						return api.toggleMode().then(function(d) {
 							api.status().then(updateStatus);
@@ -166,14 +146,61 @@ var App = angular.module(
 				"$rootScope",
 				'$routeParams',
 				"hotkeys",
-				function($scope, $rootScope, $routeParams, hotkeys) {
+				"$location","$dialog",
+				function($scope, $rootScope, $routeParams, hotkeys, $location,$dialog) {
 					console.log("session");
 					$scope.repeat = 2;
-					$scope.view = $routeParams.view?$routeParams.view:"grid";
+					$scope.setView = function(v) {
+						$scope.view = v;
+						$location.search("view", v);
+					};
+					$scope.setView($routeParams.view ? $routeParams.view
+							: "grid");
 					hotkeys.add("T", "toggles mode between file and database",
 							$rootScope.toggleMode);
 					hotkeys.add("X", "run all queries", $rootScope.executeAll);
 
+					$scope.executeAll = function() {
+						var tasks = [];
+						angular.forEach($rootScope.session, function(v, index) {
+							tasks.push({
+								cmd : "run",
+								data : index
+							});
+						});
+						$rootScope.queue.push(tasks);
+						$rootScope.queue.push({
+							cmd : "toggle",
+							data : 0
+						});
+						$rootScope.queue.push(tasks);
+						$scope.setView("graph");
+					};
+					$scope.clearAll = function() {
+						var msg = "Remove timing data for runs in the current session?";
+						var btns = [ {
+							result : 'CANCEL',
+							label : 'Cancel'
+						}, {
+							result : 'OK',
+							label : 'OK',
+							cssClass : 'btn-primary'
+						} ];
+						$dialog.messageBox("clear all", msg, btns, function(
+								result) {
+							if (result === 'OK') {
+								angular.forEach($rootScope.session,
+										function(v) {
+											v.runs = [];
+										})
+							} else {
+								// failed...
+							}
+						});
+					};
+					$scope.save = function() {
+						alert("hh");
+					};
 				} ])
 
 .controller('envController', [ "$scope", "data", function($scope, data) {
@@ -241,7 +268,7 @@ var App = angular.module(
 			};
 			$scope.$on("session", function() {
 				$scope.chartObject = genChart();
-			});	
+			});
 			$scope.chartObject = genChart();
 		})
 
