@@ -8,7 +8,10 @@
 			using BaseX. The intended use is to compare the relative performance of
 			different hardware and software platforms.
 		</p>
-		<p>This application is not designed for multiple session use.</p>
+		<ul>
+        <li>This application requires internet access.</li>
+		<li>This application is not designed for multiple session use.</li>
+		</ul>
 	</div>
 	<p>The XMark queries are supplied as an example suite.</p>
 		

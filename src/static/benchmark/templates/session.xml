@@ -1,49 +1,36 @@
-<div >
-	<div class="container-fluid">
-		<div class="row ">
-			<button class="btn" ng-click="executeAll()" title="Execute all queries">
-				<i class="glyphicon glyphicon-forward"></i>
-				Run All
-			</button>
-			<button class="btn btn-primary  btn-sm  navbar-btn " ng-click="toggleMode()"
-				title="Click to toggle mode: File or Database">{{state.mode}}</button>
+<div>
+	<div class="container-fluid" ng-include="'templates/sessionbar.xml'"></div>
+	<div class="animate-switch-container" ng-switch="view">
+		<div class="animate-switch" ng-switch-when="graph" >
+			<div google-chart="google-chart" chart="chartObject" onReady="chartReady"
+				style="height:400px; width:100%;" ng-controller="ChartController"></div>
+		</div>
+		<div class="animate-switch" ng-switch-when="home">Home Span</div>
+		<div class="animate-switch" ng-switch-default="ng-switch-default">
+			<div class="row">
+				<div class="col-md-1">Suite:
 
-			<button class="factor btn btn-primary  btn-sm navbar-btn" ng-click="xmlgen(0.5)"
-				title="Click to set size">{{state.factor}}/{{state.size}}</button>
-			<label  >Repeat:
-			<input class="input-sm" type="number" ng-mode="repeat"/>
-			</label>		
-			<button class="btn" ng-click="clearAll()" title="Clear all data">
-				<i class="glyphicon glyphicon-trash"></i>
-				clear All
-			</button>
-			<button class="btn" ng-click="saveAs()" title="Download as csv">
-				<i class="glyphicon glyphicon-save"></i>
-				CSV
-			</button>
-			<a href="#/graph">Graph</a>
-		</div>
-		<div class="row">
-			<div class="col-md-1" title="{{query.src}}">Queries...</div>
-			<div class="col-md-1">
-					
+				</div>
+				<div class="col-md-1">
+					<select ng-model="suite" ng-options="s for s in suites"></select>
+				</div>
+				<div class="col-md-10">
+					blah blah
+				</div>
 			</div>
-			<div class="col-md-10">
-				blah blah
+			<div class="row" ng-repeat="query in session">
+				<div class="col-md-1" title="{{query.src}}">{{query.name}}</div>
+				<div class="col-md-1">
+					<button class="btn" ng-click="execute($index)">Run</button>
+				</div>
+				<div class="col-md-10">
+					<div ng-repeat="run in query.runs" class="runtime"
+						title="{{run.created}} \n {{run.mode}}\n ">
+						<span>{{run.mode}}{{run.factor}}</span>
+						<span class="pull-right">{{run.runtime}}ms</span>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="row" ng-repeat="query in session">
-			<div class="col-md-1" title="{{query.src}}">{{query.name}}</div>
-			<div class="col-md-1">
-				<button class="btn" ng-click="execute($index)">Run</button>
-			</div>
-			<div class="col-md-10">
-				<div ng-repeat="run in query.runs" class="runtime"
-					title="{{run.created}} \n {{run.mode}}\n ">
-					<span>{{run.mode}}{{run.factor}}</span>
-					<span class="pull-right">{{run.runtime}}ms</span></div>
-			</div>
-		</div>
-
 	</div>
 </div>

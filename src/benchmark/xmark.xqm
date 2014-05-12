@@ -19,11 +19,12 @@ declare variable $xm:exec:=$xm:base-dir ||$xm:bin;
 
 (:~
  : get xmark query
+ : @param $query is suite/file.xq
  :)
 declare function get-xmark($query as xs:string
 ) {
   let $f:=fn:resolve-uri(
-    "suite/xmark/" || $query 
+    "suite/" || $query 
   )
   return fn:unparsed-text($f) 
 };

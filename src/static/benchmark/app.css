@@ -1,5 +1,6 @@
 /* app.css */
 /* busy indicator http://jsfiddle.net/dBR2r/8/ */
+body    {overflow-y:scroll;}
 #loading {
 	position: absolute;
 	left: 50%;

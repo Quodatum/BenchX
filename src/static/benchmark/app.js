@@ -21,14 +21,13 @@ var App = angular.module(
 		}
 	}).when('/about', {
 		templateUrl : '/static/benchmark/templates/about.xml'
-	}).when('/graph', {
-		templateUrl : '/static/benchmark/templates/graph.xml',
-		controller : "ChartController"
 	}).when('/library', {
 		templateUrl : '/static/benchmark/templates/library.xml',
 		controller : "LibraryController"
 	}).when('/xqdoc', {
 		templateUrl : '/static/benchmark/templates/xqdoc.xml'
+	}).when('/wadl', {
+		templateUrl : '/static/benchmark/templates/wadl.xml'
 	}).when('/404', {
 		templateUrl : '/static/benchmark/templates/404.xml'
 	}).otherwise({
@@ -36,9 +35,10 @@ var App = angular.module(
 	});
 } ])
 
-.run([ '$rootScope',  function($rootScope) {
+.run([ '$rootScope', function($rootScope) {
 
 	$rootScope.logmsg = "Welcome to Benchmark";
+	$rootScope.suites = [ "xmark", "apb" ];
 	$rootScope.suite = "xmark";
 
 	$rootScope.queue = async.queue(function(task, callback) {
@@ -62,7 +62,7 @@ var App = angular.module(
 			callback();
 		});
 	}, 1);
-	$rootScope.queue.drain=function(){
+	$rootScope.queue.drain = function() {
 		$rootScope.logmsg = 'Idle';
 	};
 } ])
@@ -78,20 +78,23 @@ var App = angular.module(
 						console.log("update status:", data);
 						$rootScope.state = data.state;
 					}
-					;
-					api.suite($rootScope.suite).then(function(data) {
-						$rootScope.session = data;
-					});
+					 
+					$rootScope.$watch("session", function() {
+						$rootScope.$broadcast("session");
+					}, true);
+					
 					// run query with index
 					$rootScope.execute = function(index) {
 						var q = $rootScope.session[index];
 						return api.execute({
+							suite : $rootScope.suite,
 							name : q.name,
 							mode : $rootScope.state.mode,
 							size : $rootScope.state.size
 						}).then(function(res) {
 							$rootScope.session[index].runs.unshift(res.run);
-						})
+							$rootScope.$broadcast("session");
+						});
 					};
 					$rootScope.executeAll = function() {
 						var tasks = [];
@@ -148,7 +151,10 @@ var App = angular.module(
 							});
 						});
 					};
+					api.suite($rootScope.suite).then(function(data) {
+						$rootScope.session = data;
 
+					});
 					api.status().then(updateStatus);
 
 				} ])
@@ -158,10 +164,12 @@ var App = angular.module(
 		[
 				"$scope",
 				"$rootScope",
+				'$routeParams',
 				"hotkeys",
-				function($scope, $rootScope, hotkeys) {
+				function($scope, $rootScope, $routeParams, hotkeys) {
 					console.log("session");
 					$scope.repeat = 2;
+					$scope.view = $routeParams.view?$routeParams.view:"grid";
 					hotkeys.add("T", "toggles mode between file and database",
 							$rootScope.toggleMode);
 					hotkeys.add("X", "run all queries", $rootScope.executeAll);
@@ -172,56 +180,69 @@ var App = angular.module(
 	$scope.envs = data.env;
 } ])
 
-.controller('LibraryController', [ "$scope",  function($scope) {
+.controller('LibraryController', [ "$scope", function($scope) {
 	console.log('LibraryController');
 } ])
 
 .controller(
 		"ChartController",
 		function($scope, $rootScope, $window) {
+			console.log("Graph")
+			function genChart() {
+				if ($rootScope.session) {
+					var cols = [ {
+						id : "t",
+						label : "Query",
+						type : "string"
+					} ];
+					angular.forEach($rootScope.session[0].runs, function(v,
+							index) {
+						cols.push({
+							id : "R" + index,
+							label : "Mode: " + v.mode + ", Factor:" + v.factor,
+							type : "number"
+						});
+					});
+					var rows = [];
+					angular.forEach($rootScope.session, function(q, i) {
+						var d = [ {
+							v : q.name
+						} ];
+						angular.forEach(q.runs, function(r, i2) {
+							d.push({
+								v : r.runtime
+							});
+						});
+						rows.push({
+							c : d
+						});
+					});
+					return {
+						type : "ColumnChart",
+						options : {
+							'title' : 'BaseX Benchmark: ' + $rootScope.suite
+						},
+						data : {
+							"cols" : cols,
+							"rows" : rows
+						}
+					};
+				}
+				;
+			}
+			;
+
 			$scope.chartReady = function(chartWrapper) {
+				// not working!!
 				$window.google.visualization.events.addListener(chartWrapper,
 						'select', function() {
 							console.log('select event fired!');
 						});
 			};
-
-			var cols = [ {
-				id : "t",
-				label : "Query",
-				type : "string"
-			} ];
-			angular.forEach($rootScope.session[0].runs, function(v, index) {
-				cols.push({
-					id : "R" + index,
-					label : "Mode: "+v.mode +", Factor:"+v.factor,
-					type : "number"
-				});
-			});
-			var rows = [];
-			angular.forEach($rootScope.session, function(q, i) {
-				var d = [ {
-					v : q.name
-				} ];
-				angular.forEach(q.runs, function(r, i2) {
-					d.push({
-						v : r.runtime
-					})
-				})
-				rows.push({
-					c : d
-				});
-			});
-			$scope.chartObject = {
-				type : "ColumnChart",
-				options : {
-					'title' : 'BaseX Benchmark: '+$rootScope.suite
-				},
-				data : {
-					"cols" : cols,
-					"rows" : rows
-				}
-			};
+			$scope.$on("session", function() {
+				$scope.chartObject = genChart();
+			});	
+			$scope.chartObject = genChart();
 		})
 
 .filter('readablizeBytes', function() {
@@ -229,13 +250,13 @@ var App = angular.module(
 		var s = [ 'bytes', 'kB', 'MB', 'GB', 'TB', 'PB' ];
 		var e = Math.floor(Math.log(bytes) / Math.log(1024));
 		return (bytes / Math.pow(1024, Math.floor(e))).toFixed(2) + " " + s[e];
-	}
+	};
 })
 // convert xmark factor to bytes
 .filter('factorBytes', function() {
 	return function(input) {
 		return (116.47106113642 * input - 0.00057972324877298) * 1000000;
-	}
+	};
 })
 
 .factory('api',
@@ -262,13 +283,14 @@ var App = angular.module(
 
 				},
 				suite : function(suite) {
-					return $resource(apiRoot + 'suite/:suite',{suite:"@suite"})
-					       .query({suite:suite}).$promise;
+					return $resource(apiRoot + 'suite/:suite', {
+						suite : "@suite"
+					}).query({
+						suite : suite
+					}).$promise;
 				},
 				execute : function(data) {
-					return $resource(apiRoot + 'execute')
-					       .save(data).$promise;
+					return $resource(apiRoot + 'execute').save(data).$promise;
 				}
-			}
-		} ])
-;
+			};
+		} ]);

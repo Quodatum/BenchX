@@ -67,6 +67,12 @@
 								XQdoc
 							</a>
 						</li>
+						<li>
+                            <a href="#/wadl" tabindex="-1">
+                                <i class="glyphicon glyphicon-eye-open"></i>
+                                WADL
+                            </a>
+                        </li>
 						<li class="divider"></li>
 						<li>
 							<a href="#/about" tabindex="-1">

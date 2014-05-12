@@ -1,6 +1,7 @@
 (:~ 
- : restxq interface for XMark benchmark
- :
+ : A RESTXQ interface for running benchmarks against BaseX
+ :@author Andy Bunce
+ :@version 0.1
  :)
 module namespace bm = 'apb.benchmark.rest';
 declare default function namespace 'apb.benchmark.rest'; 
@@ -44,7 +45,8 @@ declare
 function execute($body)
 {
 let $name:=$body/json/name/fn:string()
-let $time:=xm:time-xmark($name,$bm:timeout)
+let $suite:=$body/json/suite/fn:string()
+let $time:=xm:time-xmark($suite || "/" || $name,$bm:timeout)
 let $run:= <run>
         <name>{$name}</name>
         <runtime type="number">{$time}</runtime>
@@ -136,7 +138,7 @@ function queries($suite as xs:string)
     { for  $file in xm:list-tests( $suite )
             return <_>
                 <name>{$file}</name>
-                <src>{xm:get-xmark($file)}</src>
+                <src>{xm:get-xmark($suite || "/" || $file)}</src>
                 <runs />
                 </_>
     }
@@ -144,7 +146,8 @@ function queries($suite as xs:string)
 }; 
 
 (:~
- : @return information about the server platform
+ : Information about the server platform, Java version etc.
+ : @return json env array
  :)
 declare 
 %rest:GET %rest:path("benchmark/api/environment")
@@ -171,9 +174,22 @@ declare
 function xqdoc() 
 {
     xqdoc:generate-html(fn:static-base-uri())
+};
+ 
+(:~
+ : show xqdoc for rest api
+ :)
+declare 
+%rest:GET %rest:path("benchmark/api/wadl")  
+function wadl() 
+{
+    <div>TODO</div>
 }; 
 
-(:~ prepare benchmark for json)
+(:~ 
+ : Prepare benchmark for json
+ : @param b results of a run.
+ : @return json style xml for serialization.
 :)
 declare function json($b as element(benchmark)
 )as element(json)
