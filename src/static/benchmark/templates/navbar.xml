@@ -1,8 +1,8 @@
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-collapse">
+           <button type="button" class="navbar-toggle" 
+           ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">  
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -11,10 +11,9 @@
 			<a class="navbar-brand" href="/benchmark">
 				<img src="benchmark.svg" style="width:20px;height:20px;vertical-align:top;" />
 				Benchmark
-			</a>
+			</button>
 		</div>
-
-
+    <div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}">
 		<ul class="nav navbar-nav">
 			
 			<li>
@@ -38,14 +37,12 @@
 			</li>
 		</ul>
 		
-		<p class="navbar-text bg-success logmsg">
+		<p class="navbar-text bg-success logmsg "  >
 		<i class="glyphicon glyphicon-hand-right"></i>
-		{{logmsg}}</p>
-		<div class="collapse navbar-collapse">
-		
+		{{logmsg}}</p>		
 			<ul class="nav navbar-nav navbar-right">
 			<li>	
-			<p class="navbar-text label" ng-class="{'bg-danger':1!=state.sessions}"
+			<p class="navbar-text label" ng-class="{'bg-danger':1&gt;state.sessions}"
 			style="width:3em" title="Session count">
 			<i class="glyphicon glyphicon-user"></i>{{state.sessions}}</p>
 			</li>
@@ -64,7 +61,7 @@
 						<li>
 							<a href="#/xqdoc" tabindex="-1">
 								<i class="glyphicon glyphicon-eye-open"></i>
-								XQdoc
+								XQDoc
 							</a>
 						</li>
 						<li>
@@ -84,6 +81,6 @@
 				</li>
 			</ul>
 
-		</div>
+	</div>
 	</div>
 </nav>

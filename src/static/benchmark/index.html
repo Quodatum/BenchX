@@ -1,15 +1,15 @@
-
-<html>
+<!DOCTYPE html>
+<html >
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="Benchmark for BaseX" />
 <meta name="author" content="andy bunce" />
-<title>Benchmark for BaseX</title>
+<title>BenchX</title>
 <link rel="shortcut icon" href="benchmark-64x64.png" />
 <link
-	href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.0/css/bootstrap.css"
+	href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css"
 	rel="stylesheet" type="text/css" />
 <link href="lib/angular-hotkeys/1.2.0/hotkeys.min.css" rel="stylesheet"
 	type="text/css" />
@@ -24,7 +24,7 @@
   ga('create', 'UA-39638120-1', 'auto');
 </script>	
 </head>
-<body ng-app="benchapp" ng-controller="rootController">
+<body  ng-app="BenchX" ng-controller="rootController">
 	<div id="loading" ng:show="hasPendingRequests()">
 		<img src="ajax-loader.gif" />
 	</div>
@@ -38,13 +38,13 @@
 	<script
 		src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-route.min.js"></script>
 	<script
+        src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-touch.min.js"></script>	
+	<script
 		src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
 	<script
 		src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-resource.min.js"></script>
-<script
+    <script
         src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-sanitize.min.js"></script>
-
-
 	<script
 		src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/async/0.8.0/async.js"></script>

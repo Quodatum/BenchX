@@ -86,7 +86,10 @@ declare function xmlgen($factor as xs:double){
     let $args:=if($xm:isWin)
            then ("/f",$factor,"/o",$xm:base-dir ||"benchmark-db\auction.xml")
            else ("-f",$factor,"-o",$xm:base-dir ||"benchmark-db/auction.xml")
-    return proc:system($xm:exec,$args)
+    let $r:= proc:execute($xm:exec,$args)
+    return if($r/code!="0")
+           then fn:error(xs:QName('xm:xmlgen'),$r/error)
+           else $r
  };
  
  (:~

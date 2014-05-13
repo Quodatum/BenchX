@@ -1,4 +1,4 @@
-<div>
+<div ng-swipe-right="swipe()">
 	<p>not yet.</p>
 	<ul>
 	<li>one></li>

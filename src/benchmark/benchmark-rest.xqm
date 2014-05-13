@@ -34,6 +34,13 @@ function benchmark()
     db:output(<rest:forward>/static/benchmark</rest:forward>)
 )};
 
+declare %rest:error("*")
+%rest:error-param("description", "{$description}") 
+%output:method("text")  
+function error($description) {
+    (web:status(500,"Server error"),$description)
+};
+
 (:~
  : Execute one test
  : @param name the test to run
