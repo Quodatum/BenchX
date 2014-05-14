@@ -7,11 +7,20 @@ xquery version "3.0";
 : @licence apache 2
 :)
  
-module namespace env = 'apb.xqdoc';
-declare default function namespace 'apb.xqdoc';
+module namespace doc = 'apb.doc';
+declare default function namespace 'apb.doc';
+
+import module namespace rest = 'http://exquery.org/ns/restxq';
 
 declare function generate-html($src)
 {
-let $doc:=inspect:xqdoc($src)
-return xslt:transform($doc,fn:resolve-uri("xqdoc.xsl"))
+    let $doc:=inspect:xqdoc($src)
+    return xslt:transform($doc,fn:resolve-uri("xqdoc.xsl"))
+};
+
+declare function wadl($root)
+{
+    let $doc:=rest:wadl()
+    let $params:=map { "root" := $root }
+    return xslt:transform($doc,fn:resolve-uri("wadl.xsl"),$params)
 };

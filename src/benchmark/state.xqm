@@ -27,12 +27,13 @@ declare function benchmark($newValue as element(benchmark))
  session:set("benchmark.values",$s:new)
 };
 
+(:~ add new result to session 
+ :)
 declare function add($result as element(run))
 {
     let $new:=copy $d:=benchmark()
               modify insert node $result into $d/runs
-              return $d
-     let $new:=fn:trace($new,"---")         
+              return $d        
     return session:set("benchmark.values",$new)
 };
 

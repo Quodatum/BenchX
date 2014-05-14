@@ -11,20 +11,16 @@
 			<a class="navbar-brand" href="/benchmark">
 				<img src="benchmark.svg" style="width:20px;height:20px;vertical-align:top;" />
 				Benchmark
-			</button>
+			</a>
 		</div>
     <div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}">
 		<ul class="nav navbar-nav">
 			
 			<li>
-				<a href="#/session" title="Timings">
-					Session
-				</a>
+				<a href="#/session" title="Timings">Session</a>
 			</li>
 			<li>
-				<a href="#/library" title="Timings">
-					Library
-				</a>
+				<a href="#/library" title="Timings">Library</a>
 			</li>
 			<li>
 				<button class="btn  btn-sm navbar-btn " ng-click="queue.kill()"

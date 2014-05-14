@@ -11,7 +11,7 @@ import module namespace s='apb.benchmark.state' at 'state.xqm';
 
 import module namespace dbtools = 'apb.dbtools' at 'lib.xq/dbtools.xqm';
 import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
-import module namespace xqdoc = 'apb.xqdoc' at 'lib.xq/doctools.xqm';
+import module namespace doc = 'apb.doc' at 'lib.xq/doctools.xqm';
 import module namespace web = 'apb.web.utils3' at 'lib.xq/webutils.xqm';
 
 (:~
@@ -180,7 +180,7 @@ declare
 %rest:GET %rest:path("benchmark/api/xqdoc")  
 function xqdoc() 
 {
-    xqdoc:generate-html(fn:static-base-uri())
+    doc:generate-html(fn:static-base-uri())
 };
  
 (:~
@@ -190,7 +190,7 @@ declare
 %rest:GET %rest:path("benchmark/api/wadl")  
 function wadl() 
 {
-    <div>TODO</div>
+  doc:wadl("/benchmark") 
 }; 
 
 (:~ 

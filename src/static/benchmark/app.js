@@ -108,7 +108,7 @@ var App = angular
 													.push(res.run);
 											$rootScope.$broadcast("session");
 										},
-										function(d){alert("Execution error");});
+										function(reason){alert("Execution error"+reason.data);});
 							};
 
 							$rootScope.toggleMode = function() {
@@ -327,10 +327,9 @@ var App = angular
 		.factory(
 				'api',
 				[
-						'$http',
 						'$resource',
 						'apiRoot',
-						function($http, $resource, apiRoot) {
+						function($resource, apiRoot) {
 							return {
 
 								status : function() {
