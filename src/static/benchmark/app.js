@@ -25,7 +25,18 @@ var App = angular
 				templateUrl : '/static/benchmark/templates/about.xml'
 			}).when('/library', {
 				templateUrl : '/static/benchmark/templates/library.xml',
-				controller : "LibraryController"
+				controller : "LibraryController",
+				resolve : {
+					data : function(api) {
+						return api.library().query().$promise;
+					}}
+			}).when('/library/:id', {
+				templateUrl : '/static/benchmark/templates/record.xml',
+				controller : "LibraryController",
+				resolve : {
+					data : function(api,$route) {
+						return api.record().get({id:$route.current.params.id}).$promise;
+					}}
 			}).when('/xqdoc', {
 				templateUrl : '/static/benchmark/templates/xqdoc.xml'
 			}).when('/wadl', {
@@ -233,9 +244,11 @@ var App = angular
 					$scope.envs = data.env;
 				} ])
 
-		.controller('LibraryController', [ "$scope", "$rootScope",
-		                                   function($scope,$rootScope) {
+		.controller('LibraryController', [ "$scope", "$rootScope","data",
+		                                   function($scope,$rootScope,data) {
 			$scope.setTitle("Library");
+			$scope.docs=data;
+			console.log("DATA",$scope.docs);
 			$scope.swipe=function(){
 				alert("TODO swipe");
 			};
@@ -349,6 +362,18 @@ var App = angular
 									return $resource(apiRoot + 'environment')
 											.get().$promise;
 
+								},
+								library : function() {
+									return $resource(apiRoot + 'library/:id',
+											{
+												id : "@id"
+											})
+								},
+								record : function(id) {
+									return $resource(apiRoot + 'library/:id',
+											{
+												id : "@id"
+											})
 								},
 								suite : function(suite) {
 									return $resource(apiRoot + 'suite/:suite',

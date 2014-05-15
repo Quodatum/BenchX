@@ -1,0 +1,32 @@
+<benchmark >
+	<id>9ec8bfbe-229c-4bf2-844e-eb1a17d0b6a8</id>
+	<suite>xmark</suite>
+	<meta>
+		<created>2014-05-07T15:44:33.437+01:00</created>
+		<description>Another test</description>
+	</meta>
+	<server>
+		<id>79da1774-256b-4131-bd90-0e23cd44a957</id>
+		<description>redfish</description>	
+	</server>
+	<environment>
+		<basex.version>7.8.2</basex.version>
+		<java.vendor>Oracle Corporation</java.vendor>
+		<java.version>1.7.0</java.version>
+		<java.vm.version>21.0-b17</java.vm.version>
+		<memory.free>100 MB</memory.free>
+		<memory.max>455 MB</memory.max>
+		<memory.total>185 MB</memory.total>
+		<os.arch>amd64</os.arch>
+		<os.name>Windows NT (unknown)</os.name>
+		<os.version>6.2</os.version>
+	</environment>
+	<runs type="array">	
+			<run>
+				<name>q1.xqm</name>
+				<runtime>124</runtime>
+				<factor>0</factor>
+				<mode>F</mode>
+			</run>
+	</runs>
+</benchmark>

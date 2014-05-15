@@ -45,6 +45,8 @@ function error($description) {
  : Execute one test
  : @param name the test to run
  : @param time
+ : @param body name and suite
+ : @return information about the result, including runtime
  :)
 declare 
 %rest:POST("{$body}") %rest:path("benchmark/api/execute")
@@ -67,7 +69,7 @@ let $run:= <run>
 
 
 (:~
- : xmark create source file.
+ : Generate auction.xml source file using xmlgen.
  : note this switches to file mode
  : @param xmlgen factor size for file to create
  :)
@@ -84,7 +86,7 @@ function xmlgen($factor)
 }; 
 
 (:~
- : xmark create db from file
+ : Create database from file
  :)
 declare %updating
 %rest:POST %rest:path("benchmark/api/manage")
@@ -113,16 +115,56 @@ function status()
 }; 
 
 (:~
- : get information about library file
+ : list of library files
  :)
 declare 
 %rest:GET %rest:path("benchmark/api/library")
 %output:method("json")   
 function library() 
 {
-    json(xm:doc("6b534f9a-798f-4a4f-aef2-11db7b024912")/benchmark)
+   <json  objects="_" arrays="json ">
+   {for $doc in fn:collection("benchmark/library")/benchmark
+   order by $doc/meta/created
+   return <_>{$doc/id,
+    $doc/server/suite,
+    $doc/server/description,
+    $doc/meta/description,
+    $doc/meta/created
+   }</_>
+   }</json>    
 }; 
 
+(:~
+ : get record
+ :)
+declare 
+%rest:GET %rest:path("benchmark/api/library/{$id}")
+%output:method("json")   
+function record($id) 
+{
+    json(s:id($id))  
+}; 
+(:~
+ : testbed
+ :)
+declare 
+%rest:GET %rest:path("benchmark/api/testbed")
+%output:method("json")   
+function testbed() 
+{
+   <json  objects="json doc _" arrays="docs ">
+   <docs>
+   {for $doc in fn:collection("benchmark/library")/benchmark
+   order by $doc/meta/created
+   return <_>
+   {$doc/id,
+    $doc/server/suite,
+    $doc/server/description,
+    $doc/meta/description,
+    $doc/meta/created
+       }</_>
+   }</docs></json>    
+}; 
 (:~
  : get information about library file
  :)
@@ -134,7 +176,9 @@ function ben()
     json(s:benchmark())
 }; 
 (:~
- : @return list of tests in suite
+ : Get list of tests in suite
+ : @param suite name of suite
+ : @return array of tests in suite
  :)
 declare 
 %rest:GET %rest:path("benchmark/api/suite/{$suite}")

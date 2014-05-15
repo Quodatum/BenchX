@@ -1,6 +1,10 @@
 /* app.css */
 /* busy indicator http://jsfiddle.net/dBR2r/8/ */
-body    {overflow-y:scroll;}
+body    {
+    overflow-y:scroll;
+    /* fixed navbar */
+    padding-top: 70px;
+}
 #loading {
 	position: absolute;
 	left: 50%;

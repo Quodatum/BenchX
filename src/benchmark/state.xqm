@@ -16,6 +16,11 @@ import module namespace sessions = "http://basex.org/modules/sessions";
 declare variable $s:new as element(benchmark)
              :=db:open("benchmark","benchmark.xml")/benchmark;
 
+declare function id($id) as element(benchmark)
+{
+  fn:collection("benchmark/library")/benchmark[id=$id]
+};
+
 declare function benchmark() as element(benchmark)
 {
   let $s:=session:get("benchmark.values")

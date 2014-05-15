@@ -1,0 +1,4 @@
+<div ng-swipe-right="swipe()">
+	record
+	<pre>{{ {'name':'value'} | json }}</pre>
+</div>
