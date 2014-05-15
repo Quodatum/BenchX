@@ -173,25 +173,6 @@ return <json objects="json _ " arrays="env">
 </json>
 }; 
 
-(:~
- : show xqdoc for rest api
- :)
-declare 
-%rest:GET %rest:path("benchmark/api/xqdoc")  
-function xqdoc() 
-{
-    doc:generate-html(fn:static-base-uri())
-};
- 
-(:~
- : show xqdoc for rest api
- :)
-declare 
-%rest:GET %rest:path("benchmark/api/wadl")  
-function wadl() 
-{
-  doc:wadl("/benchmark") 
-}; 
 
 (:~ 
  : Prepare benchmark for json
@@ -209,3 +190,22 @@ declare function json($b as element(benchmark)
 }</json>
 };
 
+(:~
+ : show xqdoc for rest api
+ :)
+declare 
+%rest:GET %rest:path("benchmark/doc/xqdoc")  
+function xqdoc() 
+{
+    doc:generate-html(fn:static-base-uri())
+};
+ 
+(:~
+ : show xqdoc for rest api
+ :)
+declare 
+%rest:GET %rest:path("benchmark/doc/wadl")  
+function wadl() 
+{
+  doc:wadl("/benchmark") 
+}; 
