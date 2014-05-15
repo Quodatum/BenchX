@@ -194,7 +194,8 @@ declare function json($b as element(benchmark)
  : show xqdoc for rest api
  :)
 declare 
-%rest:GET %rest:path("benchmark/doc/xqdoc")  
+%rest:GET %rest:path("benchmark/doc/xqdoc")
+%output:method("html")  
 function xqdoc() 
 {
     doc:generate-html(fn:static-base-uri())
@@ -204,7 +205,8 @@ function xqdoc()
  : show xqdoc for rest api
  :)
 declare 
-%rest:GET %rest:path("benchmark/doc/wadl")  
+%rest:GET %rest:path("benchmark/doc/wadl")
+%output:method("html")  
 function wadl() 
 {
   doc:wadl("/benchmark") 

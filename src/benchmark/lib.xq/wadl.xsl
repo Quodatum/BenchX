@@ -84,19 +84,19 @@
 		<xsl:variable name="name" select="wadl:method/@name" />
 		<span>
 			<xsl:attribute name="class">
-		label
+		<xsl:text>label </xsl:text>
 			<xsl:choose>
 				<xsl:when test="$name='GET'">
-					label-primary
+					<xsl:text>label-primary</xsl:text>
 				</xsl:when>
 				<xsl:when test="$name='POST'">
-					label-success
+					<xsl:text>label-success</xsl:text>
 				</xsl:when>
 				<xsl:when test="$name='DELETE'">
-					label-danger
+					<xsl:text>label-danger</xsl:text>
 				</xsl:when>
 				<xsl:otherwise>
-					label-warning
+					<xsl:text>label-warning</xsl:text>
 				</xsl:otherwise>
 			</xsl:choose>
 			</xsl:attribute>
