@@ -1,11 +1,9 @@
-var App = angular
+angular
 		.module(
 				'BenchX',
-				[ 'ngRoute', 'ngResource','ngTouch',
-				  'ui.bootstrap', 'cfp.hotkeys',
-				'googlechart', 'services.httpRequestTracker', 'dialog' ])
-
-		.constant("apiRoot", "../../benchmark/api/")
+				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
+						'googlechart', 'dialog', 'BenchX.api',
+						'services.httpRequestTracker' ])
 
 		.config([ '$routeProvider', function($routeProvider) {
 			$routeProvider.when('/', {
@@ -28,15 +26,17 @@ var App = angular
 				controller : "LibraryController",
 				resolve : {
 					data : function(api) {
-						return api.library().query().$promise;
-					}}
+						return api.library();
+					}
+				}
 			}).when('/library/:id', {
 				templateUrl : '/static/benchmark/templates/record.xml',
-				controller : "LibraryController",
+				controller : "RecordController",
 				resolve : {
-					data : function(api,$route) {
-						return api.record().get({id:$route.current.params.id}).$promise;
-					}}
+					data : function(api, $route) {
+						return api.record($route.current.params.id);
+					}
+				}
 			}).when('/xqdoc', {
 				templateUrl : '/static/benchmark/templates/xqdoc.xml'
 			}).when('/wadl', {
@@ -48,8 +48,10 @@ var App = angular
 			});
 		} ])
 
-		.run([ '$rootScope','$window', function($rootScope,$window) {
-			$rootScope.setTitle=function(t){$window.document.title = t;};
+		.run([ '$rootScope', '$window', function($rootScope, $window) {
+			$rootScope.setTitle = function(t) {
+				$window.document.title = t;
+			};
 			$rootScope.setTitle("BenchX v0.2");
 			$rootScope.logmsg = "Welcome to Benchmark";
 			$rootScope.suites = [ "xmark", "apb" ];
@@ -68,7 +70,7 @@ var App = angular
 				case "xmlgen":
 					$rootScope.logmsg = 'Requesting XML generation';
 					promise = $rootScope.xmlgen(task.data);
-					break;	
+					break;
 				default:
 					$rootScope.logmsg = 'Unknown command ignored: ' + task.cmd;
 				}
@@ -119,7 +121,10 @@ var App = angular
 													.push(res.run);
 											$rootScope.$broadcast("session");
 										},
-										function(reason){alert("Execution error"+reason.data);});
+										function(reason) {
+											alert("Execution error"
+													+ reason.data);
+										});
 							};
 
 							$rootScope.toggleMode = function() {
@@ -157,11 +162,14 @@ var App = angular
 							};
 
 							$rootScope.xmlgen = function(factor) {
-								return api.xmlgen(factor).then(function(d) {
-									api.status().then(updateStatus);
-								}, function(reason) {
-									alert("Failed to run xmlgen\n" + reason.data);
-								});
+								return api.xmlgen(factor).then(
+										function(d) {
+											api.status().then(updateStatus);
+										},
+										function(reason) {
+											alert("Failed to run xmlgen\n"
+													+ reason.data);
+										});
 							};
 							api.suite($rootScope.suite).then(function(data) {
 								$rootScope.session = data;
@@ -214,7 +222,10 @@ var App = angular
 									templateUrl : 'templates/xmlgen.xml',
 									size : "sm"
 								}).result.then(function(factor) {
-									$rootScope.queue.push({cmd:"xmlgen",data:factor});
+									$rootScope.queue.push({
+										cmd : "xmlgen",
+										data : factor
+									});
 								});
 							};
 							$scope.clearAll = function() {
@@ -244,16 +255,39 @@ var App = angular
 					$scope.envs = data.env;
 				} ])
 
-		.controller('LibraryController', [ "$scope", "$rootScope","data",
-		                                   function($scope,$rootScope,data) {
-			$scope.setTitle("Library");
-			$scope.docs=data;
-			console.log("DATA",$scope.docs);
-			$scope.swipe=function(){
-				alert("TODO swipe");
-			};
-		} ])
-
+		.controller(
+				'LibraryController',
+				[ "$scope", "$rootScope", "data",
+						function($scope, $rootScope, data) {
+							$scope.setTitle("Library");
+							$scope.docs = data;
+							$scope.swipe = function() {
+								alert("TODO swipe");
+							};
+						} ])
+		.controller(
+				'RecordController',
+				[
+						"$scope",
+						"$rootScope",
+						"data",
+						"$routeParams",
+						"$location",
+						function($scope, $rootScope, data, $routeParams,
+								$location) {
+							$scope.setTitle("Record");
+							$scope.record = data;
+							$scope.setView = function(v) {
+								$scope.view = v;
+								$location.search("view", v);
+							};
+							$scope
+									.setView($routeParams.view ? $routeParams.view
+											: "grid");
+							$scope.drop = function() {
+								alert("TODO");
+							};
+						} ])
 		.controller(
 				"ChartController",
 				function($scope, $rootScope, $window) {
@@ -335,57 +369,4 @@ var App = angular
 					return function(input) {
 						return (116.47106113642 * input - 0.00057972324877298) * 1000000;
 					};
-				})
-
-		.factory(
-				'api',
-				[
-						'$resource',
-						'apiRoot',
-						function($resource, apiRoot) {
-							return {
-
-								status : function() {
-									return $resource(apiRoot + 'status').get().$promise;
-								},
-								xmlgen : function(factor) {
-									return $resource(apiRoot + 'xmlgen', {
-										factor : "@factor"
-									}).save({
-										factor : factor
-									}).$promise;
-								},
-								toggleMode : function() {
-									return $resource(apiRoot + 'manage').save().$promise;
-								},
-								environment : function() {
-									return $resource(apiRoot + 'environment')
-											.get().$promise;
-
-								},
-								library : function() {
-									return $resource(apiRoot + 'library/:id',
-											{
-												id : "@id"
-											})
-								},
-								record : function(id) {
-									return $resource(apiRoot + 'library/:id',
-											{
-												id : "@id"
-											})
-								},
-								suite : function(suite) {
-									return $resource(apiRoot + 'suite/:suite',
-											{
-												suite : "@suite"
-											}).query({
-										suite : suite
-									}).$promise;
-								},
-								execute : function(data) {
-									return $resource(apiRoot + 'execute').save(
-											data).$promise;
-								}
-							};
-						} ]);
+				});

@@ -1,4 +1,5 @@
 <div ng-swipe-right="swipe()">
-	record
-	<pre>{{ {'name':'value'} | json }}</pre>
+	   <div class="container-fluid" ng-include="'templates/recordbar.xml'"></div>
+
+	<pre>{{ record | json }}</pre>
 </div>

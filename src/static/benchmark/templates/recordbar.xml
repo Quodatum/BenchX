@@ -1,7 +1,4 @@
 <div class="row ">
-
-
-
 	<strong> View:</strong>
 	<div class="btn-group">
 
@@ -15,27 +12,22 @@
 			<i class="glyphicon glyphicon-signal"></i>
 			Graph
 		</button>
-
+        <button class="btn btn-default" ng-click="setView('json')"
+            ng-class="{'btn-primary':view=='json'}">
+            <i class="glyphicon glyphicon-leaf"></i>
+            Json
+        </button>
 	</div>
 	<strong> Action:</strong>
 	<div class="btn-group">
-		<button class="btn btn-default" ng-click="setView('run')"
-			ng-class="{'btn-primary':view=='run'}">
-			<i class="glyphicon glyphicon-forward"></i>
-			Run
-		</button>
-		<button class="btn btn-default" ng-click="setView('save')"
-			ng-class="{'btn-primary':view=='save'}">
-			<i class="glyphicon glyphicon-saved"></i>
-			Save
-		</button>
 		<button class="btn  btn-default" ng-click="saveAs()" title="Download as csv">
-			<i class="glyphicon glyphicon-save"></i>
-			CSV
-		</button>
-		<button class="btn  btn-default" ng-click="clearAll()" title="Clear all data">
+            <i class="glyphicon glyphicon-save"></i>
+            CSV
+        </button>		
+		<button class="btn  btn-warning" ng-click="drop()" title="Remove data">
 			<i class="glyphicon glyphicon-trash"></i>
-			clear All
+			Delete
 		</button>
+		
 	</div>
 </div>

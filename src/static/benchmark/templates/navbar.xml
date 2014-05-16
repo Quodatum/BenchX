@@ -8,20 +8,24 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/benchmark">
+			<a class="navbar-brand brand" href="/benchmark">
 				<img src="benchmark.svg" style="width:20px;height:20px;vertical-align:top;" />
 				Benchmark
 			</a>
 		</div>
     <div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}">
 		<ul class="nav navbar-nav">
+			<li>
+                <a href="#/library" title="Timings">
+                <i class="glyphicon glyphicon-book"></i>
+                Library</a>
+            </li>
+			<li>
+				<a href="#/session" title="Run tests">
+				<i class="glyphicon glyphicon-cog"></i>
+				Session</a>
+			</li>
 			
-			<li>
-				<a href="#/session" title="Timings">Session</a>
-			</li>
-			<li>
-				<a href="#/library" title="Timings">Library</a>
-			</li>
 			<li>
 				<button class="btn  btn-sm navbar-btn " ng-click="queue.kill()"
 					ng-class="{'btn-warning':queue.length()}" title="Queued tasks, click to stop">
@@ -34,7 +38,7 @@
 		</ul>
 		
 		<p class="navbar-text bg-success logmsg "  >
-		<i class="glyphicon glyphicon-hand-right"></i>
+		<i class="glyphicon glyphicon-calendar"></i>
 		{{logmsg}}</p>		
 			<ul class="nav navbar-nav navbar-right">
 			<li>	

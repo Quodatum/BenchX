@@ -126,7 +126,7 @@ function library()
    {for $doc in fn:collection("benchmark/library")/benchmark
    order by $doc/meta/created
    return <_>{$doc/id,
-    $doc/server/suite,
+    $doc/suite,
     $doc/server/description,
     $doc/meta/description,
     $doc/meta/created
