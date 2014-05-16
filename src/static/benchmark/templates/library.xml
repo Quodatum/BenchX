@@ -1,19 +1,45 @@
 <div ng-swipe-right="swipe()">
-	<p>Stored records:</p>
-	<table class="table table-condensed table-striped table-bordered">
-		<thead>
-			<th>Title</th>
-			<th>Suite</th>
-			<th>Created</th>
-		</thead>
-		<tbody>
-			<tr ng-repeat="doc in docs">
-				<td>
-					<a href="#/library/{{doc.id}}">{{doc.description}}</a>
-				</td>
-				<td>{{doc.suite}}</td>
-				<td>{{doc.created}}</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="row alert alert-info">Collection of BenchX runs
+	</div>
+	<div class="row">
+		<div class="panel  panel-info panel-body col-md-2">
+			<div class="panel-heading">
+				<h3 class="panel-title">Filter</h3>
+			</div>
+			<div class="panel-body table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="e in envs">
+							<td>{{e.name}}</td>
+							<td>{{e.value}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-8">
+		<table class="table table-condensed table-striped table-bordered ">
+			<thead>
+				<th>Title</th>
+				<th>Suite</th>
+				<th>Created</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="doc in docs">
+					<td>
+						<a href="#/library/{{doc.id}}">{{doc.description}}</a>
+					</td>
+					<td>{{doc.suite}}</td>
+					<td am-time-ago="doc.created" title="{{doc.created}}"></td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
 </div>

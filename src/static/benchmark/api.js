@@ -1,3 +1,9 @@
+/*
+ * API for BenchX, returns promises
+ * @author andy bunce
+ * @date 2014
+ * @licence Apache 2
+ */
 angular.module('BenchX.api', [ 'ngResource' ])
 
 .constant("apiRoot", "../../benchmark/api/")
@@ -23,9 +29,7 @@ angular.module('BenchX.api', [ 'ngResource' ])
 
 		},
 		library : function() {
-			return $resource(apiRoot + 'library/:id', {
-				id : "@id"
-			}).query().$promise;
+			return $resource(apiRoot + 'library').query().$promise;
 		},
 		record : function(id) {
 			return $resource(apiRoot + 'library/:id', {
@@ -34,10 +38,13 @@ angular.module('BenchX.api', [ 'ngResource' ])
 				id : id
 			}).$promise;
 		},
+		suites : function() {
+			return $resource(apiRoot + 'suite').query().$promise;
+		},
 		suite : function(suite) {
 			return $resource(apiRoot + 'suite/:suite', {
 				suite : "@suite"
-			}).query({
+			}).get({
 				suite : suite
 			}).$promise;
 		},

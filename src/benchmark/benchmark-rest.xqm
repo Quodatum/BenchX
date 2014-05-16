@@ -174,7 +174,28 @@ declare
 function ben() 
 {
     json(s:benchmark())
-}; 
+};
+ 
+(:~
+ : list of suite
+ : @return array of suite names
+ :)
+declare 
+%rest:GET %rest:path("benchmark/api/suite")
+%output:method("json")   
+function suites() 
+{
+    let $suites:=("xmark","apb")
+    return <json objects="_" arrays="json">{
+    for $s in $suites
+    return <_>
+    <name>{$s}</name>
+    <href>#/suite/{$s}</href>
+    </_>
+    }
+</json>
+};
+
 (:~
  : Get list of tests in suite
  : @param suite name of suite
@@ -194,7 +215,7 @@ function queries($suite as xs:string)
                 </_>
     }
 </json>
-}; 
+};  
 
 (:~
  : Information about the server platform, Java version etc.

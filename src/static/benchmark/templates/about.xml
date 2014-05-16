@@ -15,17 +15,21 @@
 	</div>
 	<p>The XMark queries are supplied as an example suite.</p>
 		
-	<h2>Components used</h2>
+	<h2>Client Component list</h2>
 	<ul>
 		<li>twitter-bootstrap/3.1.0</li>
 		<li>angularjs/1.2.14</li>
 		<li>angular-ui-bootstrap/0.10.0</li>
-		<li>http://simpleicon.com/stopwatch-1.html</li>
 		<li>http://chieffancypants.github.io/angular-hotkeys/</li>
 		<li>async/0.8.0 https://github.com/caolan/async</li>
 		<li>https://github.com/eligrey/FileSaver.js/</li>
 		<li>https://github.com/bouil/angular-google-chart</li>
-		<li>https://github.com/ftlabs/fastclick</li>
+		<li>http://momentjs.com/ 2.6</li>
+		<li>https://github.com/urish/angular-moment</li>
+		<li>http://d3js.org/</li>
+		<li>https://github.com/chinmaymk/angular-charts</li>
+		
+		<li>http://simpleicon.com/stopwatch-1.html</li>
 	</ul>
 
 </div>

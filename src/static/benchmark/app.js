@@ -2,8 +2,9 @@ angular
 		.module(
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
-						'googlechart', 'dialog', 'BenchX.api',
-						'services.httpRequestTracker' ])
+						'googlechart', 'dialog', 'angularMoment',
+						'BenchX.api','services.httpRequestTracker' 
+						])
 
 		.config([ '$routeProvider', function($routeProvider) {
 			$routeProvider.when('/', {
@@ -37,8 +38,24 @@ angular
 						return api.record($route.current.params.id);
 					}
 				}
+			}).when('/suite', {
+				templateUrl : '/static/benchmark/templates/suites.xml',
+				controller : "SuitesController",
+				resolve : {
+					data : function(api) {
+						return api.suites();
+					}
+				}
+			}).when('/suite/:id', {
+				templateUrl : '/static/benchmark/templates/suite.xml',
+				controller : "SuiteController",
+				resolve : {
+					data : function(api, $route) {
+						return api.suite($route.current.params.id);
+					}
+				}
 			}).when('/xqdoc', {
-				templateUrl : '/static/benchmark/templates/xqdoc.xml'
+				templateUrl : '/static/benchmark/templates/xqdoc.xml'		
 			}).when('/wadl', {
 				templateUrl : '/static/benchmark/templates/wadl.xml'
 			}).when('/404', {
@@ -53,7 +70,7 @@ angular
 				$window.document.title = t;
 			};
 			$rootScope.setTitle("BenchX v0.2");
-			$rootScope.logmsg = "Welcome to Benchmark";
+			$rootScope.logmsg = "Welcome to BenchX v0.3";
 			$rootScope.suites = [ "xmark", "apb" ];
 			$rootScope.suite = "xmark";
 			$rootScope.queue = async.queue(function(task, callback) {
@@ -245,7 +262,7 @@ angular
 										});
 							};
 							$scope.save = function() {
-								alert("hh");
+								alert("TODO");
 							};
 						} ])
 
@@ -254,7 +271,18 @@ angular
 					$scope.setTitle("Environment");
 					$scope.envs = data.env;
 				} ])
-
+		.controller('SuitesController',
+				[ "$scope","data", function($scope,data) {
+					$scope.setTitle("Suites");
+					console.log(data);
+					$scope.suites=data;
+				} ])
+		.controller('SuiteController',
+				[ "$scope", "data",function($scope,data) {
+					$scope.setTitle("Suite");
+					console.log(data);
+					$scope.suite=data;
+				} ])		
 		.controller(
 				'LibraryController',
 				[ "$scope", "$rootScope", "data",
@@ -288,8 +316,9 @@ angular
 								alert("TODO");
 							};
 						} ])
+						
 		.controller(
-				"ChartController",
+				"ChartController",['$scope', '$rootScope', '$window',
 				function($scope, $rootScope, $window) {
 					$scope.setTitle("Graph");
 					function genChart() {
@@ -349,7 +378,7 @@ angular
 						$scope.chartObject = genChart();
 					});
 					$scope.chartObject = genChart();
-				})
+				}])
 
 		.filter(
 				'readablizeBytes',

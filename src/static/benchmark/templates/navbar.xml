@@ -10,7 +10,7 @@
 			</button>
 			<a class="navbar-brand brand" href="/benchmark">
 				<img src="benchmark.svg" style="width:20px;height:20px;vertical-align:top;" />
-				Benchmark
+				BenchX
 			</a>
 		</div>
     <div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}">
@@ -20,27 +20,33 @@
                 <i class="glyphicon glyphicon-book"></i>
                 Library</a>
             </li>
+            <li>
+                <a href="#/suite" title="Suites">
+                <i class="glyphicon glyphicon-expand"></i>
+                Suites</a>
+            </li>
 			<li>
 				<a href="#/session" title="Run tests">
 				<i class="glyphicon glyphicon-cog"></i>
 				Session</a>
 			</li>
 			
-			<li>
-				<button class="btn  btn-sm navbar-btn " ng-click="queue.kill()"
-					ng-class="{'btn-warning':queue.length()}" title="Queued tasks, click to stop">
-					<div style="width:3em">
-						<i class="glyphicon glyphicon-tasks"></i>
-						{{queue.length()}}
-					</div>
-				</button>
-			</li>
+			
 		</ul>
 		
 		<p class="navbar-text bg-success logmsg "  >
 		<i class="glyphicon glyphicon-calendar"></i>
 		{{logmsg}}</p>		
 			<ul class="nav navbar-nav navbar-right">
+			<li>
+                <button class="btn  btn-sm navbar-btn " ng-click="queue.kill()"
+                    ng-class="{'btn-warning':queue.length()}" title="Queued tasks, click to stop">
+                    <div style="width:3em">
+                        <i class="glyphicon glyphicon-tasks"></i>
+                        {{queue.length()}}
+                    </div>
+                </button>
+            </li>
 			<li>	
 			<p class="navbar-text label" ng-class="{'bg-danger':1&gt;state.sessions}"
 			style="width:3em" title="Session count">
