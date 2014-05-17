@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="panel  panel-info panel-body col-md-2">
 			<div class="panel-heading">
-				<h3 class="panel-title">Filter</h3>
+				<h3 class="panel-title">Filter (@TODO)</h3>
 			</div>
 			<div class="panel-body table-responsive">
 				<table class="table table-striped">

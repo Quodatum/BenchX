@@ -69,7 +69,7 @@ angular
 			$rootScope.setTitle = function(t) {
 				$window.document.title = t;
 			};
-			$rootScope.setTitle("BenchX v0.2");
+			$rootScope.setTitle("BenchX");
 			$rootScope.logmsg = "Welcome to BenchX v0.3";
 			$rootScope.suites = [ "xmark", "apb" ];
 			$rootScope.suite = "xmark";

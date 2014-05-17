@@ -1,3 +1,6 @@
 <div>
 	<p>suite.</p>
+	<ul ng-repeat="item in suite">
+    <li>{{item.name}}</li>
+    </ul>
 </div>

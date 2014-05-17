@@ -44,7 +44,7 @@ angular.module('BenchX.api', [ 'ngResource' ])
 		suite : function(suite) {
 			return $resource(apiRoot + 'suite/:suite', {
 				suite : "@suite"
-			}).get({
+			}).query({
 				suite : suite
 			}).$promise;
 		},
