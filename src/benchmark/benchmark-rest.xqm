@@ -3,11 +3,12 @@
  :@author Andy Bunce
  :@version 0.1
  :)
-module namespace bm = 'apb.benchmark.rest';
-declare default function namespace 'apb.benchmark.rest'; 
+module namespace bm = 'apb.benchx.rest';
+declare default function namespace 'apb.benchx.rest'; 
 
 import module namespace xm='apb.xmark.test' at 'xmark.xqm';
-import module namespace s='apb.benchmark.state' at 'state.xqm';
+import module namespace s='apb.benchx.state' at 'state.xqm';
+import module namespace lib='apb.benchx.library' at 'library.xqm';
 
 import module namespace dbtools = 'apb.dbtools' at 'lib.xq/dbtools.xqm';
 import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
@@ -122,18 +123,19 @@ declare
 %output:method("json")   
 function library() 
 {
-   <json  objects="_" arrays="json ">
-   {for $doc in fn:collection("benchmark/library")/benchmark
-   order by $doc/meta/created
-   return <_>{$doc/id,
-    $doc/suite,
-    $doc/server/description,
-    $doc/meta/description,
-    $doc/meta/created
-   }</_>
-   }</json>    
+    lib:list()
 }; 
 
+(:~
+ : post new record
+ :)
+declare %updating
+%rest:POST %rest:path("benchmark/api/library")
+%output:method("json")   
+function addrecord() 
+{
+    lib:addrecord()  
+};
 (:~
  : get record
  :)
@@ -142,8 +144,10 @@ declare
 %output:method("json")   
 function record($id) 
 {
-    json(s:id($id))  
-}; 
+    lib:json(lib:id($id))  
+};
+
+ 
 (:~
  : testbed
  :)
@@ -165,16 +169,7 @@ function testbed()
        }</_>
    }</docs></json>    
 }; 
-(:~
- : get information about library file
- :)
-declare 
-%rest:GET %rest:path("benchmark/api/ben")
-%output:method("json")   
-function ben() 
-{
-    json(s:benchmark())
-};
+
  
 (:~
  : list of suite
@@ -239,21 +234,7 @@ return <json objects="json _ " arrays="env">
 }; 
 
 
-(:~ 
- : Prepare benchmark for json
- : @param b results of a run.
- : @return json style xml for serialization.
-:)
-declare function json($b as element(benchmark)
-)as element(json)
-{
-<json objects="json benchmark meta server environment run">{
-    copy $d:=$b
-    modify (for $n in $d//*[@type="array"]/* 
-            return replace node $n with <_ type="object">{$n}</_>)
-    return $d
-}</json>
-};
+
 
 (:~
  : show xqdoc for rest api

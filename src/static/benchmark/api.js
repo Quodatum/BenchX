@@ -29,14 +29,9 @@ angular.module('BenchX.api', [ 'ngResource' ])
 
 		},
 		library : function() {
-			return $resource(apiRoot + 'library').query().$promise;
-		},
-		record : function(id) {
 			return $resource(apiRoot + 'library/:id', {
 				id : "@id"
-			}).get({
-				id : id
-			}).$promise;
+			});
 		},
 		suites : function() {
 			return $resource(apiRoot + 'suite').query().$promise;

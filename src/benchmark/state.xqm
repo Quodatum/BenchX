@@ -2,8 +2,8 @@
  : restxq session for benchmark
  :
  :)
-module namespace s = 'apb.benchmark.state';
-declare default function namespace 'apb.benchmark.state'; 
+module namespace s = 'apb.benchx.state';
+declare default function namespace 'apb.benchx.state'; 
 
 import module namespace xm='apb.xmark.test' at 'xmark.xqm';
 

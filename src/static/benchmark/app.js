@@ -27,7 +27,7 @@ angular
 				controller : "LibraryController",
 				resolve : {
 					data : function(api) {
-						return api.library();
+						return api.library().query().$promise;
 					}
 				}
 			}).when('/library/:id', {
@@ -35,7 +35,8 @@ angular
 				controller : "RecordController",
 				resolve : {
 					data : function(api, $route) {
-						return api.record($route.current.params.id);
+						var id=$route.current.params.id;
+						return api.library().get({id:id}).$promise;
 					}
 				}
 			}).when('/suite', {
@@ -205,8 +206,9 @@ angular
 						"$location",
 						"$modal",
 						"$dialog",
+						"api",
 						function($scope, $rootScope, $routeParams, $location,
-								$modal, $dialog) {
+								$modal, $dialog,api) {
 							$rootScope.setTitle("Session");
 							$scope.repeat = 2;
 							$scope.setView = function(v) {
@@ -262,7 +264,13 @@ angular
 										});
 							};
 							$scope.save = function() {
-								alert("TODO");
+								var d=new api.library();
+								d.somestuff="hello";
+								d.save().$promise.then(function(a){
+									alert("OK");
+								},function(e){
+									alert("FAIL");
+								});
 							};
 						} ])
 
