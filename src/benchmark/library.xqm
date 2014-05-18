@@ -22,9 +22,10 @@ declare function id($id) as element(benchmark)
 (:~
  : add record to library
  :)
-declare %updating function addrecord() 
+declare %updating function add-record($data) 
 {
-  db:output(<json objects="json"><todo>THIS</todo></json>)
+    let $data:=fn:trace($data,"ADD ")
+    return db:output(<json objects="json"><todo>THIS</todo></json>)
 };
 
 (:~

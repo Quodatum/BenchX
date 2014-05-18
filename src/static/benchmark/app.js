@@ -2,8 +2,8 @@ angular
 		.module(
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
-						'googlechart', 'dialog', 'angularMoment',
-						'BenchX.api','services.httpRequestTracker' 
+				'googlechart', 'angularCharts','dialog', 'angularMoment',
+				'BenchX.api','services.httpRequestTracker' 
 						])
 
 		.config([ '$routeProvider', function($routeProvider) {
@@ -323,6 +323,24 @@ angular
 							$scope.drop = function() {
 								alert("TODO");
 							};
+							$scope.data={
+									  "series": [
+									             "Sales",
+									             "Income",
+									             "Expense"
+									           ],
+									           "data": [
+									             {
+									               "x": "Computers",
+									               "y": [
+									                 54,
+									                 0,
+									                 879
+									               ],
+									               "tooltip": "This is a tooltip"
+									             }
+									           ]
+									         };
 						} ])
 						
 		.controller(

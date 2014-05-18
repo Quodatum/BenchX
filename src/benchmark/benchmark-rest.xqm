@@ -60,6 +60,7 @@ let $time:=xm:time-xmark($suite || "/" || $name,$bm:timeout)
 let $run:= <run>
         <name>{$name}</name>
         <runtime type="number">{$time}</runtime>
+        <status>Complete</status>
         <mode>{xm:mode()}</mode>
         <factor>{$xm:factor/fn:string()}</factor>
         <created>{fn:current-dateTime()}</created>
@@ -130,11 +131,11 @@ function library()
  : post new record
  :)
 declare %updating
-%rest:POST %rest:path("benchmark/api/library")
+%rest:POST("{$body}") %rest:path("benchmark/api/library")
 %output:method("json")   
-function addrecord() 
+function addrecord($body) 
 {
-    lib:addrecord()  
+    lib:add-record($body)  
 };
 (:~
  : get record

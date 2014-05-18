@@ -31,3 +31,7 @@ button.factor{
 .brand {
 	  color: #C00000!important;
 }
+.chart{
+width: 500px;
+ height: 500px;
+}

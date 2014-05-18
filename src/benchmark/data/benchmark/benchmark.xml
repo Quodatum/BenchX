@@ -7,7 +7,8 @@
 	</meta>
 	<server>
 		<id>79da1774-256b-4131-bd90-0e23cd44a957</id>
-		<description>redfish</description>		
+		<hostname>redfish</hostname>
+		<description>Acer e1-571</description>		
 	</server>
 	<environment>
 		<basex.version>7.8.2</basex.version>
