@@ -55,14 +55,19 @@ declare function time-xmark(
 ) {
   let $xq:=get-xmark($query)
   let $xq:='declare base-uri "' || fn:static-base-uri() ||'";' || $xq
-  return time($xq,$timeout)
+  let $res:= time($xq,$timeout)
+  return (<runtime type="number">{$res[1]}</runtime>,
+         <status>{$res[2]}</status>)
 };
 
 
 (:~
- : return execution time of $xq in ms or $timeout if no result before $timeout
+ : @param $xq xquery to evaluate 
+ : @param $timeout stop execution after this time in seconds
+ : @return execution time of $xq in ms, any error code)
  :) 
-declare function time($xq as xs:string,$timeout as xs:double){
+declare function time($xq as xs:string,$timeout as xs:double)
+as item()*{
  let $bindings:=map{}
  let $opts:=map {
      "permission" := "create",
@@ -71,12 +76,13 @@ declare function time($xq as xs:string,$timeout as xs:double){
   return try{
        let $t1:=prof:current-ms()
        let $x:= xquery:eval($xq,$bindings,$opts)
-       return prof:current-ms()-$t1
+       return (prof:current-ms()-$t1,"")
       }catch * 
       {
-        $timeout * 1000
+        ($timeout * 1000,$err:code)
       }
 };
+
 
 (:~
  : create auction.xml

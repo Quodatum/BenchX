@@ -2,9 +2,9 @@ angular
 		.module(
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
-				'googlechart', 'angularCharts','dialog', 'angularMoment',
-				'BenchX.api','services.httpRequestTracker' 
-						])
+						'googlechart', 'angularCharts', 'dialog',
+						'angularMoment', 'BenchX.api',
+						'services.httpRequestTracker' ])
 
 		.config([ '$routeProvider', function($routeProvider) {
 			$routeProvider.when('/', {
@@ -35,8 +35,10 @@ angular
 				controller : "RecordController",
 				resolve : {
 					data : function(api, $route) {
-						var id=$route.current.params.id;
-						return api.library().get({id:id}).$promise;
+						var id = $route.current.params.id;
+						return api.library().get({
+							id : id
+						}).$promise;
 					}
 				}
 			}).when('/suite', {
@@ -56,9 +58,10 @@ angular
 					}
 				}
 			}).when('/xqdoc', {
-				templateUrl : '/static/benchmark/templates/xqdoc.xml'		
+				templateUrl : '/static/benchmark/templates/xqdoc.xml'
 			}).when('/wadl', {
-				templateUrl : '/static/benchmark/templates/wadl.xml'
+				templateUrl : '/static/benchmark/templates/wadl.xml',
+				controller : "WadlController"
 			}).when('/404', {
 				templateUrl : '/static/benchmark/templates/404.xml'
 			}).otherwise({
@@ -208,7 +211,7 @@ angular
 						"$dialog",
 						"api",
 						function($scope, $rootScope, $routeParams, $location,
-								$modal, $dialog,api) {
+								$modal, $dialog, api) {
 							$rootScope.setTitle("Session");
 							$scope.repeat = 2;
 							$scope.setView = function(v) {
@@ -264,11 +267,11 @@ angular
 										});
 							};
 							$scope.save = function() {
-								var d=new api.library();
-								d.somestuff="hello";
-								d.save().$promise.then(function(a){
+								var d = new api.library();
+								d.somestuff = "hello";
+								d.save().$promise.then(function(a) {
 									alert("OK");
-								},function(e){
+								}, function(e) {
 									alert("FAIL");
 								});
 							};
@@ -280,17 +283,17 @@ angular
 					$scope.envs = data.env;
 				} ])
 		.controller('SuitesController',
-				[ "$scope","data", function($scope,data) {
+				[ "$scope", "data", function($scope, data) {
 					$scope.setTitle("Suites");
 					console.log(data);
-					$scope.suites=data;
+					$scope.suites = data;
 				} ])
 		.controller('SuiteController',
-				[ "$scope", "data",function($scope,data) {
+				[ "$scope", "data", function($scope, data) {
 					$scope.setTitle("Suite");
 					console.log(data);
-					$scope.suite=data;
-				} ])		
+					$scope.suite = data;
+				} ])
 		.controller(
 				'LibraryController',
 				[ "$scope", "$rootScope", "data",
@@ -323,89 +326,96 @@ angular
 							$scope.drop = function() {
 								alert("TODO");
 							};
-							$scope.data={
-									  "series": [
-									             "Sales",
-									             "Income",
-									             "Expense"
-									           ],
-									           "data": [
-									             {
-									               "x": "Computers",
-									               "y": [
-									                 54,
-									                 0,
-									                 879
-									               ],
-									               "tooltip": "This is a tooltip"
-									             }
-									           ]
-									         };
-						} ])
-						
-		.controller(
-				"ChartController",['$scope', '$rootScope', '$window',
-				function($scope, $rootScope, $window) {
-					$scope.setTitle("Graph");
-					function genChart() {
-						if ($rootScope.session) {
-							var cols = [ {
-								id : "t",
-								label : "Query",
-								type : "string"
-							} ];
-							angular.forEach($rootScope.session[0].runs,
-									function(v, index) {
-										cols.push({
-											id : "R" + index,
-											label : "Mode: " + v.mode
-													+ ", Factor:" + v.factor,
-											type : "number"
-										});
-									});
-							var rows = [];
-							angular.forEach($rootScope.session, function(q, i) {
-								var d = [ {
-									v : q.name
-								} ];
-								angular.forEach(q.runs, function(r, i2) {
-									d.push({
-										v : r.runtime
-									});
-								});
-								rows.push({
-									c : d
-								});
-							});
-							return {
-								type : "ColumnChart",
-								options : {
-									'title' : 'BaseX Benchmark: '
-											+ $rootScope.suite
-								},
-								data : {
-									"cols" : cols,
-									"rows" : rows
-								}
+							$scope.data = {
+								"series" : [ "Sales", "Income", "Expense" ],
+								"data" : [ {
+									"x" : "Computers",
+									"y" : [ 54, 0, 879 ],
+									"tooltip" : "This is a tooltip"
+								} ]
 							};
-						}
-						;
-					}
-					;
+						} ])
 
-					$scope.chartReady = function(chartWrapper) {
-						// not working!!
-						$window.google.visualization.events.addListener(
-								chartWrapper, 'select', function() {
-									console.log('select event fired!');
-								});
+		.controller(
+				"ChartController",
+				[
+						'$scope',
+						'$rootScope',
+						'$window',
+						function($scope, $rootScope, $window) {
+							$scope.setTitle("Graph");
+							function genChart() {
+								if ($rootScope.session) {
+									var cols = [ {
+										id : "t",
+										label : "Query",
+										type : "string"
+									} ];
+									angular.forEach($rootScope.session[0].runs,
+											function(v, index) {
+												cols.push({
+													id : "R" + index,
+													label : "Mode: " + v.mode
+															+ ", Factor:"
+															+ v.factor,
+													type : "number"
+												});
+											});
+									var rows = [];
+									angular.forEach($rootScope.session,
+											function(q, i) {
+												var d = [ {
+													v : q.name
+												} ];
+												angular.forEach(q.runs,
+														function(r, i2) {
+															d.push({
+																v : r.runtime
+															});
+														});
+												rows.push({
+													c : d
+												});
+											});
+									return {
+										type : "ColumnChart",
+										options : {
+											'title' : 'BaseX Benchmark: '
+													+ $rootScope.suite
+										},
+										data : {
+											"cols" : cols,
+											"rows" : rows
+										}
+									};
+								}
+								;
+							}
+							;
+
+							$scope.chartReady = function(chartWrapper) {
+								// not working!!
+								$window.google.visualization.events
+										.addListener(
+												chartWrapper,
+												'select',
+												function() {
+													console
+															.log('select event fired!');
+												});
+							};
+							$scope.$on("session", function() {
+								$scope.chartObject = genChart();
+							});
+							$scope.chartObject = genChart();
+						} ])
+		.controller('WadlController',
+				[ "$scope", "$rootScope", function($scope) {
+					$scope.setTitle("WADL");
+					$scope.run = function(path) {
+						alert("TODO run:"+path);
 					};
-					$scope.$on("session", function() {
-						$scope.chartObject = genChart();
-					});
-					$scope.chartObject = genChart();
-				}])
-
+				} ])
 		.filter(
 				'readablizeBytes',
 				function() {

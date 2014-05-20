@@ -58,9 +58,8 @@ let $name:=$body/json/name/fn:string()
 let $suite:=$body/json/suite/fn:string()
 let $time:=xm:time-xmark($suite || "/" || $name,$bm:timeout)
 let $run:= <run>
+        {$time}
         <name>{$name}</name>
-        <runtime type="number">{$time}</runtime>
-        <status>Complete</status>
         <mode>{xm:mode()}</mode>
         <factor>{$xm:factor/fn:string()}</factor>
         <created>{fn:current-dateTime()}</created>
