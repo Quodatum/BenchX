@@ -9,11 +9,11 @@ Version 7.8.2 of BaseX is required as the query timeout functionality of xquery:
 
 1. copy the contents of the `src` folder to your `webapp` folder 
 1. Start `basexhttp`
-1. In browser navigate to `/benchmark`
+1. In browser navigate to `/benchx`
 
 # Target file or database
-The queries reference `doc("benchmark-db/auction.xml")` so will run against the 
-database `benchmark-db`if it exists otherwise they use the file system.
+The queries reference `doc("benchx-db/auction.xml")` so will run against the 
+database `benchx-db`if it exists otherwise they use the file system.
 
 # xmlgen
 Binaries are supplied for Windows and x86 Linux. For other platforms e.g. ARM you 
@@ -22,6 +22,7 @@ must recompile from the supplied `unix.c`. E.g.
 
 
 # data structures
+````
 {
   "run": {
     "runtime": 116,
@@ -33,11 +34,12 @@ must recompile from the supplied `unix.c`. E.g.
     "src:"?library id"
   }
 }
+````
 status: "" run was ok, otherwise $err:code
 
 # tests
 ## server
- Xquery unit tests in src/benchx/test
+ XQuery unit tests in src/benchx/test
  
 ## client 
 todo 
