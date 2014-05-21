@@ -6,7 +6,7 @@
  */
 angular.module('BenchX.api', [ 'ngResource' ])
 
-.constant("apiRoot", "../../benchmark/api/")
+.constant("apiRoot", "../../benchx/api/")
 
 .factory('api', [ '$resource', 'apiRoot', function($resource, apiRoot) {
 	return {

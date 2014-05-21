@@ -25,14 +25,14 @@ declare variable $bm:timeout as xs:integer:=10;
  : Will create db if required
  :)
 declare %updating
-%rest:GET %rest:path("benchmark")
+%rest:GET %rest:path("benchx")
 %output:method("html")   
 function benchmark()
 {(
-    if(db:exists("benchmark")) then ()
-    else dbtools:sync-from-path("benchmark",fn:resolve-uri("data/benchmark")),
+    if(db:exists("benchx")) then ()
+    else dbtools:sync-from-path("benchx",fn:resolve-uri("data/benchx")),
     
-    db:output(<rest:forward>/static/benchmark</rest:forward>)
+    db:output(<rest:forward>/static/benchx</rest:forward>)
 )};
 
 declare %rest:error("*")
@@ -50,7 +50,7 @@ function error($description) {
  : @return information about the result, including runtime
  :)
 declare 
-%rest:POST("{$body}") %rest:path("benchmark/api/execute")
+%rest:POST("{$body}") %rest:path("benchx/api/execute")
 %output:method("json")   
 function execute($body)
 {
@@ -75,7 +75,7 @@ let $run:= <run>
  : @param xmlgen factor size for file to create
  :)
 declare %updating
-%rest:POST %rest:path("benchmark/api/xmlgen")
+%rest:POST %rest:path("benchx/api/xmlgen")
 %restxq:form-param("factor", "{$factor}",0)  
 %output:method("json")   
 function xmlgen($factor)
@@ -90,7 +90,7 @@ function xmlgen($factor)
  : Create database from file
  :)
 declare %updating
-%rest:POST %rest:path("benchmark/api/manage")
+%rest:POST %rest:path("benchx/api/manage")
 %output:method("json")   
 function create()
 {
@@ -106,7 +106,7 @@ try{
  : get information about application state
  :)
 declare 
-%rest:GET %rest:path("benchmark/api/status")
+%rest:GET %rest:path("benchx/api/status")
 %output:method("json")   
 function status() 
 {
@@ -119,7 +119,7 @@ function status()
  : list of library files
  :)
 declare 
-%rest:GET %rest:path("benchmark/api/library")
+%rest:GET %rest:path("benchx/api/library")
 %output:method("json")   
 function library() 
 {
@@ -130,7 +130,7 @@ function library()
  : post new record
  :)
 declare %updating
-%rest:POST("{$body}") %rest:path("benchmark/api/library")
+%rest:POST("{$body}") %rest:path("benchx/api/library")
 %output:method("json")   
 function addrecord($body) 
 {
@@ -140,7 +140,7 @@ function addrecord($body)
  : get record
  :)
 declare 
-%rest:GET %rest:path("benchmark/api/library/{$id}")
+%rest:GET %rest:path("benchx/api/library/{$id}")
 %output:method("json")   
 function record($id) 
 {
@@ -152,13 +152,13 @@ function record($id)
  : testbed
  :)
 declare 
-%rest:GET %rest:path("benchmark/api/testbed")
+%rest:GET %rest:path("benchx/api/testbed")
 %output:method("json")   
 function testbed() 
 {
    <json  objects="json doc _" arrays="docs ">
    <docs>
-   {for $doc in fn:collection("benchmark/library")/benchmark
+   {for $doc in $lib:benchmarks
    order by $doc/meta/created
    return <_>
    {$doc/id,
@@ -176,7 +176,7 @@ function testbed()
  : @return array of suite names
  :)
 declare 
-%rest:GET %rest:path("benchmark/api/suite")
+%rest:GET %rest:path("benchx/api/suite")
 %output:method("json")   
 function suites() 
 {
@@ -197,7 +197,7 @@ function suites()
  : @return array of tests in suite
  :)
 declare 
-%rest:GET %rest:path("benchmark/api/suite/{$suite}")
+%rest:GET %rest:path("benchx/api/suite/{$suite}")
 %output:method("json")   
 function queries($suite as xs:string) 
 {
@@ -217,7 +217,7 @@ function queries($suite as xs:string)
  : @return json env array
  :)
 declare 
-%rest:GET %rest:path("benchmark/api/environment")
+%rest:GET %rest:path("benchx/api/environment")
 %output:method("json")   
 function env() 
 {
@@ -240,7 +240,7 @@ return <json objects="json _ " arrays="env">
  : show xqdoc for rest api
  :)
 declare 
-%rest:GET %rest:path("benchmark/doc/xqdoc")
+%rest:GET %rest:path("benchx/doc/xqdoc")
 %output:method("html")  
 function xqdoc() 
 {
@@ -251,9 +251,9 @@ function xqdoc()
  : show xqdoc for rest api
  :)
 declare 
-%rest:GET %rest:path("benchmark/doc/wadl")
+%rest:GET %rest:path("benchx/doc/wadl")
 %output:method("html")  
 function wadl() 
 {
-  doc:wadl("/benchmark") 
+  doc:wadl("/benchx") 
 }; 

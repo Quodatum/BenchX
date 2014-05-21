@@ -10,10 +10,10 @@ angular
 			$routeProvider.when('/', {
 				redirectTo : '/session'
 			}).when('/session', {
-				templateUrl : '/static/benchmark/templates/session.xml',
+				templateUrl : '/static/benchx/templates/session.xml',
 				controller : "SessionController"
 			}).when('/environment', {
-				templateUrl : '/static/benchmark/templates/environment.xml',
+				templateUrl : '/static/benchx/templates/environment.xml',
 				controller : "envController",
 				resolve : {
 					data : function(api) {
@@ -21,9 +21,9 @@ angular
 					}
 				}
 			}).when('/about', {
-				templateUrl : '/static/benchmark/templates/about.xml'
+				templateUrl : '/static/benchx/templates/about.xml'
 			}).when('/library', {
-				templateUrl : '/static/benchmark/templates/library.xml',
+				templateUrl : '/static/benchx/templates/library.xml',
 				controller : "LibraryController",
 				resolve : {
 					data : function(api) {
@@ -31,7 +31,7 @@ angular
 					}
 				}
 			}).when('/library/:id', {
-				templateUrl : '/static/benchmark/templates/record.xml',
+				templateUrl : '/static/benchx/templates/record.xml',
 				controller : "RecordController",
 				resolve : {
 					data : function(api, $route) {
@@ -42,7 +42,7 @@ angular
 					}
 				}
 			}).when('/suite', {
-				templateUrl : '/static/benchmark/templates/suites.xml',
+				templateUrl : '/static/benchx/templates/suites.xml',
 				controller : "SuitesController",
 				resolve : {
 					data : function(api) {
@@ -50,7 +50,7 @@ angular
 					}
 				}
 			}).when('/suite/:id', {
-				templateUrl : '/static/benchmark/templates/suite.xml',
+				templateUrl : '/static/benchx/templates/suite.xml',
 				controller : "SuiteController",
 				resolve : {
 					data : function(api, $route) {
@@ -58,12 +58,12 @@ angular
 					}
 				}
 			}).when('/xqdoc', {
-				templateUrl : '/static/benchmark/templates/xqdoc.xml'
+				templateUrl : '/static/benchx/templates/xqdoc.xml'
 			}).when('/wadl', {
-				templateUrl : '/static/benchmark/templates/wadl.xml',
+				templateUrl : '/static/benchx/templates/wadl.xml',
 				controller : "WadlController"
 			}).when('/404', {
-				templateUrl : '/static/benchmark/templates/404.xml'
+				templateUrl : '/static/benchx/templates/404.xml'
 			}).otherwise({
 				redirectTo : '/404'
 			});

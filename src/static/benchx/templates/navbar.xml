@@ -8,8 +8,8 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand brand" href="/benchmark">
-				<img src="benchmark.svg" style="width:20px;height:20px;vertical-align:top;" />
+			<a class="navbar-brand brand" href="/benchx">
+				<img src="benchx.svg" style="width:20px;height:20px;vertical-align:top;" />
 				BenchX
 			</a>
 		</div>

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ basex xqdoc o/p to html with bootstrap
+ -->
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xqdoc="http://www.xqdoc.org/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fn="http://www.w3.org/2005/02/xpath-functions"

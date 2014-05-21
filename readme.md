@@ -20,3 +20,23 @@ Binaries are supplied for Windows and x86 Linux. For other platforms e.g. ARM yo
 must recompile from the supplied `unix.c`. E.g.
 `gcc -o xmlgen unix.c`
 
+
+# data structures
+{
+  "run": {
+    "runtime": 116,
+    "status": "",
+    "name": "q02.xq",
+    "mode": "D",
+    "factor": "0.25",
+    "created": "2014-05-21T21:25:28.793+01:00"
+  }
+}
+Status: "" run was ok else error
+
+# tests
+## server
+ Xquery unit tests in src/benchx/test
+ 
+## client 
+todo 

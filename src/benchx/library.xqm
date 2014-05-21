@@ -9,14 +9,16 @@ declare default function namespace 'apb.benchx.library';
  : get new doc defaults
  :)
 declare variable $lib:new as element(benchmark)
-             :=db:open("benchmark","benchmark.xml")/benchmark;
+             :=db:open("benchx","benchmark.xml")/benchmark;
 
+declare variable $lib:benchmarks as element(benchmark)*
+             :=fn:collection("benchx/library")/benchmark;
 (:~
  : get new doc with given id
  :)
 declare function id($id) as element(benchmark)
 {
-  fn:collection("benchmark/library")/benchmark[id=$id]
+  $lib:benchmarks[id=$id]
 };
 
 (:~
@@ -33,7 +35,7 @@ declare %updating function add-record($data)
  :)
 declare function list(){
  <json  objects="_" arrays="json ">
-   {for $doc in fn:collection("benchmark/library")/benchmark
+   {for $doc in $lib:benchmarks
    order by $doc/meta/created
    return <_>{$doc/id,
     $doc/suite,

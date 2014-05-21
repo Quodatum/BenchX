@@ -9,8 +9,8 @@
 module namespace xm = 'apb.xmark.test';
 declare default function namespace 'apb.xmark.test'; 
 
-declare variable $xm:factor:=db:open("benchmark","state.xml")/state/factor;
-declare variable $xm:mode:=db:open("benchmark","state.xml")/state/mode;
+declare variable $xm:factor:=db:open("benchx","state.xml")/state/factor;
+declare variable $xm:mode:=db:open("benchx","state.xml")/state/mode;
 
 declare variable $xm:isWin:=file:dir-separator()="\";
 declare variable $xm:bin:=if($xm:isWin) then "bin\win32.exe" else "bin/xmlgen";
@@ -27,14 +27,6 @@ declare function get-xmark($query as xs:string
     "suite/" || $query 
   )
   return fn:unparsed-text($f) 
-};
-
-(:~
- : get library doc query
- :)
-declare function doc($id as xs:string
-) as document-node() {
- db:open("benchmark","library/" || $id || ".xml")
 };
 
 
@@ -64,7 +56,7 @@ declare function time-xmark(
 (:~
  : @param $xq xquery to evaluate 
  : @param $timeout stop execution after this time in seconds
- : @return execution time of $xq in ms, any error code)
+ : @return two item sequence(execution time of $xq in ms,error code or "")
  :) 
 declare function time($xq as xs:string,$timeout as xs:double)
 as item()*{
@@ -79,7 +71,7 @@ as item()*{
        return (prof:current-ms()-$t1,"")
       }catch * 
       {
-        ($timeout * 1000,$err:code)
+        ($timeout ,$err:code)
       }
 };
 
@@ -90,8 +82,8 @@ as item()*{
 declare function xmlgen($factor as xs:double){
     let $factor:=fn:string($factor)
     let $args:=if($xm:isWin)
-           then ("/f",$factor,"/o",$xm:base-dir ||"benchmark-db\auction.xml")
-           else ("-f",$factor,"-o",$xm:base-dir ||"benchmark-db/auction.xml")
+           then ("/f",$factor,"/o",$xm:base-dir ||"benchx-db\auction.xml")
+           else ("-f",$factor,"-o",$xm:base-dir ||"benchx-db/auction.xml")
     let $r:= proc:execute($xm:exec,$args)
     return if($r/code!="0")
            then fn:error(xs:QName('xm:xmlgen'),$r/error)
@@ -102,12 +94,12 @@ declare function xmlgen($factor as xs:double){
  : @return filesize of auction.xml
  :)
 declare function file-size(){
-    let $f:=$xm:base-dir ||"benchmark-db/auction.xml"
+    let $f:=$xm:base-dir ||"benchx-db/auction.xml"
     return if(file:exists($f)) then file:size($f) else 0
  };
  
 declare function mode() as xs:string{
-    if (db:exists("benchmark-db")) then "D" else "F"
+    if (db:exists("benchx-db")) then "D" else "F"
 };
 
  (:~
@@ -115,10 +107,10 @@ declare function mode() as xs:string{
  :)
 declare %updating function manage-db($create as xs:boolean){
     if($create) then
-        db:create("benchmark-db"
-                    ,$xm:base-dir ||"benchmark-db/auction.xml"
+        db:create("benchx-db"
+                    ,$xm:base-dir ||"benchx-db/auction.xml"
                     ,"auction.xml")
-    else if (mode()="D") then db:drop("benchmark-db") else ()               
+    else if (mode()="D") then db:drop("benchx-db") else ()               
  }; 
  
  (:~
