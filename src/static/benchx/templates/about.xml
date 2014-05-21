@@ -1,7 +1,7 @@
 <div>
 	<div class="jumbotron">
 		<h1>
-			<img src="benchmark.svg" style="width:60px;height:60px" />
+			<img src="benchx.svg" style="width:60px;height:60px" />
 			Benchmark BaseX
 		</h1>
 		<p>This application times the execution of sets of XQuery queries

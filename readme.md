@@ -29,10 +29,11 @@ must recompile from the supplied `unix.c`. E.g.
     "name": "q02.xq",
     "mode": "D",
     "factor": "0.25",
-    "created": "2014-05-21T21:25:28.793+01:00"
+    "created": "2014-05-21T21:25:28.793+01:00",
+    "src:"?library id"
   }
 }
-Status: "" run was ok else error
+status: "" run was ok, otherwise $err:code
 
 # tests
 ## server

@@ -172,7 +172,7 @@ function testbed()
 
  
 (:~
- : list of suite
+ : list of suites
  : @return array of suite names
  :)
 declare 
