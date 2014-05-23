@@ -1,4 +1,4 @@
-let $auction := doc("benchmark-db/auction.xml") return
+let $auction := doc("benchx-db/auction.xml") return
 for $b in $auction/site/open_auctions/open_auction
 return <increase>{$b/bidder[1]/increase/text()}</increase>
 

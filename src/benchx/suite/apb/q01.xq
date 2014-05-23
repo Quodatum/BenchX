@@ -1,3 +1,3 @@
-let $auction := doc("benchmark-db/auction.xml") return
+let $auction := doc("benchx-db/auction.xml") return
 count($auction//*)
 

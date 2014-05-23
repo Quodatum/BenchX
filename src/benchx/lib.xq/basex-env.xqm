@@ -1,6 +1,7 @@
 xquery version "3.0";
 (:~
-: Get information about the BaseX environment, often java properties
+: Get information about the BaseX ,java and host environment
+: using java api calls
 :
 : @author andy bunce
 : @since sept 2012
@@ -11,6 +12,10 @@ module namespace env = 'apb.basex.env';
 declare default function namespace 'apb.basex.env';
 declare namespace sys="java.lang.System";
 declare namespace Runtime="java.lang.Runtime";
+declare namespace ManagementFactory="java.lang.management.ManagementFactory";
+declare namespace RuntimeMXBean="java.lang.management.RuntimeMXBean";
+declare namespace InetAddress="java.net.InetAddress";
+
 declare variable $env:core:=(
             "java.version","java.vendor","java.vm.version",
             "os.name","os.version","os.arch");
@@ -40,19 +45,39 @@ as map(*){
 let $f:=if($human)then prof:human#1 else function($x){$x}
 let $r:=Runtime:getRuntime()
 return map{
-    "memory.free":=$f(Runtime:freeMemory($r)),
-    "memory.max":=$f(Runtime:maxMemory($r)),
-    "memory.total":=$f(Runtime:totalMemory($r))
+    "runtime.freeMemory":=$f(Runtime:freeMemory($r)),
+    "runtime.maxMemory":=$f(Runtime:maxMemory($r)),
+    "runtime.totalMemory":=$f(Runtime:totalMemory($r))
     }
 };
 
-(:~ useful properties :)
+(:~ useful properties as a map :)
 declare function about() 
 as map(*){
  let $c:= map:new($env:core!map:entry(.,sys:getProperty(.)))
  return map:new((
                 $c,
                 memory(fn:true()),
-                map:entry("basex.version",basex-version())
+                map:entry("basex.version",basex-version()),
+                map:entry("runtime.availableProcessors",availableProcessors())
                 ))
+};
+
+declare function availableProcessors()
+{
+    let $r:=Runtime:getRuntime()
+    return Runtime:availableProcessors($r)
+};
+
+declare function uptime()
+{
+    let $r:=ManagementFactory:getRuntimeMXBean()
+    return RuntimeMXBean:getUptime($r)
+};
+
+declare function hostname()
+{
+    let $r:=InetAddress:getLocalHost()
+    return InetAddress:getHostName($r)
+
 };

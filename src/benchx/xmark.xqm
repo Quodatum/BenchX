@@ -9,8 +9,9 @@
 module namespace xm = 'apb.xmark.test';
 declare default function namespace 'apb.xmark.test'; 
 
-declare variable $xm:factor:=db:open("benchx","state.xml")/state/factor;
-declare variable $xm:mode:=db:open("benchx","state.xml")/state/mode;
+declare variable $xm:root:=db:open("benchx","state.xml")/root;
+declare variable $xm:factor:=$xm:root/state/factor;
+declare variable $xm:mode:=$xm:root/state/mode;
 
 declare variable $xm:isWin:=file:dir-separator()="\";
 declare variable $xm:bin:=if($xm:isWin) then "bin\win32.exe" else "bin/xmlgen";

@@ -1,0 +1,48 @@
+<div ng-controller="ScheduleController">
+	<div class="alert alert-info">Queue and execute a set of BenchX tasks
+	</div>
+	<div class="row">
+		<label>Initial Mode:</label>
+		<div class="btn-group">
+			<label class="btn btn-success" ng-model="mode" btn-radio="'F'"
+				uncheckable>File</label>
+			<label class="btn btn-success" ng-model="mode" btn-radio="'D'"
+				uncheckable>Database</label>
+		</div>
+		<label>
+			Initial Factor:
+			<input class="input-sm" type="number" ng-model="factor" min="0"
+				max="10" step="0.25" />
+			(Size: {{factor | factorBytes | readablizeBytes}})
+		</label>
+	</div>
+	<div class="row">
+		<label>
+			Factor incr:
+			<input class="input-sm" type="number" ng-model="incr" min="0"
+				max="10" step=".05" />
+		</label>
+		<label>
+			Factor max:
+			<input class="input-sm" type="number" ng-model="max" min="0"
+				max="10" step=".2" />
+		</label>
+	</div>
+	<label>
+		Repeat:
+		<input class="input-sm" type="number" ng-model="repeat" min="1"
+			max="10" step="1" />
+	</label>
+
+	<button class="btn btn-primary  btn-sm  navbar-btn " ng-click="toggleMode()"
+		title="Click to toggle mode: File or Database">{{state.mode}}</button>
+
+	<button class="factor btn btn-primary  btn-sm navbar-btn"
+		ng-click="xmlgen(0.5)" title="Click to set size">{{state.factor}}/{{state.size}}
+	</button>
+
+	<button class="btn btn-primary" ng-click="executeAll()" title="Execute all queries">
+		<i class="glyphicon glyphicon-forward"></i>
+		Run All
+	</button>
+</div>

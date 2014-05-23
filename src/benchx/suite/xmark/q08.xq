@@ -1,4 +1,4 @@
-let $auction := doc("benchmark-db/auction.xml") return
+let $auction := doc("benchx-db/auction.xml") return
 for $p in $auction/site/people/person
 let $a :=
   for $t in $auction/site/closed_auctions/closed_auction

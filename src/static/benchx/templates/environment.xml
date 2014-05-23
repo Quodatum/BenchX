@@ -16,13 +16,17 @@
 						<td>SessionId:</td>
 						<td>{{state.session}}</td>
 					</tr>
+					<tr >
+                        <td>Hostname:</td>
+                        <td>{{state.hostname}}</td>
+                    </tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
 	<div class="panel  panel-info panel-body col-md-4">
 		<div class="panel-heading">
-			<h3 class="panel-title">Java environment values</h3>
+			<h3 class="panel-title">Environment</h3>
 		</div>
 		<div class="panel-body table-responsive">
 			<table class="table table-striped">

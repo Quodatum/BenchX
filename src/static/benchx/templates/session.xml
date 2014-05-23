@@ -5,24 +5,9 @@
 			<div google-chart="google-chart" chart="chartObject" onReady="chartReady"
 				style="height:400px; width:100%;" ng-controller="ChartController"></div>
 		</div>
-		<div class="animate-switch well" ng-switch-when="run">
-    <div class="alert alert-info">Queue and execute a set of BenchX tasks
-            </div>
-        
-			<button class="btn btn-primary  btn-sm  navbar-btn " ng-click="toggleMode()"
-				title="Click to toggle mode: File or Database">{{state.mode}}</button>
-
-			<button class="factor btn btn-primary  btn-sm navbar-btn"
-				ng-click="xmlgen(0.5)" title="Click to set size">{{state.factor}}/{{state.size}}
-			</button>
-			<label>
-				Repeat:
-				<input class="input-sm" type="number" ng-mode="repeat" />
-			</label>
-			<button class="btn btn-primary" ng-click="executeAll()" title="Execute all queries">
-				<i class="glyphicon glyphicon-forward"></i>
-				Run All
-			</button>
+		<div class="animate-switch well" ng-switch-when="run"> 
+		<div ng-include="'templates/schedule.xml'">loading..</div>
+		
 		</div>
 		<div class="animate-switch well" ng-switch-when="save">
 			<div class="alert alert-info">Save the current session timings on this webserver.

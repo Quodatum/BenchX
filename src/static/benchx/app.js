@@ -1,3 +1,9 @@
+/*
+ * BenchX angular appliction
+ * @author andy bunce
+ * @date 2014
+ * @licence Apache 2
+ */
 angular
 		.module(
 				'BenchX',
@@ -69,60 +75,76 @@ angular
 			});
 		} ])
 
-		.run([ '$rootScope', '$window', function($rootScope, $window) {
-			$rootScope.setTitle = function(t) {
-				$window.document.title = t;
-			};
-			$rootScope.setTitle("BenchX");
-			$rootScope.logmsg = "Welcome to BenchX v0.3";
-			$rootScope.suites = [ "xmark", "apb" ];
-			$rootScope.suite = "xmark";
-			$rootScope.queue = async.queue(function(task, callback) {
-				var promise;
-				switch (task.cmd) {
-				case "run":
-					$rootScope.logmsg = 'Starting ' + task.data;
-					promise = $rootScope.execute(task.data);
-					break;
-				case "toggle":
-					$rootScope.logmsg = 'Starting mode toggle';
-					promise = $rootScope.toggleMode();
-					break;
-				case "xmlgen":
-					$rootScope.logmsg = 'Requesting XML generation';
-					promise = $rootScope.xmlgen(task.data);
-					break;
-				default:
-					$rootScope.logmsg = 'Unknown command ignored: ' + task.cmd;
-				}
-				;
-				promise.then(function(res) {
-					// Dig into the responde to get the relevant data
-					$rootScope.logmsg = 'End of ' + task.data;
-					callback();
-				});
-			}, 1);
-			$rootScope.queue.drain = function() {
-				$rootScope.logmsg = 'Idle';
-			};
-		} ])
+		.run(
+				[
+						'$rootScope',
+						'$window',
+						'hotkeys',
+						function($rootScope, $window, hotkeys) {
+							$rootScope.setTitle = function(t) {
+								$window.document.title = t;
+							};
+							$rootScope.setTitle("BenchX");
+							$rootScope.logmsg = "Welcome to BenchX v0.3";
+							$rootScope.suites = [ "xmark", "apb" ];
+							$rootScope.suite = "xmark";
+							$rootScope.queue = async
+									.queue(
+											function(task, callback) {
+												var promise;
+												switch (task.cmd) {
+												case "run":
+													$rootScope.logmsg = 'Starting '
+															+ task.data;
+													promise = $rootScope
+															.execute(task.data);
+													break;
+												case "toggle":
+													$rootScope.logmsg = 'Starting mode toggle';
+													promise = $rootScope
+															.toggleMode();
+													break;
+												case "xmlgen":
+													$rootScope.logmsg = 'Requesting XML generation';
+													promise = $rootScope
+															.xmlgen(task.data);
+													break;
+												default:
+													$rootScope.logmsg = 'Unknown command ignored: '
+															+ task.cmd;
+												}
+												;
+												promise
+														.then(function(res) {
+															// Dig into the
+															// responde to get
+															// the relevant data
+															$rootScope.logmsg = 'End of '
+																	+ task.data;
+															callback();
+														});
+											}, 1);
+							$rootScope.queue.drain = function() {
+								$rootScope.logmsg = 'Idle';
+							};
+							hotkeys.add("T",
+									"toggles mode between file and database",
+									$rootScope.toggleMode);
+							hotkeys.add("X", "run all queries",
+									$rootScope.executeAll);
+						} ])
 
 		.controller(
 				'rootController',
 				[
 						'$rootScope',
 						'api',
-						'hotkeys',
-						function($rootScope, api, hotkeys) {
+
+						function($rootScope, api) {
 							function updateStatus(data) {
 								console.log("update status:", data);
 								$rootScope.state = data.state;
 							}
-							hotkeys.add("T",
-									"toggles mode between file and database",
-									$rootScope.toggleMode);
-							hotkeys.add("X", "run all queries",
-									$rootScope.executeAll);
 
 							$rootScope.$watch("session", function() {
 								$rootScope.$broadcast("session");
@@ -222,6 +244,44 @@ angular
 									.setView($routeParams.view ? $routeParams.view
 											: "grid");
 
+							
+							$scope.clearAll = function() {
+								var msg = "Remove timing data for runs in the current session?";
+
+								$dialog.messageBox("clear all", msg, [],
+										function(result) {
+											if (result === 'OK') {
+												angular.forEach(
+														$rootScope.session,
+														function(v) {
+															v.runs = [];
+														})
+											} else {
+												// failed...
+											}
+										});
+							};
+							$scope.save = function() {
+								var d = new api.library();
+								d.somestuff = "hello";
+								d.save().$promise.then(function(a) {
+									alert("OK");
+								}, function(e) {
+									alert("FAIL");
+								});
+							};
+						} ])
+		.controller(
+				'ScheduleController',
+				[ "$scope", "$rootScope", "api","$modal", "$dialog",
+						function($scope, $rootScope, api,$modal, $dialog) {
+							console.log("ScheduleController");
+							$scope.mode="F";
+							$scope.factor=0;
+							$scope.filesize="27k";
+							$scope.incr=0.25;
+							$scope.repeat=1;
+							$scope.max=1;
 							$scope.executeAll = function() {
 								var tasks = [];
 								angular.forEach($rootScope.session, function(v,
@@ -250,33 +310,7 @@ angular
 									});
 								});
 							};
-							$scope.clearAll = function() {
-								var msg = "Remove timing data for runs in the current session?";
-
-								$dialog.messageBox("clear all", msg, [],
-										function(result) {
-											if (result === 'OK') {
-												angular.forEach(
-														$rootScope.session,
-														function(v) {
-															v.runs = [];
-														})
-											} else {
-												// failed...
-											}
-										});
-							};
-							$scope.save = function() {
-								var d = new api.library();
-								d.somestuff = "hello";
-								d.save().$promise.then(function(a) {
-									alert("OK");
-								}, function(e) {
-									alert("FAIL");
-								});
-							};
 						} ])
-
 		.controller('envController',
 				[ "$scope", "data", function($scope, data) {
 					$scope.setTitle("Environment");
@@ -413,7 +447,7 @@ angular
 				[ "$scope", "$rootScope", function($scope) {
 					$scope.setTitle("WADL");
 					$scope.run = function(path) {
-						alert("TODO run:"+path);
+						alert("TODO run:" + path);
 					};
 				} ])
 		.filter(

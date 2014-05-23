@@ -1,4 +1,4 @@
-let $auction := doc("benchmark-db/auction.xml") return
+let $auction := doc("benchx-db/auction.xml") return
 count(
   for $i in $auction/site/closed_auctions/closed_auction
   where $i/price/text() >= 40
