@@ -1,6 +1,7 @@
 <div ng-controller="ScheduleController">
 	<div class="alert alert-info">Queue and execute a set of BenchX tasks
 	</div>
+	<form>
 	<div class="row">
 		<label>Initial Mode:</label>
 		<div class="btn-group">
@@ -13,8 +14,8 @@
 			Initial Factor:
 			<input class="input-sm" type="number" ng-model="factor" min="0"
 				max="10" step="0.25" />
-			(Size: {{factor | factorBytes | readablizeBytes}})
-		</label>
+			
+		</label>(Size: {{factor | factorBytes | readablizeBytes}})
 	</div>
 	<div class="row">
 		<label>
@@ -45,4 +46,9 @@
 		<i class="glyphicon glyphicon-forward"></i>
 		Run All
 	</button>
+	</form>
+	<button class="btn btn-primary" ng-click="go()" title="Execute all queries">
+        <i class="glyphicon glyphicon-forward"></i>
+        Go
+    </button>
 </div>

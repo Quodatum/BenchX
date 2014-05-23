@@ -278,7 +278,6 @@ angular
 							console.log("ScheduleController");
 							$scope.mode="F";
 							$scope.factor=0;
-							$scope.filesize="27k";
 							$scope.incr=0.25;
 							$scope.repeat=1;
 							$scope.max=1;
@@ -310,6 +309,9 @@ angular
 									});
 								});
 							};
+							$scope.go=function(){
+								alert("go: "+$scope.repeat);
+							}
 						} ])
 		.controller('envController',
 				[ "$scope", "data", function($scope, data) {
