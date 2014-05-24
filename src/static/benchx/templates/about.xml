@@ -17,7 +17,7 @@
 		
 	<h2>Client Component list</h2>
 	<ul>
-		<li>twitter-bootstrap/3.1.0</li>
+		<li>twitter-bootstrap/3.1.1</li>
 		<li>angularjs/1.2.14</li>
 		<li>angular-ui-bootstrap/0.10.0</li>
 		<li>http://chieffancypants.github.io/angular-hotkeys/</li>

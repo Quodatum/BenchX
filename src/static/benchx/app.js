@@ -8,9 +8,9 @@ angular
 		.module(
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
-						'googlechart', 'angularCharts', 'dialog',
-						'angularMoment', 'BenchX.api',
-						'services.httpRequestTracker' ])
+					'googlechart', 'angularCharts', 'dialog','ngStorage',
+					'angularMoment', 'BenchX.api',
+					'services.httpRequestTracker' ])
 
 		.config([ '$routeProvider', function($routeProvider) {
 			$routeProvider.when('/', {
@@ -85,7 +85,7 @@ angular
 								$window.document.title = t;
 							};
 							$rootScope.setTitle("BenchX");
-							$rootScope.logmsg = "Welcome to BenchX v0.3";
+							$rootScope.logmsg = "Welcome to BenchX v0.4";
 							$rootScope.suites = [ "xmark", "apb" ];
 							$rootScope.suite = "xmark";
 							$rootScope.queue = async
@@ -236,6 +236,7 @@ angular
 								$modal, $dialog, api) {
 							$rootScope.setTitle("Session");
 							$scope.repeat = 2;
+							$scope.store={description:""};
 							$scope.setView = function(v) {
 								$scope.view = v;
 								$location.search("view", v);
@@ -244,7 +245,6 @@ angular
 									.setView($routeParams.view ? $routeParams.view
 											: "grid");
 
-							
 							$scope.clearAll = function() {
 								var msg = "Remove timing data for runs in the current session?";
 
@@ -263,8 +263,7 @@ angular
 							};
 							$scope.save = function() {
 								var d = new api.library();
-								d.somestuff = "hello";
-								d.save().$promise.then(function(a) {
+								d.save($scope.store).$promise.then(function(a) {
 									alert("OK");
 								}, function(e) {
 									alert("FAIL");
@@ -273,15 +272,15 @@ angular
 						} ])
 		.controller(
 				'ScheduleController',
-				[ "$scope", "$rootScope", "api","$modal", "$dialog",
-						function($scope, $rootScope, api,$modal, $dialog) {
+				[
+						"$scope",
+						"$rootScope",
+						"api",
+						"$modal",
+						"$dialog","$localStorage",
+						function($scope, $rootScope, api, $modal, $dialog,$localStorage) {
 							console.log("ScheduleController");
-							$scope.mode="F";
-							$scope.factor=0;
-							$scope.incr=0.25;
-							$scope.repeat=1;
-							$scope.max=1;
-							$scope.executeAll = function() {
+							function makerun() {
 								var tasks = [];
 								angular.forEach($rootScope.session, function(v,
 										index) {
@@ -290,12 +289,36 @@ angular
 										data : index
 									});
 								});
-								$rootScope.queue.push(tasks);
-								$rootScope.queue.push({
-									cmd : "toggle",
-									data : 0
-								});
-								$rootScope.queue.push(tasks);
+								return tasks;
+							}
+							;
+							$scope.$storage = $localStorage.$default({
+								settings : {
+										mode : "F",
+										factor : 0,
+										allmodes:true,
+										incr : 0.25,
+										repeat : 1,
+										maxfactor : 1
+									}
+							});
+
+						
+
+							$scope.executeAll = function() {
+								var tasks = makerun();
+								for (var i = 0; i < $scope.$storage.settings.repeat; i++) {
+
+									$rootScope.queue.push(tasks);
+									if($scope.$storage.settings.allmodes){
+									$rootScope.queue.push({
+										cmd : "toggle",
+										data : 0
+									});
+									};
+									$rootScope.queue.push(tasks);
+								}
+								;
 								$scope.setView("graph");
 							};
 							$scope.xmlgen = function() {
@@ -309,9 +332,9 @@ angular
 									});
 								});
 							};
-							$scope.go=function(){
-								alert("go: "+$scope.repeat);
-							}
+							$scope.go = function() {
+								alert("go: " + $scope.$storage.settings.repeat);
+							};
 						} ])
 		.controller('envController',
 				[ "$scope", "data", function($scope, data) {
@@ -391,8 +414,7 @@ angular
 											function(v, index) {
 												cols.push({
 													id : "R" + index,
-													label : "Mode: " + v.mode
-															+ ", Factor:"
+													label : v.mode + ":"
 															+ v.factor,
 													type : "number"
 												});
@@ -445,6 +467,7 @@ angular
 							});
 							$scope.chartObject = genChart();
 						} ])
+
 		.controller('WadlController',
 				[ "$scope", "$rootScope", function($scope) {
 					$scope.setTitle("WADL");
@@ -452,6 +475,7 @@ angular
 						alert("TODO run:" + path);
 					};
 				} ])
+
 		.filter(
 				'readablizeBytes',
 				function() {
@@ -464,10 +488,8 @@ angular
 					};
 				})
 		// convert xmark factor to bytes
-		.filter(
-				'factorBytes',
-				function() {
-					return function(input) {
-						return (116.47106113642 * input - 0.00057972324877298) * 1000000;
-					};
-				});
+		.filter('factorBytes', function() {
+			return function(x) {
+				return (0.027 + 116.49 * x) * 1048576;
+			};
+		});

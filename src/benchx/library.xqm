@@ -27,7 +27,21 @@ declare function id($id) as element(benchmark)
 declare %updating function add-record($data) 
 {
     let $data:=fn:trace($data,"ADD ")
-    return db:output(<json objects="json"><todo>THIS</todo></json>)
+    let $desc:=$data/json/description/fn:string()
+    let $id:=random:uuid()
+    let $new:=copy $d:=$lib:new
+            modify (
+            replace value of node $d/id with $id,
+            replace value of node $d/meta/created with fn:current-dateTime(),
+            replace value of node $d/meta/description with $desc
+            )
+            return $d
+          
+    
+    return (
+            db:replace("benchx", "library/" || $id || ".xml" ,$new), 
+            db:output(<json objects="json"><todo>{$id}</todo></json>)
+            )
 };
 
 (:~
@@ -36,12 +50,13 @@ declare %updating function add-record($data)
 declare function list(){
  <json  objects="_" arrays="json ">
    {for $doc in $lib:benchmarks
-   order by $doc/meta/created
+   order by $doc/meta/created descending
    return <_>{$doc/id,
     $doc/suite,
     $doc/server/description,
     $doc/meta/description,
-    $doc/meta/created
+    $doc/meta/created,
+    $doc/environment/os.arch
    }</_>
    }</json>
  };

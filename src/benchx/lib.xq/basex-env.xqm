@@ -75,9 +75,13 @@ declare function uptime()
     return RuntimeMXBean:getUptime($r)
 };
 
-declare function hostname()
+declare function hostname() as xs:string
 {
+try{
     let $r:=InetAddress:getLocalHost()
     return InetAddress:getHostName($r)
+} catch *{
+    "?"   
+    }
 
 };

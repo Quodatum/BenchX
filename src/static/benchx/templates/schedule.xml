@@ -1,37 +1,41 @@
 <div ng-controller="ScheduleController">
+	
+	<form class="well">
 	<div class="alert alert-info">Queue and execute a set of BenchX tasks
-	</div>
-	<form>
+    </div>
 	<div class="row">
 		<label>Initial Mode:</label>
 		<div class="btn-group">
-			<label class="btn btn-success" ng-model="mode" btn-radio="'F'"
-				uncheckable>File</label>
-			<label class="btn btn-success" ng-model="mode" btn-radio="'D'"
-				uncheckable>Database</label>
+			<label class="btn btn-success" ng-model="$storage.settings.mode" btn-radio="'F'"
+				uncheckable="uncheckable">File</label>
+			<label class="btn btn-success" ng-model="$storage.settings.mode" btn-radio="'D'"
+				uncheckable="uncheckable">Database</label>
 		</div>
 		<label>
 			Initial Factor:
-			<input class="input-sm" type="number" ng-model="factor" min="0"
+			<input class="input-sm in8" type="number" ng-model="$storage.settings.factor" min="0"
 				max="10" step="0.25" />
 			
-		</label>(Size: {{factor | factorBytes | readablizeBytes}})
+		</label>(Size: {{$storage.settings.factor | factorBytes | readablizeBytes}})
 	</div>
 	<div class="row">
+	<label>
+	Both modes: <input type="checkbox" ng-model="$storage.settings.allmodes"/>
+	</label>
 		<label>
 			Factor incr:
-			<input class="input-sm" type="number" ng-model="incr" min="0"
+			<input class="input-sm in8" type="number" ng-model="$storage.settings.incr" min="0"
 				max="10" step=".05" />
 		</label>
 		<label>
 			Factor max:
-			<input class="input-sm" type="number" ng-model="max" min="0"
+			<input class="input-sm in8" type="number" ng-model="$storage.settings.maxfactor" min="0"
 				max="10" step=".2" />
 		</label>
 	</div>
 	<label>
 		Repeat:
-		<input class="input-sm" type="number" ng-model="repeat" min="1"
+		<input class="input-sm in8" type="number" ng-model="$storage.settings.repeat" min="1"
 			max="10" step="1" />
 	</label>
 
@@ -51,4 +55,5 @@
         <i class="glyphicon glyphicon-forward"></i>
         Go
     </button>
+  
 </div>

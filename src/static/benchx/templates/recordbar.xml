@@ -1,4 +1,7 @@
 <div class="row ">
+<a href="#/library" class="btn btn-default">
+<i class="glyphicon glyphicon-chevron-left"></i>
+</a>
 	<strong> View:</strong>
 	<div class="btn-group">
 
@@ -12,6 +15,11 @@
 			<i class="glyphicon glyphicon-signal"></i>
 			Graph
 		</button>
+		 <button class="btn btn-default" ng-click="setView('env')"
+            ng-class="{'btn-primary':view=='env'}">
+            <i class="glyphicon glyphicon-picture"></i>
+            Env
+        </button>
         <button class="btn btn-default" ng-click="setView('json')"
             ng-class="{'btn-primary':view=='json'}">
             <i class="glyphicon glyphicon-leaf"></i>
