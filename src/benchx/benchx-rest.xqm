@@ -60,8 +60,8 @@ let $time:=xm:time-xmark($suite || "/" || $name,$bm:timeout)
 let $run:= <run>
         {$time}
         <name>{$name}</name>
-        <mode>{xm:mode()}</mode>
-        <factor>{$xm:factor/fn:string()}</factor>
+        <mode>{s:mode()}</mode>
+        <factor>{$s:factor/fn:string()}</factor>
         <created>{fn:current-dateTime()}</created>
     </run>
  return (<json objects="json run">{$run}</json>,
@@ -81,8 +81,8 @@ declare %updating
 function xmlgen($factor)
 {
  let $go:=xm:xmlgen($factor)
- return (xm:manage-db(fn:false()),
-        replace value of node $xm:factor with $factor,
+ return (s:manage-db(fn:false()),
+        replace value of node $s:factor with $factor,
         db:output(status()))
 }; 
 
@@ -95,7 +95,7 @@ declare %updating
 function create()
 {
 try{
- (xm:toggle-db(),
+ (s:toggle-db(),
  db:output(status()))
  }catch * {
  db:output(web:status(500,$err:description))
@@ -134,7 +134,11 @@ declare %updating
 %output:method("json")   
 function addrecord($body) 
 {
-    lib:add-session($body,env:xml())  
+    let $server:=s:server()
+    return (
+            lib:add-session($body,env:xml(),$server),
+            s:server($server)
+            )  
 };
 (:~
  : get record

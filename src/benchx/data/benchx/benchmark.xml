@@ -6,7 +6,7 @@
 		<description>This is test data</description>
 	</meta>
 	<server>
-		<id>79da1774-256b-4131-bd90-0e23cd44a957</id>
+		<id/>
 		<hostname>redfish</hostname>
 		<description>Acer e1-571</description>		
 	</server>

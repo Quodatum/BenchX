@@ -9,9 +9,7 @@
 module namespace xm = 'apb.xmark.test';
 declare default function namespace 'apb.xmark.test'; 
 
-declare variable $xm:root:=db:open("benchx","state.xml")/root;
-declare variable $xm:factor:=$xm:root/state/factor;
-declare variable $xm:mode:=$xm:root/state/mode;
+
 
 declare variable $xm:isWin:=file:dir-separator()="\";
 declare variable $xm:bin:=if($xm:isWin) then "bin\win32.exe" else "bin/xmlgen";
@@ -91,32 +89,4 @@ declare function xmlgen($factor as xs:double){
            else $r
  };
  
- (:~
- : @return filesize of auction.xml
- :)
-declare function file-size(){
-    let $f:=$xm:base-dir ||"benchx-db/auction.xml"
-    return if(file:exists($f)) then file:size($f) else 0
- };
  
-declare function mode() as xs:string{
-    if (db:exists("benchx-db")) then "D" else "F"
-};
-
- (:~
- : create or drop xmark db with auction.xml
- :)
-declare %updating function manage-db($create as xs:boolean){
-    if($create) then
-        db:create("benchx-db"
-                    ,$xm:base-dir ||"benchx-db/auction.xml"
-                    ,"auction.xml")
-    else if (mode()="D") then db:drop("benchx-db") else ()               
- }; 
- 
- (:~
- : create or drop benchmark-db db with auction.xml
- :)
-declare %updating function toggle-db(){
-   manage-db(mode()="F")               
- };      

@@ -26,7 +26,8 @@ declare function id($id) as element(benchmark)
  :)
 declare %updating function add-session(
                 $data,
-                $env as element(environment) 
+                $env as element(environment),
+                $server as element(server) 
 ){
     let $data:=fn:trace($data,"ADD ")
     let $desc:=$data/json/description/fn:string()
@@ -36,11 +37,11 @@ declare %updating function add-session(
             replace value of node $d/id with $id,
             replace value of node $d/meta/created with fn:current-dateTime(),
             replace value of node $d/meta/description with $desc,
-            replace node $d/environment with $env
+            replace node $d/environment with $env,
+            replace node $d/server with $server
             )
             return $d
           
-    
     return (
             store($new), 
             db:output(<json objects="json"><todo>{$id}</todo></json>)

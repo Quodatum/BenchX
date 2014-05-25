@@ -14,7 +14,7 @@ angular
 
 		.config([ '$routeProvider', function($routeProvider) {
 			$routeProvider.when('/', {
-				redirectTo : '/session'
+				redirectTo : '/suite'
 			}).when('/session', {
 				templateUrl : '/static/benchx/templates/session.xml',
 				controller : "SessionController"

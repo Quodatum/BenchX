@@ -15,16 +15,17 @@
 		</div>
     <div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}">
 		<ul class="nav navbar-nav">
+		     <li>
+                <a href="#/suite" title="Suites">
+                <i class="glyphicon glyphicon-expand"></i>
+                Suites</a>
+            </li>
 			<li>
                 <a href="#/library" title="Timings">
                 <i class="glyphicon glyphicon-book"></i>
                 Library</a>
             </li>
-            <li>
-                <a href="#/suite" title="Suites">
-                <i class="glyphicon glyphicon-expand"></i>
-                Suites</a>
-            </li>
+
 			<li>
 				<a href="#/session" title="Run tests">
 				<i class="glyphicon glyphicon-cog"></i>
@@ -80,7 +81,7 @@
 						<li>
 							<a href="#/about" tabindex="-1">
 								<i class="glyphicon glyphicon-info-sign"></i>
-								About Benchmark
+								About BenchX
 							</a>
 						</li>
 					</ul>

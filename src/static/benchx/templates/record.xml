@@ -6,7 +6,7 @@
 			<div ac-chart="'bar'" ac-data="data" ac-config="config" id='chart' class='chart'></div> 
 		</div>
 		<div class="animate-switch " ng-switch-when="env">
-            <div class="panel  panel-info panel-body col-md-4">
+            <div class="panel  panel-info panel-body col-md-6">
         <div class="panel-heading">
             <h3 class="panel-title">Environment</h3>
         </div>
