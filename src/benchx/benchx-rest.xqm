@@ -134,7 +134,7 @@ declare %updating
 %output:method("json")   
 function addrecord($body) 
 {
-    lib:add-record($body)  
+    lib:add-session($body,env:xml())  
 };
 (:~
  : get record
@@ -149,7 +149,7 @@ function record($id)
 
  
 (:~
- : testbed
+ : testbed not part of app, use this for experiments
  :)
 declare 
 %rest:GET %rest:path("benchx/api/testbed")
@@ -221,15 +221,8 @@ declare
 %output:method("json")   
 function env() 
 {
-let $map:=env:about()
-return <json objects="json _ " arrays="env">
-    <env>{ for  $key in map:keys($map)
-           order by $key
-           return <_>
-                <name>{$key}</name>
-                <value>{$map($key)}</value>
-                </_>
-    }</env>
+<json objects="json environment " >
+    {env:xml()}
 </json>
 }; 
 

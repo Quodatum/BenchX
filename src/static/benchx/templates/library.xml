@@ -8,7 +8,8 @@
 			<thead>
 				<th>Title</th>
 				<th>Suite</th>
-				<th>os arch</th>
+				<th>Hostname</th>
+				<th>OS Arch</th>
 				<th>Created</th>
 			</thead>
 			<tbody>
@@ -17,6 +18,7 @@
 						<a href="#/library/{{doc.id}}">{{doc.description}}</a>
 					</td>
 					<td>{{doc.suite}}</td>
+					<td>{{doc.hostname}}</td>
 					<td>{{doc["os.arch"]}}</td>
 					<td am-time-ago="doc.created" title="{{doc.created}}"></td>
 				</tr>

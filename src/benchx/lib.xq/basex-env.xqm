@@ -10,6 +10,7 @@ xquery version "3.0";
  
 module namespace env = 'apb.basex.env';
 declare default function namespace 'apb.basex.env';
+
 declare namespace sys="java.lang.System";
 declare namespace Runtime="java.lang.Runtime";
 declare namespace ManagementFactory="java.lang.management.ManagementFactory";
@@ -36,6 +37,7 @@ declare function basex-minversion($minver as xs:string) as xs:boolean{
 declare function getProperty($name as xs:string) as xs:string{
     sys:getProperty($name)
 };
+
 (: 
  : memory status
  :http://javarevisited.blogspot.co.uk/2012/01/find-max-free-total-memory-in-java.html
@@ -51,7 +53,8 @@ return map{
     }
 };
 
-(:~ useful properties as a map :)
+(:~ useful properties as a map 
+ :)
 declare function about() 
 as map(*){
  let $c:= map:new($env:core!map:entry(.,sys:getProperty(.)))
@@ -63,6 +66,16 @@ as map(*){
                 ))
 };
 
+(:~ useful properties as xml
+ :)
+declare function xml() 
+as element(environment){
+    let $map:=about()
+    return  <environment>{ for  $key in map:keys($map)
+               order by $key
+               return element {$key} {$map($key)}
+        }</environment>
+};
 declare function availableProcessors()
 {
     let $r:=Runtime:getRuntime()

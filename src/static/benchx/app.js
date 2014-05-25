@@ -339,7 +339,7 @@ angular
 		.controller('envController',
 				[ "$scope", "data", function($scope, data) {
 					$scope.setTitle("Environment");
-					$scope.envs = data.env;
+					$scope.environment = data.environment;
 				} ])
 		.controller('SuitesController',
 				[ "$scope", "data", function($scope, data) {

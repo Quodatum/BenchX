@@ -14,7 +14,7 @@ declare variable $lib:new as element(benchmark)
 declare variable $lib:benchmarks as element(benchmark)*
              :=fn:collection("benchx/library")/benchmark;
 (:~
- : get new doc with given id
+ : get doc with given id
  :)
 declare function id($id) as element(benchmark)
 {
@@ -22,10 +22,12 @@ declare function id($id) as element(benchmark)
 };
 
 (:~
- : add record to library
+ : add session data to library
  :)
-declare %updating function add-record($data) 
-{
+declare %updating function add-session(
+                $data,
+                $env as element(environment) 
+){
     let $data:=fn:trace($data,"ADD ")
     let $desc:=$data/json/description/fn:string()
     let $id:=random:uuid()
@@ -33,15 +35,25 @@ declare %updating function add-record($data)
             modify (
             replace value of node $d/id with $id,
             replace value of node $d/meta/created with fn:current-dateTime(),
-            replace value of node $d/meta/description with $desc
+            replace value of node $d/meta/description with $desc,
+            replace node $d/environment with $env
             )
             return $d
           
     
     return (
-            db:replace("benchx", "library/" || $id || ".xml" ,$new), 
+            store($new), 
             db:output(<json objects="json"><todo>{$id}</todo></json>)
             )
+};
+
+(:~
+ : store in library
+ :)
+declare %updating function store($results as element(benchmark))
+{
+    let $id:=$results/id/fn:string()
+    return db:replace("benchx", "library/" || $id || ".xml" ,$results)
 };
 
 (:~
@@ -56,10 +68,12 @@ declare function list(){
     $doc/server/description,
     $doc/meta/description,
     $doc/meta/created,
-    $doc/environment/os.arch
+    $doc/environment/os.arch,
+    $doc/server/hostname
    }</_>
    }</json>
  };
+
  
  (:~ 
  : Prepare benchmark for json
