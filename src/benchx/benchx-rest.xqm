@@ -34,7 +34,7 @@ function benchmark()
             (web:status(500,"Server error")," BaseX min ver 7.8.2 required")
             )
     else
-        (
+        (s:init(),
         if(db:exists("benchx")) then ()
         else 
             dbtools:sync-from-path("benchx",fn:resolve-uri("data/benchx"))
@@ -43,12 +43,14 @@ function benchmark()
          )
 };
 
+(:
 declare %rest:error("*")
 %rest:error-param("description", "{$description}") 
 %output:method("text")  
 function error($description) {
     (web:status(500,"Server error"),$description)
 };
+:)
 
 (:~
  : Execute one test
@@ -57,7 +59,7 @@ function error($description) {
  : @param body name and suite
  : @return information about the result, including runtime
  :)
-declare 
+declare %updating
 %rest:POST("{$body}") %rest:path("benchx/api/execute")
 %output:method("json")   
 function execute($body)
@@ -69,11 +71,11 @@ let $run:= <run>
         {$time}
         <name>{$name}</name>
         <mode>{s:mode()}</mode>
-        <factor>{$s:factor/fn:string()}</factor>
+        <factor>{$s:root/state/factor/fn:string()}</factor>
         <created>{fn:current-dateTime()}</created>
     </run>
- return (<json objects="json run">{$run}</json>,
-        s:add($run))
+ return db:output((<json objects="json run">{$run}</json>,
+        s:add($run)))
 };
 
 
@@ -90,7 +92,7 @@ function xmlgen($factor)
 {
  let $go:=xm:xmlgen($factor)
  return (s:manage-db(fn:false()),
-        replace value of node $s:factor with $factor,
+        s:set-factor($factor),
         db:output(status()))
 }; 
 
@@ -142,11 +144,7 @@ declare %updating
 %output:method("json")   
 function addrecord($body) 
 {
-    let $server:=s:server()
-    return (
-            lib:add-session($body,env:xml(),$server),
-            s:server($server)
-            )  
+    lib:add-session($body,env:xml(),$s:root/server)  
 };
 (:~
  : get record

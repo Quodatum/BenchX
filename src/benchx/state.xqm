@@ -14,10 +14,8 @@ import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
 import module namespace session = "http://basex.org/modules/session";
 import module namespace sessions = "http://basex.org/modules/sessions";
 
-declare variable $s:root:=db:open("benchx","state.xml")/root;
-declare variable $s:factor:=$s:root/state/factor;
-declare variable $s:mode:=$s:root/state/mode;
-declare variable $s:server:=$s:root/server;
+declare variable $s:root:=fn:doc(fn:resolve-uri("state.xml"))/root;
+
 
 declare function benchmark() as element(benchmark)
 {
@@ -52,6 +50,17 @@ declare function mode() as xs:string{
     if (db:exists("benchx-db")) then "D" else "F"
 };
 
+(:~ set mode to file or database
+ :)
+declare %updating function mode($mode as xs:string){
+    switch ($mode)
+    case "F" return if (mode()="D") then db:drop("benchx-db") else ()
+    case "D" return db:create("benchx-db"
+                        ,$xm:base-dir ||"benchx-db/auction.xml"
+                        ,"auction.xml")
+    default return ()
+};
+
  (:~
  : create or drop xmark db with auction.xml
  :)
@@ -70,26 +79,28 @@ declare %updating function toggle-db(){
    manage-db(mode()="F")               
  };      
 
-(:~ get server data
-:) 
-declare function server() as element(server) 
+declare %updating function init()
 {
-    if($s:server/id/fn:string()) then $s:server 
-    else 
-    <server>
-        <id>{random:uuid()}</id>
-        <hostname>{env:hostname()}</hostname>
-        <description/>
-    </server>
-}; 
- (:~
- : update server data
- :)
-declare %updating function server($server as element(server))
+   if($s:root/server/id/fn:string()) then ()
+   else let $server:= <server>
+                        <id>{random:uuid()}</id>
+                        <hostname>{env:hostname()}</hostname>
+                        <description/>
+                    </server>
+       let $x:= copy $d:=$s:root
+                modify replace node $d/server with $server
+                return $d                              
+       return fn:put($x,fn:base-uri($s:root))     
+};
+
+declare %updating function set-factor($factor)
 {
-    if($s:server/id eq $server/id) then () 
-    else replace node $s:server with $server             
- }; 
+   let $x:= copy $d:=$s:root
+            modify replace value of node $d/state/factor with $factor
+            return $d                              
+   return fn:put($x,fn:base-uri($s:root))     
+};
+
  
 declare function state() as element(state)
 {
@@ -97,7 +108,7 @@ declare function state() as element(state)
         <sessions type="number">{fn:count(sessions:ids())}</sessions>
         <session>{session:id()}</session>
         <mode>{s:mode()}</mode>
-        <factor>{$s:factor/fn:string()}</factor>
+        <factor>{$s:root/state/factor/fn:string()}</factor>
         <size>{prof:human(s:file-size())}</size>
          <hostname>{env:hostname()}</hostname>
     </state>
