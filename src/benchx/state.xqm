@@ -1,5 +1,7 @@
 (:~ 
  : restxq session for benchmark
+ :@author Andy Bunce
+ :@version 0.1
  :
  :)
 module namespace s = 'apb.benchx.state';
@@ -68,7 +70,7 @@ declare %updating function toggle-db(){
    manage-db(mode()="F")               
  };      
 
-(:~ get server id
+(:~ get server data
 :) 
 declare function server() as element(server) 
 {
@@ -81,7 +83,7 @@ declare function server() as element(server)
     </server>
 }; 
  (:~
- : update server id
+ : update server data
  :)
 declare %updating function server($server as element(server))
 {

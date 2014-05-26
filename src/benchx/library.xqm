@@ -1,6 +1,7 @@
 (:~ 
  : library handling for benchx
- :
+ :@author Andy Bunce
+ :@version 0.1
  :)
 module namespace lib = 'apb.benchx.library';
 declare default function namespace 'apb.benchx.library'; 

@@ -28,12 +28,20 @@ declare %updating
 %rest:GET %rest:path("benchx")
 %output:method("html")   
 function benchmark()
-{(
-    if(db:exists("benchx")) then ()
-    else dbtools:sync-from-path("benchx",fn:resolve-uri("data/benchx")),
-    
-    db:output(<rest:forward>/static/benchx</rest:forward>)
-)};
+{
+    if(fn:not(env:basex-minversion("7.8.2"))) then      
+            db:output(
+            (web:status(500,"Server error")," BaseX min ver 7.8.2 required")
+            )
+    else
+        (
+        if(db:exists("benchx")) then ()
+        else 
+            dbtools:sync-from-path("benchx",fn:resolve-uri("data/benchx"))
+            ,
+            db:output(<rest:forward>/static/benchx</rest:forward>)
+         )
+};
 
 declare %rest:error("*")
 %rest:error-param("description", "{$description}") 

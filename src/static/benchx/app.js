@@ -384,6 +384,7 @@ angular
 											: "grid");
 							$scope.drop = function() {
 								alert("TODO");
+								$scope.record.$delete();	
 							};
 							$scope.data = {
 								"series" : [ "Sales", "Income", "Expense" ],

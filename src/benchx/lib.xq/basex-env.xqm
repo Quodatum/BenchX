@@ -30,7 +30,7 @@ db:system()/generalinformation/version
  : @return true if basex version is at least $minver e.g "7.8" 
  :)
 declare function basex-minversion($minver as xs:string) as xs:boolean{
- let $v:=fn:substring-before(basex-version()," ")
+ let $v:=fn:substring-before(basex-version()||" "," ")
  return fn:substring($v,1,fn:string-length($minver)) ge $minver
 };
 
