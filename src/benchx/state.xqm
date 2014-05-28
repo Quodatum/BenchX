@@ -16,8 +16,17 @@ import module namespace sessions = "http://basex.org/modules/sessions";
 
 declare variable $s:root:=fn:doc(fn:resolve-uri("state.xml"))/root;
 
+declare  function benchmark() as element(benchmark)
+{
+    copy $s:=_benchmark()
+    modify(
+        replace node $s/environment with env:xml(),
+        replace node $s/server with $s:root/server
+    )
+    return $s
+};
 
-declare function benchmark() as element(benchmark)
+declare %private function _benchmark() as element(benchmark)
 {
   let $s:=session:get("benchmark.values")
   return if(fn:empty($s)) then $lib:new else $s
@@ -32,7 +41,7 @@ declare function benchmark($newValue as element(benchmark))
  :)
 declare function add($result as element(run))
 {
-    let $new:=copy $d:=benchmark()
+    let $new:=copy $d:=_benchmark()
               modify insert node $result into $d/runs
               return $d        
     return session:set("benchmark.values",$new)
@@ -54,29 +63,24 @@ declare function mode() as xs:string{
  :)
 declare %updating function mode($mode as xs:string){
     switch ($mode)
-    case "F" return if (mode()="D") then db:drop("benchx-db") else ()
-    case "D" return db:create("benchx-db"
+    case "F" return ( 
+                    if (mode()="D") then db:drop("benchx-db") else (),
+                    set-mode("F")
+                    )
+    case "D" return (
+                    db:create("benchx-db"
                         ,$xm:base-dir ||"benchx-db/auction.xml"
-                        ,"auction.xml")
+                        ,"auction.xml"),
+                    set-mode("D")
+                    )
     default return ()
 };
 
- (:~
- : create or drop xmark db with auction.xml
- :)
-declare %updating function manage-db($create as xs:boolean){
-    if($create) then
-        db:create("benchx-db"
-                    ,$xm:base-dir ||"benchx-db/auction.xml"
-                    ,"auction.xml")
-    else if (mode()="D") then db:drop("benchx-db") else ()               
- }; 
- 
 (:~
  : create or drop benchmark-db db with auction.xml
  :)
 declare %updating function toggle-db(){
-   manage-db(mode()="F")               
+   mode(if(mode()="F" )then "D" else "F")               
  };      
 
 declare %updating function init()
@@ -97,6 +101,14 @@ declare %updating function set-factor($factor)
 {
    let $x:= copy $d:=$s:root
             modify replace value of node $d/state/factor with $factor
+            return $d                              
+   return fn:put($x,fn:base-uri($s:root))     
+};
+
+declare %updating function set-mode($mode)
+{
+   let $x:= copy $d:=$s:root
+            modify replace value of node $d/state/mode with $mode
             return $d                              
    return fn:put($x,fn:base-uri($s:root))     
 };

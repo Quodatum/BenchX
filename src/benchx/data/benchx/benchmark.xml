@@ -2,7 +2,7 @@
 	<id>6b534f9a-798f-4a4f-aef2-11db7b024912</id>
 	<suite>xmark</suite>
 	<meta>
-		<created>2014-05-07T15:44:33.437+01:00</created>
+		<created>?</created>
 		<description>This is test data</description>
 	</meta>
 	<server>
@@ -23,11 +23,13 @@
 		<os.version>6.2</os.version>
 	</environment>
 	<runs type="array">
+	<!-- 
 		<run>
 			<name>q1.xqm</name>
 			<runtime>124</runtime>
 			<factor>0</factor>
 			<mode>F</mode>
 		</run>
+		 -->
 	</runs>
 </benchmark>

@@ -27,20 +27,17 @@ declare function id($id) as element(benchmark)
  :)
 declare %updating function add-session(
                 $data,
-                $env as element(environment),
-                $server as element(server) 
+                $session as element(benchmark)
 ){
     let $data:=fn:trace($data,"ADD ")
     let $desc:=$data/json/description/fn:string()
     let $id:=random:uuid()
-    let $new:=copy $d:=$lib:new
+    let $new:=copy $d:=$session
             modify (
             replace value of node $d/id with $id,
             replace value of node $d/meta/created with fn:current-dateTime(),
-            replace value of node $d/meta/description with $desc,
-            replace node $d/environment with $env,
-            replace node $d/server with $server
-            )
+            replace value of node $d/meta/description with $desc
+                 )
             return $d
           
     return (
@@ -88,7 +85,9 @@ declare function json($b as element(benchmark)
 <json objects="json benchmark meta server environment run">{
     copy $d:=$b
     modify (for $n in $d//*[@type="array"]/* 
-            return replace node $n with <_ type="object">{$n}</_>)
+            return replace node $n with <_ type="object">{$n}</_>,
+            delete node $d//comment()
+            )
     return $d
 }</json>
 };

@@ -264,9 +264,9 @@ angular
 							$scope.save = function() {
 								var d = new api.library();
 								d.save($scope.store).$promise.then(function(a) {
-									alert("OK");
+									$rootScope.logmsg = "Saved to library.";
 								}, function(e) {
-									alert("FAIL");
+									alert("FAILED: "+e.data);
 								});
 							};
 						} ])

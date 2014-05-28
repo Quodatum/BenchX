@@ -43,14 +43,14 @@ function benchmark()
          )
 };
 
-(:
+
 declare %rest:error("*")
 %rest:error-param("description", "{$description}") 
 %output:method("text")  
 function error($description) {
-    (web:status(500,"Server error"),$description)
+    (web:status(500,"Server error "),$description)
 };
-:)
+
 
 (:~
  : Execute one test
@@ -91,7 +91,7 @@ declare %updating
 function xmlgen($factor)
 {
  let $go:=xm:xmlgen($factor)
- return (s:manage-db(fn:false()),
+ return (s:set-mode("F"),
         s:set-factor($factor),
         db:output(status()))
 }; 
@@ -144,8 +144,9 @@ declare %updating
 %output:method("json")   
 function addrecord($body) 
 {
-    lib:add-session($body,env:xml(),$s:root/server)  
+    lib:add-session($body,s:benchmark())  
 };
+
 (:~
  : get record
  :)
