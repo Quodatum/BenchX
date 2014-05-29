@@ -4,6 +4,7 @@
 	<div class="alert alert-info">Queue and execute a set of BenchX tasks
     </div>
 	<div class="row">
+	<div class="col-md-4">
 		<label>Initial Mode:</label>
 		<div class="btn-group">
 			<label class="btn btn-success" ng-model="$storage.settings.mode" btn-radio="'F'"
@@ -14,11 +15,14 @@
 		<label>
 			Initial Factor:
 			<input class="input-sm in8" type="number" ng-model="$storage.settings.factor" min="0"
-				max="10" step="0.25" />
+				max="10" step="0.1" />
 			
-		</label>(Size: {{$storage.settings.factor | factorBytes | readablizeBytes}})
+		</label>
+		<div>
+		(Size: {{$storage.settings.factor | factorBytes | readablizeBytes}})
+		</div>
 	</div>
-	<div class="row">
+	<div class="col-md-4">
 	<label>
 	Both modes: <input type="checkbox" ng-model="$storage.settings.allmodes"/>
 	</label>
@@ -30,14 +34,16 @@
 		<label>
 			Factor max:
 			<input class="input-sm in8" type="number" ng-model="$storage.settings.maxfactor" min="0"
-				max="10" step=".2" />
+				max="10" step=".1" />
 		</label>
 	</div>
+	<div class="col-md-4">
 	<label>
 		Repeat:
 		<input class="input-sm in8" type="number" ng-model="$storage.settings.repeat" min="1"
 			max="10" step="1" />
 	</label>
+</div>
 
 	<button class="btn btn-primary  btn-sm  navbar-btn " ng-click="toggleMode()"
 		title="Click to toggle mode: File or Database">{{state.mode}}</button>
@@ -50,6 +56,7 @@
 		<i class="glyphicon glyphicon-forward"></i>
 		Run All
 	</button>
+	</div>
 	</form>
 	<button class="btn btn-primary" ng-click="go()" title="Execute all queries">
         <i class="glyphicon glyphicon-forward"></i>

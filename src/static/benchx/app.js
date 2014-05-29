@@ -362,6 +362,9 @@ angular
 							$scope.swipe = function() {
 								alert("TODO swipe");
 							};
+							$scope.libzip=function(){
+								alert("TODO");
+							};
 						} ])
 		.controller(
 				'RecordController',

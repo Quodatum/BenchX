@@ -91,8 +91,7 @@ declare %updating
 function xmlgen($factor)
 {
  let $go:=xm:xmlgen($factor)
- return (s:set-mode("F"),
-        s:set-factor($factor),
+ return (s:set-state("F",$factor),
         db:output(status()))
 }; 
 

@@ -2,7 +2,7 @@
 	<div class="row">
 		<span class="alert alert-info">Collection of BenchX runs</span>
 		<div class="btn-group">
-			<button class="btn  btn-default" ng-click="saveAs()" title="Download as zip">
+			<button class="btn  btn-default" ng-click="libzip()" title="Download as zip">
             <i class="glyphicon glyphicon-save"></i>
             XML zipped
         </button>

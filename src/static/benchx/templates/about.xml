@@ -11,6 +11,8 @@
 		<ul>
         <li>This application requires internet access.</li>
 		<li>This application is not designed for multiple session use.</li>
+	    <li>BenchX on <a href="https://github.com/Quodatum/BenchX" target="_blank">Github</a></li>
+	
 		</ul>
 	</div>
 	<p>The XMark queries are supplied as an example suite.</p>

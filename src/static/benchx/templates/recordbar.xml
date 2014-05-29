@@ -32,7 +32,7 @@
             <i class="glyphicon glyphicon-save"></i>
             CSV
         </button>
-        <a href="{download}"  target="_new" class="btn btn-default" title="library">
+        <a href="{{download}}"  target="_blank" class="btn btn-default" title="library">
 <i class="glyphicon glyphicon-save"></i>XML
 </a>		
 		<button class="btn  btn-warning" ng-click="drop()" title="Remove data">

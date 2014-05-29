@@ -65,13 +65,13 @@ declare %updating function mode($mode as xs:string){
     switch ($mode)
     case "F" return ( 
                     if (mode()="D") then db:drop("benchx-db") else (),
-                    set-mode("F")
+                    set-state("F")
                     )
     case "D" return (
                     db:create("benchx-db"
                         ,$xm:base-dir ||"benchx-db/auction.xml"
                         ,"auction.xml"),
-                    set-mode("D")
+                    set-state("D")
                     )
     default return ()
 };
@@ -97,18 +97,18 @@ declare %updating function init()
        return fn:put($x,fn:base-uri($s:root))     
 };
 
-declare %updating function set-factor($factor)
+declare %updating function set-state($mode)
 {
-   let $x:= copy $d:=$s:root
-            modify replace value of node $d/state/factor with $factor
-            return $d                              
-   return fn:put($x,fn:base-uri($s:root))     
+    set-state($mode,())
 };
 
-declare %updating function set-mode($mode)
+declare %updating function set-state($mode,$factor)
 {
    let $x:= copy $d:=$s:root
-            modify replace value of node $d/state/mode with $mode
+            modify (replace value of node $d/state/mode with $mode,
+                    if($factor) 
+                    then replace value of node $d/state/factor with $factor
+                    else ())
             return $d                              
    return fn:put($x,fn:base-uri($s:root))     
 };
