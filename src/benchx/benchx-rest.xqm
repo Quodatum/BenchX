@@ -147,16 +147,36 @@ function addrecord($body)
 };
 
 (:~
- : get record
+ : get record as json (default) or xml
  :)
 declare 
 %rest:GET %rest:path("benchx/api/library/{$id}")
-%output:method("json")   
-function record($id) 
+%restxq:query-param("format", "{$format}","json")
+%output:method("json")
+function record($id,$format) 
 {
-    lib:json(lib:id($id))  
+    let $b:=lib:id($id)
+    return if($format="json") then lib:json($b)
+            else  (<restxq:response>
+            <output:serialization-parameters>
+                <output:method value="xml"/>
+            </output:serialization-parameters>
+            </restxq:response>,$b) 
 };
 
+(:~
+ : delete record
+ :)
+declare 
+%rest:DELETE %rest:path("benchx/api/library/{$id}")
+%restxq:form-param("password", "{$password}")
+%output:method("json")   
+function record-delete($id,$password) 
+{
+    <json objects="json">
+    <todo>password: {$password}</todo>
+    </json> 
+};
  
 (:~
  : testbed not part of app, use this for experiments

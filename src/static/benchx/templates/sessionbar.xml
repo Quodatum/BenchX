@@ -1,6 +1,6 @@
-<nav class="navbar navbar-default" role="navigation">
+<div class="row" role="navigation">
 	<strong> View:</strong>
-	<div class="btn-group">
+	<div class="btn-group  btn-group-sm">
 
 		<button ng-click="setView('grid')" class="btn btn-default "
 			ng-class="{'btn-primary':view=='grid'}">
@@ -15,7 +15,7 @@
 
 	</div>
 	<strong> Action:</strong>
-	<div class="btn-group">
+	<div class="btn-group  btn-group-sm">
 		<button class="btn btn-default" ng-click="setView('run')"
 			ng-class="{'btn-primary':view=='run'}">
 			<i class="glyphicon glyphicon-forward"></i>
@@ -35,4 +35,4 @@
 			clear All
 		</button>
 	</div>
-</nav>
+</div>

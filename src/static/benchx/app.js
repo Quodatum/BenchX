@@ -387,7 +387,10 @@ angular
 											: "grid");
 							$scope.drop = function() {
 								alert("TODO");
-								$scope.record.$delete();	
+								var id=$scope.record.benchmark.id;
+								$scope.record.$delete({id : id,
+									password:"AAA"}) 
+								.then(function(a){alert("A");},function(a){alert("B");});	
 							};
 							$scope.data = {
 								"series" : [ "Sales", "Income", "Expense" ],

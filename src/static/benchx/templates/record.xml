@@ -1,33 +1,43 @@
 <div ng-swipe-right="swipe()">
+	<div class="row">
+		<a href="#/library" class="btn btn-default btn-sm" title="library">
+			<i class="glyphicon glyphicon-chevron-left"></i>
+		</a>
+		 <strong> {{record.benchmark.meta.description}}</strong>
+		Created: <span am-time-ago="record.benchmark.meta.created" title="{{record.benchmark.meta.created}}"></span>
+	    <select ng-model="suite" ng-options="s for s in suites"></select>
+	
+	</div>
 	<div class="container-fluid" ng-include="'templates/recordbar.xml'"></div>
 	<div class="animate-switch-container" ng-switch="view">
 		<div class="animate-switch" ng-switch-when="graph">
 			CHART
-			<div ac-chart="'bar'" ac-data="data" ac-config="config" id='chart' class='chart'></div> 
+			<div ac-chart="'bar'" ac-data="data" ac-config="config" id='chart'
+				class='chart'></div>
 		</div>
 		<div class="animate-switch " ng-switch-when="env">
-            <div class="panel  panel-info panel-body col-md-6">
-        <div class="panel-heading">
-            <h3 class="panel-title">Environment</h3>
-        </div>
-        <div class="panel-body table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="(name,value) in record.benchmark.environment">
-                        <td>{{name}}</td>
-                        <td>{{value}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-        </div>
+			<div class="panel  panel-info panel-body col-md-6">
+				<div class="panel-heading">
+					<h3 class="panel-title">Environment</h3>
+				</div>
+				<div class="panel-body table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Value</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="(name,value) in record.benchmark.environment">
+								<td>{{name}}</td>
+								<td>{{value}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 		<div class="animate-switch well" ng-switch-when="json">
 			<pre>{{ record | json }}</pre>
 		</div>
