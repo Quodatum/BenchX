@@ -230,11 +230,10 @@ angular
 						"$rootScope",
 						'$routeParams',
 						"$location",
-						"$modal",
 						"$dialog",
 						"api",
 						function($scope, $rootScope, $routeParams, $location,
-								$modal, $dialog, api) {
+								 $dialog, api) {
 							$rootScope.setTitle("Session");
 							$scope.repeat = 2;
 							$scope.store = {
@@ -348,14 +347,13 @@ angular
 		.controller('SuitesController',
 				[ "$scope", "data", function($scope, data) {
 					$scope.setTitle("Suites");
-					console.log(data);
 					$scope.suites = data;
 				} ])
 		.controller('SuiteController',
-				[ "$scope", "data", function($scope, data) {
-					$scope.setTitle("Suite");
-					console.log(data);
-					$scope.suite = data;
+				[ "$scope", "data", "$routeParams", function($scope, data,$routeParams) {
+					$scope.suite=$routeParams.id;
+					$scope.setTitle("Suite: "+$routeParams.id);
+					$scope.suiteItems = data;
 				} ])
 		.controller(
 				'LibraryController',
@@ -417,11 +415,11 @@ angular
 						'$scope',
 						'$rootScope',
 						'$window',
-						'chart',
-						function($scope, $rootScope, $window, chart) {
+						'session',
+						function($scope, $rootScope, $window, session) {
 							$scope.setTitle("Graph");
 							function genChart() {
-								return chart.gchart($rootScope.session,
+								return session.gchart($rootScope.session,
 										'BaseX Benchmark: ' + $rootScope.suite);
 							}
 							;
@@ -450,7 +448,7 @@ angular
 						alert("TODO run:" + path);
 					};
 				} ])
-
+		// human size
 		.filter(
 				'readablizeBytes',
 				function() {
@@ -467,7 +465,9 @@ angular
 			return function(x) {
 				return (0.027 + 116.49 * x) * 1048576;
 			};
-		}).factory('chart', function() {
+		})
+
+		.factory('session', function() {
 			return {
 				// google chart
 				gchart : function(session, title) {
@@ -511,5 +511,5 @@ angular
 					};
 
 				}
-			}
+			};
 		});
