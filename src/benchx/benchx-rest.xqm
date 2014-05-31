@@ -157,11 +157,7 @@ function record($id,$format)
 {
     let $b:=lib:id($id)
     return if($format="json") then lib:json($b)
-            else  (<restxq:response>
-            <output:serialization-parameters>
-                <output:method value="xml"/>
-            </output:serialization-parameters>
-            </restxq:response>,$b) 
+            else (web:download-response("xml",$id || ".xml"),$b) 
 };
 
 (:~
@@ -216,6 +212,8 @@ function suites()
     return <_>
     <name>{$s}</name>
     <href>#/suite/{$s}</href>
+    <session>#/suite/{$s}/session</session>
+    <library>#/suite/{$s}/library</library>
     </_>
     }
 </json>

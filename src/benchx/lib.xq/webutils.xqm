@@ -79,12 +79,17 @@ declare function headers($attachment,$response){
 
 (:~ download as zip file :) 
 declare function zip-download($zipname,$data){
-(<restxq:response>
+    (download-response("raw",$zipname), $data)
+};
+
+(:~ headers for download  :) 
+declare function download-response($method,$filename){
+<restxq:response>
     <output:serialization-parameters>
-        <output:method value="raw"/>
+        <output:method value="{$method}"/>
     </output:serialization-parameters>
    <http:response>
-       <http:header name="Content-Disposition" value='attachment;filename="{$zipname}"'/> 
+       <http:header name="Content-Disposition" value='attachment;filename="{$filename}"'/> 
     </http:response>
-</restxq:response>, $data)
+</restxq:response>
 };

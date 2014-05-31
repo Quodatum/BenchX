@@ -8,14 +8,14 @@ angular
 		.module(
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
-					'googlechart', 'angularCharts', 'dialog','ngStorage',
-					'angularMoment', 'BenchX.api',
-					'services.httpRequestTracker' ])
+						'googlechart', 'angularCharts', 'dialog', 'ngStorage',
+						'angularMoment', 'BenchX.api',
+						'services.httpRequestTracker' ])
 
 		.config([ '$routeProvider', function($routeProvider) {
 			$routeProvider.when('/', {
 				redirectTo : '/suite'
-			}).when('/session', {
+			}).when('/suite/:suit/session', {
 				templateUrl : '/static/benchx/templates/session.xml',
 				controller : "SessionController"
 			}).when('/environment', {
@@ -147,6 +147,7 @@ angular
 							}
 
 							$rootScope.$watch("session", function() {
+								// to kick charts to update
 								$rootScope.$broadcast("session");
 							}, true);
 
@@ -236,7 +237,9 @@ angular
 								$modal, $dialog, api) {
 							$rootScope.setTitle("Session");
 							$scope.repeat = 2;
-							$scope.store={description:""};
+							$scope.store = {
+								description : ""
+							};
 							$scope.setView = function(v) {
 								$scope.view = v;
 								$location.search("view", v);
@@ -266,7 +269,7 @@ angular
 								d.save($scope.store).$promise.then(function(a) {
 									$rootScope.logmsg = "Saved to library.";
 								}, function(e) {
-									alert("FAILED: "+e.data);
+									alert("FAILED: " + e.data);
 								});
 							};
 						} ])
@@ -277,8 +280,10 @@ angular
 						"$rootScope",
 						"api",
 						"$modal",
-						"$dialog","$localStorage",
-						function($scope, $rootScope, api, $modal, $dialog,$localStorage) {
+						"$dialog",
+						"$localStorage",
+						function($scope, $rootScope, api, $modal, $dialog,
+								$localStorage) {
 							console.log("ScheduleController");
 							function makerun() {
 								var tasks = [];
@@ -294,28 +299,27 @@ angular
 							;
 							$scope.$storage = $localStorage.$default({
 								settings : {
-										mode : "F",
-										factor : 0,
-										allmodes:true,
-										incr : 0.25,
-										repeat : 1,
-										maxfactor : 1
-									}
+									mode : "F",
+									factor : 0,
+									allmodes : true,
+									incr : 0.25,
+									repeat : 1,
+									maxfactor : 1
+								}
 							});
-
-						
 
 							$scope.executeAll = function() {
 								var tasks = makerun();
 								for (var i = 0; i < $scope.$storage.settings.repeat; i++) {
 
 									$rootScope.queue.push(tasks);
-									if($scope.$storage.settings.allmodes){
-									$rootScope.queue.push({
-										cmd : "toggle",
-										data : 0
-									});
-									};
+									if ($scope.$storage.settings.allmodes) {
+										$rootScope.queue.push({
+											cmd : "toggle",
+											data : 0
+										});
+									}
+									;
 									$rootScope.queue.push(tasks);
 								}
 								;
@@ -362,7 +366,7 @@ angular
 							$scope.swipe = function() {
 								alert("TODO swipe");
 							};
-							$scope.libzip=function(){
+							$scope.libzip = function() {
 								alert("TODO");
 							};
 						} ])
@@ -387,10 +391,15 @@ angular
 											: "grid");
 							$scope.drop = function() {
 								alert("TODO");
-								var id=$scope.record.benchmark.id;
-								$scope.record.$delete({id : id,
-									password:"AAA"}) 
-								.then(function(a){alert("A");},function(a){alert("B");});	
+								var id = $scope.record.benchmark.id;
+								$scope.record.$delete({
+									id : id,
+									password : "AAA"
+								}).then(function(a) {
+									alert("A");
+								}, function(a) {
+									alert("B");
+								});
 							};
 							$scope.data = {
 								"series" : [ "Sales", "Income", "Expense" ],
@@ -408,53 +417,12 @@ angular
 						'$scope',
 						'$rootScope',
 						'$window',
-						function($scope, $rootScope, $window) {
+						'chart',
+						function($scope, $rootScope, $window, chart) {
 							$scope.setTitle("Graph");
 							function genChart() {
-								if ($rootScope.session) {
-									var cols = [ {
-										id : "t",
-										label : "Query",
-										type : "string"
-									} ];
-									angular.forEach($rootScope.session[0].runs,
-											function(v, index) {
-												cols.push({
-													id : "R" + index,
-													label : v.mode + ":"
-															+ v.factor,
-													type : "number"
-												});
-											});
-									var rows = [];
-									angular.forEach($rootScope.session,
-											function(q, i) {
-												var d = [ {
-													v : q.name
-												} ];
-												angular.forEach(q.runs,
-														function(r, i2) {
-															d.push({
-																v : r.runtime
-															});
-														});
-												rows.push({
-													c : d
-												});
-											});
-									return {
-										type : "ColumnChart",
-										options : {
-											'title' : 'BaseX Benchmark: '
-													+ $rootScope.suite
-										},
-										data : {
-											"cols" : cols,
-											"rows" : rows
-										}
-									};
-								}
-								;
+								return chart.gchart($rootScope.session,
+										'BaseX Benchmark: ' + $rootScope.suite);
 							}
 							;
 
@@ -499,4 +467,49 @@ angular
 			return function(x) {
 				return (0.027 + 116.49 * x) * 1048576;
 			};
+		}).factory('chart', function() {
+			return {
+				// google chart
+				gchart : function(session, title) {
+					if (!session)
+						return;
+					var cols = [ {
+						id : "t",
+						label : "Query",
+						type : "string"
+					} ];
+					angular.forEach(session[0].runs, function(v, index) {
+						cols.push({
+							id : "R" + index,
+							label : v.mode + ":" + v.factor,
+							type : "number"
+						});
+					});
+					var rows = [];
+					angular.forEach(session, function(q, i) {
+						var d = [ {
+							v : q.name
+						} ];
+						angular.forEach(q.runs, function(r, i2) {
+							d.push({
+								v : r.runtime
+							});
+						});
+						rows.push({
+							c : d
+						});
+					});
+					return {
+						type : "ColumnChart",
+						options : {
+							'title' : title
+						},
+						data : {
+							"cols" : cols,
+							"rows" : rows
+						}
+					};
+
+				}
+			}
 		});

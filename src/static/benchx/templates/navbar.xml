@@ -26,13 +26,6 @@
                 Library</a>
             </li>
 
-			<li>
-				<a href="#/session" title="Run tests">
-				<i class="glyphicon glyphicon-cog"></i>
-				Session</a>
-			</li>
-			
-			
 		</ul>
 		
 		<p class="navbar-text bg-success logmsg "  >

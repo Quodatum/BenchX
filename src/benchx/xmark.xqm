@@ -47,7 +47,7 @@ declare function time-xmark(
   let $xq:=get-xmark($query)
   let $xq:='declare base-uri "' || fn:static-base-uri() ||'";' || $xq
   let $res:= time($xq,$timeout)
-  return (<runtime type="number">{$res[1]}</runtime>,
+  return (<runtime type="number">{$res[1] div 1000}</runtime>,
          <status>{$res[2]}</status>)
 };
 

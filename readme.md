@@ -3,8 +3,6 @@
 A Web App packaging of the [XMark](http://www.xml-benchmark.org) benchmark for BaseX.
 Version 7.8.2 of BaseX is required as the query timeout functionality of xquery:eval is used.
 
-
-
 # Installation
 
 1. copy the contents of the `src` folder to your `webapp` folder 
@@ -42,4 +40,7 @@ status: "" run was ok, otherwise $err:code
  XQuery unit tests in src/benchx/test
  
 ## client 
-todo 
+Uses Angular and a number of other javascript libraries.
+## Contributions
+Pull requests with additional result timings, 
+new suites or general improvements and fixes are all welcome.
