@@ -67,7 +67,9 @@ declare function list(){
     $doc/server/description,
     $doc/meta/description,
     $doc/meta/created,
+    $doc/environment/os.name,
     $doc/environment/os.arch,
+    $doc/environment/java.version,
     $doc/server/hostname
    }</_>
    }</json>

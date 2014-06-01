@@ -80,6 +80,7 @@ as item()*{
  :)
 declare function xmlgen($factor as xs:double){
     let $factor:=fn:string($factor)
+    let $factor:=fn:trace($factor,"xmlgen starting:")
     let $args:=if($xm:isWin)
            then ("/f",$factor,"/o",$xm:base-dir ||"benchx-db\auction.xml")
            else ("-f",$factor,"-o",$xm:base-dir ||"benchx-db/auction.xml")

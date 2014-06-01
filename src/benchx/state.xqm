@@ -47,6 +47,13 @@ declare function add($result as element(run))
     return session:set("benchmark.values",$new)
 };
 
+(:~ delete session values 
+ :)
+declare function clear()
+{
+    session:delete("benchmark.values")
+};
+
 (:~
  : @return filesize of auction.xml
  :)
@@ -62,27 +69,37 @@ declare function mode() as xs:string{
 (:~ set mode to file or database
  :)
 declare %updating function mode($mode as xs:string){
-    switch ($mode)
-    case "F" return ( 
-                    if (mode()="D") then db:drop("benchx-db") else (),
-                    set-state("F")
-                    )
-    case "D" return (
-                    db:create("benchx-db"
-                        ,$xm:base-dir ||"benchx-db/auction.xml"
-                        ,"auction.xml"),
-                    set-state("D")
-                    )
-    default return ()
+    if($mode=mode()) then ()
+    else switch ($mode)
+        case "F" return db:drop("benchx-db")
+        case "D" return db:create("benchx-db"
+                            ,$xm:base-dir ||"benchx-db/auction.xml"
+                            ,"auction.xml")
+        default return ()
 };
 
-(:~
- : create or drop benchmark-db db with auction.xml
- :)
-declare %updating function toggle-db(){
-   mode(if(mode()="F" )then "D" else "F")               
- };      
+declare function factor() as xs:double{
+    $s:root/state/factor/fn:number()
+};
 
+(:~ set mode to file or database
+ :)
+declare function factor($factor as xs:double){
+    if($factor=factor())then ()
+    else xm:xmlgen($factor)
+};
+
+declare %updating function make($mode,$factor as xs:double){
+    let $x:=fn:trace(($mode,$factor),"MAKE")
+    let $x:=factor($factor)
+    return (mode($mode),set-state($mode,$factor))
+};
+
+
+
+(:~ 
+ : ensure guid is assigned for server
+ :)
 declare %updating function init()
 {
    if($s:root/server/id/fn:string()) then ()
@@ -106,9 +123,8 @@ declare %updating function set-state($mode,$factor)
 {
    let $x:= copy $d:=$s:root
             modify (replace value of node $d/state/mode with $mode,
-                    if($factor) 
-                    then replace value of node $d/state/factor with $factor
-                    else ())
+                    replace value of node $d/state/factor with $factor
+                    )
             return $d                              
    return fn:put($x,fn:base-uri($s:root))     
 };

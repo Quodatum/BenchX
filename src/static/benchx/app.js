@@ -85,7 +85,7 @@ angular
 								$window.document.title = t;
 							};
 							$rootScope.setTitle("BenchX");
-							$rootScope.logmsg = "Welcome to BenchX v0.4";
+							$rootScope.logmsg = "Welcome to BenchX v0.5";
 							$rootScope.suites = [ "xmark", "apb" ];
 							$rootScope.suite = "xmark";
 							$rootScope.queue = async
@@ -99,16 +99,12 @@ angular
 													promise = $rootScope
 															.execute(task.data);
 													break;
-												case "toggle":
-													$rootScope.logmsg = 'Starting mode toggle';
+												case "state":
+													$rootScope.logmsg = 'Starting set state';
 													promise = $rootScope
-															.toggleMode();
+															.setState(task.data);
 													break;
-												case "xmlgen":
-													$rootScope.logmsg = 'Requesting XML generation';
-													promise = $rootScope
-															.xmlgen(task.data);
-													break;
+
 												default:
 													$rootScope.logmsg = 'Unknown command ignored: '
 															+ task.cmd;
@@ -119,8 +115,8 @@ angular
 															// Dig into the
 															// responde to get
 															// the relevant data
-															$rootScope.logmsg = 'End of '
-																	+ task.data;
+															$rootScope.logmsg = 'completed '
+																	+ task.cmd;
 															callback();
 														});
 											}, 1);
@@ -171,11 +167,6 @@ angular
 										});
 							};
 
-							$rootScope.toggleMode = function() {
-								return api.toggleMode().then(function(d) {
-									api.status().then(updateStatus);
-								});
-							};
 							$rootScope.saveAs = function() {
 								var heads = [ "suite", "query", "mode",
 										"factor", "runtime" ];
@@ -205,13 +196,13 @@ angular
 								saveAs(blob, "results.csv");
 							};
 
-							$rootScope.xmlgen = function(factor) {
-								return api.xmlgen(factor).then(
+							$rootScope.setState = function(data) {
+								return api.stateSave(data).then(
 										function(d) {
-											api.status().then(updateStatus);
+											api.state().then(updateStatus);
 										},
 										function(reason) {
-											alert("Failed to run xmlgen\n"
+											alert("Failed to set state\n"
 													+ reason.data);
 										});
 							};
@@ -219,7 +210,7 @@ angular
 								$rootScope.session = data;
 
 							});
-							api.status().then(updateStatus);
+							api.state().then(updateStatus);
 
 						} ])
 
@@ -233,7 +224,7 @@ angular
 						"$dialog",
 						"api",
 						function($scope, $rootScope, $routeParams, $location,
-								 $dialog, api) {
+								$dialog, api) {
 							$rootScope.setTitle("Session");
 							$scope.repeat = 2;
 							$scope.store = {
@@ -278,14 +269,17 @@ angular
 						"$scope",
 						"$rootScope",
 						"api",
-						"$modal",
-						"$dialog",
 						"$localStorage",
-						function($scope, $rootScope, api, $modal, $dialog,
-								$localStorage) {
+						function($scope, $rootScope, api, $localStorage) {
 							console.log("ScheduleController");
-							function makerun() {
-								var tasks = [];
+							function makerun(mode, factor) {
+								var tasks = [ {
+									cmd : "state",
+									data : {
+										mode : mode,
+										factor : factor
+									}
+								} ];
 								angular.forEach($rootScope.session, function(v,
 										index) {
 									tasks.push({
@@ -301,6 +295,7 @@ angular
 									mode : "F",
 									factor : 0,
 									allmodes : true,
+									doIncr : false,
 									incr : 0.25,
 									repeat : 1,
 									maxfactor : 1
@@ -308,35 +303,37 @@ angular
 							});
 
 							$scope.executeAll = function() {
-								var tasks = makerun();
-								for (var i = 0; i < $scope.$storage.settings.repeat; i++) {
+								var settings = $scope.$storage.settings;
 
-									$rootScope.queue.push(tasks);
-									if ($scope.$storage.settings.allmodes) {
-										$rootScope.queue.push({
-											cmd : "toggle",
-											data : 0
-										});
-									}
-									;
-									$rootScope.queue.push(tasks);
+								for (var i = 0; i < settings.repeat; i++) {
+									var f = settings.factor;
+									do {
+										var m = settings.mode;
+										var tasks = makerun(m, f);
+										$rootScope.queue.push(tasks);
+										if (settings.allmodes) {
+											m = (m == "F") ? "D" : "F";
+											var tasks = makerun(m, f);
+											$rootScope.queue.push(tasks);
+										}
+										;
+										f += settings.incr;
+									} while (settings.doIncr
+											&& f <= settings.maxfactor)
 								}
 								;
 								$scope.setView("graph");
 							};
-							$scope.xmlgen = function() {
-								$modal.open({
-									templateUrl : 'templates/xmlgen.xml',
-									size : "sm"
-								}).result.then(function(factor) {
-									$rootScope.queue.push({
-										cmd : "xmlgen",
-										data : factor
-									});
+							$scope.setNow = function() {
+								var settings = $scope.$storage.settings;
+								$rootScope.queue.push({
+									cmd : "state",
+									data : {
+										mode : settings.mode,
+										factor : settings.factor
+									}
 								});
-							};
-							$scope.go = function() {
-								alert("go: " + $scope.$storage.settings.repeat);
+
 							};
 						} ])
 		.controller('envController',
@@ -349,12 +346,14 @@ angular
 					$scope.setTitle("Suites");
 					$scope.suites = data;
 				} ])
-		.controller('SuiteController',
-				[ "$scope", "data", "$routeParams", function($scope, data,$routeParams) {
-					$scope.suite=$routeParams.id;
-					$scope.setTitle("Suite: "+$routeParams.id);
-					$scope.suiteItems = data;
-				} ])
+		.controller(
+				'SuiteController',
+				[ "$scope", "data", "$routeParams",
+						function($scope, data, $routeParams) {
+							$scope.suite = $routeParams.id;
+							$scope.setTitle("Suite: " + $routeParams.id);
+							$scope.suiteItems = data;
+						} ])
 		.controller(
 				'LibraryController',
 				[ "$scope", "$rootScope", "data",
@@ -399,14 +398,7 @@ angular
 									alert("B");
 								});
 							};
-							$scope.data = {
-								"series" : [ "Sales", "Income", "Expense" ],
-								"data" : [ {
-									"x" : "Computers",
-									"y" : [ 54, 0, 879 ],
-									"tooltip" : "This is a tooltip"
-								} ]
-							};
+
 						} ])
 
 		.controller(
@@ -469,7 +461,7 @@ angular
 
 		.factory('session', function() {
 			return {
-				// google chart
+				// create google chart data structure
 				gchart : function(session, title) {
 					if (!session)
 						return;

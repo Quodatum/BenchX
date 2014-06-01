@@ -14,12 +14,12 @@
 	<xsl:template match="/wadl:application/wadl:resources">
 		<div>
 			<h2>
-				REST (XQ):
+				REST (XQ) API:
 				<xsl:value-of select="$root" />
 			</h2>
 			<accordion close-others="false">
 
-				<xsl:for-each select="wadl:resource[starts-with(@path,$root)]">
+				<xsl:for-each select="wadl:resource">
 					<xsl:sort select="@path" />
 					<accordion-group>
 						<accordion-heading>
@@ -60,7 +60,7 @@
 	</xsl:template>
 
 	<xsl:template match="wadl:request">
-	<xsl:if test="wadl:param or ancestor::wadl:resource/wadl:param">
+	<xsl:if test="wadl:param or ../../wadl:param">
 		<h4>Parameters</h4>
 		<table class="table">
 			<thead>

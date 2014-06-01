@@ -2,19 +2,19 @@
 	<div class="jumbotron">
 		<h1>
 			<img src="benchx.svg" style="width:60px;height:60px" />
-			Benchmark BaseX
+			BenchX
 		</h1>
 		<p>This application times the execution of sets of XQuery queries
 			using BaseX. The intended use is to compare the relative performance of
 			different hardware and software platforms.
 		</p>
-		<ul>
-        <li>This application requires internet access (for CDN and Google chart).</li>
-		<li>This application is not designed for multiple session use.</li>
-	    <li>BenchX source on <a href="https://github.com/Quodatum/BenchX" target="_blank">Github</a></li>
-	
-		</ul>
+		
 	</div>
+	<ul>
+        <li>This application requires internet access (for CDN and Google chart).</li>
+        <li>This application is not designed for multiple session use.</li>
+        <li>BenchX source on <a href="https://github.com/Quodatum/BenchX" target="_blank">Github</a></li>
+        </ul>
 	<p>The XMark queries are supplied as an example suite.</p>
 		
 	<h2>Client Component list</h2>

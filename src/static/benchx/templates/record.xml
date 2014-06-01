@@ -3,17 +3,17 @@
 		<a href="#/library" class="btn btn-default btn-sm" title="library">
 			<i class="glyphicon glyphicon-chevron-left"></i>
 		</a>
-		 <strong> {{record.benchmark.meta.description}}</strong>
-		Created: <span am-time-ago="record.benchmark.meta.created" title="{{record.benchmark.meta.created}}"></span>
-	    <select ng-model="suite" ng-options="s for s in suites"></select>
-	
+		<strong> {{record.benchmark.meta.description}}</strong>
+		Created:
+		<span am-time-ago="record.benchmark.meta.created" title="{{record.benchmark.meta.created}}"></span>
+		<select ng-model="suite" ng-options="s for s in suites"></select>
+
 	</div>
 	<div class="container-fluid" ng-include="'templates/recordbar.xml'"></div>
 	<div class="animate-switch-container" ng-switch="view">
 		<div class="animate-switch" ng-switch-when="graph">
-			CHART
-			<div ac-chart="'bar'" ac-data="data" ac-config="config" id='chart'
-				class='chart'></div>
+			<div google-chart="google-chart" chart="chartObject" onReady="chartReady"
+				style="height:400px; width:100%;" ng-controller="ChartController"></div>
 		</div>
 		<div class="animate-switch " ng-switch-when="env">
 			<div class="panel  panel-info panel-body col-md-6">

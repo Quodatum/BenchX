@@ -1,13 +1,7 @@
 <div ng-swipe-right="swipe()">
-	<div class="row">
-		<span class="alert alert-info">Collection of BenchX runs</span>
-		<div class="btn-group">
-			<button class="btn  btn-default" ng-click="libzip()" title="Download as zip">
-            <i class="glyphicon glyphicon-save"></i>
-            XML zipped
-        </button>
-		</div>
-	</div>
+	
+		<p>The library of BenchX runs</p>
+		
 	<div class="row">
 
 		<div class="col-md-8">
@@ -15,6 +9,8 @@
 				<thead>
 					<th>Title</th>
 					<th>Suite</th>
+					<th>Java</th>
+					<th>OS</th>
 					<th>Hostname</th>
 					<th>OS Arch</th>
 					<th>Created</th>
@@ -24,7 +20,9 @@
 						<td>
 							<a href="#/library/{{doc.id}}">{{doc.description}}</a>
 						</td>
-						<td>{{doc.suite}}</td>
+						<td>{{doc.suite}}</td>	
+						<td>{{doc["java.version"]}}</td>
+						<td>{{doc["os.name"]}}</td>
 						<td>{{doc.hostname}}</td>
 						<td>{{doc["os.arch"]}}</td>
 						<td am-time-ago="doc.created" title="{{doc.created}}"></td>
@@ -54,5 +52,10 @@
 			</div>
 		</div>
 	</div>
-
+<div class="btn-group btn-group-sm">
+            <button class="btn  btn-default" ng-click="libzip()" title="Download as zip">
+            <i class="glyphicon glyphicon-save"></i>
+            Download zipped XML 
+        </button>
+        </div>
 </div>

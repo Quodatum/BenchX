@@ -1,66 +1,85 @@
 <div ng-controller="ScheduleController">
-	
-	<form class="well">
-	<div class="alert alert-info">Queue and execute a set of BenchX tasks
-    </div>
-	<div class="row">
-	<div class="col-md-4">
-		<label>Initial Mode:</label>
-		<div class="btn-group">
-			<label class="btn btn-success" ng-model="$storage.settings.mode" btn-radio="'F'"
-				uncheckable="uncheckable">File</label>
-			<label class="btn btn-success" ng-model="$storage.settings.mode" btn-radio="'D'"
-				uncheckable="uncheckable">Database</label>
+
+	<form>
+		<div class="row">
+			<div class="panel  panel-info panel-body col-md-4">
+				<div class="panel-heading">
+					<h3 class="panel-title">Initial state</h3>
+				</div>
+				<div class="panel-body ">
+					<div class="form-group">
+						<label>Mode:</label>
+						<div class="btn-group  btn-group-sm">
+							<label class="btn btn-success" ng-model="$storage.settings.mode"
+								btn-radio="'F'" uncheckable="uncheckable">File</label>
+							<label class="btn btn-success" ng-model="$storage.settings.mode"
+								btn-radio="'D'" uncheckable="uncheckable">Database</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>
+							Factor:
+							<input class="input-sm in8" type="number" ng-model="$storage.settings.factor"
+								min="0" max="10" step="0.1" />
+							({{$storage.settings.factor | factorBytes | readablizeBytes}})
+						</label>
+					</div>
+					<button class="btn btn-info  btn-sm pull-right" ng-click="setNow()"
+						title="Set now">Set now</button>
+
+				</div>
+			</div>
+			<div class="panel  panel-info panel-body col-md-4">
+				<div class="panel-heading">
+					<h3 class="panel-title">then</h3>
+				</div>
+				<div class="panel-body ">
+					<label>
+						Run other mode:
+						<input type="checkbox" ng-model="$storage.settings.allmodes" />
+					</label>
+					<div class="form-group">
+					<label>
+						use increments:
+						<input type="checkbox" ng-model="$storage.settings.doIncr" />
+					</label>
+					</div>
+					<fieldset ng-disabled="!$storage.settings.doIncr">
+						<label>
+							Factor incr:
+							<input class="input-sm in8" type="number" ng-model="$storage.settings.incr"
+								min="0" max="10" step=".05" />
+						</label>
+						<label>
+							Factor max:
+							<input class="input-sm in8" type="number"
+								ng-model="$storage.settings.maxfactor" min="0" max="10" step=".1" />
+						</label>
+					</fieldset>
+				</div>
+			</div>
+			<div class="panel  panel-info panel-body col-md-4">
+				<div class="panel-heading">
+					<h3 class="panel-title">repeat all</h3>
+				</div>
+				<div class="panel-body ">
+					<label>
+						Repeat:
+						<input class="input-sm in8" type="number" ng-model="$storage.settings.repeat"
+							min="1" max="10" step="1" />
+					</label>
+				</div>
+
+				<button class="btn btn-primary" ng-click="executeAll()"
+					title="Execute all queries">
+					<i class="glyphicon glyphicon-forward"></i>
+					Run All
+				</button>
+			</div>
 		</div>
-		<label>
-			Initial Factor:
-			<input class="input-sm in8" type="number" ng-model="$storage.settings.factor" min="0"
-				max="10" step="0.1" />
-			
-		</label>
-		<div>
-		(Size: {{$storage.settings.factor | factorBytes | readablizeBytes}})
-		</div>
-	</div>
-	<div class="col-md-4">
-	<label>
-	Both modes: <input type="checkbox" ng-model="$storage.settings.allmodes"/>
-	</label>
-		<label>
-			Factor incr:
-			<input class="input-sm in8" type="number" ng-model="$storage.settings.incr" min="0"
-				max="10" step=".05" />
-		</label>
-		<label>
-			Factor max:
-			<input class="input-sm in8" type="number" ng-model="$storage.settings.maxfactor" min="0"
-				max="10" step=".1" />
-		</label>
-	</div>
-	<div class="col-md-4">
-	<label>
-		Repeat:
-		<input class="input-sm in8" type="number" ng-model="$storage.settings.repeat" min="1"
-			max="10" step="1" />
-	</label>
-</div>
-
-	<button class="btn btn-primary  btn-sm  navbar-btn " ng-click="toggleMode()"
-		title="Click to toggle mode: File or Database">{{state.mode}}</button>
-
-	<button class="factor btn btn-primary  btn-sm navbar-btn"
-		ng-click="xmlgen(0.5)" title="Click to set size">{{state.factor}}/{{state.size}}
-	</button>
-
-	<button class="btn btn-primary" ng-click="executeAll()" title="Execute all queries">
-		<i class="glyphicon glyphicon-forward"></i>
-		Run All
-	</button>
-	</div>
 	</form>
-	<button class="btn btn-primary" ng-click="go()" title="Execute all queries">
-        <i class="glyphicon glyphicon-forward"></i>
-        Go
-    </button>
-  
+
+	<div class="alert alert-info">Queue and execute a set of BenchX tasks
+	</div>
+
 </div>

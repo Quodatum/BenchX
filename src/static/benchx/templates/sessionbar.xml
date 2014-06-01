@@ -1,13 +1,15 @@
-<div class="row" role="navigation">
+<div class="row form-group" role="navigation">
 	<strong> View:</strong>
 	<div class="btn-group  btn-group-sm">
 
 		<button ng-click="setView('grid')" class="btn btn-default "
+		title="view data as grid"
 			ng-class="{'btn-primary':view=='grid'}">
 			<i class="glyphicon glyphicon-th"></i>
 			Grid
 		</button>
 		<button class="btn btn-default" ng-click="setView('graph')"
+		title="view data as chart"
 			ng-class="{'btn-primary':view=='graph'}">
 			<i class="glyphicon glyphicon-signal"></i>
 			Graph
@@ -17,16 +19,19 @@
 	<strong> Action:</strong>
 	<div class="btn-group  btn-group-sm">
 		<button class="btn btn-default" ng-click="setView('run')"
+		title="setup a timing run"
 			ng-class="{'btn-primary':view=='run'}">
 			<i class="glyphicon glyphicon-forward"></i>
 			Run
 		</button>
 		<button class="btn btn-default" ng-click="setView('save')"
+		title="save timing data to library"
 			ng-class="{'btn-primary':view=='save'}">
 			<i class="glyphicon glyphicon-saved"></i>
 			Save
 		</button>
-		<button class="btn  btn-default" ng-click="saveAs()" title="Download as csv">
+		<button class="btn  btn-default" ng-click="saveAs()" 
+		title="Download as csv" >
 			<i class="glyphicon glyphicon-save"></i>
 			CSV
 		</button>

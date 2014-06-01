@@ -67,7 +67,7 @@
 						<li>
                             <a href="#/wadl" tabindex="-1">
                                 <i class="glyphicon glyphicon-eye-open"></i>
-                                WADL
+                                Rest API
                             </a>
                         </li>
 						<li class="divider"></li>

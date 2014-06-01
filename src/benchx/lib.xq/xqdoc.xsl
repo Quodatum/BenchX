@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
- basex xqdoc o/p to html with bootstrap
- -->
+<!-- basex xqdoc o/p to html with bootstrap -->
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xqdoc="http://www.xqdoc.org/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fn="http://www.w3.org/2005/02/xpath-functions"
@@ -55,17 +53,11 @@
 				</tr>
 			</table>
 			<h2>Variables</h2>
-			<h3>$LT</h3>
-			<table>
-				<tr>
-					<td>
-						<b>Type:</b>
-					</td>
-					<td>
-						<code>item()</code>
-					</td>
-				</tr>
-			</table>
+			<xsl:for-each select="xqdoc:variables/xqdoc:variable">
+                <xsl:sort select="xqdoc:name" />
+                <xsl:apply-templates select="." />
+            </xsl:for-each>
+            
 			<h2>Functions</h2>
 			<xsl:for-each select="xqdoc:functions/xqdoc:function">
 				<xsl:sort select="xqdoc:name" />
@@ -73,7 +65,31 @@
 			</xsl:for-each>
 		</div>
 	</xsl:template>
-
+	
+	<xsl:template match="xqdoc:variable">
+		<h3>
+			<xsl:value-of select="xqdoc:name" />
+		</h3>
+		<table>
+                <tr>
+                    <td>
+                        <b>Type:</b>
+                    </td>
+                    <td>
+                        <code>item()</code>
+                    </td>
+                </tr>
+                <tr>
+                <td>
+                    <b>Description:</b>
+                </td>
+                <td>
+                    <xsl:value-of select="xqdoc:comment/xqdoc:description" />
+                </td>
+            </tr>
+            </table>
+	</xsl:template>
+	
 	<xsl:template match="xqdoc:function">
 		<h3>
 			<!-- <xsl:value-of select="xqdoc:signature" /> -->

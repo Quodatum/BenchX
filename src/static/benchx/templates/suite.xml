@@ -1,6 +1,13 @@
 <div>
-	<p>suite: {{suite}}</p>
-	<ul ng-repeat="item in suiteItems">
-    <li title="{{item.src}}">{{item.name}}</li>
-    </ul>
+	<div class="row">
+		<a href="#/suite" class="btn btn-default btn-sm" title="Suites">
+			<i class="glyphicon glyphicon-chevron-left"></i>
+		</a>
+		 suite: {{suite}} 
+	</div>
+	<div class="row">
+		<ul ng-repeat="item in suiteItems">
+			<li title="{{item.src}}">{{item.name}}</li>
+		</ul>
+	</div>
 </div>

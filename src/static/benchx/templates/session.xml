@@ -39,7 +39,7 @@
 			<div class="row" ng-repeat="query in session">
 				<div class="col-md-1" title="{{query.src}}">{{query.name}}</div>
 				<div class="col-md-1">
-					<button class="btn" ng-click="execute($index)">Run</button>
+					<button class="btn btn-sm" ng-click="execute($index)">Run</button>
 				</div>
 				<div class="col-md-10">
 					<div ng-repeat="run in query.runs" class="runtime"

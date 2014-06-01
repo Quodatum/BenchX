@@ -11,8 +11,14 @@ angular.module('BenchX.api', [ 'ngResource' ])
 .factory('api', [ '$resource', 'apiRoot', function($resource, apiRoot) {
 	return {
 
-		status : function() {
-			return $resource(apiRoot + 'status').get().$promise;
+		state : function() {
+			return $resource(apiRoot + 'state').get().$promise;
+		},
+		stateSave : function(data) {
+			return $resource(apiRoot + 'state', {
+				mode: "@mode",
+				factor : "@factor"
+			}).save(data).$promise;
 		},
 		xmlgen : function(factor) {
 			return $resource(apiRoot + 'xmlgen', {

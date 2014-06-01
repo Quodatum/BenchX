@@ -80,50 +80,43 @@ let $run:= <run>
 
 
 (:~
- : Generate auction.xml source file using xmlgen.
- : note this switches to file mode
- : @param xmlgen factor size for file to create
- :)
-declare %updating
-%rest:POST %rest:path("benchx/api/xmlgen")
-%restxq:form-param("factor", "{$factor}",0)  
-%output:method("json")   
-function xmlgen($factor)
-{
- let $go:=xm:xmlgen($factor)
- return (s:set-state("F",$factor),
-        db:output(status()))
-}; 
-
-(:~
- : Create database from file
- :)
-declare %updating
-%rest:POST %rest:path("benchx/api/manage")
-%output:method("json")   
-function create()
-{
-try{
- (s:toggle-db(),
- db:output(status()))
- }catch * {
- db:output(web:status(500,$err:description))
- }
-}; 
-
-(:~
  : get information about application state
  :)
 declare 
-%rest:GET %rest:path("benchx/api/status")
+%rest:GET %rest:path("benchx/api/state")
 %output:method("json")   
-function status() 
+function state() 
 {
 <json objects="json _ state" >
     {s:state()}
 </json>
 }; 
 
+(:~
+ : set application state mode and factor
+ :)
+declare %updating
+%rest:POST %rest:path("benchx/api/state")
+%restxq:form-param("mode", "{$mode}")
+%restxq:form-param("factor", "{$factor}")
+%output:method("json")   
+function state-post($mode,$factor as xs:double) 
+{
+    (: @TODO o/p new rather than current state :)
+    (db:output(<json objects="json state">{s:state()}</json>),
+     s:make($mode,$factor))
+}; 
+
+(:~
+ : clear any session state
+ :)
+declare 
+%rest:DELETE %rest:path("benchx/api/state")
+%output:method("json")   
+function state-delete() 
+{
+ s:clear()
+}; 
 (:~
  : list of library files
  :)
@@ -178,7 +171,7 @@ function record-delete($id,$password)
  : testbed not part of app, use this for experiments
  :)
 declare 
-%rest:GET %rest:path("benchx/api/testbed")
+%rest:GET %rest:path("benchx/api/~testbed")
 %output:method("json")   
 function testbed() 
 {
