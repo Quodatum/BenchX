@@ -47,7 +47,7 @@ declare function time-xmark(
   let $xq:=get-xmark($query)
   let $xq:='declare base-uri "' || fn:static-base-uri() ||'";' || $xq
   let $res:= time($xq,$timeout)
-  return (<runtime type="number">{$res[1] div 1000}</runtime>,
+  return (<runtime type="number">{$res[1]}</runtime>,
          <status>{$res[2]}</status>)
 };
 
@@ -55,7 +55,7 @@ declare function time-xmark(
 (:~
  : @param $xq xquery to evaluate 
  : @param $timeout stop execution after this time in seconds
- : @return two item sequence(execution time of $xq in ms,error code or "")
+ : @return two item sequence(execution time of $xq ,error code or "")
  :) 
 declare function time($xq as xs:string,$timeout as xs:double)
 as item()*{
@@ -67,7 +67,8 @@ as item()*{
   return try{
        let $t1:=prof:current-ms()
        let $x:= xquery:eval($xq,$bindings,$opts)
-       return (prof:current-ms()-$t1,"")
+       let $t:=(prof:current-ms()-$t1) div 1000
+       return ($t,"")
       }catch * 
       {
         ($timeout ,$err:code)

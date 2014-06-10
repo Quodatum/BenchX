@@ -85,9 +85,10 @@ angular
 								$window.document.title = t;
 							};
 							$rootScope.setTitle("BenchX");
-							$rootScope.logmsg = "Welcome to BenchX v0.5";
+							$rootScope.logmsg = "Welcome to BenchX v0.5.1";
 							$rootScope.suites = [ "xmark", "apb" ];
 							$rootScope.suite = "xmark";
+							$rootScope.meta={title:""};
 							$rootScope.queue = async
 									.queue(
 											function(task, callback) {
@@ -227,9 +228,8 @@ angular
 								$dialog, api) {
 							$rootScope.setTitle("Session");
 							$scope.repeat = 2;
-							$scope.store = {
-								description : ""
-							};
+							$scope.store={title: ""};
+					
 							$scope.setView = function(v) {
 								$scope.view = v;
 								$location.search("view", v);
@@ -256,7 +256,7 @@ angular
 							};
 							$scope.save = function() {
 								var d = new api.library();
-								d.save($scope.store).$promise.then(function(a) {
+								d.save($scope.meta).$promise.then(function(a) {
 									$rootScope.logmsg = "Saved to library.";
 								}, function(e) {
 									alert("FAILED: " + e.data);
@@ -339,7 +339,7 @@ angular
 		.controller('envController',
 				[ "$scope", "data", function($scope, data) {
 					$scope.setTitle("Environment");
-					$scope.environment = data.environment;
+					$scope.environment = data;
 				} ])
 		.controller('SuitesController',
 				[ "$scope", "data", function($scope, data) {
@@ -374,9 +374,9 @@ angular
 						"$rootScope",
 						"data",
 						"$routeParams",
-						"$location",
+						"$location","utils",
 						function($scope, $rootScope, data, $routeParams,
-								$location) {
+								$location,utils) {
 							$scope.setTitle("Record");
 							$scope.record = data;
 							$scope.setView = function(v) {
@@ -398,7 +398,9 @@ angular
 									alert("B");
 								});
 							};
-
+							var d=[];
+							//angular.foreach(data.benchmark.runs)
+							$scope.chartObject=utils.gchart(data.benchmark.runs,"test");
 						} ])
 
 		.controller(
@@ -407,12 +409,12 @@ angular
 						'$scope',
 						'$rootScope',
 						'$window',
-						'session',
-						function($scope, $rootScope, $window, session) {
+						'utils',
+						function($scope, $rootScope, $window, utils) {
 							$scope.setTitle("Graph");
 							function genChart() {
-								return session.gchart($rootScope.session,
-										'BaseX Benchmark: ' + $rootScope.suite);
+								return utils.gchart($rootScope.session,
+										'BenchX: ' + $rootScope.suite+ " "+$rootScope.meta.title);
 							}
 							;
 
@@ -459,7 +461,7 @@ angular
 			};
 		})
 
-		.factory('session', function() {
+		.factory('utils', function() {
 			return {
 				// create google chart data structure
 				gchart : function(session, title) {

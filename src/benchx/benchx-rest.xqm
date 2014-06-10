@@ -202,9 +202,11 @@ function suites()
     let $suites:=("xmark","apb")
     return <json objects="_" arrays="json">{
     for $s in $suites
+    let $desc:="to do"|| $s
     return <_>
     <name>{$s}</name>
     <href>#/suite/{$s}</href>
+    <describe>{$desc}</describe>
     <session>#/suite/{$s}/session</session>
     <library>#/suite/{$s}/library</library>
     </_>
@@ -239,11 +241,11 @@ function queries($suite as xs:string)
  :)
 declare 
 %rest:GET %rest:path("benchx/api/environment")
-%output:method("json")   
+%output:method("json")  
 function env() 
 {
-<json objects="json environment " >
-    {env:xml()}
+<json type="object" >
+    {env:xml()/*}
 </json>
 }; 
 

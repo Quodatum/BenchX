@@ -19,6 +19,13 @@ body    {
 	display:inline-block;
 
 }
+.suitelist {
+    background-color:#FFFF99;
+    padding:8px;	
+}
+.suitename {
+    font-size:125%;   
+}
 .table-responsive{
     overflow-x: auto;
 }

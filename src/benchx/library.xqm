@@ -30,7 +30,7 @@ declare %updating function add-session(
                 $session as element(benchmark)
 ){
     let $data:=fn:trace($data,"ADD ")
-    let $desc:=$data/json/description/fn:string()
+    let $desc:=$data/json/title/fn:string()
     let $id:=random:uuid()
     let $new:=copy $d:=$session
             modify (
