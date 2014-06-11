@@ -30,13 +30,13 @@
 
 				</div>
 				<div class="col-md-1">
-					<select ng-model="suite" ng-options="s for s in suites"></select>
+					<span  >{{activesuite}}</span>
 				</div>
 				<div class="col-md-10">
 					blah blah
 				</div>
 			</div>
-			<div class="row" ng-repeat="query in session">
+			<div class="row" ng-repeat="query in session.queries">
 				<div class="col-md-1" title="{{query.src}}">{{query.name}}</div>
 				<div class="col-md-1">
 					<button class="btn btn-sm" ng-click="execute($index)">Run</button>

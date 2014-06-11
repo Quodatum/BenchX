@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="panel  panel-info panel-body col-md-4">
 				<div class="panel-heading">
-					<h3 class="panel-title">Initial state</h3>
+					<h3 class="panel-title">1. Initial state</h3>
 				</div>
 				<div class="panel-body ">
 					<div class="form-group">
@@ -31,7 +31,7 @@
 			</div>
 			<div class="panel  panel-info panel-body col-md-4">
 				<div class="panel-heading">
-					<h3 class="panel-title">then</h3>
+					<h3 class="panel-title">2. then</h3>
 				</div>
 				<div class="panel-body ">
 					<label>
@@ -60,11 +60,11 @@
 			</div>
 			<div class="panel  panel-info panel-body col-md-4">
 				<div class="panel-heading">
-					<h3 class="panel-title">repeat all</h3>
+					<h3 class="panel-title">3. Repeat (1) and (2)</h3>
 				</div>
 				<div class="panel-body ">
 					<label>
-						Repeat:
+						Times:
 						<input class="input-sm in8" type="number" ng-model="$storage.settings.repeat"
 							min="1" max="10" step="1" />
 					</label>

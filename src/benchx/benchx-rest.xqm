@@ -217,14 +217,18 @@ function suites()
 (:~
  : Get list of tests in suite
  : @param suite name of suite
- : @return array of tests in suite
+ : @return the suite object
  :)
 declare 
 %rest:GET %rest:path("benchx/api/suite/{$suite}")
 %output:method("json")   
 function queries($suite as xs:string) 
 {
-<json objects="_" arrays="json runs">
+<json objects="json _" arrays="queries runs">
+    <name>{$suite}</name>
+     <session>#/suite/{$suite}/session</session>
+    <library>#/suite/{$suite}/library</library>
+    <queries>
     { for  $file in xm:list-tests( $suite )
             return <_>
                 <name>{$file}</name>
@@ -232,6 +236,7 @@ function queries($suite as xs:string)
                 <runs />
                 </_>
     }
+    </queries>
 </json>
 };  
 

@@ -1,22 +1,17 @@
 <div>
-	<p>Available benchmark suites</p>
-	<ul ng-repeat="suite in suites">
-		<li class="suitelist">
-			<a class="suitename" href="{{suite.href}}">
-			<i class="glyphicon glyphicon-expand"></i>
-			{{suite.name}}</a>
-			<div>
-				<a href="{{suite.library}}" title="Timing results">
-					<i class="glyphicon glyphicon-book"></i>
-					Results
-				</a>
-			</div>
-			<div>
-				<a href="{{suite.session}}" title="run this benchmark">
-					<i class="glyphicon glyphicon-cog"></i>
-					 Run
-				</a>
-			</div>
-		</li>
-	</ul>
+	<p>Available benchmark suites </p>
+	<div class="list-group">
+  <a href="{{suite.href}}" ng-repeat="suite in suites" 
+     class="list-group-item " ng-class="{active: suite.name == activesuite}">
+    <h4 class="list-group-item-heading">
+    <div class="pull-right">
+     <span class="badge">14</span> results
+      </div>
+    {{suite.name}}</h4>
+    <p class="list-group-item-text">{{suite.describe}}
+    blah blah....</p>
+  </a>
+</div>
+	
+
 </div>

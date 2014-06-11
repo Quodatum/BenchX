@@ -1,5 +1,5 @@
 /*
- * BenchX angular appliction
+ * BenchX angular application
  * @author andy bunce
  * @date 2014
  * @licence Apache 2
@@ -18,6 +18,9 @@ angular
 			}).when('/suite/:suit/session', {
 				templateUrl : '/static/benchx/templates/session.xml',
 				controller : "SessionController"
+			}).when('/suite/:suit/library', {
+				templateUrl : '/static/benchx/templates/library.xml',
+				controller : "LibraryController",	
 			}).when('/environment', {
 				templateUrl : '/static/benchx/templates/environment.xml',
 				controller : "envController",
@@ -85,10 +88,12 @@ angular
 								$window.document.title = t;
 							};
 							$rootScope.setTitle("BenchX");
-							$rootScope.logmsg = "Welcome to BenchX v0.5.1";
+							$rootScope.logmsg = "Welcome to BenchX v0.5.2";
 							$rootScope.suites = [ "xmark", "apb" ];
-							$rootScope.suite = "xmark";
-							$rootScope.meta={title:""};
+							$rootScope.activesuite = "xmark";
+							$rootScope.meta = {
+								title : ""
+							};
 							$rootScope.queue = async
 									.queue(
 											function(task, callback) {
@@ -136,8 +141,9 @@ angular
 				[
 						'$rootScope',
 						'api',
+						'utils',
 
-						function($rootScope, api) {
+						function($rootScope, api, utils) {
 							function updateStatus(data) {
 								console.log("update status:", data);
 								$rootScope.state = data.state;
@@ -150,51 +156,31 @@ angular
 
 							// run query with index
 							$rootScope.execute = function(index) {
-								var q = $rootScope.session[index];
-								return api.execute({
-									suite : $rootScope.suite,
-									name : q.name,
-									mode : $rootScope.state.mode,
-									size : $rootScope.state.size
-								}).then(
-										function(res) {
-											$rootScope.session[index].runs
-													.push(res.run);
-											$rootScope.$broadcast("session");
-										},
-										function(reason) {
-											alert("Execution error"
-													+ reason.data);
-										});
+								var q = $rootScope.session.queries[index];
+								return api
+										.execute({
+											suite : $rootScope.activesuite,
+											name : q.name,
+											mode : $rootScope.state.mode,
+											size : $rootScope.state.size
+										})
+										.then(
+												function(res) {
+													$rootScope.session.queries[index].runs
+															.push(res.run);
+													$rootScope
+															.$broadcast("session");
+												},
+												function(reason) {
+													alert("Execution error"
+															+ reason.data);
+												});
 							};
 
 							$rootScope.saveAs = function() {
-								var heads = [ "suite", "query", "mode",
-										"factor", "runtime" ];
-								var txt = [ heads.join(",") ];
-								angular
-										.forEach(
-												$rootScope.session,
-												function(v) {
-													angular
-															.forEach(
-																	v.runs,
-																	function(r) {
-																		line = [
-																				$rootScope.suite,
-																				v.name,
-																				r.mode,
-																				r.factor,
-																				r.runtime ];
-																		txt
-																				.push(line
-																						.join(","));
-																	});
-												});
-								var blob = new Blob([ txt.join("\n") ], {
-									type : 'text/csv'
-								});
-								saveAs(blob, "results.csv");
+								var csv = utils.csv($rootScope.session,
+										$rootScope.activesuite);
+								saveAs(csv, "results.csv");
 							};
 
 							$rootScope.setState = function(data) {
@@ -207,10 +193,11 @@ angular
 													+ reason.data);
 										});
 							};
-							api.suite($rootScope.suite).then(function(data) {
-								$rootScope.session = data;
+							api.suite($rootScope.activesuite).then(
+									function(data) {
+										$rootScope.session = data;
 
-							});
+									});
 							api.state().then(updateStatus);
 
 						} ])
@@ -226,10 +213,12 @@ angular
 						"api",
 						function($scope, $rootScope, $routeParams, $location,
 								$dialog, api) {
-							$rootScope.setTitle("Session");
-							$scope.repeat = 2;
-							$scope.store={title: ""};
-					
+							$rootScope.setTitle("Session: "
+									+ $rootScope.activesuite);
+							$scope.store = {
+								title : ""
+							};
+
 							$scope.setView = function(v) {
 								$scope.view = v;
 								$location.search("view", v);
@@ -241,18 +230,24 @@ angular
 							$scope.clearAll = function() {
 								var msg = "Remove timing data for runs in the current session?";
 
-								$dialog.messageBox("clear all", msg, [],
-										function(result) {
-											if (result === 'OK') {
-												angular.forEach(
-														$rootScope.session,
-														function(v) {
-															v.runs = [];
-														})
-											} else {
-												// failed...
-											}
-										});
+								$dialog
+										.messageBox(
+												"clear all",
+												msg,
+												[],
+												function(result) {
+													if (result === 'OK') {
+														angular
+																.forEach(
+																		$rootScope.session.queries,
+																		function(
+																				v) {
+																			v.runs = [];
+																		})
+													} else {
+														// failed...
+													}
+												});
 							};
 							$scope.save = function() {
 								var d = new api.library();
@@ -280,13 +275,13 @@ angular
 										factor : factor
 									}
 								} ];
-								angular.forEach($rootScope.session, function(v,
-										index) {
-									tasks.push({
-										cmd : "run",
-										data : index
-									});
-								});
+								angular.forEach($rootScope.session.queries,
+										function(v, index) {
+											tasks.push({
+												cmd : "run",
+												data : index
+											});
+										});
 								return tasks;
 							}
 							;
@@ -348,11 +343,11 @@ angular
 				} ])
 		.controller(
 				'SuiteController',
-				[ "$scope", "data", "$routeParams",
-						function($scope, data, $routeParams) {
-							$scope.suite = $routeParams.id;
+				[ "$scope", "$rootScope", "data", "$routeParams",
+						function($scope, $rootScope, data, $routeParams) {
+							$rootScope.activesuite = $routeParams.id;
 							$scope.setTitle("Suite: " + $routeParams.id);
-							$scope.suiteItems = data;
+							$scope.suite = data;
 						} ])
 		.controller(
 				'LibraryController',
@@ -374,9 +369,10 @@ angular
 						"$rootScope",
 						"data",
 						"$routeParams",
-						"$location","utils",
+						"$location",
+						"utils",
 						function($scope, $rootScope, data, $routeParams,
-								$location,utils) {
+								$location, utils) {
 							$scope.setTitle("Record");
 							$scope.record = data;
 							$scope.setView = function(v) {
@@ -398,9 +394,10 @@ angular
 									alert("B");
 								});
 							};
-							var d=[];
-							//angular.foreach(data.benchmark.runs)
-							$scope.chartObject=utils.gchart(data.benchmark.runs,"test");
+							var d = [];
+							// angular.foreach(data.benchmark.runs)
+							$scope.chartObject = utils.gchart(
+									data.benchmark.runs, "test");
 						} ])
 
 		.controller(
@@ -413,8 +410,9 @@ angular
 						function($scope, $rootScope, $window, utils) {
 							$scope.setTitle("Graph");
 							function genChart() {
-								return utils.gchart($rootScope.session,
-										'BenchX: ' + $rootScope.suite+ " "+$rootScope.meta.title);
+								return utils.gchart($rootScope.session.queries,
+										'BenchX: ' + $rootScope.suite + " "
+												+ $rootScope.meta.title);
 							}
 							;
 
@@ -461,49 +459,67 @@ angular
 			};
 		})
 
-		.factory('utils', function() {
-			return {
-				// create google chart data structure
-				gchart : function(session, title) {
-					if (!session)
-						return;
-					var cols = [ {
-						id : "t",
-						label : "Query",
-						type : "string"
-					} ];
-					angular.forEach(session[0].runs, function(v, index) {
-						cols.push({
-							id : "R" + index,
-							label : v.mode + ":" + v.factor,
-							type : "number"
-						});
-					});
-					var rows = [];
-					angular.forEach(session, function(q, i) {
-						var d = [ {
-							v : q.name
-						} ];
-						angular.forEach(q.runs, function(r, i2) {
-							d.push({
-								v : r.runtime
-							});
-						});
-						rows.push({
-							c : d
-						});
-					});
+		.factory(
+				'utils',
+				function() {
 					return {
-						type : "ColumnChart",
-						options : {
-							'title' : title
+						// create google chart data structure
+						gchart : function(session, title) {
+							if (!session)
+								return;
+							var cols = [ {
+								id : "t",
+								label : "Query",
+								type : "string"
+							} ];
+							angular.forEach(session[0].runs,
+									function(v, index) {
+										cols.push({
+											id : "R" + index,
+											label : v.mode + ":" + v.factor,
+											type : "number"
+										});
+									});
+							var rows = [];
+							angular.forEach(session, function(q, i) {
+								var d = [ {
+									v : q.name
+								} ];
+								angular.forEach(q.runs, function(r, i2) {
+									d.push({
+										v : r.runtime
+									});
+								});
+								rows.push({
+									c : d
+								});
+							});
+							return {
+								type : "ColumnChart",
+								options : {
+									'title' : title
+								},
+								data : {
+									"cols" : cols,
+									"rows" : rows
+								}
+							};
+
 						},
-						data : {
-							"cols" : cols,
-							"rows" : rows
+						csv : function(session, suite) {
+							var heads = [ "suite", "query", "mode", "factor",
+									"runtime" ];
+							var txt = [ heads.join(",") ];
+							angular.forEach(session.queries, function(v) {
+								angular.forEach(v.runs, function(r) {
+									line = [ suite, v.name, r.mode, r.factor,
+											r.runtime ];
+									txt.push(line.join(","));
+								});
+							});
+							return new Blob([ txt.join("\n") ], {
+								type : 'text/csv'
+							})
 						}
 					};
-
-				}
-			};
-		});
+				});

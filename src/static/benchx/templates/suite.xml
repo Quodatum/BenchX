@@ -3,10 +3,21 @@
 		<a href="#/suite" class="btn btn-default btn-sm" title="Suites">
 			<i class="glyphicon glyphicon-chevron-left"></i>
 		</a>
-		 suite: {{suite}} 
+		suite: {{suite.name}}
+		<div class="btn-group btn-group-sm">
+			<a href="{{suite.library}}" class="btn btn-default btn-sm" title="library">
+				<i class="glyphicon glyphicon-book"></i>
+				Library
+			</a>
+			<a href="{{suite.session}}" class="btn btn-default btn-sm" title="Session">
+				<i class="glyphicon glyphicon-cog"></i>
+				Run
+			</a>
+		</div>
+
 	</div>
 	<div class="row">
-		<ul ng-repeat="item in suiteItems">
+		<ul ng-repeat="item in suite.queries">
 			<li title="{{item.src}}">{{item.name}}</li>
 		</ul>
 	</div>
