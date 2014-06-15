@@ -1,0 +1,144 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta http-equiv="Generator" content="xquerydoc - https://github.com/xquery/xquerydoc"/><title>xqDoc - </title><style type="text/css">
+          body {
+          font-family: Helvetica;
+          padding: 0.5em  1em;
+          }
+          pre {
+          font-family: Inconsolata, Consolas, monospace;
+          }
+          ol.results {
+          padding-left: 0;
+          }
+          .footer {
+          text-align:right;
+          border-top: solid 4px;
+          padding: 0.25em 0.5em;
+          font-size: 85%;
+          color: #999;
+          }
+          li.result {
+          list-style-position: inside;
+          list-style: none;
+          height:140px;
+          }
+          h2 {
+          display: inline-block;
+          margin: 0;
+          }
+
+          h2 a,
+          .result h3 a {
+          text-decoration: inherit;
+          color: inherit;
+          }
+          h3{
+	  font-size: 140%;
+	  background-color: #aaa;
+	  border-bottom: 1px solid #000;
+	  width: 100%;
+	  }
+          h4{
+	  font-size: 100%;
+	  background-color: #ddd;
+	  width: 90%;
+	  }
+
+          .namespace {
+          color: #999;
+          }
+          .namespace:before {
+          content: "{";
+          }
+          .namespace:after {
+          content: "}";
+          }
+          table{
+          width:75%;
+          float:right;
+          }
+          td {
+          height:100px;
+          width:50%;
+          vertical-align:text-top;
+          }
+        </style><script src="lib/prettify.js" type="text/javascript"> </script><script src="lib/lang-xq.js" type="text/javascript"> </script><link rel="stylesheet" type="text/css" href="lib/prettify.css"/></head><body class="home"><div id="main"><h1><span class="namespace">apb.dbtools</span>  error module </h1><div id="variables"><h3>Variables</h3></div><div id="functions"><h3>Functions</h3><div id="func_zip_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: zip($dbname as xs:string
+) as xs:base64Binary</pre></h4><p>save all in db to zip no binary yet</p><h5>Params</h5><ul><li>dbname as xs:string</li></ul><h5>Returns</h5><ul><li>xs:base64Binary</li></ul></div><div id="func_sync-from-path_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: sync-from-path($dbname as xs:string,
+                                    $path as xs:string
+)</pre></h4><p>update or create database from file path</p><h5>Params</h5><ul><li>dbname as xs:string name of database</li><li>path as xs:string file path contain files</li></ul></div><div id="func_sync-from-files_4"><h4><pre class="prettyprint lang-xq"><u>Function</u>: sync-from-files($dbname as xs:string,
+    $path as xs:string,
+    $files as xs:string*,
+    $filter as function(*)
+)</pre></h4><p>update or create database from file list</p><h5>Params</h5><ul><li>dbname as xs:string name of database</li><li>path as xs:string root file path for files are relative</li><li>files as xs:string* file names from base</li><li>filter as function(*) a function to apply to items in $files, maybe to remove some.</li></ul></div></div><div><h3>Original Source Code</h3><pre class="prettyprint lang-xq">(:~ 
+: tools for databases..
+: @author andy bunce
+: @since mar 2013
+:)
+
+module namespace dbtools = 'apb.dbtools';
+declare default function namespace 'apb.dbtools'; 
+
+(:~ 
+: save all in db to zip
+: no binary yet 
+:)
+declare function zip($dbname as xs:string)
+as xs:base64Binary{
+  let $files:=db:list($dbname)
+  let $zip   := archive:create(
+                  $files ! element archive:entry { . },
+                  $files ! fn:serialize(db:open($dbname, .))
+                  )
+return $zip
+};
+
+(:~
+: update or create database from file path
+: @param $dbname name of database
+: @param $path file path contain files
+:)
+declare %updating function sync-from-path(
+                                    $dbname as xs:string,
+                                    $path as xs:string)
+ {
+  sync-from-files($dbname,
+                  $path,
+                  file:list($path,fn:true()),
+                  hof:id#1)
+};
+
+(:~
+: update or create database from file list
+: @param $dbname name of database
+: @param $path  root file path for files are relative 
+: @param $files file names from base
+: @param filter a function to apply to items in $files, maybe to remove some.
+:)
+declare %updating function sync-from-files(
+    $dbname as xs:string,
+    $path as xs:string,
+    $files as xs:string*,
+    $filter as function(*)
+){
+(: remove folders :)
+let $files:=fn:filter($files,function($f){fn:not(fn:ends-with($f,file:dir-separator()))})
+let $path:=$path || file:dir-separator()
+return if(db:exists($dbname)) then
+       (
+       for $d in db:list($dbname) 
+       where fn:not($d=$files) 
+       return db:delete($dbname,$d),
+       
+       for $f in $files 
+       let $full:=$filter($path || $f) 
+       return db:replace($dbname,$f,$full),
+       
+       db:optimize($dbname)
+       )
+       else
+        let $full:=$files!fn:concat($path,.)!$filter(.)
+        let $full:=fn:trace($full,"WWW") 
+        return (db:create($dbname,$full,$files))
+};</pre></div><br/><div class="footer"><p style="text-align:right"><i/> |
+          generated by xquerydoc <a href="https://github.com/xquery/xquerydoc" target="xquerydoc">https://github.com/xquery/xquerydoc</a></p></div></div><script type="application/javascript">
+	  window.onload = function(){ prettyPrint(); }
+	</script></body></html>

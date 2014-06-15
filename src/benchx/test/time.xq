@@ -2,6 +2,7 @@
  : tests for time function
  :)
 import module namespace xm = 'apb.xmark.test' at "../xmark.xqm";
+import module namespace unit ='http://basex.org/modules/unit';
 
 (:~ Function demonstrating a successful test. :)
 declare %unit:test function unit:assert-success() {

@@ -1,0 +1,169 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta http-equiv="Generator" content="xquerydoc - https://github.com/xquery/xquerydoc"/><title>xqDoc - </title><style type="text/css">
+          body {
+          font-family: Helvetica;
+          padding: 0.5em  1em;
+          }
+          pre {
+          font-family: Inconsolata, Consolas, monospace;
+          }
+          ol.results {
+          padding-left: 0;
+          }
+          .footer {
+          text-align:right;
+          border-top: solid 4px;
+          padding: 0.25em 0.5em;
+          font-size: 85%;
+          color: #999;
+          }
+          li.result {
+          list-style-position: inside;
+          list-style: none;
+          height:140px;
+          }
+          h2 {
+          display: inline-block;
+          margin: 0;
+          }
+
+          h2 a,
+          .result h3 a {
+          text-decoration: inherit;
+          color: inherit;
+          }
+          h3{
+	  font-size: 140%;
+	  background-color: #aaa;
+	  border-bottom: 1px solid #000;
+	  width: 100%;
+	  }
+          h4{
+	  font-size: 100%;
+	  background-color: #ddd;
+	  width: 90%;
+	  }
+
+          .namespace {
+          color: #999;
+          }
+          .namespace:before {
+          content: "{";
+          }
+          .namespace:after {
+          content: "}";
+          }
+          table{
+          width:75%;
+          float:right;
+          }
+          td {
+          height:100px;
+          width:50%;
+          vertical-align:text-top;
+          }
+        </style><script src="lib/prettify.js" type="text/javascript"> </script><script src="lib/lang-xq.js" type="text/javascript"> </script><link rel="stylesheet" type="text/css" href="lib/prettify.css"/></head><body class="home"><div id="main"><h1><span class="namespace">apb.web.utils3</span>  error module </h1><div id="variables"><h3>Variables</h3></div><div id="functions"><h3>Functions</h3><div id="func_role-check_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: role-check($role as xs:string,$fn
+)</pre></h4><p>execute function fn if session has loggedin user with matching role else 401</p><h5>Params</h5><ul><li>role as xs:string</li><li>fn as </li></ul></div><div id="func_user_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: user($role as xs:string
+)</pre></h4><p>return user of raise error if none</p>role check<h5>Params</h5><ul><li>role as xs:string</li></ul></div><div id="func_status_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: status($code,$reason
+)</pre></h4><h5>Params</h5><ul><li>code as </li><li>reason as </li></ul></div><div id="func_http-auth_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: http-auth($auth-scheme,$response
+)</pre></h4><p>REST created http://restpatterns.org/HTTP_Status_Codes/401_-_Unauthorized</p><h5>Params</h5><ul><li>auth-scheme as </li><li>response as </li></ul></div><div id="func_http-created_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: http-created($location,$response
+)</pre></h4><p>REST created http://restpatterns.org/HTTP_Status_Codes/201_-_Created</p><h5>Params</h5><ul><li>location as </li><li>response as </li></ul></div><div id="func_headers_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: headers($attachment,$response
+)</pre></h4><p>CORS header with download option</p><h5>Params</h5><ul><li>attachment as </li><li>response as </li></ul></div><div id="func_zip-download_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: zip-download($zipname,$data
+)</pre></h4><p>download as zip file</p><h5>Params</h5><ul><li>zipname as </li><li>data as </li></ul></div><div id="func_download-response_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: download-response($method,$filename
+)</pre></h4><p>headers for download</p><h5>Params</h5><ul><li>method as </li><li>filename as </li></ul></div></div><div><h3>Original Source Code</h3><pre class="prettyprint lang-xq">(:~ 
+: web utils
+: @author andy bunce
+: @since oct 2012
+:)
+
+module namespace web = 'apb.web.utils3';
+declare default function namespace 'apb.web.utils3'; 
+
+declare namespace rest = 'http://exquery.org/ns/restxq';
+import module namespace session ="http://basex.org/modules/session";
+
+(:~
+: execute function fn if session has loggedin user with matching role else 401
+:)
+declare function role-check($role as xs:string,$fn){
+  let $uid:=session:get("uid")
+  return if($uid) then
+        $fn()
+         else http-auth("Whizz apb auth",())
+};
+
+(:~ return user of raise error if none
+: @TODO role check
+:)
+declare function user($role as xs:string){
+  let $uid:=session:get("uid")
+  return if($uid) then
+        $uid
+        else fn:error(xs:QName('web:session-user'),"not logged in") 
+};
+
+declare function status($code,$reason){
+   &lt;rest:response&gt;            
+       &lt;http:response status="{$code}" reason="{$reason}"/&gt;
+   &lt;/rest:response&gt;
+};
+
+(:~
+: REST created http://restpatterns.org/HTTP_Status_Codes/401_-_Unauthorized
+:)
+declare function http-auth($auth-scheme,$response){
+   (
+   &lt;rest:response&gt;            
+       &lt;http:response status="401" &gt;
+	       &lt;http:header name="WWW-Authenticate" value="{$auth-scheme}"/&gt;
+	   &lt;/http:response&gt;
+   &lt;/rest:response&gt;,
+   $response
+   )
+};
+
+(:~
+: REST created http://restpatterns.org/HTTP_Status_Codes/201_-_Created
+:)
+declare function http-created($location,$response){
+   (
+   &lt;rest:response&gt;            
+       &lt;http:response status="201" &gt;
+	       &lt;http:header name="Location" value="{$location}"/&gt;
+	   &lt;/http:response&gt;
+   &lt;/rest:response&gt;,
+   $response
+   )
+};
+
+
+(:~ CORS header with download option :) 
+declare function headers($attachment,$response){
+(&lt;restxq:response&gt;
+    &lt;http:response&gt;
+        &lt;http:header name="Access-Control-Allow-Origin" value="*"/&gt;
+    {if($attachment)
+    then &lt;http:header name="Content-Disposition" value='attachment;filename="{$attachment}"'/&gt;
+    else ()}
+    &lt;/http:response&gt;
+&lt;/restxq:response&gt;, $response)
+};
+
+(:~ download as zip file :) 
+declare function zip-download($zipname,$data){
+    (download-response("raw",$zipname), $data)
+};
+
+(:~ headers for download  :) 
+declare function download-response($method,$filename){
+&lt;restxq:response&gt;
+    &lt;output:serialization-parameters&gt;
+        &lt;output:method value="{$method}"/&gt;
+    &lt;/output:serialization-parameters&gt;
+   &lt;http:response&gt;
+       &lt;http:header name="Content-Disposition" value='attachment;filename="{$filename}"'/&gt; 
+    &lt;/http:response&gt;
+&lt;/restxq:response&gt;
+};</pre></div><br/><div class="footer"><p style="text-align:right"><i/> |
+          generated by xquerydoc <a href="https://github.com/xquery/xquerydoc" target="xquerydoc">https://github.com/xquery/xquerydoc</a></p></div></div><script type="application/javascript">
+	  window.onload = function(){ prettyPrint(); }
+	</script></body></html>

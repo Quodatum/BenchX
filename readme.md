@@ -1,4 +1,4 @@
-# benchmark.xq
+# BenchX
 
 A Web App packaging of the [XMark](http://www.xml-benchmark.org) benchmark for BaseX.
 Version 7.8.2 or greater of BaseX is required as the query timeout functionality of xquery:eval is used.

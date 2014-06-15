@@ -117,6 +117,7 @@ function state-delete()
 {
  s:clear()
 }; 
+
 (:~
  : list of library files
  :)
@@ -254,27 +255,3 @@ function env()
 </json>
 }; 
 
-
-
-
-(:~
- : show xqdoc for rest api
- :)
-declare 
-%rest:GET %rest:path("benchx/doc/xqdoc")
-%output:method("html")  
-function xqdoc() 
-{
-    doc:generate-html(fn:static-base-uri())
-};
- 
-(:~
- : show xqdoc for rest api
- :)
-declare 
-%rest:GET %rest:path("benchx/doc/wadl")
-%output:method("html")  
-function wadl() 
-{
-  doc:wadl("/benchx") 
-}; 
