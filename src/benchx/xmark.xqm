@@ -17,27 +17,38 @@ declare variable $xm:base-dir:=file:parent(fn:static-base-uri());
 declare variable $xm:exec:=$xm:base-dir ||$xm:bin;
 
 (:~
- : get xmark query
+ : get xmark query setting base-uri
  : @param $query is suite/file.xq
  :)
 declare function get-xmark($query as xs:string
-) {
+) as xs:string {
   let $f:=fn:resolve-uri(
     "suite/" || $query 
   )
-  return fn:unparsed-text($f) 
+  let $xq:= fn:unparsed-text($f)
+  return 'declare base-uri "' || fn:static-base-uri() ||'";&#10;' || $xq 
 };
 
 
 (:~
- : list query file names
+ : list query file names in suite
  :)
-declare function list-tests($dir as xs:string) {
-  for $f in file:list(fn:resolve-uri("suite/" || $dir),fn:false(),"*.xq")
+declare function list-tests($suite as xs:string)
+as xs:string* {
+  for $f in file:list(fn:resolve-uri("suite/" || $suite),fn:false(),"*.xq")
   order by $f (: sort by number :)
   return $f
 };
 
+(:~
+ : list query file names in suite
+ :)
+declare function list-suites() 
+as xs:string*{
+  for $f in file:list(fn:resolve-uri("suite/"),fn:false())
+  order by $f (: sort by number :)
+  return file:name($f)
+};
 (:~
  : run xmark query
  :)
@@ -45,7 +56,7 @@ declare function time-xmark(
   $query as xs:string,$timeout as xs:double
 ) {
   let $xq:=get-xmark($query)
-  let $xq:='declare base-uri "' || fn:static-base-uri() ||'";' || $xq
+ 
   let $res:= time($xq,$timeout)
   return (<runtime type="number">{$res[1]}</runtime>,
          <status>{$res[2]}</status>)

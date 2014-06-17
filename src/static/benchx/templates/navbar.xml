@@ -71,13 +71,19 @@
 							</a>
 						</li>
 						<li>
-							<a href="#/xqdoc" tabindex="-1">
+							<a href="#/doc/xqdoc" tabindex="-1">
 								<i class="glyphicon glyphicon-eye-open"></i>
 								XQDoc
 							</a>
 						</li>
 						<li>
-							<a href="#/wadl" tabindex="-1">
+                            <a href="doc/server/" target="benchx-doc" tabindex="-1">
+                                <i class="glyphicon glyphicon-eye-open"></i>
+                                XQDoc external
+                            </a>
+                        </li>
+						<li>
+							<a href="#/doc/wadl" tabindex="-1">
 								<i class="glyphicon glyphicon-eye-open"></i>
 								Rest API
 							</a>

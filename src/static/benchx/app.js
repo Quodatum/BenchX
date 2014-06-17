@@ -66,9 +66,9 @@ angular
 						return api.suite($route.current.params.id);
 					}
 				}
-			}).when('/xqdoc', {
+			}).when('/doc/xqdoc', {
 				templateUrl : '/static/benchx/templates/xqdoc.xml'
-			}).when('/wadl', {
+			}).when('/doc/wadl', {
 				templateUrl : '/static/benchx/templates/wadl.xml',
 				controller : "WadlController"
 			}).when('/404', {
@@ -193,6 +193,10 @@ angular
 													+ reason.data);
 										});
 							};
+							api.suites().then(
+									function(data){
+										console.log("suites:",data);
+									});
 							api.suite($rootScope.activesuite).then(
 									function(data) {
 										$rootScope.session = data;

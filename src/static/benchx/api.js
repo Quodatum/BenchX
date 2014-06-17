@@ -9,6 +9,41 @@ angular.module('BenchX.api', [ 'ngResource' ])
 .constant("apiRoot", "../../benchx/api/")
 
 .factory('api', [ '$resource', 'apiRoot', function($resource, apiRoot) {
+	/*
+	var queue = async
+	.queue(
+			function(task, callback) {
+				var promise;
+				switch (task.cmd) {
+				case "run":
+					$rootScope.logmsg = 'Starting '
+							+ task.data;
+					promise = $rootScope
+							.execute(task.data);
+					break;
+				case "state":
+					$rootScope.logmsg = 'Starting set state';
+					promise = $rootScope
+							.setState(task.data);
+					break;
+
+				default:
+					$rootScope.logmsg = 'Unknown command ignored: '
+							+ task.cmd;
+				}
+				;
+				promise
+						.then(function(res) {
+							// Dig into the
+							// responde to get
+							// the relevant data
+							$rootScope.logmsg = 'completed '
+									+ task.cmd;
+							callback();
+						});
+			}, 1);
+			*/
+	
 	return {
 
 		state : function() {

@@ -1,9 +1,11 @@
 <div>
 	<div class="row">
+	   <h4>
 		<a href="#/suite" class="btn btn-default btn-sm" title="Suites">
-			<i class="glyphicon glyphicon-chevron-left"></i>
+			suites
 		</a>
-		suite: {{suite.name}}
+		/{{suite.name}}
+		</h4>
 		<div class="btn-group btn-group-sm">
 			<a href="{{suite.library}}" class="btn btn-default btn-sm" title="library">
 				<i class="glyphicon glyphicon-book"></i>
@@ -18,7 +20,8 @@
 	</div>
 	<div class="row">
 		<ul ng-repeat="item in suite.queries">
-			<li title="{{item.src}}">{{item.name}}</li>
+			<li title="{{item.src}}">{{item.name}}
+			<pre>{{item.src}}</pre></li>
 		</ul>
 	</div>
 </div>

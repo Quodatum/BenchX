@@ -200,7 +200,7 @@ declare
 %output:method("json")   
 function suites() 
 {
-    let $suites:=("xmark","apb")
+    let $suites:=xm:list-suites()
     return <json objects="_" arrays="json">{
     for $s in $suites
     let $desc:="to do"|| $s
