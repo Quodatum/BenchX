@@ -1,0 +1,223 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta http-equiv="Generator" content="xquerydoc - https://github.com/xquery/xquerydoc"/><title>xqDoc - </title><style type="text/css">
+          body {
+          font-family: Helvetica;
+          padding: 0.5em  1em;
+          }
+          pre {
+          font-family: Inconsolata, Consolas, monospace;
+          }
+          ol.results {
+          padding-left: 0;
+          }
+          .footer {
+          text-align:right;
+          border-top: solid 4px;
+          padding: 0.25em 0.5em;
+          font-size: 85%;
+          color: #999;
+          }
+          li.result {
+          list-style-position: inside;
+          list-style: none;
+          height:140px;
+          }
+          h2 {
+          display: inline-block;
+          margin: 0;
+          }
+
+          h2 a,
+          .result h3 a {
+          text-decoration: inherit;
+          color: inherit;
+          }
+          h3{
+	  font-size: 140%;
+	  background-color: #aaa;
+	  border-bottom: 1px solid #000;
+	  width: 100%;
+	  }
+          h4{
+	  font-size: 100%;
+	  background-color: #ddd;
+	  width: 90%;
+	  }
+
+          .namespace {
+          color: #999;
+          }
+          .namespace:before {
+          content: "{";
+          }
+          .namespace:after {
+          content: "}";
+          }
+          table{
+          width:75%;
+          float:right;
+          }
+          td {
+          height:100px;
+          width:50%;
+          vertical-align:text-top;
+          }
+        </style><script src="lib/prettify.js" type="text/javascript"> </script><script src="lib/lang-xq.js" type="text/javascript"> </script><link rel="stylesheet" type="text/css" href="lib/prettify.css"/></head><body class="home"><div id="main"><h1><span class="namespace">apb.benchx.state</span>  error module </h1><div id="variables"><h3>Variables</h3><div id="var_s_root"><h4><pre class="prettyprint lang-xq"><u>Variable</u>: $s:root as </pre></h4></div></div><div id="functions"><h3>Functions</h3><div id="func_benchmark_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: benchmark(
+) as element(benchmark)</pre></h4><h5>Returns</h5><ul><li>element(benchmark)</li></ul></div><div id="func_benchmark_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: benchmark($newValue as element(benchmark)
+) as element(benchmark)</pre></h4><h5>Params</h5><ul><li>newValue as element(benchmark)</li></ul><h5>Returns</h5><ul><li>element(benchmark)</li></ul></div><div id="func_add_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: add($result as element(run)
+)</pre></h4><p>add new result to session</p><h5>Params</h5><ul><li>result as element(run)</li></ul></div><div id="func_clear_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: clear(
+)</pre></h4><p>delete session values</p></div><div id="func_file-size_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: file-size(
+)</pre></h4><p/></div><div id="func_mode_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: mode(
+) as xs:string</pre></h4><h5>Returns</h5><ul><li>xs:string</li></ul></div><div id="func_mode_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: mode($mode as xs:string
+)</pre></h4><p>set mode to file or database</p><h5>Params</h5><ul><li>mode as xs:string</li></ul></div><div id="func_factor_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: factor(
+) as xs:double</pre></h4><h5>Returns</h5><ul><li>xs:double</li></ul></div><div id="func_factor_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: factor($factor as xs:double
+)</pre></h4><p>set mode to file or database</p><h5>Params</h5><ul><li>factor as xs:double</li></ul></div><div id="func_make_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: make($mode,$factor as xs:double
+)</pre></h4><h5>Params</h5><ul><li>mode as </li><li>factor as xs:double</li></ul></div><div id="func_init_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: init(
+)</pre></h4><p>ensure guid is assigned for server</p></div><div id="func_set-state_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: set-state($mode
+)</pre></h4><h5>Params</h5><ul><li>mode as </li></ul></div><div id="func_set-state_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: set-state($mode,$factor
+)</pre></h4><h5>Params</h5><ul><li>mode as </li><li>factor as </li></ul></div><div id="func_state_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: state(
+) as element(state)</pre></h4><h5>Returns</h5><ul><li>element(state)</li></ul></div></div><div><h3>Original Source Code</h3><pre class="prettyprint lang-xq">(:~ 
+ : restxq session for benchmark
+ :@author Andy Bunce
+ :@version 0.1
+ :
+ :)
+module namespace s = 'apb.benchx.state';
+declare default function namespace 'apb.benchx.state'; 
+
+import module namespace xm='apb.xmark.test' at 'xmark.xqm';
+import module namespace lib='apb.benchx.library' at 'library.xqm';
+import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
+
+import module namespace session = "http://basex.org/modules/session";
+import module namespace sessions = "http://basex.org/modules/sessions";
+
+declare variable $s:root:=fn:doc(fn:resolve-uri("state.xml"))/root;
+
+declare  function benchmark() as element(benchmark)
+{
+    copy $s:=_benchmark()
+    modify(
+        replace node $s/environment with env:xml(),
+        replace node $s/server with $s:root/server
+    )
+    return $s
+};
+
+declare %private function _benchmark() as element(benchmark)
+{
+  let $s:=session:get("benchmark.values")
+  return if(fn:empty($s)) then $lib:new else $s
+};
+
+declare function benchmark($newValue as element(benchmark))
+ as element(benchmark){
+ session:set("benchmark.values",$lib:new)
+};
+
+(:~ add new result to session 
+ :)
+declare function add($result as element(run))
+{
+    let $new:=copy $d:=_benchmark()
+              modify insert node $result into $d/runs
+              return $d        
+    return session:set("benchmark.values",$new)
+};
+
+(:~ delete session values 
+ :)
+declare function clear()
+{
+    session:delete("benchmark.values")
+};
+
+(:~
+ : @return filesize of auction.xml
+ :)
+declare function file-size(){
+    let $f:=$xm:base-dir ||"benchx-db/auction.xml"
+    return if(file:exists($f)) then file:size($f) else 0
+ };
+ 
+declare function mode() as xs:string{
+    if (db:exists("benchx-db")) then "D" else "F"
+};
+
+(:~ set mode to file or database
+ :)
+declare %updating function mode($mode as xs:string){
+    if($mode=mode()) then ()
+    else switch ($mode)
+        case "F" return db:drop("benchx-db")
+        case "D" return db:create("benchx-db"
+                            ,$xm:base-dir ||"benchx-db/auction.xml"
+                            ,"auction.xml")
+        default return ()
+};
+
+declare function factor() as xs:double{
+    $s:root/state/factor/fn:number()
+};
+
+(:~ set mode to file or database
+ :)
+declare function factor($factor as xs:double){
+    if($factor=factor())then ()
+    else xm:xmlgen($factor)
+};
+
+declare %updating function make($mode,$factor as xs:double){
+    let $x:=fn:trace(($mode,$factor),"MAKE")
+    let $x:=factor($factor)
+    return (mode($mode),set-state($mode,$factor))
+};
+
+
+
+(:~ 
+ : ensure guid is assigned for server
+ :)
+declare %updating function init()
+{
+   if($s:root/server/id/fn:string()) then ()
+   else let $server:= &lt;server&gt;
+                        &lt;id&gt;{random:uuid()}&lt;/id&gt;
+                        &lt;hostname&gt;{env:hostname()}&lt;/hostname&gt;
+                        &lt;description/&gt;
+                    &lt;/server&gt;
+       let $x:= copy $d:=$s:root
+                modify replace node $d/server with $server
+                return $d                              
+       return fn:put($x,fn:base-uri($s:root))     
+};
+
+declare %updating function set-state($mode)
+{
+    set-state($mode,())
+};
+
+declare %updating function set-state($mode,$factor)
+{
+   let $x:= copy $d:=$s:root
+            modify (replace value of node $d/state/mode with $mode,
+                    replace value of node $d/state/factor with $factor
+                    )
+            return $d                              
+   return fn:put($x,fn:base-uri($s:root))     
+};
+
+ 
+declare function state() as element(state)
+{
+&lt;state&gt;
+        &lt;sessions type="number"&gt;{fn:count(sessions:ids())}&lt;/sessions&gt;
+        &lt;session&gt;{session:id()}&lt;/session&gt;
+        &lt;mode&gt;{s:mode()}&lt;/mode&gt;
+        &lt;factor&gt;{$s:root/state/factor/fn:string()}&lt;/factor&gt;
+        &lt;size&gt;{prof:human(s:file-size())}&lt;/size&gt;
+         &lt;hostname&gt;{env:hostname()}&lt;/hostname&gt;
+    &lt;/state&gt;
+};</pre></div><br/><div class="footer"><p style="text-align:right"><i/> |
+          generated by xquerydoc <a href="https://github.com/xquery/xquerydoc" target="xquerydoc">https://github.com/xquery/xquerydoc</a></p></div></div><script type="application/javascript">
+	  window.onload = function(){ prettyPrint(); }
+	</script></body></html>

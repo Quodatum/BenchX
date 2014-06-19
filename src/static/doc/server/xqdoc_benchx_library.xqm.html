@@ -1,0 +1,167 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta http-equiv="Generator" content="xquerydoc - https://github.com/xquery/xquerydoc"/><title>xqDoc - </title><style type="text/css">
+          body {
+          font-family: Helvetica;
+          padding: 0.5em  1em;
+          }
+          pre {
+          font-family: Inconsolata, Consolas, monospace;
+          }
+          ol.results {
+          padding-left: 0;
+          }
+          .footer {
+          text-align:right;
+          border-top: solid 4px;
+          padding: 0.25em 0.5em;
+          font-size: 85%;
+          color: #999;
+          }
+          li.result {
+          list-style-position: inside;
+          list-style: none;
+          height:140px;
+          }
+          h2 {
+          display: inline-block;
+          margin: 0;
+          }
+
+          h2 a,
+          .result h3 a {
+          text-decoration: inherit;
+          color: inherit;
+          }
+          h3{
+	  font-size: 140%;
+	  background-color: #aaa;
+	  border-bottom: 1px solid #000;
+	  width: 100%;
+	  }
+          h4{
+	  font-size: 100%;
+	  background-color: #ddd;
+	  width: 90%;
+	  }
+
+          .namespace {
+          color: #999;
+          }
+          .namespace:before {
+          content: "{";
+          }
+          .namespace:after {
+          content: "}";
+          }
+          table{
+          width:75%;
+          float:right;
+          }
+          td {
+          height:100px;
+          width:50%;
+          vertical-align:text-top;
+          }
+        </style><script src="lib/prettify.js" type="text/javascript"> </script><script src="lib/lang-xq.js" type="text/javascript"> </script><link rel="stylesheet" type="text/css" href="lib/prettify.css"/></head><body class="home"><div id="main"><h1><span class="namespace">apb.benchx.library</span>  error module </h1><div id="variables"><h3>Variables</h3><div id="var_lib_new"><h4><pre class="prettyprint lang-xq"><u>Variable</u>: $lib:new as element(benchmark)</pre></h4><p>get new doc defaults</p></div><div id="var_lib_benchmarks"><h4><pre class="prettyprint lang-xq"><u>Variable</u>: $lib:benchmarks as element(benchmark)*</pre></h4></div></div><div id="functions"><h3>Functions</h3><div id="func_id_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: id($id
+) as element(benchmark)</pre></h4><p>get doc with given id</p><h5>Params</h5><ul><li>id as </li></ul><h5>Returns</h5><ul><li>element(benchmark)</li></ul></div><div id="func_add-session_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: add-session($data,
+                $session as element(benchmark)
+)</pre></h4><p>add session data to library</p><h5>Params</h5><ul><li>data as </li><li>session as element(benchmark)</li></ul></div><div id="func_store_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: store($results as element(benchmark)
+)</pre></h4><p>store in library</p><h5>Params</h5><ul><li>results as element(benchmark)</li></ul></div><div id="func_list_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: list(
+)</pre></h4><p>list all in library</p></div><div id="func_json_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: json($b as element(benchmark)
+) as element(json)</pre></h4><p>Prepare benchmark for json</p><h5>Params</h5><ul><li>b as element(benchmark) results of a run.</li></ul><h5>Returns</h5><ul><li>element(json): json style xml for serialization.</li></ul></div></div><div><h3>Original Source Code</h3><pre class="prettyprint lang-xq">(:~ 
+ : library handling for benchx
+ :@author Andy Bunce
+ :@version 0.1
+ :)
+module namespace lib = 'apb.benchx.library';
+declare default function namespace 'apb.benchx.library'; 
+
+(:~
+ : get new doc defaults
+ :)
+declare variable $lib:new as element(benchmark)
+             :=db:open("benchx","benchmark.xml")/benchmark;
+
+declare variable $lib:benchmarks as element(benchmark)*
+             :=fn:collection("benchx/library")/benchmark;
+(:~
+ : get doc with given id
+ :)
+declare function id($id) as element(benchmark)
+{
+  $lib:benchmarks[id=$id]
+};
+
+(:~
+ : add session data to library
+ :)
+declare %updating function add-session(
+                $data,
+                $session as element(benchmark)
+){
+    let $data:=fn:trace($data,"ADD ")
+    let $desc:=$data/json/title/fn:string()
+    let $id:=random:uuid()
+    let $new:=copy $d:=$session
+            modify (
+            replace value of node $d/id with $id,
+            replace value of node $d/meta/created with fn:current-dateTime(),
+            replace value of node $d/meta/description with $desc
+                 )
+            return $d
+          
+    return (
+            store($new), 
+            db:output(&lt;json objects="json"&gt;&lt;todo&gt;{$id}&lt;/todo&gt;&lt;/json&gt;)
+            )
+};
+
+(:~
+ : store in library
+ :)
+declare %updating function store($results as element(benchmark))
+{
+    let $id:=$results/id/fn:string()
+    return db:replace("benchx", "library/" || $id || ".xml" ,$results)
+};
+
+(:~
+ : list all in library
+ :)
+declare function list(){
+ &lt;json  objects="_" arrays="json "&gt;
+   {for $doc in $lib:benchmarks
+   order by $doc/meta/created descending
+   return &lt;_&gt;{$doc/id,
+    $doc/suite,
+    $doc/server/description,
+    $doc/meta/description,
+    $doc/meta/created,
+    $doc/environment/os.name,
+    $doc/environment/os.arch,
+    $doc/environment/java.version,
+    $doc/server/hostname
+   }&lt;/_&gt;
+   }&lt;/json&gt;
+ };
+
+ 
+ (:~ 
+ : Prepare benchmark for json
+ : @param b results of a run.
+ : @return json style xml for serialization.
+:)
+declare function json($b as element(benchmark)
+)as element(json)
+{
+&lt;json objects="json benchmark meta server environment run"&gt;{
+    copy $d:=$b
+    modify (for $n in $d//*[@type="array"]/* 
+            return replace node $n with &lt;_ type="object"&gt;{$n}&lt;/_&gt;,
+            delete node $d//comment()
+            )
+    return $d
+}&lt;/json&gt;
+};</pre></div><br/><div class="footer"><p style="text-align:right"><i/> |
+          generated by xquerydoc <a href="https://github.com/xquery/xquerydoc" target="xquerydoc">https://github.com/xquery/xquerydoc</a></p></div></div><script type="application/javascript">
+	  window.onload = function(){ prettyPrint(); }
+	</script></body></html>
