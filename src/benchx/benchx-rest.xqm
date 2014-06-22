@@ -201,17 +201,20 @@ declare
 function suites() 
 {
     let $suites:=xm:list-suites()
-    return <json objects="_" arrays="json">{
-    for $s in $suites
-    let $desc:="to do"|| $s
-    return <_>
-    <name>{$s}</name>
-    <href>#/suite/{$s}</href>
-    <describe>{$desc}</describe>
-    <session>#/suite/{$s}/session</session>
-    <library>#/suite/{$s}/library</library>
-    </_>
-    }
+    return <json arrays="json queries">{
+    for $suite in $suites
+    let $desc:="to do"|| $suite
+    return <_ type="object">
+            <name>{$suite}</name>
+            <href>#/suite/{$suite}</href>
+            <describe>{$desc}</describe>
+            <session>#/suite/{$suite}/session</session>
+            <library>#/suite/{$suite}/library</library>
+            <queries>{ for  $file in xm:list-tests( $suite )
+                    return <_>{$file}</_>
+            }</queries>
+            </_>
+            }
 </json>
 };
 

@@ -71,23 +71,12 @@
 							</a>
 						</li>
 						<li>
-							<a href="#/doc/xqdoc" tabindex="-1">
-								<i class="glyphicon glyphicon-eye-open"></i>
-								XQDoc
-							</a>
-						</li>
-						<li>
-                            <a href="doc/server/" target="benchx-doc" tabindex="-1">
-                                <i class="glyphicon glyphicon-eye-open"></i>
-                                XQDoc external
-                            </a>
-                        </li>
-						<li>
 							<a href="#/doc/wadl" tabindex="-1">
 								<i class="glyphicon glyphicon-eye-open"></i>
-								Rest API
+								Documentation
 							</a>
 						</li>
+						
 						<li class="divider"></li>
 						<li>
 							<a href="#/about" tabindex="-1">

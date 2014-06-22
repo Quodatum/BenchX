@@ -32,13 +32,14 @@ function wadl($app as xs:string)
 }; 
 
 (:~
- : show components for rest api
+ : show client javascript components 
  :)
 declare 
 %rest:GET %rest:path("{$app}/doc/client/components")
 %output:method("html")  
 function client-components($app as xs:string) 
 {
-  let $src:="../" || $app || "/components" 
-  return fn:doc($src) 
+  let $src:="../" || $app || "/components.xml"
+  let $r:=xslt:transform(fn:doc($src), fn:doc("component.xsl"))  
+  return $r 
 }; 

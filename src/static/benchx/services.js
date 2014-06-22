@@ -80,4 +80,22 @@ angular.module('BenchX.services', [  ])
 			})
 		}
 	};
-});
+})
+/*
+.config(function($provide) {
+	// @see https://coderwall.com/p/_zporq
+	  $provide.decorator('$log',"rootScope", function($delegate, $sniffer) {
+	        var _log = $delegate.log; //Saving the original behavior
+
+	        $delegate.log = function(message) {
+	        	$rootScope.logmsg=message;
+	        };
+	        $delegate.error = function(message) {
+	            alert(message);
+	        }
+
+	        return $delegate;
+	    });
+	})
+	*/
+;

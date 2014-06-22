@@ -66,11 +66,9 @@ angular
 						return api.suite($route.current.params.id);
 					}
 				}
-			}).when('/doc/xqdoc', {
-				templateUrl : '/static/benchx/templates/xqdoc.xml'
-			}).when('/doc/wadl', {
-				templateUrl : '/static/benchx/templates/wadl.xml',
-				controller : "WadlController"
+			}).when('/doc/:view', {
+				templateUrl : '/static/benchx/templates/doc.xml',
+				controller:"DocController"
 			}).when('/404', {
 				templateUrl : '/static/benchx/templates/404.xml'
 			}).otherwise({
@@ -141,11 +139,11 @@ angular
 				[
 						'$rootScope',
 						'api',
-						'utils',
+						'utils','$log',
 
-						function($rootScope, api, utils) {
+						function($rootScope, api, utils,$log) {
 							function updateStatus(data) {
-								console.log("update status:", data);
+								$log.log("update status:", data);
 								$rootScope.state = data.state;
 							}
 
@@ -196,6 +194,7 @@ angular
 							api.suites().then(
 									function(data){
 										console.log("suites:",data);
+										$rootScope.suites=data;
 									});
 							api.suite($rootScope.activesuite).then(
 									function(data) {
@@ -355,10 +354,11 @@ angular
 						} ])
 		.controller(
 				'LibraryController',
-				[ "$scope", "$rootScope", "data",
-						function($scope, $rootScope, data) {
+				[ "$scope", "$rootScope", "data","$log",
+						function($scope, $rootScope, data,$log) {
 							$scope.setTitle("Library");
 							$scope.docs = data;
+							$log.log("DDDDDDDD");
 							$scope.swipe = function() {
 								alert("TODO swipe");
 							};
@@ -437,10 +437,18 @@ angular
 							$scope.chartObject = genChart();
 						} ])
 
-		.controller('WadlController',
-				[ "$scope", "$rootScope", function($scope) {
-					$scope.setTitle("WADL");
-					$scope.run = function(path) {
-						alert("TODO run:" + path);
-					};
-				} ]);
+		.controller('DocController',
+				[ "$scope",  "$routeParams", function($scope, $routeParams) {
+					console.log("View:",$routeParams.view);
+					var map={
+							"xqdoc":'../../benchx/doc/server/xqdoc',
+							"wadl":'../../benchx/doc/server/wadl',
+							"components":'../../benchx/doc/client/components',
+							"xqdoc2":'doc/server'
+							};
+					$scope.view=$routeParams.view;
+					$scope.inc=map[$routeParams.view];
+					$scope.setTitle("docs");
+					
+				} ])		
+				;

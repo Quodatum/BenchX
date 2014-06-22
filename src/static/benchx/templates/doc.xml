@@ -1,0 +1,13 @@
+<div>
+	<div class="btn-group btn-group-sm">
+		<a href="#doc/wadl">Wadl</a>
+		<a href="#doc/xqdoc">XQdoc</a>
+		<a href="#doc/components">components</a>
+		<a href="doc/server/" target="benchx-doc" tabindex="-1">
+			<i class="glyphicon glyphicon-eye-open"></i>
+			XQDoc external
+		</a>
+	</div>
+	<div class="xqdoc" ng-include="inc">loading doc...
+	</div>
+</div>
