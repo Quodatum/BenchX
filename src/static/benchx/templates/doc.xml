@@ -1,9 +1,9 @@
 <div>
 	<div class="btn-group btn-group-sm">
-		<a href="#doc/wadl">Wadl</a>
-		<a href="#doc/xqdoc">XQdoc</a>
-		<a href="#doc/components">components</a>
-		<a href="doc/server/" target="benchx-doc" tabindex="-1">
+		<a href="#doc/wadl" class="btn btn-default btn-sm">Wadl</a>
+		<a href="#doc/xqdoc" class="btn btn-default btn-sm">XQdoc</a>
+		<a href="#doc/components" class="btn btn-default btn-sm">components</a>
+		<a href="doc/server/" target="benchx-doc" class="btn btn-default btn-sm">
 			<i class="glyphicon glyphicon-eye-open"></i>
 			XQDoc external
 		</a>

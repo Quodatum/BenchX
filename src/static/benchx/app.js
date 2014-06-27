@@ -9,7 +9,7 @@ angular
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
 						'googlechart', 'angularCharts', 'dialog', 'ngStorage',
-						'angularMoment', 'BenchX.api', 'BenchX.services',
+						'angularMoment', 'scrollTo','BenchX.api', 'BenchX.services',
 						'services.httpRequestTracker' ])
 
 		.config([ '$routeProvider', function($routeProvider) {
@@ -449,6 +449,6 @@ angular
 					$scope.view=$routeParams.view;
 					$scope.inc=map[$routeParams.view];
 					$scope.setTitle("docs");
-					
+				
 				} ])		
 				;

@@ -6,15 +6,22 @@
 			<h2>Components</h2>
 			<div>
 				<xsl:apply-templates select="cmp[not(@disabled)]">
-					<xsl:sort select="@name" />
+					<xsl:sort select="lower-case(@name)" />
 				</xsl:apply-templates>
 			</div>
 		</div>
 	</xsl:template>
 
 	<xsl:template match="cmp">
-		<div class="panel panel-default">
+		<div id="cmp_{@name}" class="panel panel-default">
 			<div class="panel-heading">
+				<div class="pull-right">
+					<xsl:for-each select="depends">
+						<a scrollTo="{.}" href="." class="label label-info">
+							<xsl:value-of select="." />
+						</a>
+					</xsl:for-each>
+				</div>
 				<h3 class="panel-title">
 					<xsl:value-of select="@name" />
 					<span class="badge">

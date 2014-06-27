@@ -36,7 +36,15 @@
 		<depends>moment</depends>
 		<depends>angular</depends>
 	</cmp>
-
+	<cmp name="scrollTo">
+		<runat>browser</runat>
+		<home>https://github.com/khalilravanna/scrollTo</home>
+		<tagline>A simple scrollTo directive using $anchorScroll. The
+			directive also catches the locationChangeStart event thus preventing
+			a page reload.
+		</tagline>
+		<depends>angular</depends>
+	</cmp>
 	<cmp name="lodash" version="2.4.1">
 		<runat>browser</runat>
 		<cdn>//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js
@@ -131,14 +139,15 @@
 		<cdn src="lib/stacktrace/0.6.0" />
 		<home>http://stacktracejs.com/</home>
 		<tagline>Framework-agnostic, micro-library for getting
-			stack traces in all web browsers.
+			stack traces in
+			all web browsers.
 		</tagline>
 	</cmp>
 
-    <cmp name="FileSaver" version="?">
-        <local>lib/FileSaver.js" </local>
-        <home>https://github.com/eligrey/FileSaver.js/</home>
-    </cmp>
+	<cmp name="FileSaver" version="?">
+		<local>lib/FileSaver.js" </local>
+		<home>https://github.com/eligrey/FileSaver.js/</home>
+	</cmp>
 	<cmp disabled="true" name="ace" version="?">
 		<cdn src="lib/ace/01.08.2014" />
 	</cmp>
