@@ -6,6 +6,7 @@
  * @licence Apache 2
  */
 angular.module('BenchX.services', [  ])
+
 // human size
 .filter('readablizeBytes', function() {
 	return function(bytes) {
@@ -81,21 +82,7 @@ angular.module('BenchX.services', [  ])
 		}
 	};
 })
-.directive('scrollTo', function ($location, $anchorScroll) {
-  return function(scope, element, attrs) {
 
-    element.bind('click', function(event) {
-        event.stopPropagation();
-        var off = scope.$on('$locationChangeStart', function(ev) {
-            off();
-            ev.preventDefault();
-        });
-        var location = attrs.scrollTo;
-        $location.hash(location);
-        $anchorScroll();
-    });
-};
-})
 /*
 .config(function($provide) {
 	// @see https://coderwall.com/p/_zporq

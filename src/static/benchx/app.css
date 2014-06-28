@@ -1,47 +1,62 @@
 /* app.css */
 /* busy indicator http://jsfiddle.net/dBR2r/8/ */
-body    {
-    overflow-y:scroll;
-    /* fixed navbar */
-    padding-top: 70px;
+body {
+	overflow-y: scroll;
+	/* fixed navbar */
+	padding-top: 70px;
 }
+
 #loading {
 	position: absolute;
 	left: 50%;
 	top: 4px;
 	z-index: 2000;
 }
-.runtime{
-	width:8em;
-	
-	background-color:#FFFF99;
-	margin:2px;
-	display:inline-block;
 
+.runtime {
+	width: 8em;
+	background-color: #FFFF99;
+	margin: 2px;
+	display: inline-block;
 }
+
 .suitelist {
-    background-color:#FFFF99;
-    padding:8px;	
+	background-color: #FFFF99;
+	padding: 8px;
 }
+
 .suitename {
-    font-size:125%;   
+	font-size: 125%;
 }
-.table-responsive{
-    overflow-x: auto;
+
+.table-responsive {
+	overflow-x: auto;
 }
-.logmsg{
-	padding-right:8px;
+
+.logmsg {
+	padding-right: 8px;
 }
-button.factor{
-	width:8em;
+
+button.factor {
+	width: 8em;
 }
-.in8{
-    width:8em;
+
+.in8 {
+	width: 8em;
 }
+
 .brand {
-	  color: #C00000!important;
+	color: #C00000 !important;
 }
-.chart{
-width: 500px;
- height: 500px;
+
+.chart {
+	width: 500px;
+	height: 500px;
+}
+
+a.anchor {
+	display: block;
+	position: relative;
+	top: -80px;
+	visibility: hidden;
 }

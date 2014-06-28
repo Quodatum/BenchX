@@ -34,16 +34,16 @@
 		<tagline>Angular.JS directives for Moment.JS (timeago alternative)
 		</tagline>
 		<depends>moment</depends>
-		<depends>angular</depends>
+		<depends>angularjs</depends>
 	</cmp>
-	<cmp name="scrollTo">
+	<cmp name="scrollTo" disabled="true">
 		<runat>browser</runat>
 		<home>https://github.com/khalilravanna/scrollTo</home>
 		<tagline>A simple scrollTo directive using $anchorScroll. The
 			directive also catches the locationChangeStart event thus preventing
 			a page reload.
 		</tagline>
-		<depends>angular</depends>
+		<depends>angularjs</depends>
 	</cmp>
 	<cmp name="lodash" version="2.4.1">
 		<runat>browser</runat>
@@ -70,7 +70,7 @@
 		<tagline>Bootstrap components written in pure AngularJS by the
 			AngularUI Team
 		</tagline>
-		<depends>angular</depends>
+		<depends>angularjs</depends>
 	</cmp>
 
 	<cmp name="d3" version="3.4.6">
@@ -88,7 +88,7 @@
 		<home>http://chinmaymk.github.io/angular-charts/</home>
 		<tagline>angular directives for commonly used d3 charts
 		</tagline>
-		<depends>angular</depends>
+		<depends>angularjs</depends>
 		<depends>d3</depends>
 	</cmp>
 
@@ -98,7 +98,7 @@
 		<home>https://github.com/gsklee/ngStorage</home>
 		<tagline>localStorage and sessionStorage done right for AngularJS.
 		</tagline>
-		<depends>angular</depends>
+		<depends>angularjs</depends>
 	</cmp>
 
 	<cmp name="angular-hotkeys" version="0.3.0">
@@ -108,7 +108,7 @@
 		<tagline>Configuration-centric keyboard shortcuts for your angular
 			apps
 		</tagline>
-		<depends>angular</depends>
+		<depends>angularjs</depends>
 	</cmp>
 
 	<cmp name="ng-google-chart" version="0.0.9">
@@ -117,7 +117,7 @@
 		<home>http://bouil.github.io/angular-google-chart/#/fat</home>
 		<tagline>Google Chart Tools AngularJS Directive Module
 		</tagline>
-		<depends>angular</depends>
+		<depends>angularjs</depends>
 	</cmp>
 
 	<cmp name="saxon-he" version="0.0.9">

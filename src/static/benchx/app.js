@@ -9,7 +9,7 @@ angular
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
 						'googlechart', 'angularCharts', 'dialog', 'ngStorage',
-						'angularMoment', 'scrollTo','BenchX.api', 'BenchX.services',
+						'angularMoment', 'BenchX.api', 'BenchX.services',
 						'services.httpRequestTracker' ])
 
 		.config([ '$routeProvider', function($routeProvider) {
@@ -86,7 +86,7 @@ angular
 								$window.document.title = t;
 							};
 							$rootScope.setTitle("BenchX");
-							$rootScope.logmsg = "Welcome to BenchX v0.5.2";
+							$rootScope.logmsg = "Welcome to BenchX v0.5.3";
 							$rootScope.suites = [ "xmark", "apb" ];
 							$rootScope.activesuite = "xmark";
 							$rootScope.meta = {
@@ -438,7 +438,8 @@ angular
 						} ])
 
 		.controller('DocController',
-				[ "$scope",  "$routeParams", function($scope, $routeParams) {
+				[ "$scope",  "$routeParams","$location", "$anchorScroll", 
+				  function($scope, $routeParams,$location, $anchorScroll) {
 					console.log("View:",$routeParams.view);
 					var map={
 							"xqdoc":'../../benchx/doc/server/xqdoc',
@@ -449,6 +450,11 @@ angular
 					$scope.view=$routeParams.view;
 					$scope.inc=map[$routeParams.view];
 					$scope.setTitle("docs");
-				
+				    $scope.scrollTo=function(id){
+				    	console.log("DDDD",id);
+				    	 $location.hash(id);
+				    	    // call $anchorScroll()
+				    	    $anchorScroll();
+				    };
 				} ])		
 				;

@@ -8,6 +8,6 @@
 			XQDoc external
 		</a>
 	</div>
-	<div class="xqdoc" ng-include="inc">loading doc...
+	<div class="xqdoc" ng-include="inc" autoscroll="true" >loading doc...
 	</div>
 </div>
