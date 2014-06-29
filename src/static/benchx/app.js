@@ -8,9 +8,9 @@ angular
 		.module(
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
-						'googlechart', 'angularCharts', 'dialog', 'ngStorage',
-						'angularMoment', 'BenchX.api', 'BenchX.services',
-						'services.httpRequestTracker' ])
+						'log.ex.uo', 'googlechart', 'angularCharts', 'dialog',
+						'ngStorage', 'angularMoment', 'BenchX.api',
+						'BenchX.services', 'services.httpRequestTracker' ])
 
 		.config([ '$routeProvider', function($routeProvider) {
 			$routeProvider.when('/', {
@@ -68,14 +68,18 @@ angular
 				}
 			}).when('/doc/:view', {
 				templateUrl : '/static/benchx/templates/doc.xml',
-				controller:"DocController"
+				controller : "DocController"
 			}).when('/404', {
 				templateUrl : '/static/benchx/templates/404.xml'
 			}).otherwise({
 				redirectTo : '/404'
 			});
 		} ])
-
+		
+		.config([ 'logExProvider', function(logExProvider) {
+			logExProvider.enableLogging(true);
+		} ])
+		
 		.run(
 				[
 						'$rootScope',
@@ -139,9 +143,10 @@ angular
 				[
 						'$rootScope',
 						'api',
-						'utils','$log',
+						'utils',
+						'$log',
 
-						function($rootScope, api, utils,$log) {
+						function($rootScope, api, utils, $log) {
 							function updateStatus(data) {
 								$log.log("update status:", data);
 								$rootScope.state = data.state;
@@ -191,11 +196,10 @@ angular
 													+ reason.data);
 										});
 							};
-							api.suites().then(
-									function(data){
-										console.log("suites:",data);
-										$rootScope.suites=data;
-									});
+							api.suites().then(function(data) {
+								$log.log("suites:", data);
+								$rootScope.suites = data;
+							});
 							api.suite($rootScope.activesuite).then(
 									function(data) {
 										$rootScope.session = data;
@@ -267,9 +271,9 @@ angular
 						"$scope",
 						"$rootScope",
 						"api",
-						"$localStorage",
-						function($scope, $rootScope, api, $localStorage) {
-							console.log("ScheduleController");
+						"$localStorage","$log",
+						function($scope, $rootScope, api, $localStorage,$log) {
+							$log.log("ScheduleController");
 							function makerun(mode, factor) {
 								var tasks = [ {
 									cmd : "state",
@@ -354,8 +358,8 @@ angular
 						} ])
 		.controller(
 				'LibraryController',
-				[ "$scope", "$rootScope", "data","$log",
-						function($scope, $rootScope, data,$log) {
+				[ "$scope", "$rootScope", "data", "$log",
+						function($scope, $rootScope, data, $log) {
 							$scope.setTitle("Library");
 							$scope.docs = data;
 							$log.log("DDDDDDDD");
@@ -427,7 +431,7 @@ angular
 												chartWrapper,
 												'select',
 												function() {
-													console
+													$log
 															.log('select event fired!');
 												});
 							};
@@ -437,24 +441,29 @@ angular
 							$scope.chartObject = genChart();
 						} ])
 
-		.controller('DocController',
-				[ "$scope",  "$routeParams","$location", "$anchorScroll", 
-				  function($scope, $routeParams,$location, $anchorScroll) {
-					console.log("View:",$routeParams.view);
-					var map={
-							"xqdoc":'../../benchx/doc/server/xqdoc',
-							"wadl":'../../benchx/doc/server/wadl',
-							"components":'../../benchx/doc/client/components',
-							"xqdoc2":'doc/server'
+		.controller(
+				'DocController',
+				[
+						"$scope",
+						"$routeParams",
+						"$location",
+						"$anchorScroll","$log",
+						function($scope, $routeParams, $location,
+								$anchorScroll,$log) {
+							$log.log("View:", $routeParams.view);
+							var map = {
+								"xqdoc" : '../../benchx/doc/server/xqdoc',
+								"wadl" : '../../benchx/doc/server/wadl',
+								"components" : '../../benchx/doc/client/components',
+								"xqdoc2" : 'doc/server'
 							};
-					$scope.view=$routeParams.view;
-					$scope.inc=map[$routeParams.view];
-					$scope.setTitle("docs");
-				    $scope.scrollTo=function(id){
-				    	console.log("DDDD",id);
-				    	 $location.hash(id);
-				    	    // call $anchorScroll()
-				    	    $anchorScroll();
-				    };
-				} ])		
-				;
+							$scope.view = $routeParams.view;
+							$scope.inc = map[$routeParams.view];
+							$scope.setTitle("docs");
+							$scope.scrollTo = function(id) {
+								$log.log("DDDD", id);
+								$location.hash(id);
+								// call $anchorScroll()
+								$anchorScroll();
+							};
+						} ]);

@@ -135,7 +135,7 @@
 		<tagline>Async utilities for node and the browser</tagline>
 	</cmp>
 
-	<cmp name="stacktrace" version="?">
+	<cmp name="stacktrace" version="0.6.0">
 		<cdn src="lib/stacktrace/0.6.0" />
 		<home>http://stacktracejs.com/</home>
 		<tagline>Framework-agnostic, micro-library for getting

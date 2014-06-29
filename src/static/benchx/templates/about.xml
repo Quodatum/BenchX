@@ -5,34 +5,26 @@
 			BenchX
 		</h1>
 		<p>This application times the execution of sets of XQuery queries
-			using BaseX. The intended use is to compare the relative performance of
+			using BaseX. The intended use is to compare the relative performance
+			of
 			different hardware and software platforms.
 		</p>
-		
+
 	</div>
 	<ul>
-        <li>This application requires internet access (for CDN and Google chart).</li>
-        <li>This application is not designed for multiple session use.</li>
-        <li>BenchX source on <a href="https://github.com/Quodatum/BenchX" target="_blank">Github</a></li>
-        </ul>
-	<p>The XMark queries are supplied as an example suite.</p>
-		
-	<h2>Client Component list</h2>
-	<ul>
-		<li>twitter-bootstrap/3.1.1</li>
-		<li>angularjs/1.2.14</li>
-		<li>angular-ui-bootstrap/0.10.0</li>
-		<li>http://chieffancypants.github.io/angular-hotkeys/</li>
-		<li>async/0.8.0 https://github.com/caolan/async</li>
-		<li>https://github.com/eligrey/FileSaver.js/</li>
-		<li>https://github.com/bouil/angular-google-chart</li>
-		<li>http://momentjs.com/ 2.6</li>
-		<li>https://github.com/urish/angular-moment</li>
-		<li>http://d3js.org/</li>
-		<li>https://github.com/gsklee/ngStorage 0.3.0</li>
-		<li>https://github.com/chinmaymk/angular-charts</li>
-		<li>//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js</li>
-		<li>http://simpleicon.com/stopwatch-1.html</li>
+		<li>This application requires internet access (for CDN and Google
+			chart).</li>
+		<li>This application is not designed for multiple session use.</li>
+		<li>
+			BenchX source on
+			<a href="https://github.com/Quodatum/BenchX" target="_blank">Github</a>
+		</li>
+		<li>
+			Stopwatch icon from
+			<a href="http://simpleicon.com/stopwatch-1.html" target="_blank">SimpleIcon
+			</a>
+		</li>
+
 	</ul>
 
 </div>

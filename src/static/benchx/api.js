@@ -4,7 +4,7 @@
  * @date 2014
  * @licence Apache 2
  */
-angular.module('BenchX.api', [ 'ngResource' ])
+angular.module('BenchX.api', [ 'ngResource','log.ex.uo' ])
 
 .constant("apiRoot", "../../benchx/api/")
 
