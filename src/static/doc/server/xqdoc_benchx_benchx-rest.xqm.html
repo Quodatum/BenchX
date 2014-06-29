@@ -307,7 +307,7 @@ function queries($suite as xs:string)
      &lt;session&gt;#/suite/{$suite}/session&lt;/session&gt;
     &lt;library&gt;#/suite/{$suite}/library&lt;/library&gt;
     &lt;queries&gt;
-    { for  $file in xm:list-tests( $suite )
+    { for  $file in xm:queries( $suite )
             return &lt;_&gt;
                 &lt;name&gt;{$file}&lt;/name&gt;
                 &lt;src&gt;{xm:get-xmark($suite || "/" || $file)}&lt;/src&gt;

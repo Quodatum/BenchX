@@ -1,15 +1,16 @@
 <div>
-	<p>Available benchmark suites </p>
+	<h4>Available benchmark suites</h4>
 	<div class="list-group">
   <a href="{{suite.href}}" ng-repeat="suite in suites" 
      class="list-group-item " ng-class="{active: suite.name == activesuite}">
     <h4 class="list-group-item-heading">
-    <div class="pull-right">
-     <span class="badge">14</span> results
-      </div>
+    <small class="pull-right">
+    queries:<span class="badge">{{suite.queries.length}}</span>,
+    results: <span class="badge">{{suite.results}}</span> 
+      </small>
     {{suite.name}}</h4>
     <p class="list-group-item-text">{{suite.describe}}
-    blah blah....</p>
+    </p>
   </a>
 </div>
 	

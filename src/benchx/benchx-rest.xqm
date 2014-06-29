@@ -203,14 +203,15 @@ function suites()
     let $suites:=xm:list-suites()
     return <json arrays="json queries">{
     for $suite in $suites
-    let $desc:="to do"|| $suite
+    let $desc:=xm:describe( $suite)
     return <_ type="object">
             <name>{$suite}</name>
             <href>#/suite/{$suite}</href>
             <describe>{$desc}</describe>
             <session>#/suite/{$suite}/session</session>
             <library>#/suite/{$suite}/library</library>
-            <queries>{ for  $file in xm:list-tests( $suite )
+            <results>?</results>
+            <queries>{ for  $file in xm:queries( $suite )
                     return <_>{$file}</_>
             }</queries>
             </_>
@@ -233,7 +234,7 @@ function queries($suite as xs:string)
      <session>#/suite/{$suite}/session</session>
     <library>#/suite/{$suite}/library</library>
     <queries>
-    { for  $file in xm:list-tests( $suite )
+    { for  $file in xm:queries( $suite )
             return <_>
                 <name>{$file}</name>
                 <src>{xm:get-xmark($suite || "/" || $file)}</src>

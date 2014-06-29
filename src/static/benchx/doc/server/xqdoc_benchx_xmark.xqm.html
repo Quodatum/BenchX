@@ -95,7 +95,7 @@ declare function get-xmark($query as xs:string
 (:~
  : list query file names
  :)
-declare function list-tests($dir as xs:string) {
+declare function queries($dir as xs:string) {
   for $f in file:list(fn:resolve-uri("suite/" || $dir),fn:false(),"*.xq")
   order by $f (: sort by number :)
   return $f

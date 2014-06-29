@@ -26,18 +26,29 @@ declare function get-xmark($query as xs:string
     "suite/" || $query 
   )
   let $xq:= fn:unparsed-text($f)
-  return 'declare base-uri "' || fn:static-base-uri() ||'";&#10;' || $xq 
+  return $xq 
 };
 
 
 (:~
  : list query file names in suite
  :)
-declare function list-tests($suite as xs:string)
+declare function queries($suite as xs:string)
 as xs:string* {
   for $f in file:list(fn:resolve-uri("suite/" || $suite),fn:false(),"*.xq")
   order by $f (: sort by number :)
   return $f
+};
+
+(:~
+ : readme for suite
+ :)
+declare function describe($suite as xs:string)
+as xs:string {
+   let $f:=fn:resolve-uri("suite/" || $suite || "/readme.md" )
+   return if(fn:unparsed-text-available($f)) 
+            then fn:unparsed-text($f)
+            else "no documentation available"
 };
 
 (:~
@@ -56,6 +67,7 @@ declare function time-xmark(
   $query as xs:string,$timeout as xs:double
 ) {
   let $xq:=get-xmark($query)
+  let $xq:= 'declare base-uri "' || fn:static-base-uri() ||'";&#10;' || $xq 
  
   let $res:= time($xq,$timeout)
   return (<runtime type="number">{$res[1]}</runtime>,
