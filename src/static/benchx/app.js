@@ -8,9 +8,10 @@ angular
 		.module(
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
-						'log.ex.uo', 'googlechart', 'angularCharts', 'dialog',
-						'ngStorage', 'angularMoment', 'BenchX.api',
-						'BenchX.services', 'services.httpRequestTracker' ])
+						'ngLogging',  'googlechart', 'log.ex.uo',
+						'angularCharts', 'dialog', 'ngStorage',
+						'angularMoment', 'BenchX.api', 'BenchX.services',
+						'services.httpRequestTracker' ])
 
 		.config([ '$routeProvider', function($routeProvider) {
 			$routeProvider.when('/', {
@@ -75,11 +76,11 @@ angular
 				redirectTo : '/404'
 			});
 		} ])
-		
+
 		.config([ 'logExProvider', function(logExProvider) {
 			logExProvider.enableLogging(true);
 		} ])
-		
+
 		.run(
 				[
 						'$rootScope',
@@ -213,15 +214,14 @@ angular
 				'SessionController',
 				[
 						"$scope",
-						"$rootScope",
 						'$routeParams',
 						"$location",
 						"$dialog",
 						"api",
-						function($scope, $rootScope, $routeParams, $location,
+						function($scope,  $routeParams, $location,
 								$dialog, api) {
-							$rootScope.setTitle("Session: "
-									+ $rootScope.activesuite);
+							$scope.setTitle("Session: "
+									+ $scope.activesuite);
 							$scope.store = {
 								title : ""
 							};
@@ -259,7 +259,7 @@ angular
 							$scope.save = function() {
 								var d = new api.library();
 								d.save($scope.meta).$promise.then(function(a) {
-									$rootScope.logmsg = "Saved to library.";
+									$scope.logmsg = "Saved to library.";
 								}, function(e) {
 									alert("FAILED: " + e.data);
 								});
@@ -271,8 +271,9 @@ angular
 						"$scope",
 						"$rootScope",
 						"api",
-						"$localStorage","$log",
-						function($scope, $rootScope, api, $localStorage,$log) {
+						"$localStorage",
+						"$log",
+						function($scope, $rootScope, api, $localStorage, $log) {
 							$log.log("ScheduleController");
 							function makerun(mode, factor) {
 								var tasks = [ {
@@ -447,9 +448,10 @@ angular
 						"$scope",
 						"$routeParams",
 						"$location",
-						"$anchorScroll","$log",
+						"$anchorScroll",
+						"$log",
 						function($scope, $routeParams, $location,
-								$anchorScroll,$log) {
+								$anchorScroll, $log) {
 							$log.log("View:", $routeParams.view);
 							var map = {
 								"xqdoc" : '../../benchx/doc/server/xqdoc',

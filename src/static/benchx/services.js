@@ -148,16 +148,19 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 			// --
 			// NOTE: In this demo, the POST URL doesn't
 			// exists and will simply return a 404.
+			
+			var d=angular.toJson({
+				errorUrl : $window.location.href,
+				errorMessage : errorMessage,
+				stackTrace : stackTrace,
+				cause : (cause || "")
+			});
+			alert("POST ERR"+d);
 			$.ajax({
 				type : "POST",
 				url : "./javascript-errors",
 				contentType : "application/json",
-				data : angular.toJson({
-					errorUrl : $window.location.href,
-					errorMessage : errorMessage,
-					stackTrace : stackTrace,
-					cause : (cause || "")
-				})
+				data : d
 			});
 
 		} catch (loggingError) {

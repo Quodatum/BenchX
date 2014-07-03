@@ -1,0 +1,26 @@
+<div class="row form-group" role="navigation">
+	<ol class="breadcrumb navbar-left">
+		<li ng-repeat="crumb in bar.crumbs">
+			<a href="{{crumb.href}}">{{crumb.text}}</a>
+		</li>
+		<li>
+			<div class="btn-group  btn-group-sm navbar-btn">
+				<button ng-repeat="view in bar.views" ng-click="{{view.action}}"
+					class="btn btn-default " title="{{view.title}}" ng-class="{{view.class}}">
+					<i class="{{view.icon}}"></i>
+					{{view.text}}
+				</button>
+			</div>
+		</li>
+	</ol>
+	<p class="navbar-text">:</p>
+
+	<div class="btn-group  btn-group-sm navbar-btn">
+		<button class="btn  "> Action:</button>
+		<button ng-repeat="view in bar.views" ng-click="{{view.action}}"
+			class="btn btn-default " title="{{view.title}}" ng-class="{{view.class}}">
+			<i class="{{view.icon}}"></i>
+			{{view.text}}
+		</button>
+	</div>
+</div>

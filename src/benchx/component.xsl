@@ -28,10 +28,9 @@
 
 				<h4 class="panel-title">
 					<a class="anchor" id="cmp-{@name}"></a>
-					<a ng-click="scrollTo('cmp-{@name}')" class="label pull-right">
-						#
+					<a ng-click="scrollTo('cmp-{@name}')" >
+						<xsl:value-of select="@name" />
 					</a>
-					<xsl:value-of select="@name" />
 					<span class="badge">
 						<xsl:value-of select="@version" />
 					</span>

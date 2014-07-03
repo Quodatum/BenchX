@@ -62,7 +62,7 @@ angular.module('ngLogging', [])
 			self.type = 'log'
 			log.apply(self, arguments)
 		},
-		enabled : false,
+		enabled : false, //@todo
 		logs : []
 	}
 
@@ -85,14 +85,15 @@ angular.module('ngLogging', [])
 			message : args.join('\n'),
 			type : type
 		}
-
+		
 		service.logs.push(logItem)
 
 		var _$rootScope = $injector.get('$rootScope')
 		var _$timeout = $injector.get('$timeout')
 		_$timeout(function() {
 			_$rootScope.$broadcast('log', logItem)
-		}, 0)
+		}, 0);
+		console.log("MYLOG");
 	}
 
 	return service
