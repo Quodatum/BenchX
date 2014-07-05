@@ -1,7 +1,7 @@
 <div class="row form-group" role="navigation">
-	<ol class="breadcrumb navbar-left">
+	<ol class="breadcrumb navbar-left qcrumb" >
 		<li>
-			<a href="#/suite">Suites</a>
+			<a href="#/suite">suites</a>
 		</li>
 		<li >
 			<a href="#/suite/{{activesuite}}">{{activesuite}}</a>

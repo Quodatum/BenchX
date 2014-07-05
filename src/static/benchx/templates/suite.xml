@@ -1,6 +1,6 @@
 <div>
 	<div class="row form-group" role="navigation">
-		<ol class="breadcrumb navbar-left">
+		<ol class="breadcrumb navbar-left  qcrumb">
 			<li>
 				<a href="#/suite" title="Suites">
 					suites
@@ -13,14 +13,15 @@
 
 			<li>
 				<div class="btn-group  btn-group-sm navbar-btn">
+					<a href="{{suite.session}}" class="btn btn-default btn-sm" title="Session">
+						<i class="glyphicon glyphicon-forward"></i>
+						Run
+					</a>
 					<a href="{{suite.library}}" class="btn btn-default btn-sm" title="library">
 						<i class="glyphicon glyphicon-book"></i>
 						Library
 					</a>
-					<a href="{{suite.session}}" class="btn btn-default btn-sm" title="Session">
-						<i class="glyphicon glyphicon-cog"></i>
-						Run
-					</a>
+
 				</div>
 			</li>
 		</ol>

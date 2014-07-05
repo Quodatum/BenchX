@@ -155,14 +155,15 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 				stackTrace : stackTrace,
 				cause : (cause || "")
 			});
-			alert("POST ERR"+d);
+			console.error("POST ERR",d);
+			/*
 			$.ajax({
 				type : "POST",
 				url : "./javascript-errors",
 				contentType : "application/json",
 				data : d
 			});
-
+			*/
 		} catch (loggingError) {
 
 			// For Developers - log the log-failure.

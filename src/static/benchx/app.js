@@ -8,7 +8,7 @@ angular
 		.module(
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
-						'ngLogging',  'googlechart', 'log.ex.uo',
+						'ngLogging', 'googlechart', 'log.ex.uo',
 						'angularCharts', 'dialog', 'ngStorage',
 						'angularMoment', 'BenchX.api', 'BenchX.services',
 						'services.httpRequestTracker' ])
@@ -16,12 +16,20 @@ angular
 		.config([ '$routeProvider', function($routeProvider) {
 			$routeProvider.when('/', {
 				redirectTo : '/suite'
+
 			}).when('/suite/:suit/session', {
 				templateUrl : '/static/benchx/templates/session.xml',
 				controller : "SessionController"
+
 			}).when('/suite/:suit/library', {
 				templateUrl : '/static/benchx/templates/library.xml',
 				controller : "LibraryController",
+				resolve : {
+					data : function(api) {
+						return api.library().query().$promise;
+					}
+				}
+
 			}).when('/environment', {
 				templateUrl : '/static/benchx/templates/environment.xml',
 				controller : "envController",
@@ -30,8 +38,13 @@ angular
 						return api.environment();
 					}
 				}
+			
 			}).when('/about', {
 				templateUrl : '/static/benchx/templates/about.xml'
+			
+			}).when('/log', {
+				templateUrl : '/static/benchx/templates/log.xml'
+							
 			}).when('/library', {
 				templateUrl : '/static/benchx/templates/library.xml',
 				controller : "LibraryController",
@@ -40,6 +53,7 @@ angular
 						return api.library().query().$promise;
 					}
 				}
+			
 			}).when('/library/:id', {
 				templateUrl : '/static/benchx/templates/record.xml',
 				controller : "RecordController",
@@ -51,6 +65,7 @@ angular
 						}).$promise;
 					}
 				}
+			
 			}).when('/suite', {
 				templateUrl : '/static/benchx/templates/suites.xml',
 				controller : "SuitesController",
@@ -59,6 +74,7 @@ angular
 						return api.suites();
 					}
 				}
+			
 			}).when('/suite/:id', {
 				templateUrl : '/static/benchx/templates/suite.xml',
 				controller : "SuiteController",
@@ -70,6 +86,7 @@ angular
 			}).when('/doc/:view', {
 				templateUrl : '/static/benchx/templates/doc.xml',
 				controller : "DocController"
+					
 			}).when('/404', {
 				templateUrl : '/static/benchx/templates/404.xml'
 			}).otherwise({
@@ -91,7 +108,7 @@ angular
 								$window.document.title = t;
 							};
 							$rootScope.setTitle("BenchX");
-							$rootScope.logmsg = "Welcome to BenchX v0.5.3";
+							$rootScope.logmsg = "Welcome to BenchX v0.5.5";
 							$rootScope.suites = [ "xmark", "apb" ];
 							$rootScope.activesuite = "xmark";
 							$rootScope.meta = {
@@ -218,10 +235,8 @@ angular
 						"$location",
 						"$dialog",
 						"api",
-						function($scope,  $routeParams, $location,
-								$dialog, api) {
-							$scope.setTitle("Session: "
-									+ $scope.activesuite);
+						function($scope, $routeParams, $location, $dialog, api) {
+							$scope.setTitle("Session: " + $scope.activesuite);
 							$scope.store = {
 								title : ""
 							};
@@ -420,8 +435,8 @@ angular
 							$scope.setTitle("Graph");
 							function genChart() {
 								return utils.gchart($rootScope.session.queries,
-										'BenchX: ' + $rootScope.suite + " "
-												+ $rootScope.meta.title);
+										'BenchX: ' + $rootScope.activesuite
+												+ " " + $rootScope.meta.title);
 							}
 							;
 

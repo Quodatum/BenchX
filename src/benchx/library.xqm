@@ -58,9 +58,11 @@ declare %updating function store($results as element(benchmark))
 (:~
  : list all in library
  :)
-declare function list(){
- <json  objects="_" arrays="json ">
-   {for $doc in $lib:benchmarks
+declare function list($suite){
+let $items:=$lib:benchmarks
+let $items:=if($suite) then $items[suite=$suite] else $items
+return <json  objects="_" arrays="json ">
+   {for $doc in $items
    order by $doc/meta/created descending
    return <_>{$doc/id,
     $doc/suite,

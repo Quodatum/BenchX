@@ -31,16 +31,20 @@
 			</ul>
 
 			<p class="navbar-text bg-success logmsg ">
-				<i class="glyphicon glyphicon-calendar"></i>
-				{{logmsg}}
+				<a href="#/log" title="Log messages">
+					<i class="glyphicon glyphicon-calendar"></i>
+					{{logmsg}}
+				</a>
+				
 			</p>
 			<ul class="nav navbar-nav navbar-right">
-			<li>
-				<p class="navbar-text " style="width:7em"
-					title="state {{state.mode}} factor={{state.factor}}({{state.size}})">
-					<span class="label  label-success">{{state.mode}}</span>
-					<span class="label  label-info">{{state.factor}}</span>
-				</p></li>
+				<li>
+					<p class="navbar-text " style="width:7em"
+						title="state {{state.mode}} factor={{state.factor}}({{state.size}})">
+						<span class="label  label-success">{{state.mode}}</span>
+						<span class="label  label-info">{{state.factor}}</span>
+					</p>
+				</li>
 				<li>
 					<button class="btn  btn-sm navbar-btn " ng-click="queue.kill()"
 						ng-class="{'btn-warning':queue.length()}" title="Queued tasks, click to stop">
@@ -76,7 +80,7 @@
 								Documentation
 							</a>
 						</li>
-						
+
 						<li class="divider"></li>
 						<li>
 							<a href="#/about" tabindex="-1">

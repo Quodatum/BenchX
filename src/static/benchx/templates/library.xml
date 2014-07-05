@@ -1,7 +1,16 @@
 <div ng-swipe-right="swipe()">
-	
-		<p>The library of BenchX runs</p>
-		
+	<div class="row form-group" role="navigation">
+		<ol class="breadcrumb navbar-left qcrumb">
+			<li>
+				<a href="#/suite">suites</a>
+			</li>
+			<li>
+				<a href="#/suite/{{activesuite}}">{{activesuite}}</a>
+			</li>
+			<li class="active">
+				library
+			</li>
+	</div>
 	<div class="row">
 
 		<div class="col-md-8">
@@ -20,7 +29,7 @@
 						<td>
 							<a href="#/library/{{doc.id}}">{{doc.description}}</a>
 						</td>
-						<td>{{doc.suite}}</td>	
+						<td>{{doc.suite}}</td>
 						<td>{{doc["java.version"]}}</td>
 						<td>{{doc["os.name"]}}</td>
 						<td>{{doc.hostname}}</td>
@@ -52,10 +61,10 @@
 			</div>
 		</div>
 	</div>
-<div class="btn-group btn-group-sm">
-            <button class="btn  btn-default" ng-click="libzip()" title="Download as zip">
-            <i class="glyphicon glyphicon-save"></i>
-            Download zipped XML 
-        </button>
-        </div>
+	<div class="btn-group btn-group-sm">
+		<button class="btn  btn-default" ng-click="libzip()" title="Download as zip">
+			<i class="glyphicon glyphicon-save"></i>
+			Download zipped XML
+		</button>
+	</div>
 </div>

@@ -97,14 +97,17 @@ function state()
  :)
 declare %updating
 %rest:POST %rest:path("benchx/api/state")
-%restxq:form-param("mode", "{$mode}")
-%restxq:form-param("factor", "{$factor}")
+%restxq:query-param("mode", "{$mode}")
+%restxq:query-param("factor", "{$factor}")
 %output:method("json")   
 function state-post($mode,$factor as xs:double) 
 {
     (: @TODO o/p new rather than current state :)
-    (db:output(<json objects="json state">{s:state()}</json>),
-     s:make($mode,$factor))
+    let $factor:=fn:trace($factor,"factor:")
+    return (
+        db:output(<json objects="json state">{s:state()}</json>),
+        s:make($mode,$factor)
+     )
 }; 
 
 (:~
@@ -126,7 +129,7 @@ declare
 %output:method("json")   
 function library() 
 {
-    lib:list()
+    lib:list(())
 }; 
 
 (:~
@@ -201,7 +204,7 @@ declare
 function suites() 
 {
     let $suites:=xm:list-suites()
-    return <json arrays="json queries">{
+    return <json type="array">{
     for $suite in $suites
     let $desc:=xm:describe( $suite)
     return <_ type="object">
@@ -210,8 +213,8 @@ function suites()
             <describe>{$desc}</describe>
             <session>#/suite/{$suite}/session</session>
             <library>#/suite/{$suite}/library</library>
-            <results>?</results>
-            <queries>{ for  $file in xm:queries( $suite )
+            <results type="number">{5}</results>
+            <queries type="array">{ for  $file in xm:queries( $suite )
                     return <_>{$file}</_>
             }</queries>
             </_>

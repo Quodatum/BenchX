@@ -138,6 +138,6 @@ declare function state() as element(state)
         <mode>{s:mode()}</mode>
         <factor>{$s:root/state/factor/fn:string()}</factor>
         <size>{prof:human(s:file-size())}</size>
-         <hostname>{env:hostname()}</hostname>
+         {$s:root/server/*}
     </state>
 };

@@ -1,18 +1,28 @@
 <div>
-	<h4>Available benchmark suites</h4>
+	<div class="row form-group" role="navigation">
+		<ol class="breadcrumb navbar-left  qcrumb">
+			<li>
+				suites
+			</li>
+		</ol>
+	</div>
 	<div class="list-group">
-  <a href="{{suite.href}}" ng-repeat="suite in suites" 
-     class="list-group-item " ng-class="{active: suite.name == activesuite}">
-    <h4 class="list-group-item-heading">
-    <small class="pull-right">
-    queries:<span class="badge">{{suite.queries.length}}</span>,
-    results: <span class="badge">{{suite.results}}</span> 
-      </small>
-    {{suite.name}}</h4>
-    <p class="list-group-item-text">{{suite.describe}}
-    </p>
-  </a>
-</div>
-	
+		<a href="{{suite.href}}" ng-repeat="suite in suites" class="list-group-item "
+			ng-class="{active: suite.name == activesuite}">
+			<h4 class="list-group-item-heading">
+				<small class="pull-right">
+					queries:
+					<span class="badge">{{suite.queries.length}}</span>
+					,
+					results:
+					<span class="badge">{{suite.results}}</span>
+				</small>
+				{{suite.name}}
+			</h4>
+			<p class="list-group-item-text">{{suite.describe}}
+			</p>
+		</a>
+	</div>
+
 
 </div>
