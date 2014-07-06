@@ -1,14 +1,19 @@
 <div class="row form-group" role="navigation">
-	<ol class="breadcrumb navbar-left qcrumb" >
+	<ol class="breadcrumb navbar-left qcrumb">
+		<li>
+			<a href="#/about" title="home">
+				<i class="glyphicon glyphicon-home"></i>
+			</a>
+		</li>
 		<li>
 			<a href="#/suite">suites</a>
 		</li>
-		<li >
+		<li>
 			<a href="#/suite/{{activesuite}}">{{activesuite}}</a>
 		</li>
 		<li class="active">
-            run
-        </li>
+			run
+		</li>
 		<li>
 			<div class="btn-group  btn-group-sm navbar-btn">
 				<button ng-click="setView('grid')" class="btn btn-default "

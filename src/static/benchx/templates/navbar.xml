@@ -40,7 +40,8 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<p class="navbar-text " style="width:7em"
-						title="state {{state.mode}} factor={{state.factor}}({{state.size}})">
+						title="state {{state.mode}} factor={{state.factor}}({{state.size}})">		
+						<span>{{activesuite}}</span>
 						<span class="label  label-success">{{state.mode}}</span>
 						<span class="label  label-info">{{state.factor}}</span>
 					</p>

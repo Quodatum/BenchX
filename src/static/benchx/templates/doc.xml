@@ -1,13 +1,30 @@
 <div>
-	<div class="btn-group btn-group-sm">
-		<a href="#doc/wadl" class="btn btn-default btn-sm">Wadl</a>
-		<a href="#doc/xqdoc" class="btn btn-default btn-sm">XQdoc</a>
-		<a href="#doc/components" class="btn btn-default btn-sm">components</a>
-		<a href="doc/server/" target="benchx-doc" class="btn btn-default btn-sm">
-			<i class="glyphicon glyphicon-eye-open"></i>
-			XQDoc external
-		</a>
+	<div class="row form-group" role="navigation">
+		<ol class="breadcrumb navbar-left  qcrumb">
+			<li>
+				<a href="#/about" title="home">
+					<i class="glyphicon glyphicon-home"></i>
+				</a>
+			</li>
+			<li>
+				docs
+			</li>
+			<li>
+				<div class="btn-group btn-group-sm">
+					<a href="#doc/wadl" ng-class="{'btn-primary':view=='wadl'}" class="btn btn-default btn-sm">Wadl</a>
+					<a href="#doc/xqdoc" ng-class="{'btn-primary':view=='xqdoc'}" class="btn btn-default btn-sm">XQdoc</a>
+					<a href="#doc/components" ng-class="{'btn-primary':view=='components'}" class="btn btn-default btn-sm">components</a>
+					<a href="doc/server/" target="benchx-doc" class="btn btn-default btn-sm">
+						<i class="glyphicon glyphicon-eye-open"></i>
+						XQDoc external
+					</a>
+				</div>
+			</li>
+		</ol>
+
 	</div>
-	<div class="xqdoc" ng-include="inc" autoscroll="true" >loading doc...
+
+	<div class="xqdoc" ng-include="inc" autoscroll="true">loading
+		doc...
 	</div>
 </div>

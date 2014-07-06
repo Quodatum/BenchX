@@ -213,7 +213,7 @@ function suites()
             <describe>{$desc}</describe>
             <session>#/suite/{$suite}/session</session>
             <library>#/suite/{$suite}/library</library>
-            <results type="number">{5}</results>
+            <results type="number">{fn:count($lib:benchmarks[suite=$suite])}</results>
             <queries type="array">{ for  $file in xm:queries( $suite )
                     return <_>{$file}</_>
             }</queries>

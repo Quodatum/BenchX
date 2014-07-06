@@ -108,7 +108,7 @@ angular
 								$window.document.title = t;
 							};
 							$rootScope.setTitle("BenchX");
-							$rootScope.logmsg = "Welcome to BenchX v0.5.5";
+							$rootScope.logmsg = "Welcome to BenchX v0.5.6";
 							$rootScope.suites = [ "xmark", "apb" ];
 							$rootScope.activesuite = "xmark";
 							$rootScope.meta = {

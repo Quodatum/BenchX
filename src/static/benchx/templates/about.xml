@@ -4,16 +4,25 @@
 			<img src="benchx.svg" style="width:60px;height:60px" />
 			BenchX
 		</h1>
-		<p>This application times the execution of sets of XQuery queries
-			using BaseX. The intended use is to compare the relative performance
+		<p>
+			This application times the execution of sets of XQuery queries
+			(<a href="#/suites" >Suites</a>) using
+			<a href="http:/basex.org" target="_blank">BaseX</a>
+			.
+			The intended use is to build a
+			<a href="#/library" >library</a>
+			of results
+			to compare the relative performance
 			of
-			different hardware and software platforms.
+			different hardware and
+			software platforms.
 		</p>
 
 	</div>
 	<ul>
 		<li>This application requires internet access (for CDN and Google
-			chart).</li>
+			chart).
+		</li>
 		<li>This application is not designed for multiple session use.</li>
 		<li>
 			BenchX source on
