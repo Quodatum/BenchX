@@ -79,10 +79,45 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 			});
 			return new Blob([ txt.join("\n") ], {
 				type : 'text/csv'
-			})
+			});
 		}
 	};
-})
+}).factory('taskqueue', ["$rootScope", function($rootScope) {
+	console.log("taskq");
+	var c = new Date();
+	var q = async.queue(function(task, callback) {
+		var promise;
+		switch (task.cmd) {
+		case "run":
+			$log.info('Starting ' + task.data);
+			$rootScope.logmsg = 'Starting ' + task.data;
+			promise = $rootScope.execute(task.data);
+			break;
+		case "state":
+			$rootScope.logmsg = 'Starting set state';
+			promise = $rootScope.setState(task.data);
+			break;
+
+		default:
+			$rootScope.logmsg = 'Unknown command ignored: ' + task.cmd;
+		}
+		;
+		promise.then(function(res) {
+			// Dig into the
+			// responde to get
+			// the relevant data
+			$rootScope.logmsg = 'completed ' + task.cmd;
+			callback();
+		});
+	}, 1);
+	q.drain = function() {
+		alert("$rootScope.logmsg = 'Idle';");
+	};
+	return {
+		"created" : c,
+		"q" : q
+	};
+} ])
 
 // http://www.bennadel.com/blog/2542-logging-client-side-errors-with-angularjs-and-stacktrace-js.htm
 // The "stacktrace" library that we included in the Scripts
@@ -148,22 +183,18 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 			// --
 			// NOTE: In this demo, the POST URL doesn't
 			// exists and will simply return a 404.
-			
-			var d=angular.toJson({
+
+			var d = angular.toJson({
 				errorUrl : $window.location.href,
 				errorMessage : errorMessage,
 				stackTrace : stackTrace,
 				cause : (cause || "")
 			});
-			console.error("POST ERR",d);
+			console.error("POST ERR", d);
 			/*
-			$.ajax({
-				type : "POST",
-				url : "./javascript-errors",
-				contentType : "application/json",
-				data : d
-			});
-			*/
+			 * $.ajax({ type : "POST", url : "./javascript-errors", contentType :
+			 * "application/json", data : d });
+			 */
 		} catch (loggingError) {
 
 			// For Developers - log the log-failure.
@@ -177,7 +208,12 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 	// Return the logging function.
 	return (log);
 
+}).constant("LibraryResolve", {
+	data : [ 'api', function(api) {
+		return api.library().query().$promise;
+	} ]
 })
+
 /*
  * .config(function($provide) { //
  * 

@@ -8,12 +8,13 @@ angular
 		.module(
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
-						'ngLogging', 'googlechart', 'log.ex.uo',
+						'ngLogging',
+						'googlechart','log.ex.uo',
 						'angularCharts', 'dialog', 'ngStorage',
 						'angularMoment', 'BenchX.api', 'BenchX.services',
 						'services.httpRequestTracker' ])
 
-		.config([ '$routeProvider', function($routeProvider) {
+		.config([ '$routeProvider', "$injector",function($routeProvider,$injector) {
 			$routeProvider.when('/', {
 				redirectTo : '/suite'
 
@@ -24,11 +25,8 @@ angular
 			}).when('/suite/:suit/library', {
 				templateUrl : '/static/benchx/templates/library.xml',
 				controller : "LibraryController",
-				resolve : {
-					data : function(api) {
-						return api.library().query().$promise;
-					}
-				}
+				resolve: $injector.get('LibraryResolve')
+				 
 
 			}).when('/environment', {
 				templateUrl : '/static/benchx/templates/environment.xml',
@@ -97,13 +95,18 @@ angular
 		.config([ 'logExProvider', function(logExProvider) {
 			logExProvider.enableLogging(true);
 		} ])
-
+		
+//		.config([ 'Logging', function(Logging) {
+//			Logging.enabled=true;
+//		} ])
 		.run(
 				[
 						'$rootScope',
 						'$window',
 						'hotkeys',
-						function($rootScope, $window, hotkeys) {
+						'$log','Logging',
+						function($rootScope, $window, hotkeys,$log,Logging) {
+							Logging.enabled=true;
 							$rootScope.setTitle = function(t) {
 								$window.document.title = t;
 							};
@@ -120,6 +123,8 @@ angular
 												var promise;
 												switch (task.cmd) {
 												case "run":
+													$log.info('Starting '
+															+ task.data);
 													$rootScope.logmsg = 'Starting '
 															+ task.data;
 													promise = $rootScope
@@ -288,7 +293,9 @@ angular
 						"api",
 						"$localStorage",
 						"$log",
-						function($scope, $rootScope, api, $localStorage, $log) {
+						"taskqueue",
+						function($scope, $rootScope, api, 
+								$localStorage, $log,taskqueue) {
 							$log.log("ScheduleController");
 							function makerun(mode, factor) {
 								var tasks = [ {

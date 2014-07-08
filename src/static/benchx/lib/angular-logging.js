@@ -15,66 +15,66 @@ angular.module('ngLogging', [])
 		var methods = {
 			error : function() {
 				if (Logging.enabled) {
-					$delegate.error.apply(null, arguments)
-					Logging.error.apply(null, arguments)
+					$delegate.error.apply(null, arguments);
+					Logging.error.apply(null, arguments);
 				}
 			},
 			log : function() {
 				if (Logging.enabled) {
-					$delegate.log.apply(null, arguments)
-					Logging.log.apply(null, arguments)
+					$delegate.log.apply(null, arguments);
+					Logging.log.apply(null, arguments);
 				}
 			},
 			info : function() {
 				if (Logging.enabled) {
-					$delegate.info.apply(null, arguments)
-					Logging.info.apply(null, arguments)
+					$delegate.info.apply(null, arguments);
+					Logging.info.apply(null, arguments);
 				}
 			},
 			warn : function() {
 				if (Logging.enabled) {
-					$delegate.warn.apply(null, arguments)
-					Logging.warn.apply(null, arguments)
+					$delegate.warn.apply(null, arguments);
+					Logging.warn.apply(null, arguments);
 				}
 			}
-		}
+		};
 
-		return methods
-	})
+		return methods;
+	});
 })
 
-.service('Logging', function($injector) {
+.service('Logging', ['$injector',function($injector) {
 
 	var service = {
 		error : function() {
-			self.type = 'error'
-			log.apply(self, arguments)
+			self.type = 'error';
+			log.apply(self, arguments);
 		},
 		warn : function() {
-			self.type = 'warn'
-			log.apply(self, arguments)
+			self.type = 'warn';
+			log.apply(self, arguments);
 		},
 		info : function() {
-			self.type = 'info'
-			log.apply(self, arguments)
+			self.type = 'info';
+			log.apply(self, arguments);
 		},
 		log : function() {
-			self.type = 'log'
-			log.apply(self, arguments)
+			self.type = 'log';
+			log.apply(self, arguments);
 		},
 		enabled : false, //@todo
 		logs : []
-	}
+	};
 
 	var log = function() {
 
-		args = []
+		args = [];
 		angular.forEach(arguments, function(arg) {
 			if (typeof arg === 'object') {
-				arg = JSON.stringify(arg)
+				arg = JSON.stringify(arg);
 			}
 			args.push(arg);
-		})
+		});
 		var dd = new Date();
 		var hh = dd.getHours();
 		var mm = dd.getMinutes();
@@ -84,18 +84,19 @@ angular.module('ngLogging', [])
 			time : hh + ":" + mm + ":" + ss + ":" + ms,
 			message : args.join('\n'),
 			type : type
-		}
+		};
 		
-		service.logs.push(logItem)
+		service.logs.push(logItem);
 
-		var _$rootScope = $injector.get('$rootScope')
-		var _$timeout = $injector.get('$timeout')
+		var _$rootScope = $injector.get('$rootScope');
+		var _$timeout = $injector.get('$timeout');
 		_$timeout(function() {
-			_$rootScope.$broadcast('log', logItem)
+			_$rootScope.$broadcast('log', logItem);
 		}, 0);
-		console.log("MYLOG");
-	}
+		
+		console.log("MYLOG",service.logs);
+	};
 
-	return service
+	return service;
 
-})
+}]);
