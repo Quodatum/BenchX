@@ -3,7 +3,7 @@
 		<runat>browser</runat>
 		<cdn>//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js</cdn>
 		<home>http://jquery.com/</home>
-
+        <licence>MIT</licence>
 	</cmp>
 
 	<cmp name="twitter-bootstrap" version="3.1.1">
@@ -14,6 +14,7 @@
 		<tagline>The most popular front-end framework for developing
 			responsive, mobile first projects on the web.
 		</tagline>
+		<licence>Apache v2.0</licence>
 	</cmp>
 
 	<cmp name="moment" version="2.6.0">
@@ -24,6 +25,7 @@
 		<tagline>A javascript date library for parsing, validating,
 			manipulating, and formatting dates.
 		</tagline>
+		<licence>MIT</licence>
 	</cmp>
 
 	<cmp name="angular-moment" version="0.7.0">
@@ -35,6 +37,7 @@
 		</tagline>
 		<depends>moment</depends>
 		<depends>angularjs</depends>
+		<licence>MIT</licence>
 	</cmp>
 	<cmp name="scrollTo" disabled="true">
 		<runat>browser</runat>
@@ -44,6 +47,7 @@
 			a page reload.
 		</tagline>
 		<depends>angularjs</depends>
+		<licence>MIT</licence>
 	</cmp>
 	<cmp name="lodash" version="2.4.1">
 		<runat>browser</runat>
@@ -52,6 +56,7 @@
 		<home>http://lodash.com/</home>
 		<tagline>A utility library delivering consistency, customization,
 			performance, &amp; extras.</tagline>
+		<licence>MIT</licence>	
 	</cmp>
 
 	<cmp name="angularjs" version="1.2.14">
@@ -60,6 +65,7 @@
 		</cdn>
 		<home>https://angularjs.org/</home>
 		<tagline>HTML enhanced for web apps!</tagline>
+		<licence>MIT</licence>
 	</cmp>
 
 	<cmp name="angular-ui-bootstrap" version="0.10.0">

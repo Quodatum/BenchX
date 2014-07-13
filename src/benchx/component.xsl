@@ -1,4 +1,4 @@
-<xsl:stylesheet version="1.0"
+<xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<!-- convert components.xml to bootstrap html -->
 	<xsl:template match="/components">
@@ -28,7 +28,7 @@
 
 				<h4 class="panel-title">
 					<a class="anchor" id="cmp-{@name}"></a>
-					<a ng-click="scrollTo('cmp-{@name}')" >
+					<a ng-click="scrollTo('cmp-{@name}')">
 						<xsl:value-of select="@name" />
 					</a>
 					<span class="badge">
@@ -40,16 +40,46 @@
 				<p>
 					<xsl:value-of select="tagline" />
 				</p>
-				<a href="{home}" target="benchx-doc">
-					<xsl:value-of select="home" />
+				<a href="{home}" target="benchx-doc" class="badge">
+					<i class="glyphicon glyphicon-home"></i>
+					Home
 				</a>
-			</div>
-			<div class="panel-footer">
-				<xsl:for-each select="depends">
-					<a ng-click="scrollTo('cmp-{.}')" class="label label-info">
-						<xsl:value-of select="." />
+				<span>
+					Licence:
+					<span class="badge">
+						<xsl:value-of select="licence" />
+					</span>
+				</span>
+				<span>
+					Runat:
+					<span class="badge">
+						<xsl:value-of select="runat" />
+					</span>
+				</span>
+				<div>
+					CDN:
+					<a href="{cdn}">
+						<xsl:value-of select="cdn" />
 					</a>
-				</xsl:for-each>
+				</div>
+				<div>
+					Used by:
+					<xsl:for-each select="//cmp[depends=current()/@name]">
+						<xsl:sort select="@name" />
+						<a ng-click="scrollTo('cmp-{@name}')" class="label label-info">
+							<xsl:value-of select="@name" />
+						</a>
+					</xsl:for-each>
+				</div>
+				<div>
+				    Depends on:
+                    <xsl:for-each select="depends">
+                        <xsl:sort select="@name" />
+                        <a ng-click="scrollTo('cmp-{.}')" class="label label-info">
+                            <xsl:value-of select="." />
+                        </a>
+                    </xsl:for-each>
+				</div>
 			</div>
 
 		</div>

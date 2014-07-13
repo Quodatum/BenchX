@@ -1,0 +1,18 @@
+<package abbrev="benchx" name="urn:quodatum.basex.benchx"
+	version="0.1" spec="1.0" xmlns="http://expath.org/ns/pkg">
+	<title>BenchX</title>
+	<dependency name="twitter-bootstrap" version="3.1.1" />
+	<dependency name="moment" version="2.6.0" />
+	<dependency name="angular-moment" version="0.7.0" />
+	<dependency name="lodash" version="2.4.1" />
+	<dependency name="angularjs" version="1.2.14" />
+	<dependency name="angular-ui-bootstrap" version="0.10.0" />
+	<dependency name="d3" version="3.4.6" />
+	<dependency name="ngStorage" version="0.3.0" />
+	<dependency name="angular-hotkeys" version="0.3.0" />
+	<dependency name="ng-google-chart" version="0.0.9" />
+	<dependency name="saxon-he" version="0.0.9" />
+	<dependency name="async" version="0.8.0" />
+	<dependency name="stacktrace" version="0.6.0" />
+	<dependency name="FileSaver" />
+</package>
