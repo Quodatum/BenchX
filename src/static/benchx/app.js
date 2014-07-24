@@ -367,9 +367,10 @@ angular
 					$scope.environment = data;
 				} ])
 		.controller('SuitesController',
-				[ "$scope", "data", function($scope, data) {
+				[ "$scope", "data","meta", function($scope, data,meta) {
 					$scope.setTitle("Suites");
 					$scope.suites = data;
+					meta.cvabar("session-bar");
 				} ])
 		.controller(
 				'SuiteController',

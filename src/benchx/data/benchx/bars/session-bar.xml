@@ -1,5 +1,6 @@
 <bar>
-	<crumbs>
+	<name>session-bar</name>
+	<crumbs type="array">
 		<link>
 			<text>Suites</text>
 			<href>#</href>
@@ -11,7 +12,7 @@
 			<title>Current suite</title>
 		</link>
 	</crumbs>
-	<views>
+	<views type="array">
 		<command>
 			<text>Grid</text>
 			<action>setView('grid')</action>
@@ -27,7 +28,7 @@
 			<class>{'btn-primary':view=='graph'}</class>
 		</command>
 	</views>
-	<actions>
+	<actions type="array">
 		<command>
 			<text>Run</text>
 			<action>setView('run')</action>
