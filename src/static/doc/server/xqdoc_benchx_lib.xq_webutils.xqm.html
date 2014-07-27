@@ -68,7 +68,8 @@
 )</pre></h4><p>REST created http://restpatterns.org/HTTP_Status_Codes/401_-_Unauthorized</p><h5>Params</h5><ul><li>auth-scheme as </li><li>response as </li></ul></div><div id="func_http-created_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: http-created($location,$response
 )</pre></h4><p>REST created http://restpatterns.org/HTTP_Status_Codes/201_-_Created</p><h5>Params</h5><ul><li>location as </li><li>response as </li></ul></div><div id="func_headers_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: headers($attachment,$response
 )</pre></h4><p>CORS header with download option</p><h5>Params</h5><ul><li>attachment as </li><li>response as </li></ul></div><div id="func_zip-download_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: zip-download($zipname,$data
-)</pre></h4><p>download as zip file</p><h5>Params</h5><ul><li>zipname as </li><li>data as </li></ul></div><div id="func_download-response_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: download-response($method,$filename
+)</pre></h4><p>download as zip file</p><h5>Params</h5><ul><li>zipname as </li><li>data as </li></ul></div><div id="func_method_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: method($method as xs:string
+)</pre></h4><p>headers for download</p><h5>Params</h5><ul><li>method as xs:string</li></ul></div><div id="func_download-response_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: download-response($method,$filename
 )</pre></h4><p>headers for download</p><h5>Params</h5><ul><li>method as </li><li>filename as </li></ul></div></div><div><h3>Original Source Code</h3><pre class="prettyprint lang-xq">(:~ 
 : web utils
 : @author andy bunce
@@ -80,6 +81,7 @@ declare default function namespace 'apb.web.utils3';
 
 declare namespace rest = 'http://exquery.org/ns/restxq';
 import module namespace session ="http://basex.org/modules/session";
+
 
 (:~
 : execute function fn if session has loggedin user with matching role else 401
@@ -153,6 +155,14 @@ declare function zip-download($zipname,$data){
     (download-response("raw",$zipname), $data)
 };
 
+(:~ headers for download  :) 
+declare function method($method as xs:string){
+&lt;restxq:response&gt;
+    &lt;output:serialization-parameters&gt;
+        &lt;output:method value="{$method}"/&gt;
+    &lt;/output:serialization-parameters&gt;
+&lt;/restxq:response&gt;
+};
 (:~ headers for download  :) 
 declare function download-response($method,$filename){
 &lt;restxq:response&gt;

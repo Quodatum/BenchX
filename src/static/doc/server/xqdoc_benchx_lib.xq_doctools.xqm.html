@@ -76,10 +76,9 @@ declare namespace wadl="http://wadl.dev.java.net/2009/02";
 
 import module namespace rest = 'http://exquery.org/ns/restxq';
 
-declare function generate-html($src)
+declare function generate-html($inspect)
 {
-    let $doc:=inspect:xqdoc($src)
-    return xslt:transform($doc,fn:resolve-uri("xqdoc.xsl"))
+    xslt:transform($inspect,fn:resolve-uri("xqdoc.xsl"))
 };
 
 declare function wadl($root)

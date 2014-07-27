@@ -489,6 +489,7 @@ angular
 								"xqdoc" : '../../benchx/doc/server/xqdoc',
 								"wadl" : '../../benchx/doc/server/wadl',
 								"components" : '../../benchx/doc/client/components',
+								"templates" : '../../benchx/doc/client/templates',
 								"xqdoc2" : 'doc/server'
 							};
 							$scope.view = $routeParams.view;

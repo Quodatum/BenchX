@@ -174,14 +174,17 @@ function state()
  :)
 declare %updating
 %rest:POST %rest:path("benchx/api/state")
-%restxq:form-param("mode", "{$mode}")
-%restxq:form-param("factor", "{$factor}")
+%restxq:query-param("mode", "{$mode}")
+%restxq:query-param("factor", "{$factor}")
 %output:method("json")   
 function state-post($mode,$factor as xs:double) 
 {
     (: @TODO o/p new rather than current state :)
-    (db:output(&lt;json objects="json state"&gt;{s:state()}&lt;/json&gt;),
-     s:make($mode,$factor))
+    let $factor:=fn:trace($factor,"factor:")
+    return (
+        db:output(&lt;json objects="json state"&gt;{s:state()}&lt;/json&gt;),
+        s:make($mode,$factor)
+     )
 }; 
 
 (:~
@@ -203,7 +206,7 @@ declare
 %output:method("json")   
 function library() 
 {
-    lib:list()
+    lib:list(())
 }; 
 
 (:~
@@ -277,18 +280,22 @@ declare
 %output:method("json")   
 function suites() 
 {
-    let $suites:=("xmark","apb")
-    return &lt;json objects="_" arrays="json"&gt;{
-    for $s in $suites
-    let $desc:="to do"|| $s
-    return &lt;_&gt;
-    &lt;name&gt;{$s}&lt;/name&gt;
-    &lt;href&gt;#/suite/{$s}&lt;/href&gt;
-    &lt;describe&gt;{$desc}&lt;/describe&gt;
-    &lt;session&gt;#/suite/{$s}/session&lt;/session&gt;
-    &lt;library&gt;#/suite/{$s}/library&lt;/library&gt;
-    &lt;/_&gt;
-    }
+    let $suites:=xm:list-suites()
+    return &lt;json type="array"&gt;{
+    for $suite in $suites
+    let $desc:=xm:describe( $suite)
+    return &lt;_ type="object"&gt;
+            &lt;name&gt;{$suite}&lt;/name&gt;
+            &lt;href&gt;#/suite/{$suite}&lt;/href&gt;
+            &lt;describe&gt;{$desc}&lt;/describe&gt;
+            &lt;session&gt;#/suite/{$suite}/session&lt;/session&gt;
+            &lt;library&gt;#/suite/{$suite}/library&lt;/library&gt;
+            &lt;results type="number"&gt;{fn:count($lib:benchmarks[suite=$suite])}&lt;/results&gt;
+            &lt;queries type="array"&gt;{ for  $file in xm:queries( $suite )
+                    return &lt;_&gt;{$file}&lt;/_&gt;
+            }&lt;/queries&gt;
+            &lt;/_&gt;
+            }
 &lt;/json&gt;
 };
 

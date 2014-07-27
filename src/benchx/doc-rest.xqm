@@ -51,3 +51,14 @@ function client-components($app as xs:string)
   let $r:=xslt:transform(fn:doc($src), fn:doc("component.xsl"))  
   return $r 
 }; 
+
+(:~
+ : show list templates
+ :)
+declare 
+%rest:GET %rest:path("{$app}/doc/client/templates")
+%output:method("html")  
+function templates($app as xs:string) 
+{
+  <todo>Yes</todo>
+}; 

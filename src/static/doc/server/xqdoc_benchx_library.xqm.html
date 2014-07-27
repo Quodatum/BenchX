@@ -65,8 +65,8 @@
 ) as element(benchmark)</pre></h4><p>get doc with given id</p><h5>Params</h5><ul><li>id as </li></ul><h5>Returns</h5><ul><li>element(benchmark)</li></ul></div><div id="func_add-session_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: add-session($data,
                 $session as element(benchmark)
 )</pre></h4><p>add session data to library</p><h5>Params</h5><ul><li>data as </li><li>session as element(benchmark)</li></ul></div><div id="func_store_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: store($results as element(benchmark)
-)</pre></h4><p>store in library</p><h5>Params</h5><ul><li>results as element(benchmark)</li></ul></div><div id="func_list_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: list(
-)</pre></h4><p>list all in library</p></div><div id="func_json_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: json($b as element(benchmark)
+)</pre></h4><p>store in library</p><h5>Params</h5><ul><li>results as element(benchmark)</li></ul></div><div id="func_list_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: list($suite
+)</pre></h4><p>list all in library</p><h5>Params</h5><ul><li>suite as </li></ul></div><div id="func_json_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: json($b as element(benchmark)
 ) as element(json)</pre></h4><p>Prepare benchmark for json</p><h5>Params</h5><ul><li>b as element(benchmark) results of a run.</li></ul><h5>Returns</h5><ul><li>element(json): json style xml for serialization.</li></ul></div></div><div><h3>Original Source Code</h3><pre class="prettyprint lang-xq">(:~ 
  : library handling for benchx
  :@author Andy Bunce
@@ -127,9 +127,11 @@ declare %updating function store($results as element(benchmark))
 (:~
  : list all in library
  :)
-declare function list(){
- &lt;json  objects="_" arrays="json "&gt;
-   {for $doc in $lib:benchmarks
+declare function list($suite){
+let $items:=$lib:benchmarks
+let $items:=if($suite) then $items[suite=$suite] else $items
+return &lt;json  objects="_" arrays="json "&gt;
+   {for $doc in $items
    order by $doc/meta/created descending
    return &lt;_&gt;{$doc/id,
     $doc/suite,
