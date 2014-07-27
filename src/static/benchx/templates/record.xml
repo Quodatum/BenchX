@@ -9,7 +9,7 @@
 		<select ng-model="suite" ng-options="s for s in suites"></select>
 
 	</div>
-	<div class="container-fluid" ng-include="'templates/recordbar.xml'"></div>
+	<div class="container-fluid" ng-include="'templates/recordbar.xhtml'"></div>
 	<div class="animate-switch-container" ng-switch="view">
 		<div class="animate-switch" ng-switch-when="graph">
 			<div google-chart="google-chart" chart="chartObject" onReady="chartReady"

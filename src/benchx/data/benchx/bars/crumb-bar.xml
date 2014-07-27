@@ -1,0 +1,21 @@
+<bar>
+	<name>test-bar</name>
+	<crumbs type="array">
+	   <link>
+            <icon>glyphicon glyphicon-th</icon>
+            <href>#</href>
+            <title>Home</title>
+        </link>
+		<link>
+			<text>Hello</text>
+			<href>#</href>
+			<title>List of suites</title>
+		</link>
+		<link>
+			<text>{{activesuite}}</text>
+			<href>#/suite/{{activesuite}}</href>
+			<title>Current suite</title>
+		</link>
+	</crumbs>
+	
+</bar>

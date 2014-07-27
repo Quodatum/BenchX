@@ -10,6 +10,7 @@ declare default function namespace 'apb.web.utils3';
 declare namespace rest = 'http://exquery.org/ns/restxq';
 import module namespace session ="http://basex.org/modules/session";
 
+
 (:~
 : execute function fn if session has loggedin user with matching role else 401
 :)
@@ -82,6 +83,14 @@ declare function zip-download($zipname,$data){
     (download-response("raw",$zipname), $data)
 };
 
+(:~ headers for download  :) 
+declare function method($method as xs:string){
+<restxq:response>
+    <output:serialization-parameters>
+        <output:method value="{$method}"/>
+    </output:serialization-parameters>
+</restxq:response>
+};
 (:~ headers for download  :) 
 declare function download-response($method,$filename){
 <restxq:response>

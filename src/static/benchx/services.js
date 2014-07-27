@@ -208,7 +208,9 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 	// Return the logging function.
 	return (log);
 
-}).constant("LibraryResolve", {
+})
+
+.constant("LibraryResolve", {
 	data : [ 'api', function(api) {
 		return api.library().query().$promise;
 	} ]

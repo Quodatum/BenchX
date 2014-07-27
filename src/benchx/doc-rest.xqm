@@ -7,17 +7,25 @@ module namespace bm = 'apb.doc.rest';
 declare default function namespace 'apb.doc.rest'; 
 
 import module namespace doc = 'apb.doc' at 'lib.xq/doctools.xqm';
-
+import module namespace web = 'apb.web.utils3' at 'lib.xq/webutils.xqm';
 
 (:~
  : show xqdoc for rest api
  :)
 declare 
 %rest:GET %rest:path("{$app}/doc/server/xqdoc")
-%output:method("html")  
-function xqdoc($app as xs:string) 
+
+%restxq:query-param("mod", "{$mod}","benchx-rest.xqm")
+%restxq:query-param("fmt", "{$fmt}","html")   
+function xqdoc($app as xs:string,
+                $mod as xs:string,
+                $fmt as xs:string) 
 {
-    doc:generate-html(fn:resolve-uri("benchx-rest.xqm"))
+    let $src:=fn:resolve-uri($mod)
+    let $mod:=fn:trace($mod,"mod::::")
+    let $doc:=inspect:xqdoc($src)
+    let $r:=if($fmt="html") then doc:generate-html($doc) else $doc
+    return (web:method($fmt),$r)
 };
  
 (:~

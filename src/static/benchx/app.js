@@ -8,10 +8,10 @@ angular
 		.module(
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
-						'ngLogging',
+						'ngLogging','angularMoment',
 						'googlechart','log.ex.uo',
 						'angularCharts', 'dialog', 'ngStorage',
-						'angularMoment', 'BenchX.api', 'BenchX.services',
+						 'BenchX.api', 'BenchX.services','BenchX.cva',
 						'services.httpRequestTracker' ])
 
 		.config([ '$routeProvider', "$injector",function($routeProvider,$injector) {
@@ -23,13 +23,17 @@ angular
 				controller : "SessionController"
 
 			}).when('/suite/:suit/library', {
-				templateUrl : '/static/benchx/templates/library.xml',
+				templateUrl : '/static/benchx/templates/library.xhtml',
 				controller : "LibraryController",
-				resolve: $injector.get('LibraryResolve')
+				/* resolve: $injector.get('LibraryResolve') */
+				resolve : {
+					data : function(api, $route) {
+						return api.library($route.current.params.suite);
+					}
 				 
-
+				}
 			}).when('/environment', {
-				templateUrl : '/static/benchx/templates/environment.xml',
+				templateUrl : '/static/benchx/templates/environment.xhtml',
 				controller : "envController",
 				resolve : {
 					data : function(api) {
@@ -38,13 +42,13 @@ angular
 				}
 			
 			}).when('/about', {
-				templateUrl : '/static/benchx/templates/about.xml'
+				templateUrl : '/static/benchx/templates/about.xhtml'
 			
 			}).when('/log', {
-				templateUrl : '/static/benchx/templates/log.xml'
+				templateUrl : '/static/benchx/templates/log.xhtml'
 							
 			}).when('/library', {
-				templateUrl : '/static/benchx/templates/library.xml',
+				templateUrl : '/static/benchx/templates/library.xhtml',
 				controller : "LibraryController",
 				resolve : {
 					data : function(api) {
@@ -82,11 +86,11 @@ angular
 					}
 				}
 			}).when('/doc/:view', {
-				templateUrl : '/static/benchx/templates/doc.xml',
+				templateUrl : '/static/benchx/templates/doc.xhtml',
 				controller : "DocController"
 					
 			}).when('/404', {
-				templateUrl : '/static/benchx/templates/404.xml'
+				templateUrl : '/static/benchx/templates/404.xhtml'
 			}).otherwise({
 				redirectTo : '/404'
 			});
@@ -370,7 +374,12 @@ angular
 				[ "$scope", "data","meta", function($scope, data,meta) {
 					$scope.setTitle("Suites");
 					$scope.suites = data;
-					meta.cvabar("session-bar");
+					meta.cvabar("crumb-bar")
+					.then(function(d){
+						console.log("CVA",d);
+						$scope.bar=d;
+						$scope.activesuite="AWA$$";
+						});
 				} ])
 		.controller(
 				'SuiteController',

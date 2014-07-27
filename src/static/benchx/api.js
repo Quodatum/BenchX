@@ -17,6 +17,7 @@ angular.module('BenchX.api', [ 'ngResource','log.ex.uo' ])
 }])
 
 .constant("apiRoot", "../../benchx/api/")
+
 .factory('api', [ '$resource', 'apiRoot', function($resource, apiRoot) {
 	return {
 
