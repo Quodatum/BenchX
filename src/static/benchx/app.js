@@ -486,10 +486,10 @@ angular
 								$anchorScroll, $log) {
 							$log.log("View:", $routeParams.view);
 							var map = {
-								"xqdoc" : '../../benchx/doc/server/xqdoc',
-								"wadl" : '../../benchx/doc/server/wadl',
-								"components" : '../../benchx/doc/client/components',
-								"templates" : '../../benchx/doc/client/templates',
+								"xqdoc" : '/doc/benchx/server/xqdoc',
+								"wadl" : '/doc/benchx/server/wadl',
+								"components" : '/doc/benchx/client/components',
+								"templates" : '/doc/benchx/client/templates',
 								"xqdoc2" : 'doc/server'
 							};
 							$scope.view = $routeParams.view;
