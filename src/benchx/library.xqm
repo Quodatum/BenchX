@@ -66,6 +66,7 @@ return <json  objects="_" arrays="json ">
    order by $doc/meta/created descending
    return <_>{$doc/id,
     $doc/suite,
+    $doc/environment/basex.version,
     $doc/server/description,
     $doc/meta/description,
     $doc/meta/created,
