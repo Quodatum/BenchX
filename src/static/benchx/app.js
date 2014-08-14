@@ -11,24 +11,29 @@ angular
 						'ngLogging','angularMoment',
 						'googlechart','log.ex.uo',
 						'angularCharts', 'dialog', 'ngStorage',
-						 'BenchX.api', 'BenchX.services','BenchX.cva',
+						 'BenchX.api', 'BenchX.services',
+						 'BenchX.cva','BenchX.library',
 						'services.httpRequestTracker' ])
 
 		.config([ '$routeProvider', "$injector",function($routeProvider,$injector) {
 			$routeProvider.when('/', {
 				redirectTo : '/suite'
 
-			}).when('/suite/:suit/session', {
+			}).when('/suite/:suite/session', {
 				templateUrl : '/static/benchx/templates/session.xml',
-				controller : "SessionController"
-
-			}).when('/suite/:suit/library', {
+				controller : "SessionController",
+				resolve : {
+					data : function(api, $route) {
+						return api.suite($route.current.params.suite);
+					}
+				}
+			}).when('/suite/:suite/library', {
 				templateUrl : '/static/benchx/templates/library.xhtml',
 				controller : "LibraryController",
 				/* resolve: $injector.get('LibraryResolve') */
 				resolve : {
 					data : function(api, $route) {
-						return api.library($route.current.params.suite);
+						return times.data($route.current.params.suite);
 					}
 				 
 				}
@@ -47,26 +52,6 @@ angular
 			}).when('/log', {
 				templateUrl : '/static/benchx/templates/log.xhtml'
 							
-			}).when('/library', {
-				templateUrl : '/static/benchx/templates/library.xhtml',
-				controller : "LibraryController",
-				resolve : {
-					data : function(api) {
-						return api.library().query().$promise;
-					}
-				}
-			
-			}).when('/library/:id', {
-				templateUrl : '/static/benchx/templates/record.xml',
-				controller : "RecordController",
-				resolve : {
-					data : function(api, $route) {
-						var id = $route.current.params.id;
-						return api.library().get({
-							id : id
-						}).$promise;
-					}
-				}
 			
 			}).when('/suite', {
 				templateUrl : '/static/benchx/templates/suites.xml',
@@ -186,6 +171,7 @@ angular
 
 							// run query with index
 							$rootScope.execute = function(index) {
+								times.addcall();
 								var q = $rootScope.session.queries[index];
 								return api
 										.execute({
@@ -246,7 +232,10 @@ angular
 						"$location",
 						"$dialog",
 						"api",
-						function($scope, $routeParams, $location, $dialog, api) {
+						"data",
+						function($scope, $routeParams, $location, $dialog, api,data) {
+							console.log("SessionController",data);
+							$scope.session=data;
 							$scope.setTitle("Session: " + $scope.activesuite);
 							$scope.store = {
 								title : ""
@@ -390,57 +379,6 @@ angular
 							$rootScope.activesuite = $routeParams.id;
 							$scope.setTitle("Suite: " + $routeParams.id);
 							$scope.suite = data;
-						} ])
-		.controller(
-				'LibraryController',
-				[ "$scope", "$rootScope", "data", "$log",
-						function($scope, $rootScope, data, $log) {
-							$scope.setTitle("Library");
-							$scope.docs = data;
-							$log.log("DDDDDDDD");
-							$scope.swipe = function() {
-								alert("TODO swipe");
-							};
-							$scope.libzip = function() {
-								alert("TODO");
-							};
-						} ])
-		.controller(
-				'RecordController',
-				[
-						"$scope",
-						"$rootScope",
-						"data",
-						"$routeParams",
-						"$location",
-						"utils",
-						function($scope, $rootScope, data, $routeParams,
-								$location, utils) {
-							$scope.setTitle("Record");
-							$scope.record = data;
-							$scope.setView = function(v) {
-								$scope.view = v;
-								$location.search("view", v);
-							};
-							$scope
-									.setView($routeParams.view ? $routeParams.view
-											: "grid");
-							$scope.drop = function() {
-								alert("TODO");
-								var id = $scope.record.benchmark.id;
-								$scope.record.$delete({
-									id : id,
-									password : "AAA"
-								}).then(function(a) {
-									alert("A");
-								}, function(a) {
-									alert("B");
-								});
-							};
-							var d = [];
-							// angular.foreach(data.benchmark.runs)
-							$scope.chartObject = utils.gchart(
-									data.benchmark.runs, "test");
 						} ])
 
 		.controller(

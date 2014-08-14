@@ -235,6 +235,7 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 	var _data;
 	var _activesuite="";
 	console.log("init times");
+	var _called=0;
 	return {
 		suite:_activesuite,
 		data:function(suite){
@@ -243,7 +244,11 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 				_data=api.suite(suite);		
 			}
 			return _data;
-			}
+			},
+		addcall:function(){
+				_called++;
+				console.log("times",_called);
+			}	
 		};
 	}
 ])
