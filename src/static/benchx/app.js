@@ -171,9 +171,9 @@ angular
 						'$rootScope',
 						'api',
 						'utils',
-						'$log',
+						'$log','times',
 
-						function($rootScope, api, utils, $log) {
+						function($rootScope, api, utils, $log,times) {
 							function updateStatus(data) {
 								$log.log("update status:", data);
 								$rootScope.state = data.state;
@@ -227,11 +227,13 @@ angular
 								$log.log("suites:", data);
 								$rootScope.suites = data;
 							});
+							times.data($rootScope.activesuite);
 							api.suite($rootScope.activesuite).then(
 									function(data) {
 										$rootScope.session = data;
 
 									});
+							
 							api.state().then(updateStatus);
 
 						} ])
@@ -249,7 +251,7 @@ angular
 							$scope.store = {
 								title : ""
 							};
-
+							
 							$scope.setView = function(v) {
 								$scope.view = v;
 								$location.search("view", v);

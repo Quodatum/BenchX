@@ -5,6 +5,10 @@ rootcontroler sets session. session is indexed by query index
     
 graph use $rootscope.session
 
+##session
+$rootScope.session.queries.runs[]
+set by $rootScope.session = api.suite(name) in rootController
+
 ##$rootScope
 .suites[] is set to array as below
 

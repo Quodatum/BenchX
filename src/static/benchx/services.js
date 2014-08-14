@@ -82,7 +82,9 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 			});
 		}
 	};
-}).factory('taskqueue', ["$rootScope", function($rootScope) {
+})
+
+.factory('taskqueue', ["$rootScope", function($rootScope) {
 	console.log("taskq");
 	var c = new Date();
 	var q = async.queue(function(task, callback) {
@@ -228,4 +230,21 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
  * 
  * return $delegate; }); })
  */
+// keep timings 
+.factory("times",["api",function(api){
+	var _data;
+	var _activesuite="";
+	console.log("init times");
+	return {
+		suite:_activesuite,
+		data:function(suite){
+			if(_activesuite!=suite){ 
+				_activesuite=suite;
+				_data=api.suite(suite);		
+			}
+			return _data;
+			}
+		};
+	}
+])
 ;
