@@ -8,94 +8,133 @@ angular
 		.module(
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
-						'ngLogging','angularMoment',
-						'googlechart','log.ex.uo',
-						'angularCharts', 'dialog', 'ngStorage',
-						 'BenchX.api', 'BenchX.services',
-						 'BenchX.cva','BenchX.library',
+						'ngLogging', 'angularMoment', 'googlechart',
+						'log.ex.uo', 'angularCharts', 'dialog', 'ngStorage',
+						'BenchX.api', 'BenchX.services', 'BenchX.results',
+						'BenchX.cva', 'BenchX.library',
 						'services.httpRequestTracker' ])
 
-		.config([ '$routeProvider', "$injector",function($routeProvider,$injector) {
-			$routeProvider.when('/', {
-				redirectTo : '/suite'
+		.config(
+				[
+						'$routeProvider',
+						"$injector",
+						function($routeProvider, $injector) {
+							$routeProvider
+									.when('/', {
+										redirectTo : '/suite'
 
-			}).when('/suite/:suite/session', {
-				templateUrl : '/static/benchx/templates/session.xml',
-				controller : "SessionController",
-				resolve : {
-					data : function(api, $route) {
-						return api.suite($route.current.params.suite);
-					}
-				}
-			}).when('/suite/:suite/library', {
-				templateUrl : '/static/benchx/templates/library.xhtml',
-				controller : "LibraryController",
-				/* resolve: $injector.get('LibraryResolve') */
-				resolve : {
-					data : function(api, $route) {
-						return times.data($route.current.params.suite);
-					}
-				 
-				}
-			}).when('/environment', {
-				templateUrl : '/static/benchx/templates/environment.xhtml',
-				controller : "envController",
-				resolve : {
-					data : function(api) {
-						return api.environment();
-					}
-				}
-			
-			}).when('/about', {
-				templateUrl : '/static/benchx/templates/about.xhtml'
-			
-			}).when('/log', {
-				templateUrl : '/static/benchx/templates/log.xhtml'
-							
-			
-			}).when('/suite', {
-				templateUrl : '/static/benchx/templates/suites.xml',
-				controller : "SuitesController",
-				resolve : {
-					data : function(api) {
-						return api.suites();
-					}
-				}
-			
-			}).when('/suite/:id', {
-				templateUrl : '/static/benchx/templates/suite.xml',
-				controller : "SuiteController",
-				resolve : {
-					data : function(api, $route) {
-						return api.suite($route.current.params.id);
-					}
-				}
-			}).when('/doc/:view', {
-				templateUrl : '/static/benchx/templates/doc.xhtml',
-				controller : "DocController"
-					
-			}).when('/404', {
-				templateUrl : '/static/benchx/templates/404.xhtml'
-			}).otherwise({
-				redirectTo : '/404'
-			});
-		} ])
+									})
+									.when(
+											'/suite/:suite/session',
+											{
+												templateUrl : '/static/benchx/templates/session.xml',
+												controller : "SessionController",
+												resolve : {
+													data : function(results,
+															$route) {
+														return results
+																.promise($route.current.params.suite);
+													}
+												}
+											})
+									.when(
+											'/suite/:suite/library',
+											{
+												templateUrl : '/static/benchx/templates/library.xhtml',
+												controller : "LibraryController",
+												/*
+												 * resolve:
+												 * $injector.get('LibraryResolve')
+												 */
+												resolve : {
+													data : function(api, $route) {
+														return api
+																.suite($route.current.params.suite);
+													}
+
+												}
+											})
+									.when(
+											'/environment',
+											{
+												templateUrl : '/static/benchx/templates/environment.xhtml',
+												controller : "envController",
+												resolve : {
+													data : function(api) {
+														return api
+																.environment();
+													}
+												}
+
+											})
+									.when(
+											'/about',
+											{
+												templateUrl : '/static/benchx/templates/about.xhtml'
+
+											})
+									.when(
+											'/log',
+											{
+												templateUrl : '/static/benchx/templates/log.xhtml'
+
+											})
+									.when(
+											'/suite',
+											{
+												templateUrl : '/static/benchx/templates/suites.xml',
+												controller : "SuitesController",
+												resolve : {
+													data : function(api) {
+														return api.suites();
+													}
+												}
+
+											})
+									.when(
+											'/suite/:id',
+											{
+												templateUrl : '/static/benchx/templates/suite.xml',
+												controller : "SuiteController",
+												resolve : {
+													data : function(api, $route) {
+														return api
+																.suite($route.current.params.id);
+													}
+												}
+											})
+									.when(
+											'/doc/:view',
+											{
+												templateUrl : '/static/benchx/templates/doc.xhtml',
+												controller : "DocController"
+
+											})
+									.when(
+											'/404',
+											{
+												templateUrl : '/static/benchx/templates/404.xhtml'
+											}).otherwise({
+										redirectTo : '/404'
+									});
+						} ])
 
 		.config([ 'logExProvider', function(logExProvider) {
 			logExProvider.enableLogging(true);
 		} ])
-		
-//		.config([ 'Logging', function(Logging) {
-//			Logging.enabled=true;
-//		} ])
+
+		// .config([ 'Logging', function(Logging) {
+		// Logging.enabled=true;
+		// } ])
 		.run(
 				[
 						'$rootScope',
 						'$window',
 						'hotkeys',
-						'$log','Logging',
-						function($rootScope, $window, hotkeys,$log,Logging) {
-							Logging.enabled=true;
+						'$log',
+						'Logging',
+						function($rootScope, $window, hotkeys, $log, Logging) {
+							Logging.enabled = true;
 							$rootScope.setTitle = function(t) {
 								$window.document.title = t;
 							};
@@ -156,9 +195,9 @@ angular
 						'$rootScope',
 						'api',
 						'utils',
-						'$log','times',
-
-						function($rootScope, api, utils, $log,times) {
+						'$log',
+						'results',
+						function($rootScope, api, utils, $log, results) {
 							function updateStatus(data) {
 								$log.log("update status:", data);
 								$rootScope.state = data.state;
@@ -171,30 +210,22 @@ angular
 
 							// run query with index
 							$rootScope.execute = function(index) {
-								times.addcall();
-								var q = $rootScope.session.queries[index];
-								return api
-										.execute({
-											suite : $rootScope.activesuite,
-											name : q.name,
-											mode : $rootScope.state.mode,
-											size : $rootScope.state.size
-										})
-										.then(
-												function(res) {
-													$rootScope.session.queries[index].runs
-															.push(res.run);
-													$rootScope
-															.$broadcast("session");
-												},
-												function(reason) {
-													alert("Execution error"
-															+ reason.data);
-												});
+								var q = results.data().queries[index];
+								return api.execute({
+									suite : $rootScope.activesuite,
+									name : q.name,
+									mode : $rootScope.state.mode,
+									size : $rootScope.state.size
+								}).then(function(res) {
+									results.addRun(index, res.run);
+									$rootScope.$broadcast("session");
+								}, function(reason) {
+									alert("Execution error" + reason.data);
+								});
 							};
 
 							$rootScope.saveAs = function() {
-								var csv = utils.csv($rootScope.session,
+								var csv = utils.csv(results.data(),
 										$rootScope.activesuite);
 								saveAs(csv, "results.csv");
 							};
@@ -213,13 +244,7 @@ angular
 								$log.log("suites:", data);
 								$rootScope.suites = data;
 							});
-							times.data($rootScope.activesuite);
-							api.suite($rootScope.activesuite).then(
-									function(data) {
-										$rootScope.session = data;
 
-									});
-							
 							api.state().then(updateStatus);
 
 						} ])
@@ -233,14 +258,16 @@ angular
 						"$dialog",
 						"api",
 						"data",
-						function($scope, $routeParams, $location, $dialog, api,data) {
-							console.log("SessionController",data);
-							$scope.session=data;
+						"results",
+						function($scope, $routeParams, $location, $dialog, api,
+								data, results) {
+							console.log("SessionController", data);
+							$scope.session = data;
 							$scope.setTitle("Session: " + $scope.activesuite);
 							$scope.store = {
 								title : ""
 							};
-							
+
 							$scope.setView = function(v) {
 								$scope.view = v;
 								$location.search("view", v);
@@ -251,25 +278,12 @@ angular
 
 							$scope.clearAll = function() {
 								var msg = "Remove timing data for runs in the current session?";
-
-								$dialog
-										.messageBox(
-												"clear all",
-												msg,
-												[],
-												function(result) {
-													if (result === 'OK') {
-														angular
-																.forEach(
-																		$rootScope.session.queries,
-																		function(
-																				v) {
-																			v.runs = [];
-																		})
-													} else {
-														// failed...
-													}
-												});
+								$dialog.messageBox("clear all", msg, [],
+										function(result) {
+											if (result === 'OK') {
+												results.clear();
+											}
+										});
 							};
 							$scope.save = function() {
 								var d = new api.library();
@@ -280,6 +294,7 @@ angular
 								});
 							};
 						} ])
+
 		.controller(
 				'ScheduleController',
 				[
@@ -289,8 +304,9 @@ angular
 						"$localStorage",
 						"$log",
 						"taskqueue",
-						function($scope, $rootScope, api, 
-								$localStorage, $log,taskqueue) {
+						"results",
+						function($scope, $rootScope, api, $localStorage, $log,
+								taskqueue, results) {
 							$log.log("ScheduleController");
 							function makerun(mode, factor) {
 								var tasks = [ {
@@ -300,7 +316,7 @@ angular
 										factor : factor
 									}
 								} ];
-								angular.forEach($rootScope.session.queries,
+								angular.forEach(results.data().queries,
 										function(v, index) {
 											tasks.push({
 												cmd : "run",
@@ -362,15 +378,14 @@ angular
 					$scope.environment = data;
 				} ])
 		.controller('SuitesController',
-				[ "$scope", "data","meta", function($scope, data,meta) {
+				[ "$scope", "data", "meta", function($scope, data, meta) {
 					$scope.setTitle("Suites");
 					$scope.suites = data;
-					meta.cvabar("crumb-bar")
-					.then(function(d){
-						console.log("CVA",d);
-						$scope.bar=d;
-						$scope.activesuite="AWA$$";
-						});
+					meta.cvabar("crumb-bar").then(function(d) {
+						console.log("CVA", d);
+						$scope.bar = d;
+						$scope.activesuite = "AWA$$";
+					});
 				} ])
 		.controller(
 				'SuiteController',
@@ -388,12 +403,14 @@ angular
 						'$rootScope',
 						'$window',
 						'utils',
-						function($scope, $rootScope, $window, utils) {
+						'results',
+						function($scope, $rootScope, $window, utils, results) {
 							$scope.setTitle("Graph");
+							$scope.session = results.data();
 							function genChart() {
-								return utils.gchart($rootScope.session.queries,
-										'BenchX: ' + $rootScope.activesuite
-												+ " " + $rootScope.meta.title);
+								return utils.gchart($scope.session.queries,
+										'BenchX: ' + $scope.session.name + " "
+												+ $rootScope.meta.title);
 							}
 							;
 

@@ -64,8 +64,9 @@ as xs:string*{
  : run xmark query
  :)
 declare function time-xmark(
-  $query as xs:string,$timeout as xs:double
-) {
+  $query as xs:string,
+  $timeout as xs:double)
+ {
   let $xq:=get-xmark($query)
   let $xq:= 'declare base-uri "' || fn:static-base-uri() ||'";&#10;' || $xq 
  

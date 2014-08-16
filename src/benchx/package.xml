@@ -11,7 +11,7 @@
 	<dependency name="ngStorage" version="0.3.0" />
 	<dependency name="angular-hotkeys" version="0.3.0" />
 	<dependency name="ng-google-chart" version="0.0.9" />
-	<dependency name="saxon-he" version="0.0.9" />
+	<dependency name="saxon-he" version="9.5.1.5" />
 	<dependency name="async" version="0.8.0" />
 	<dependency name="stacktrace" version="0.6.0" />
 	<dependency name="FileSaver" />

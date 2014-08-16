@@ -230,26 +230,5 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
  * 
  * return $delegate; }); })
  */
-// keep timings 
-.factory("times",["api",function(api){
-	var _data;
-	var _activesuite="";
-	console.log("init times");
-	var _called=0;
-	return {
-		suite:_activesuite,
-		data:function(suite){
-			if(_activesuite!=suite){ 
-				_activesuite=suite;
-				_data=api.suite(suite);		
-			}
-			return _data;
-			},
-		addcall:function(){
-				_called++;
-				console.log("times",_called);
-			}	
-		};
-	}
-])
+
 ;
