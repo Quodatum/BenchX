@@ -12,7 +12,6 @@ import module namespace lib='apb.benchx.library' at 'library.xqm';
 
 import module namespace dbtools = 'apb.dbtools' at 'lib.xq/dbtools.xqm';
 import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
-import module namespace doc = 'apb.doc' at 'lib.xq/doctools.xqm';
 import module namespace web = 'apb.web.utils3' at 'lib.xq/webutils.xqm';
 
 (:~

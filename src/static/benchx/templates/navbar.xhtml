@@ -1,96 +1,77 @@
 <nav class="navbar navbar-default  navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" ng-init="navCollapsed = true"
+			<button type="button" class="navbar-toggle"
+				ng-init="navCollapsed = true"
 				ng-click="navCollapsed = !navCollapsed">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand brand" href="/benchx">
-				<img src="benchx.svg" style="width:20px;height:20px;vertical-align:top;" />
-				BenchX
+			<a class="navbar-brand brand" href="/benchx"> <img
+				src="benchx.svg"
+				style="width: 20px; height: 20px; vertical-align: top;" /> BenchX
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}">
 			<ul class="nav navbar-nav">
+				<li><a href="#/suite" title="Suites"> <i
+						class="glyphicon glyphicon-expand"></i> Suites
+				</a></li>
+				<li><a href="#/library" title="Timings"> <i
+						class="glyphicon glyphicon-book"></i> Library
+				</a></li>
 				<li>
-					<a href="#/suite" title="Suites">
-						<i class="glyphicon glyphicon-expand"></i>
-						Suites
-					</a>
+					<p class="navbar-text " 
+						title="state Active suite={{activesuite}}, Mode={{state.mode}}, Factor={{state.factor}} ({{state.size}}).">
+						<span class="label  label-success">{{state.mode}}</span>
+						<span class="label  label-info">{{state.factor}}</span>
+						<span class="label  label-default">{{activesuite}}</span> 
+					</p>
 				</li>
-				<li>
-					<a href="#/library" title="Timings">
-						<i class="glyphicon glyphicon-book"></i>
-						Library
-					</a>
-				</li>
-
 			</ul>
 
 			<p class="navbar-text bg-success logmsg ">
-				<a href="#/log" title="Log messages">
-					<i class="glyphicon glyphicon-calendar"></i>
-					{{logmsg}}
+				<a href="#/log" title="Log messages"> <i
+					class="glyphicon glyphicon-calendar"></i> {{logmsg}}
 				</a>
-				
+
 			</p>
 			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<p class="navbar-text " style="width:7em"
-						title="state {{state.mode}} factor={{state.factor}}({{state.size}})">		
-						<span>{{activesuite}}</span>
-						<span class="label  label-success">{{state.mode}}</span>
-						<span class="label  label-info">{{state.factor}}</span>
-					</p>
-				</li>
+
 				<li>
 					<button class="btn  btn-sm navbar-btn " ng-click="queue.kill()"
-						ng-class="{'btn-warning':queue.length()}" title="Queued tasks, click to stop">
-						<div style="width:3em">
-							<i class="glyphicon glyphicon-tasks"></i>
-							{{queue.length()}}
+						ng-class="{'btn-warning':queue.length()}"
+						title="Queued tasks, click to stop">
+						<div style="width: 3em">
+							<i class="glyphicon glyphicon-tasks"></i> {{queue.length()}}
 						</div>
 					</button>
 				</li>
 				<li>
 
-					<p class="navbar-text label" ng-class="{'bg-danger':1&gt;state.sessions}"
-						style="width:3em" title="Session count">
-						<i class="glyphicon glyphicon-user"></i>
-						{{state.sessions}}
+					<p class="navbar-text label"
+						ng-class="{'bg-danger':1&gt;state.sessions}" style="width: 3em"
+						title="Session count">
+						<i class="glyphicon glyphicon-user"></i> {{state.sessions}}
 					</p>
 				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						About
-						<b class="caret"></b>
-					</a>
+				<li class="dropdown"><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown"> About <b class="caret"></b>
+				</a>
 					<ul class="dropdown-menu">
-						<li>
-							<a href="#/environment" tabindex="-1">
-								<i class="glyphicon glyphicon-picture"></i>
-								Environment
-							</a>
-						</li>
-						<li>
-							<a href="#/doc/wadl" tabindex="-1">
-								<i class="glyphicon glyphicon-eye-open"></i>
-								Documentation
-							</a>
-						</li>
+						<li><a href="#/environment" tabindex="-1"> <i
+								class="glyphicon glyphicon-picture"></i> Environment
+						</a></li>
+						<li><a href="#/doc/wadl" target="docs" tabindex="-1"> <i
+								class="glyphicon glyphicon-eye-open"></i> Documentation
+						</a></li>
 
 						<li class="divider"></li>
-						<li>
-							<a href="#/about" tabindex="-1">
-								<i class="glyphicon glyphicon-info-sign"></i>
-								About BenchX
-							</a>
-						</li>
-					</ul>
-				</li>
+						<li><a href="#/about" tabindex="-1"> <i
+								class="glyphicon glyphicon-info-sign"></i> About BenchX
+						</a></li>
+					</ul></li>
 			</ul>
 
 		</div>

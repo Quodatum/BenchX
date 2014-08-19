@@ -11,7 +11,7 @@
 			</li>
 		</ol>
 	</div>
-	<cva-bar >Text for cva bar</cva-bar>
+<!-- 	<cva-bar >Text for cva bar</cva-bar> -->
 	<div class="list-group">
 		<a href="{{suite.href}}" ng-repeat="suite in suites" class="list-group-item "
 			ng-class="{active: suite.name == activesuite}">

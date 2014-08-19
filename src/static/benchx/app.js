@@ -133,15 +133,21 @@ angular
 						'hotkeys',
 						'$log',
 						'Logging',
-						function($rootScope, $window, hotkeys, $log, Logging) {
+						"$localStorage",
+						'results',
+						function($rootScope, $window, hotkeys, $log, Logging,$localStorage,results) {
 							Logging.enabled = true;
+							$rootScope.$storage = $localStorage.$default({
+							    activesuite: "xmark"
+							})
 							$rootScope.setTitle = function(t) {
 								$window.document.title = t;
 							};
+							$rootScope.results=results;
 							$rootScope.setTitle("BenchX");
-							$rootScope.logmsg = "Welcome to BenchX v0.5.6";
-							$rootScope.suites = [ "xmark", "apb" ];
-							$rootScope.activesuite = "xmark";
+							$rootScope.logmsg = "Welcome to BenchX v0.6.0";
+							console.log($rootScope.$storage.activesuite);
+							$rootScope.activesuite = $rootScope.$storage.activesuite;
 							$rootScope.meta = {
 								title : ""
 							};

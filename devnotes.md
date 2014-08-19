@@ -9,6 +9,9 @@ graph use $rootscope.session
 $rootScope.session.queries.runs[]
 set by $rootScope.session = api.suite(name) in rootController
 
+##results
+Manages the session run times.
+
 ##$rootScope
 .suites[] is set to array as below
 
