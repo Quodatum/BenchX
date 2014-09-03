@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+ <xs:annotation><xs:documentation>
+ Schema for components.xml
+ </xs:documentation>
+ </xs:annotation>
+  <xs:element name="components">
+	<xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="cmp"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cmp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="runat"/>
+        <xs:element minOccurs="0" ref="cdn"/>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="depends"/>
+          <xs:element ref="home"/>
+          <xs:element ref="licence"/>
+          <xs:element ref="tagline"/>
+        </xs:choice>
+        <xs:element minOccurs="0" ref="release"/>
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="runat" type="xs:NCName"/>
+  <xs:element name="depends" type="xs:NCName"/>
+  <xs:element name="home" type="xs:anyURI"/>
+  <xs:element name="licence" type="xs:string"/>
+  <xs:element name="tagline" type="xs:string">
+  	<xs:annotation>
+  		<xs:documentation>One sentence description, normally taken from the component website.</xs:documentation>
+  	</xs:annotation></xs:element>
+  <xs:element name="release">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="cdn"/>
+        <xs:element maxOccurs="unbounded" ref="local"/>
+      </xs:choice>
+      <xs:attribute name="version"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="local">
+    <xs:complexType mixed="true">
+      <xs:attribute name="type" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cdn">
+    <xs:complexType mixed="true">
+      <xs:attribute name="src"/>
+      <xs:attribute name="type" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

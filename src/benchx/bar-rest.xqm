@@ -3,8 +3,8 @@
  :@author Andy Bunce
  :@version 0.1
  :)
-module namespace cva = 'apb.cva.rest';
-declare default function namespace 'apb.cva.rest'; 
+module namespace cva = 'quodatum.cva.rest';
+declare default function namespace 'quodatum.cva.rest'; 
 
 (:~
  : show xqdoc for rest api

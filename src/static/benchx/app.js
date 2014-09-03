@@ -11,7 +11,7 @@ angular
 						'ngLogging', 'angularMoment', 'googlechart',
 						'log.ex.uo', 'angularCharts', 'dialog', 'ngStorage',
 						'BenchX.api', 'BenchX.services', 'BenchX.results',
-						'BenchX.cva', 'BenchX.library',
+						'quodatum.cva', 'BenchX.library',
 						'services.httpRequestTracker' ])
 
 		.config(
@@ -464,4 +464,5 @@ angular
 								// call $anchorScroll()
 								$anchorScroll();
 							};
-						} ]);
+						} ])
+						;

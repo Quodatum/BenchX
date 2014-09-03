@@ -11,7 +11,7 @@ angular.module('quodatum.cva', [ 'ngResource'])
       restrict: 'AE',
       replace: 'true',
       scope:false,
-      templateUrl : 'templates/actionbar.xhtml'
+      templateUrl : 'actionbar.xhtml'
       /*
      link: function(scope, elem, attrs) {
     	      elem.bind('mouseover', function() {
