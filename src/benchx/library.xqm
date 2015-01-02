@@ -24,6 +24,8 @@ declare function id($id) as element(benchmark)
 
 (:~
  : add session data to library
+ : @param $data json has title used for description
+ : @param $session has benchmark element
  :)
 declare %updating function add-session(
                 $data,
@@ -42,7 +44,7 @@ declare %updating function add-session(
           
     return (
             store($new), 
-            db:output(<json objects="json"><todo>{$id}</todo></json>)
+            db:output(<json objects="json"><id>{$id}</id></json>)
             )
 };
 
@@ -87,10 +89,10 @@ return <json  objects="_" arrays="json ">
 declare function json($b as element(benchmark)
 )as element(json)
 {
-<json objects="json benchmark meta server environment run">{
+<json objects="json benchmark meta server environment ">{
     copy $d:=$b
     modify (for $n in $d//*[@type="array"]/* 
-            return replace node $n with <_ type="object">{$n}</_>,
+            return replace node $n with <_ type="object">{$n/*}</_>,
             delete node $d//comment()
             )
     return $d

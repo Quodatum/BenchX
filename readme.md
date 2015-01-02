@@ -19,7 +19,12 @@ Binaries are supplied for Windows and x86 Linux. For other platforms e.g. ARM yo
 must recompile from the supplied `unix.c`. E.g.
 `gcc -o xmlgen unix.c`
 
+#databases
+benchx - state,library
+benchx-db - holds xmlgen generated data for using in runs
 
+#startup
+checks for db 
 # data structures
 ````
 {

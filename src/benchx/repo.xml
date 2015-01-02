@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meta xmlns="http://basex.org/xquery/repo">
+    <description>Documentation services for BaseX RESTXQ web applications.</description>
+    <author>Andy Bunce</author>
+    <website>https://bitbucket.org/apb/abide</website>
+    <status>alpha</status>
+    <license>Apache 2</license>
+    <copyright>true</copyright>
+    <type>application</type>
+    <target>benchx</target>
+    <prepare>pre-install.xql</prepare>
+    <finish/>
+</meta>

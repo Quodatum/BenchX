@@ -85,8 +85,8 @@ declare function time($xq as xs:string,$timeout as xs:double)
 as item()*{
  let $bindings:=map{}
  let $opts:=map {
-     "permission" := "create",
-     "timeout":=$timeout
+     "permission" : "create",
+     "timeout": $timeout
   }
   return try{
        let $t1:=prof:current-ms()

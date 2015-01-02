@@ -145,7 +145,7 @@ angular
 							};
 							$rootScope.results=results;
 							$rootScope.setTitle("BenchX");
-							$rootScope.logmsg = "Welcome to BenchX v0.6.0";
+							$rootScope.logmsg = "Welcome to BenchX v0.6.2";
 							console.log($rootScope.$storage.activesuite);
 							$rootScope.activesuite = $rootScope.$storage.activesuite;
 							$rootScope.meta = {
@@ -414,9 +414,10 @@ angular
 							$scope.setTitle("Graph");
 							$scope.session = results.data();
 							function genChart() {
-								return utils.gchart($scope.session.queries,
+								return $scope.session?
+								utils.gchart($scope.session.queries,
 										'BenchX: ' + $scope.session.name + " "
-												+ $rootScope.meta.title);
+												+ $rootScope.meta.title):null;
 							}
 							;
 

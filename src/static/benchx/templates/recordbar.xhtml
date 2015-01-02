@@ -1,4 +1,13 @@
 <div class="row ">
+<ol class="breadcrumb navbar-left qcrumb">
+            <li><a href="#/about" title="home"> <i
+                    class="glyphicon glyphicon-home"></i>
+            </a></li>
+            <li><a href="#/suite">suites</a></li>
+            <li><a href="#/suite/{{activesuite}}">{{activesuite}}</a></li>
+            <li ><a href="#/suite/{{activesuite}}/library">library</a></li>
+            <li class="active">{{benchmark.meta.description}}</li>
+        </ol>
 <strong> View:</strong>
 	<div class="btn-group btn-group-sm">
 
@@ -29,7 +38,7 @@
             <i class="glyphicon glyphicon-save"></i>
             CSV
         </button>
-        <a href="../../benchx/api/library/{{record.benchmark.id}}?format=xml"  target="_blank" class="btn btn-default" title="Download as XML">
+        <a href="../../benchx/api/library/{{benchmark.id}}?format=xml"  target="_blank" class="btn btn-default" title="Download as XML">
 <i class="glyphicon glyphicon-save"></i>XML
 </a>		
 		<button class="btn  btn-warning" ng-click="drop()" title="Remove data">

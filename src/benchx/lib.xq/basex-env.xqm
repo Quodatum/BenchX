@@ -47,9 +47,9 @@ as map(*){
 let $f:=if($human)then prof:human#1 else function($x){$x}
 let $r:=Runtime:getRuntime()
 return map{
-    "runtime.freeMemory":=$f(Runtime:freeMemory($r)),
-    "runtime.maxMemory":=$f(Runtime:maxMemory($r)),
-    "runtime.totalMemory":=$f(Runtime:totalMemory($r))
+    "runtime.freeMemory": $f(Runtime:freeMemory($r)),
+    "runtime.maxMemory": $f(Runtime:maxMemory($r)),
+    "runtime.totalMemory": $f(Runtime:totalMemory($r))
     }
 };
 
@@ -57,8 +57,8 @@ return map{
  :)
 declare function about() 
 as map(*){
- let $c:= map:new($env:core!map:entry(.,sys:getProperty(.)))
- return map:new((
+ let $c:= map:merge($env:core!map:entry(.,sys:getProperty(.)))
+ return map:merge((
                 $c,
                 memory(fn:true()),
                 map:entry("basex.version",basex-version()),

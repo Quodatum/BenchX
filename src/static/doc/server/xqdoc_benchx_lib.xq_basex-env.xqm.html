@@ -120,8 +120,8 @@ return map{
  :)
 declare function about() 
 as map(*){
- let $c:= map:new($env:core!map:entry(.,sys:getProperty(.)))
- return map:new((
+ let $c:= map:merge($env:core!map:entry(.,sys:getProperty(.)))
+ return map:merge((
                 $c,
                 memory(fn:true()),
                 map:entry("basex.version",basex-version()),

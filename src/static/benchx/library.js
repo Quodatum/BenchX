@@ -37,7 +37,7 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 				function($scope, $rootScope, data, $log) {
 					$scope.setTitle("Library");
 					$scope.docs = data;
-					$log.log("DDDDDDDD");
+					$log.log("DDDDDDDD",data);
 					$scope.swipe = function() {
 						alert("TODO swipe");
 					};
@@ -58,7 +58,20 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 				function($scope, $rootScope, data, $routeParams, $location,
 						utils) {
 					$scope.setTitle("Record");
-					$scope.record = data;
+					$scope.benchmark = data.benchmark;
+					console.log("benchmark: ",$scope.benchmark);
+					//@TODO Extract names of factor
+					var states=_.uniq(data.benchmark.runs,function(run){return run.mode + run.factor});
+					$scope.states=_.map(states,function(run){return run.mode + run.factor});
+					var queries=_.uniq(data.benchmark.runs,function(run){return run.name});
+					$scope.queries=_.map(queries,function(run){return run.name});
+					$scope.getRuns=function(state,query){
+						return _.filter(data.benchmark.runs,function(run){
+									var r= (run.name==query) && (state==run.mode + run.factor);
+									console.log("**",run.name,query,run.mode,state);
+									return r;
+									});
+						};
 					$scope.setView = function(v) {
 						$scope.view = v;
 						$location.search("view", v);
@@ -67,7 +80,7 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 							: "grid");
 					$scope.drop = function() {
 						alert("TODO");
-						var id = $scope.record.benchmark.id;
+						var id = $scope.benchmark.id;
 						$scope.record.$delete({
 							id : id,
 							password : "AAA"
@@ -79,6 +92,5 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 					};
 					var d = [];
 					// angular.foreach(data.benchmark.runs)
-					$scope.chartObject = utils.gchart(data.benchmark.runs,
-							"test");
+					//$scope.chartObject = utils.gchart(data.benchmark,"test");
 				} ]);
