@@ -8,7 +8,7 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 
 .config([ '$routeProvider', function($routeProvider) {
 	$routeProvider.when('/library', {
-		templateUrl : '/static/benchx/templates/library.xhtml',
+		templateUrl : '/static/benchx/feats/library/library.xhtml',
 		controller : "LibraryController",
 		resolve : {
 			data : function(api) {
@@ -17,7 +17,7 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 		}
 
 	}).when('/library/:id', {
-		templateUrl : '/static/benchx/templates/record.xml',
+		templateUrl : '/static/benchx/feats/library/record.xml',
 		controller : "RecordController",
 		resolve : {
 			data : function(api, $route) {
@@ -28,7 +28,20 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 			}
 		}
 
-	});
+	}).when('/library/:id/:state', {
+		templateUrl : '/static/benchx/feats/library/compare.xml',
+		controller : "CompareController",
+		resolve : {
+			data : function(api, $route) {
+				var id = $route.current.params.id;
+				return api.library().get({
+					id : id
+				}).$promise;
+			}
+		}
+
+	})
+	;
 } ])
 
 .controller(
@@ -47,6 +60,15 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 				} ])
 
 .controller(
+		'CompareController',
+		[ "$scope", "$rootScope", "data", "$log",
+				function($scope, $rootScope, data, $log) {
+					$scope.setTitle("Compare");
+					$scope.docs = data;
+					
+				} ])
+				
+.controller(
 		'RecordController',
 		[
 				"$scope",
@@ -61,14 +83,14 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 					$scope.benchmark = data.benchmark;
 					console.log("benchmark: ",$scope.benchmark);
 					//@TODO Extract names of factor
-					var states=_.uniq(data.benchmark.runs,function(run){return run.mode + run.factor});
-					$scope.states=_.map(states,function(run){return run.mode + run.factor});
-					var queries=_.uniq(data.benchmark.runs,function(run){return run.name});
-					$scope.queries=_.map(queries,function(run){return run.name});
+					var states=_.uniq(data.benchmark.runs,function(run){return run.mode + run.factor;});
+					$scope.states=_.map(states,function(run){return run.mode + run.factor;});
+					var queries=_.uniq(data.benchmark.runs,function(run){return run.name;});
+					$scope.queries=_.map(queries,function(run){return run.name;});
 					$scope.getRuns=function(state,query){
 						return _.filter(data.benchmark.runs,function(run){
 									var r= (run.name==query) && (state==run.mode + run.factor);
-									console.log("**",run.name,query,run.mode,state);
+								//	console.log("**",run.name,query,run.mode,state);
 									return r;
 									});
 						};

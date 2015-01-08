@@ -17,9 +17,9 @@ declare variable $lib:benchmarks as element(benchmark)*
 (:~
  : get doc with given id
  :)
-declare function id($id) as element(benchmark)
+declare function get($id) as element(benchmark)
 {
-  $lib:benchmarks[id=$id]
+  $lib:benchmarks[id=$id] (:@TODO use name? :)
 };
 
 (:~
@@ -33,10 +33,12 @@ declare %updating function add-session(
 ){
     let $data:=fn:trace($data,"ADD ")
     let $desc:=$data/json/title/fn:string()
+    let $suite:=$data/json/suite/fn:string()
     let $id:=random:uuid()
     let $new:=copy $d:=$session
             modify (
             replace value of node $d/id with $id,
+            replace value of node $d/suite with $suite,
             replace value of node $d/meta/created with fn:current-dateTime(),
             replace value of node $d/meta/description with $desc
                  )
@@ -57,6 +59,20 @@ declare %updating function store($results as element(benchmark))
     return db:replace("benchx", "library/" || $id || ".xml" ,$results)
 };
 
+(:~
+ : delete id from library
+ :)
+declare %updating function delete($id as xs:string)
+{
+    db:delete("benchx", "library/" || $id || ".xml" )
+};
+
+(:~
+ : get id from XML
+ :)
+declare function id($results as element(benchmark)) as xs:string{
+    $results/id/fn:string()
+};
 (:~
  : list all in library
  :)

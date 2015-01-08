@@ -1,0 +1,3 @@
+<div ng-swipe-right="swipe()">
+Compare todo
+</div>

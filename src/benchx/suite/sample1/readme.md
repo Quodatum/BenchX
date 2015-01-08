@@ -1,2 +1,2 @@
-Sample suite just as a test of suite functionality.
-Contains xmark q20 and rewrite using group
+Sample suite mainly as a example of suite functionality.
+Contains the xmark q20 and rewritten version using XQuery 3 group by features

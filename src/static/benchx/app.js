@@ -259,20 +259,23 @@ angular
 				'SessionController',
 				[
 						"$scope",
+						'$rootScope',
 						'$routeParams',
 						"$location",
 						"$dialog",
 						"api",
 						"data",
 						"results",
-						function($scope, $routeParams, $location, $dialog, api,
+						function($scope,$rootScope, $routeParams, $location, $dialog, api,
 								data, results) {
 							console.log("SessionController", data);
 							$scope.session = data;
 							$scope.setTitle("Session: " + $scope.activesuite);
-							$scope.store = {
-								title : ""
-							};
+							$scope.meta = {
+								title : "",
+								suite:$scope.activesuite
+								};	
+							
 
 							$scope.setView = function(v) {
 								$scope.view = v;
@@ -294,7 +297,7 @@ angular
 							$scope.save = function() {
 								var d = new api.library();
 								d.save($scope.meta).$promise.then(function(a) {
-									$scope.logmsg = "Saved to library.";
+									$rootScope.logmsg = "Saved to library.";
 								}, function(e) {
 									alert("FAILED: " + e.data);
 								});

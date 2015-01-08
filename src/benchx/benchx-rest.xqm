@@ -44,10 +44,11 @@ function benchmark()
 
 
 declare %rest:error("*")
-%rest:error-param("description", "{$description}") 
+%rest:error-param("description", "{$description}")
+%rest:error-param("additional","{$additional}") (: error stack trace  :)
 %output:method("text")  
-function error($description) {
-    (web:status(500,"Server error "),$description)
+function error($description,$additional) {
+    (web:status(500,"Server error "),$additional)
 };
 
 
@@ -151,7 +152,7 @@ declare
 %output:method("json")
 function record($id,$format) 
 {
-    let $b:=lib:id($id)
+    let $b:=lib:get($id)
     return if($format="json") then lib:json($b)
             else (web:download-response("xml",$id || ".xml"),$b) 
 };
@@ -163,11 +164,11 @@ declare
 %rest:DELETE %rest:path("benchx/api/library/{$id}")
 %restxq:form-param("password", "{$password}")
 %output:method("json")   
-function record-delete($id,$password) 
+function record-delete($id as xs:string,$password) 
 {
-    <json objects="json">
+   (db:output( <json objects="json">
     <todo>password: {$password}</todo>
-    </json> 
+    </json>),lib:delete($id) )
 };
  
 (:~
