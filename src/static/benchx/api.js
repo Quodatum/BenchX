@@ -50,6 +50,12 @@ angular.module('BenchX.api', [ 'ngResource','log.ex.uo' ])
 				id : "@id"
 			});
 		},
+		compare : function(id) {
+			return $resource(apiRoot + 'library/:id/compare', {
+				id : "@id"
+				// expecting state and query
+			});
+		},
 		suites : function() {
 			return $resource(apiRoot + 'suite').query().$promise;
 		},

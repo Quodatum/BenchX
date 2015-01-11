@@ -16,7 +16,7 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 			}
 		}
 
-	}).when('/library/:id', {
+	}).when('/library/item/:id', {
 		templateUrl : '/static/benchx/feats/library/record.xml',
 		controller : "RecordController",
 		resolve : {
@@ -28,18 +28,25 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 			}
 		}
 
-	}).when('/library/:id/:state', {
+	}).when('/library/item/:id/compare', {
 		templateUrl : '/static/benchx/feats/library/compare.xml',
 		controller : "CompareController",
 		resolve : {
 			data : function(api, $route) {
 				var id = $route.current.params.id;
-				return api.library().get({
-					id : id
+				var q="q01.xq";var state="F0";
+				console.log("LOC",q);
+				return api.compare(id).get({
+					id : id,
+					query:q,
+					state:state
 				}).$promise;
 			}
 		}
 
+	}).when('/env', {
+		templateUrl : '/static/benchx/feats/library/env.xml',
+		controller : "EnvController"
 	})
 	;
 } ])
@@ -65,6 +72,14 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 				function($scope, $rootScope, data, $log) {
 					$scope.setTitle("Compare");
 					$scope.docs = data;
+					
+				} ])
+				
+.controller(
+		'EnvController',
+		[ "$scope", "$rootScope",  "$log",
+				function($scope, $rootScope, $log) {
+					$scope.setTitle("env");
 					
 				} ])
 				

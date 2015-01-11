@@ -158,9 +158,32 @@ function record($id,$format)
 };
 
 (:~
- : delete record
+ : get compare data for state like D0
  :)
 declare 
+%rest:GET %rest:path("benchx/api/library/{$id}/compare")
+%restxq:query-param("format", "{$format}","json")
+%restxq:query-param("query", "{$query}","")
+%restxq:query-param("state", "{$state}","")
+%output:method("json")
+function compare($id,$query,$state,$format) 
+{
+    let $b:=$lib:benchmarks[
+        runs/run/name=$query and
+        runs/run!(mode || factor)=$state
+    ]
+    let $_:=<json objects="json _">
+<total type="number">{fn:count($b)}</total>
+<id>{$id}</id>
+<query>{$query}</query>
+</json> 
+    return $_
+};
+
+(:~
+ : delete record
+ :)
+declare %updating
 %rest:DELETE %rest:path("benchx/api/library/{$id}")
 %restxq:form-param("password", "{$password}")
 %output:method("json")   

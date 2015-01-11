@@ -15,12 +15,21 @@
 		</div>
 		<div class="collapse navbar-collapse" ng-class="{'in':!navCollapsed}">
 			<ul class="nav navbar-nav">
+			<li class="dropdown" dropdown="dropdown" ><a href="#" class="dropdown-toggle"
+                    data-toggle="dropdown" dropdown-toggle="dropdown-toggle"> View <b class="caret"></b>
+                </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/env" tabindex="-1"> <i
+                                class="glyphicon glyphicon-picture"></i> Environments
+                        </a></li>
 				<li><a href="#/suite" title="Suites"> <i
 						class="glyphicon glyphicon-expand"></i> Suites
 				</a></li>
 				<li><a href="#/library" title="Timings"> <i
 						class="glyphicon glyphicon-book"></i> Library
 				</a></li>
+				</ul>
+				</li>
 				<li>
 					<p class="navbar-text " 
 						title="state Active suite={{activesuite}}, Mode={{state.mode}}, Factor={{state.factor}} ({{state.size}}).">
@@ -56,8 +65,8 @@
 						<i class="glyphicon glyphicon-user"></i> {{state.sessions}}
 					</p>
 				</li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"> About <b class="caret"></b>
+				<li class="dropdown" dropdown="dropdown" ><a href="#" class="dropdown-toggle"
+					data-toggle="dropdown" dropdown-toggle="dropdown-toggle"> About <b class="caret"></b>
 				</a>
 					<ul class="dropdown-menu">
 						<li><a href="#/environment" tabindex="-1"> <i

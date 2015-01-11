@@ -141,11 +141,11 @@ angular
 							    activesuite: "xmark"
 							})
 							$rootScope.setTitle = function(t) {
-								$window.document.title = t;
+								$window.document.title = t + " BenchX v0.6.3";
 							};
 							$rootScope.results=results;
 							$rootScope.setTitle("BenchX");
-							$rootScope.logmsg = "Welcome to BenchX v0.6.2";
+							$rootScope.logmsg = "Welcome to BenchX v0.6.3";
 							console.log($rootScope.$storage.activesuite);
 							$rootScope.activesuite = $rootScope.$storage.activesuite;
 							$rootScope.meta = {

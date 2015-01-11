@@ -15,13 +15,18 @@ declare variable $lib:new as element(benchmark)
 declare variable $lib:benchmarks as element(benchmark)*
              :=fn:collection("benchx/library")/benchmark;
 (:~
- : get doc with given id
+ : get benchmark doc with given id
  :)
-declare function get($id) as element(benchmark)
+declare function get($id as xs:string) as element(benchmark)
+{
+  let $b:=$lib:benchmarks[id=$id] (:@TODO use name? :)
+  return if($b) then $b else fn:error((),"Bad id")
+};
+
+declare function exists($id as xs:string) as xs:boolean
 {
   $lib:benchmarks[id=$id] (:@TODO use name? :)
 };
-
 (:~
  : add session data to library
  : @param $data json has title used for description
@@ -114,3 +119,29 @@ declare function json($b as element(benchmark)
     return $d
 }</json>
 };
+
+(:~
+ : environment from  benchmark
+ :)
+ declare function environment($benchmark as element(benchmark)) 
+ as element(environment)*{
+     <environment>{
+     $benchmark/environment/*[fn:not(self::runtime.freeMemory | self::runtime.totalMemory)]
+     }</environment>
+ };
+ 
+(:~
+ : unique environments from  docs
+ :)
+ declare function environments() 
+ as element(environment)*{
+ fn:fold-left($lib:benchmarks,
+              (),
+               function($seq,$item){
+                      let $env:=lib:environment($item)
+                      return if(some $e in $seq satisfies fn:deep-equal($e,$env)) 
+                             then $seq 
+                             else ($env,$seq)
+              }
+              )
+ };

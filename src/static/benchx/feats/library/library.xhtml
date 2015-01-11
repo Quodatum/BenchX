@@ -1,4 +1,4 @@
-<div ng-swipe-right="swipe()">
+<div >
 	<div class="row form-group" role="navigation">
 		<ol class="breadcrumb navbar-left qcrumb">
 			<li><a href="#/about" title="home"> <i
@@ -30,7 +30,7 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="doc in docs">
-							<td><a href="#/library/{{doc.id}}">{{doc.description}}</a></td>
+							<td><a href="#/library/item/{{doc.id}}">{{doc.description}}</a></td>
 							<td>{{doc.suite}}</td>
 							<td>{{doc["basex.version"]}}</td>
 							<td>{{doc["java.version"]}}</td>
