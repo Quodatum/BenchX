@@ -65,7 +65,6 @@ return if(db:exists($dbname)) then
        db:optimize($dbname)
        )
        else
-        let $full:=$files!fn:concat($path,.)!$filter(.)
-        let $full:=fn:trace($full,"WWW") 
+        let $full:=$files!fn:concat($path,.)!$filter(.) 
         return (db:create($dbname,$full,$files))
 };

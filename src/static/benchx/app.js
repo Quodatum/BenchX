@@ -139,13 +139,13 @@ angular
 							Logging.enabled = true;
 							$rootScope.$storage = $localStorage.$default({
 							    activesuite: "xmark"
-							})
+							});
 							$rootScope.setTitle = function(t) {
-								$window.document.title = t + " BenchX v0.6.3";
+								$window.document.title = t + " BenchX v0.6.4";
 							};
 							$rootScope.results=results;
 							$rootScope.setTitle("BenchX");
-							$rootScope.logmsg = "Welcome to BenchX v0.6.3";
+							$rootScope.logmsg = "Welcome to BenchX";
 							console.log($rootScope.$storage.activesuite);
 							$rootScope.activesuite = $rootScope.$storage.activesuite;
 							$rootScope.meta = {
@@ -188,9 +188,7 @@ angular
 							$rootScope.queue.drain = function() {
 								$rootScope.logmsg = 'Idle';
 							};
-							hotkeys.add("T",
-									"toggles mode between file and database",
-									$rootScope.toggleMode);
+							
 							hotkeys.add("X", "run all queries",
 									$rootScope.executeAll);
 						} ])
@@ -290,12 +288,19 @@ angular
 								$dialog.messageBox("clear all", msg, [],
 										function(result) {
 											if (result === 'OK') {
+											var d = new api.session();
+											d.delete().$promise.then(function(a) {
 												results.clear();
+												$rootScope.logmsg = "session data deleted.";
+											}, function(e) {
+												alert("FAILED: " + e.data);
+											});	
 											}
 										});
 							};
+							
 							$scope.save = function() {
-								var d = new api.library();
+								var d = new api.session();
 								d.save($scope.meta).$promise.then(function(a) {
 									$rootScope.logmsg = "Saved to library.";
 								}, function(e) {
@@ -387,14 +392,9 @@ angular
 					$scope.environment = data;
 				} ])
 		.controller('SuitesController',
-				[ "$scope", "data", "meta", function($scope, data, meta) {
+				[ "$scope", "data",  function($scope, data) {
 					$scope.setTitle("Suites");
 					$scope.suites = data;
-					meta.cvabar("crumb-bar").then(function(d) {
-						console.log("CVA", d);
-						$scope.bar = d;
-						$scope.activesuite = "AWA$$";
-					});
 				} ])
 		.controller(
 				'SuiteController',

@@ -27,17 +27,19 @@
 						<th>Hostname</th>
 						<th>OS Arch</th>
 						<th>Created</th>
+						<th>Runs</th>
 					</thead>
 					<tbody>
 						<tr ng-repeat="doc in docs">
 							<td><a href="#/library/item/{{doc.id}}">{{doc.description}}</a></td>
-							<td>{{doc.suite}}</td>
+							<td><a href="#/suite/{{doc.suite}}">{{doc.suite}}</a></td>
 							<td>{{doc["basex.version"]}}</td>
 							<td>{{doc["java.version"]}}</td>
 							<td>{{doc["os.name"]}}</td>
 							<td>{{doc.hostname}}</td>
 							<td>{{doc["os.arch"]}}</td>
 							<td am-time-ago="doc.created" title="{{doc.created}}"></td>
+							<td>{{doc["runs"]}}</td>
 						</tr>
 					</tbody>
 				</table>

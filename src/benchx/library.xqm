@@ -96,7 +96,8 @@ return <json  objects="_" arrays="json ">
     $doc/environment/os.name,
     $doc/environment/os.arch,
     $doc/environment/java.version,
-    $doc/server/hostname
+    $doc/server/hostname,
+    <runs type="number">{fn:count($doc/runs/run)}</runs>
    }</_>
    }</json>
  };
@@ -124,17 +125,17 @@ declare function json($b as element(benchmark)
  : environment from  benchmark
  :)
  declare function environment($benchmark as element(benchmark)) 
- as element(environment)*{
-     <environment>{
+ as element(_)*{
+     <_ type="object">{
      $benchmark/environment/*[fn:not(self::runtime.freeMemory | self::runtime.totalMemory)]
-     }</environment>
+     }</_>
  };
  
 (:~
  : unique environments from  docs
  :)
  declare function environments() 
- as element(environment)*{
+ as element(_)*{
  fn:fold-left($lib:benchmarks,
               (),
                function($seq,$item){

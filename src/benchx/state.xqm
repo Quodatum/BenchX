@@ -9,7 +9,7 @@ declare default function namespace 'apb.benchx.state';
 
 import module namespace xm='apb.xmark.test' at 'xmark.xqm';
 import module namespace lib='apb.benchx.library' at 'library.xqm';
-import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
+import module namespace env = 'quodatum.basex.env' at 'lib.xq/basex-env.xqm';
 
 import module namespace session = "http://basex.org/modules/session";
 import module namespace sessions = "http://basex.org/modules/sessions";

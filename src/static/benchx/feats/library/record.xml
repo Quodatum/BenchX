@@ -6,7 +6,6 @@
             </a></li>
             <li><a href="#/library" title="library">library 
             </a></li>
-            <li>item</li>
             <li class="active">{{benchmark.id}}</li>
         </ol>
 <strong> View:</strong>
@@ -104,7 +103,7 @@
                 <td ng-repeat="state in states">
                 <div ng-repeat="run in xx=getRuns(state,query)" class="runtime"
                         title="{{run.created}}  {{run.mode}}{{run.factor}} ">
-                        <span class="pull-right">{{1000*run.runtime}}ms</span>
+                        <span title="{{run.runtime}} secs" class="pull-right">{{run.runtime}}</span>
                     </div>
                     <a href="#/library/item/{{benchmark.id}}/compare?query={{query}}&amp;state={{state}}" title="compare">
                     <i class="glyphicon glyphicon-transfer"> </i>

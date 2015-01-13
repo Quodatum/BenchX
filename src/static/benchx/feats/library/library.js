@@ -46,7 +46,12 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 
 	}).when('/env', {
 		templateUrl : '/static/benchx/feats/library/env.xml',
-		controller : "EnvController"
+		controller : "EnvController",
+		resolve : {
+			data : function(api) {
+				return api.environment().query().$promise;
+			}
+		}
 	})
 	;
 } ])
@@ -57,10 +62,6 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 				function($scope, $rootScope, data, $log) {
 					$scope.setTitle("Library");
 					$scope.docs = data;
-					$log.log("DDDDDDDD",data);
-					$scope.swipe = function() {
-						alert("TODO swipe");
-					};
 					$scope.libzip = function() {
 						alert("TODO");
 					};
@@ -77,10 +78,10 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 				
 .controller(
 		'EnvController',
-		[ "$scope", "$rootScope",  "$log",
-				function($scope, $rootScope, $log) {
+		[ "$scope", "$rootScope","api",  "$log",
+				function($scope, $rootScope,data, $log) {
 					$scope.setTitle("env");
-					
+					console.log("ENV",data);
 				} ])
 				
 .controller(
@@ -92,8 +93,10 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 				"$routeParams",
 				"$location",
 				"utils",
+				"api",
+				"$dialog",
 				function($scope, $rootScope, data, $routeParams, $location,
-						utils) {
+						utils,api,$dialog) {
 					$scope.setTitle("Record");
 					$scope.benchmark = data.benchmark;
 					console.log("benchmark: ",$scope.benchmark);
@@ -113,21 +116,22 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 						$scope.view = v;
 						$location.search("view", v);
 					};
-					$scope.setView($routeParams.view ? $routeParams.view
-							: "grid");
+
 					$scope.drop = function() {
-						alert("TODO");
-						var id = $scope.benchmark.id;
-						$scope.record.$delete({
-							id : id,
-							password : "AAA"
-						}).then(function(a) {
-							alert("A");
-						}, function(a) {
-							alert("B");
-						});
+							var id = $scope.benchmark.id;
+							$dialog.messageBox("Delete from Library?", "Delete: "+id, [],
+										function(result) {
+											if (result === 'OK') {
+												var d = new api.library();
+												d.delete({id:id}).$promise.then(function(a) {
+												$location.path("/library");
+												$rootScope.logmsg = "library data deleted.";
+											}, function(e) {
+												alert("FAILED: " + e.data);
+											});	
+											}
+										});
 					};
-					var d = [];
-					// angular.foreach(data.benchmark.runs)
-					//$scope.chartObject = utils.gchart(data.benchmark,"test");
+					
+					$scope.setView($routeParams.view ? $routeParams.view: "grid");
 				} ]);

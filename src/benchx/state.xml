@@ -1,11 +1,11 @@
-<root>	
-	<server>
-		<id/>
-		<hostname>?unknown?</hostname>
-		<description>e.g. Acer e1-571</description>
-	</server>
-	<state>
-        <mode>F</mode>
-        <factor>0</factor>
-    </state>
+<root>
+  <server>
+    <id/>
+    <hostname>??</hostname>
+    <description/>
+  </server>
+  <state>
+    <mode>D</mode>
+    <factor>0</factor>
+  </state>
 </root>

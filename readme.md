@@ -24,7 +24,9 @@ benchx - state,library
 benchx-db - holds xmlgen generated data for using in runs
 
 #startup
-checks for db 
+checks for the `benchx` database. Creates if needed from `data` folder.
+If state.xml has no `/root/server/id` value. One is generated and the hostname is updated.
+ 
 # data structures
 ````
 {

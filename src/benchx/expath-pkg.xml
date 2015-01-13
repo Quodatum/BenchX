@@ -15,4 +15,5 @@
 	<dependency name="async" version="0.8.0" />
 	<dependency name="stacktrace" version="0.6.0" />
 	<dependency name="FileSaver" />
+	<dependency name="AngularLogExtender" version="0.0.10"/>
 </package>

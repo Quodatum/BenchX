@@ -11,7 +11,7 @@ import module namespace s='apb.benchx.state' at 'state.xqm';
 import module namespace lib='apb.benchx.library' at 'library.xqm';
 
 import module namespace dbtools = 'apb.dbtools' at 'lib.xq/dbtools.xqm';
-import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
+import module namespace env = 'quodatum.basex.env' at 'lib.xq/basex-env.xqm';
 import module namespace web = 'apb.web.utils3' at 'lib.xq/webutils.xqm';
 
 (:~
@@ -48,14 +48,12 @@ declare %rest:error("*")
 %rest:error-param("additional","{$additional}") (: error stack trace  :)
 %output:method("text")  
 function error($description,$additional) {
-    (web:status(500,"Server error "),$additional)
+    (web:status(500,"Server error $%^%£$ "),$additional)
 };
 
 
 (:~
- : Execute one test
- : @param name the test to run
- : @param time
+ : Execute one test and store to session
  : @param body name and suite
  : @return information about the result, including runtime
  :)
@@ -110,16 +108,7 @@ function state-post($mode,$factor as xs:double)
      )
 }; 
 
-(:~
- : clear any session state
- :)
-declare 
-%rest:DELETE %rest:path("benchx/api/state")
-%output:method("json")   
-function state-delete() 
-{
- s:clear()
-}; 
+
 
 (:~
  : list of library files
@@ -133,15 +122,26 @@ function library()
 }; 
 
 (:~
- : post new record
+ : save session timing data as a new library file
  :)
 declare %updating
-%rest:POST("{$body}") %rest:path("benchx/api/library")
+%rest:POST("{$body}") %rest:path("benchx/api/session")
 %output:method("json")   
 function addrecord($body) 
 {
     lib:add-session($body,s:benchmark())  
 };
+
+(:~
+ : clear any session timing data
+ :)
+declare 
+%rest:DELETE %rest:path("benchx/api/session")
+%output:method("json")   
+function session-delete() 
+{
+ s:clear()
+}; 
 
 (:~
  : get record as json (default) or xml
@@ -194,28 +194,6 @@ function record-delete($id as xs:string,$password)
     </json>),lib:delete($id) )
 };
  
-(:~
- : testbed not part of app, use this for experiments
- :)
-declare 
-%rest:GET %rest:path("benchx/api/~testbed")
-%output:method("json")   
-function testbed() 
-{
-   <json  objects="json doc _" arrays="docs ">
-   <docs>
-   {for $doc in $lib:benchmarks
-   order by $doc/meta/created
-   return <_>
-   {$doc/id,
-    $doc/server/suite,
-    $doc/server/description,
-    $doc/meta/description,
-    $doc/meta/created
-       }</_>
-   }</docs></json>    
-}; 
-
  
 (:~
  : list of suites
@@ -276,12 +254,48 @@ function queries($suite as xs:string)
  : @return json env array
  :)
 declare 
-%rest:GET %rest:path("benchx/api/environment")
+%rest:GET %rest:path("benchx/api/about")
 %output:method("json")  
-function env() 
+function about() 
 {
 <json type="object" >
     {env:xml()/*}
 </json>
+}; 
+
+(:~
+ : Information about the server platform, Java version etc.
+ : @return json env array
+ :)
+declare 
+%rest:GET %rest:path("benchx/api/environment")
+%output:method("json")  
+function env() 
+{
+<json type="array" >
+    
+    {lib:environments()}
+</json>
+}; 
+(:~
+ : testbed not part of app, use this for experiments
+ :)
+declare 
+%rest:GET %rest:path("benchx/api/~testbed")
+%output:method("json")   
+function testbed() 
+{
+   <json  objects="json doc _" arrays="docs ">
+   <docs>
+   {for $doc in $lib:benchmarks
+   order by $doc/meta/created
+   return <_>
+   {$doc/id,
+    $doc/server/suite,
+    $doc/server/description,
+    $doc/meta/description,
+    $doc/meta/created
+       }</_>
+   }</docs></json>    
 }; 
 

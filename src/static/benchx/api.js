@@ -6,18 +6,7 @@
  */
 angular.module('BenchX.api', [ 'ngResource','log.ex.uo' ])
 
-.constant("metaRoot", "../../benchx/meta/")
-.factory('meta', [ '$resource', 'metaRoot', function($resource, metaRoot) {
-	return {
-
-		cvabar : function(name) {
-			return $resource(metaRoot + 'cvabar/'+name).get().$promise;
-		}
-	};
-}])
-
 .constant("apiRoot", "../../benchx/api/")
-
 
 .factory('api', [ '$resource', 'apiRoot', function($resource, apiRoot) {
 	return {
@@ -38,15 +27,23 @@ angular.module('BenchX.api', [ 'ngResource','log.ex.uo' ])
 				factor : factor
 			}).$promise;
 		},
-		toggleMode : function() {
-			return $resource(apiRoot + 'manage').save().$promise;
-		},
+
 		environment : function() {
 			return $resource(apiRoot + 'environment').get().$promise;
-
 		},
+		
+		session : function() {
+			return $resource(apiRoot + 'session');
+		},
+		
 		library : function() {
 			return $resource(apiRoot + 'library/:id', {
+				id : "@id"
+			});
+		},
+		
+		environment : function() {
+			return $resource(apiRoot + 'environment/:id', {
 				id : "@id"
 			});
 		},
