@@ -80,8 +80,8 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 		'EnvController',
 		[ "$scope", "$rootScope","api",  "$log",
 				function($scope, $rootScope,data, $log) {
-					$scope.setTitle("env");
-					console.log("ENV",data);
+					$scope.setTitle("Environments");
+					$scope.environments=data;
 				} ])
 				
 .controller(
