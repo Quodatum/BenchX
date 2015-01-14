@@ -9,9 +9,9 @@ angular
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
 						'ngLogging', 'angularMoment', 'googlechart',
-						'log.ex.uo', 'angularCharts', 'dialog', 'ngStorage',
+						'log.ex.uo', 'googlechart', 'dialog', 'ngStorage',
 						'BenchX.api', 'BenchX.services', 'BenchX.results',
-						'quodatum.cva', 'BenchX.library',
+						'BenchX.library',
 						'services.httpRequestTracker' ])
 
 		.config(
@@ -21,7 +21,7 @@ angular
 						function($routeProvider, $injector) {
 							$routeProvider
 									.when('/', {
-										redirectTo : '/suite'
+										redirectTo : '/about'
 
 									})
 									.when(
@@ -55,14 +55,14 @@ angular
 												}
 											})
 									.when(
-											'/environment',
+											'/thisenv',
 											{
 												templateUrl : '/static/benchx/templates/environment.xhtml',
 												controller : "envController",
 												resolve : {
 													data : function(api) {
 														return api
-																.environment();
+																.thisenv();
 													}
 												}
 
@@ -71,13 +71,11 @@ angular
 											'/about',
 											{
 												templateUrl : '/static/benchx/templates/about.xhtml'
-
 											})
 									.when(
 											'/log',
 											{
 												templateUrl : '/static/benchx/templates/log.xhtml'
-
 											})
 									.when(
 											'/suite',
@@ -108,7 +106,6 @@ angular
 											{
 												templateUrl : '/static/benchx/templates/doc.xhtml',
 												controller : "DocController"
-
 											})
 									.when(
 											'/404',
@@ -135,7 +132,9 @@ angular
 						'Logging',
 						"$localStorage",
 						'results',
-						function($rootScope, $window, hotkeys, $log, Logging,$localStorage,results) {
+						'$location',
+						'taskqueue',
+						function($rootScope, $window, hotkeys, $log, Logging,$localStorage,results,$location,taskqueue) {
 							Logging.enabled = true;
 							$rootScope.$storage = $localStorage.$default({
 							    activesuite: "xmark"
@@ -144,49 +143,13 @@ angular
 								$window.document.title = t + " BenchX v0.6.4";
 							};
 							$rootScope.results=results;
+							$rootScope.tasks=taskqueue;
 							$rootScope.setTitle("BenchX");
 							$rootScope.logmsg = "Welcome to BenchX";
-							console.log($rootScope.$storage.activesuite);
+
 							$rootScope.activesuite = $rootScope.$storage.activesuite;
 							$rootScope.meta = {
 								title : ""
-							};
-							$rootScope.queue = async
-									.queue(
-											function(task, callback) {
-												var promise;
-												switch (task.cmd) {
-												case "run":
-													$log.info('Starting '
-															+ task.data);
-													$rootScope.logmsg = 'Starting '
-															+ task.data;
-													promise = $rootScope
-															.execute(task.data);
-													break;
-												case "state":
-													$rootScope.logmsg = 'Starting set state';
-													promise = $rootScope
-															.setState(task.data);
-													break;
-
-												default:
-													$rootScope.logmsg = 'Unknown command ignored: '
-															+ task.cmd;
-												}
-												;
-												promise
-														.then(function(res) {
-															// Dig into the
-															// responde to get
-															// the relevant data
-															$rootScope.logmsg = 'completed '
-																	+ task.cmd;
-															callback();
-														});
-											}, 1);
-							$rootScope.queue.drain = function() {
-								$rootScope.logmsg = 'Idle';
 							};
 							
 							hotkeys.add("X", "run all queries",
@@ -200,8 +163,7 @@ angular
 						'api',
 						'utils',
 						'$log',
-						'results',
-						function($rootScope, api, utils, $log, results) {
+						function($rootScope, api, utils, $log) {
 							function updateStatus(data) {
 								$log.log("update status:", data);
 								$rootScope.state = data.state;
@@ -214,6 +176,7 @@ angular
 
 							// run query with index
 							$rootScope.execute = function(index) {
+							    var results=$rootScope.results;
 								var q = results.data().queries[index];
 								return api.execute({
 									suite : $rootScope.activesuite,
@@ -263,9 +226,8 @@ angular
 						"$dialog",
 						"api",
 						"data",
-						"results",
 						function($scope,$rootScope, $routeParams, $location, $dialog, api,
-								data, results) {
+								data) {
 							console.log("SessionController", data);
 							$scope.session = data;
 							$scope.setTitle("Session: " + $scope.activesuite);
@@ -290,7 +252,7 @@ angular
 											if (result === 'OK') {
 											var d = new api.session();
 											d.delete().$promise.then(function(a) {
-												results.clear();
+												$rootScope.results.clear();
 												$rootScope.logmsg = "session data deleted.";
 											}, function(e) {
 												alert("FAILED: " + e.data);
@@ -317,11 +279,8 @@ angular
 						"api",
 						"$localStorage",
 						"$log",
-						"taskqueue",
-						"results",
-						function($scope, $rootScope, api, $localStorage, $log,
-								taskqueue, results) {
-							$log.log("ScheduleController");
+						function($scope, $rootScope, api, $localStorage, $log) {
+							// return array of tasks to set state then run each query
 							function makerun(mode, factor) {
 								var tasks = [ {
 									cmd : "state",
@@ -330,7 +289,7 @@ angular
 										factor : factor
 									}
 								} ];
-								angular.forEach(results.data().queries,
+								angular.forEach($rootScope.results.data().queries,
 										function(v, index) {
 											tasks.push({
 												cmd : "run",
@@ -354,17 +313,15 @@ angular
 
 							$scope.executeAll = function() {
 								var settings = $scope.$storage.settings;
-
+								var q=$rootScope.tasks.q;
 								for (var i = 0; i < settings.repeat; i++) {
 									var f = settings.factor;
 									do {
 										var m = settings.mode;
-										var tasks = makerun(m, f);
-										$rootScope.queue.push(tasks);
+										q.push(makerun(m, f));
 										if (settings.allmodes) {
 											m = (m == "F") ? "D" : "F";
-											var tasks = makerun(m, f);
-											$rootScope.queue.push(tasks);
+											q.push( makerun(m, f));
 										}
 										;
 										f += settings.incr;
@@ -376,7 +333,7 @@ angular
 							};
 							$scope.setNow = function() {
 								var settings = $scope.$storage.settings;
-								$rootScope.queue.push({
+								$rootScope.tasks.q.push({
 									cmd : "state",
 									data : {
 										mode : settings.mode,
@@ -412,15 +369,16 @@ angular
 						'$rootScope',
 						'$window',
 						'utils',
-						'results',
-						function($scope, $rootScope, $window, utils, results) {
+						function($scope, $rootScope, $window, utils) {
 							$scope.setTitle("Graph");
-							$scope.session = results.data();
+							$scope.session = $rootScope.results.data();
 							function genChart() {
-								return $scope.session?
-								utils.gchart($scope.session.queries,
-										'BenchX: ' + $scope.session.name + " "
-												+ $rootScope.meta.title):null;
+							    var options={
+								title:'BenchX: ' + $scope.session.name + " " + $rootScope.meta.title,
+								 vAxis: {title: 'Time (sec)'},
+								 hAxis: {title: 'Query'}
+								 };
+								return $scope.session?utils.gchart($scope.session.queries,options):null;
 							}
 							;
 

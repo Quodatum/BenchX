@@ -44,7 +44,7 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 			}
 		}
 
-	}).when('/env', {
+	}).when('/environment', {
 		templateUrl : '/static/benchx/feats/library/env.xml',
 		controller : "EnvController",
 		resolve : {
@@ -78,10 +78,11 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 				
 .controller(
 		'EnvController',
-		[ "$scope", "$rootScope","api",  "$log",
+		[ "$scope", "$rootScope","data",  "$log",
 				function($scope, $rootScope,data, $log) {
 					$scope.setTitle("Environments");
 					$scope.environments=data;
+					console.log("ENVS",data);
 				} ])
 				
 .controller(

@@ -19,12 +19,13 @@
                     data-toggle="dropdown" dropdown-toggle="dropdown-toggle"> View <b class="caret"></b>
                 </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#/env" tabindex="-1"> <i
-                                class="glyphicon glyphicon-picture"></i> Environments
-                        </a></li>
+                       
 				<li><a href="#/suite" title="Suites"> <i
 						class="glyphicon glyphicon-expand"></i> Suites
 				</a></li>
+				 <li><a href="#/environment" tabindex="-1"> <i
+                                class="glyphicon glyphicon-globe"></i> Environments
+                        </a></li>
 				<li><a href="#/library" title="Timings"> <i
 						class="glyphicon glyphicon-book"></i> Library
 				</a></li>
@@ -49,11 +50,11 @@
 			<ul class="nav navbar-nav navbar-right">
 
 				<li>
-					<button class="btn  btn-sm navbar-btn " ng-click="queue.kill()"
-						ng-class="{'btn-warning':queue.length()}"
+					<button class="btn  btn-sm navbar-btn " ng-click="tasks.q.kill()"
+						ng-class="{'btn-warning':tasks.q.length()}"
 						title="Queued tasks, click to stop">
 						<div style="width: 3em">
-							<i class="glyphicon glyphicon-tasks"></i> {{queue.length()}}
+							<i class="glyphicon glyphicon-tasks"></i> {{tasks.q.length()}}
 						</div>
 					</button>
 				</li>
@@ -69,7 +70,7 @@
 					data-toggle="dropdown" dropdown-toggle="dropdown-toggle"> About <b class="caret"></b>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a href="#/environment" tabindex="-1"> <i
+						<li><a href="#/thisenv" tabindex="-1"> <i
 								class="glyphicon glyphicon-picture"></i> Environment
 						</a></li>
 						<li><a href="#/doc/wadl" target="docs" tabindex="-1"> <i

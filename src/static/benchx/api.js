@@ -28,8 +28,8 @@ angular.module('BenchX.api', [ 'ngResource','log.ex.uo' ])
 			}).$promise;
 		},
 
-		environment : function() {
-			return $resource(apiRoot + 'environment').get().$promise;
+		thisenv : function() {
+			return $resource(apiRoot + 'thisenv').get().$promise;
 		},
 		
 		session : function() {

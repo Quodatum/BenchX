@@ -254,7 +254,7 @@ function queries($suite as xs:string)
  : @return json env array
  :)
 declare 
-%rest:GET %rest:path("benchx/api/about")
+%rest:GET %rest:path("benchx/api/thisenv")
 %output:method("json")  
 function about() 
 {
@@ -264,7 +264,7 @@ function about()
 }; 
 
 (:~
- : Information about the server platform, Java version etc.
+ : distinct environments from the library.
  : @return json env array
  :)
 declare 

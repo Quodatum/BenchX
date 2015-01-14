@@ -26,7 +26,7 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 .factory('utils', function() {
 	return {
 		// create google chart data structure
-		gchart : function(session, title) {
+		gchart : function(session, options) {
 			if (!session)
 				return;
 			var cols = [ {
@@ -57,9 +57,7 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 			});
 			return {
 				type : "ColumnChart",
-				options : {
-					'title' : title
-				},
+				options : options,
 				data : {
 					"cols" : cols,
 					"rows" : rows
@@ -84,7 +82,7 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 	};
 })
 
-.factory('taskqueue', ["$rootScope", function($rootScope) {
+.factory('taskqueue', ["$rootScope","$log", function($rootScope,$log) {
 	console.log("taskq");
 	var c = new Date();
 	var q = async.queue(function(task, callback) {
@@ -113,7 +111,7 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 		});
 	}, 1);
 	q.drain = function() {
-		alert("$rootScope.logmsg = 'Idle';");
+		$rootScope.logmsg = 'Idle';
 	};
 	return {
 		"created" : c,
