@@ -72,9 +72,11 @@ declare %updating function mode($mode as xs:string){
     if($mode=mode()) then ()
     else switch ($mode)
         case "F" return db:drop("benchx-db")
-        case "D" return db:create("benchx-db"
+        case "D" return (db:drop("benchx-db"),
+                         db:create("benchx-db"
                             ,$xm:base-dir ||"benchx-db/auction.xml"
                             ,"auction.xml")
+                            )
         default return ()
 };
 

@@ -127,14 +127,12 @@ angular
 				[
 						'$rootScope',
 						'$window',
-						'hotkeys',
 						'$log',
 						'Logging',
 						"$localStorage",
 						'results',
-						'$location',
 						'taskqueue',
-						function($rootScope, $window, hotkeys, $log, Logging,$localStorage,results,$location,taskqueue) {
+						function($rootScope, $window,$log, Logging,$localStorage,results,taskqueue) {
 							Logging.enabled = true;
 							$rootScope.$storage = $localStorage.$default({
 							    activesuite: "xmark"
@@ -152,9 +150,14 @@ angular
 								title : ""
 							};
 							
-							hotkeys.add("X", "run all queries",
-									$rootScope.executeAll);
+							
+							
 						} ])
+		.run(['hotkeys','$location',function(hotkeys,$location){
+			hotkeys.add("l", "Go to library",function(){return $location.path("/library")});
+			hotkeys.add("e", "Go to environments",function(){return $location.path("/environment")});
+			hotkeys.add("s", "Go to suites",function(){return $location.path("/suite")});
+		}])
 
 		.controller(
 				'rootController',

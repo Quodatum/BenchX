@@ -134,5 +134,51 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 										});
 					};
 					
+					function genChart(){
+						var cols = [ {
+							id : "t",
+							label : "Query",
+							type : "string"
+						} ];
+						angular.forEach($scope.states, function(r, i2) {
+							cols.push( {
+							id : r,
+							label : r,
+							type : "number"
+							});
+						});
+						 
+						var rows=[];
+						angular.forEach($scope.queries, function(q, i) {
+							var d = [ {
+								v : q 
+							} ];
+							angular.forEach($scope.states, function(r, i2) {
+								var t=$scope.getRuns(r,q);
+								//console.log(">>>",r,q,t)
+								d.push({
+									v : t[0].runtime
+								});
+							});
+							rows.push({
+								c : d
+							});
+						});
+						var options={
+								title:'BenchX: library',
+								 vAxis: {title: 'Time (sec)'},
+								 hAxis: {title: 'Query'}
+								 };
+								 
+						return {
+								type : "ColumnChart",
+								options : options,
+								data : {
+									"cols" : cols,
+									"rows" : rows
+								}
+							};
+					};
+					$scope.chartObject=genChart();
 					$scope.setView($routeParams.view ? $routeParams.view: "grid");
 				} ]);
