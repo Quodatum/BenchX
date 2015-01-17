@@ -102,10 +102,14 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 					$scope.benchmark = data.benchmark;
 					console.log("benchmark: ",$scope.benchmark);
 					//@TODO Extract names of factor
-					var states=_.uniq(data.benchmark.runs,function(run){return run.mode + run.factor;});
-					$scope.states=_.map(states,function(run){return run.mode + run.factor;});
-					var queries=_.uniq(data.benchmark.runs,function(run){return run.name;});
-					$scope.queries=_.map(queries,function(run){return run.name;});
+					$scope.data={
+						states: _.groupBy(data.benchmark.runs,function(run){return run.mode + run.factor;}),
+						queries: _.groupBy(data.benchmark.runs,function(run){return run.name;})
+					};
+					
+					$scope.keys=function(obj){
+						return _.map(obj,function(v,key){return key;})
+					};
 					$scope.getRuns=function(state,query){
 						return _.filter(data.benchmark.runs,function(run){
 									var r= (run.name==query) && (state==run.mode + run.factor);
@@ -113,6 +117,7 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 									return r;
 									});
 						};
+						
 					$scope.setView = function(v) {
 						$scope.view = v;
 						$location.search("view", v);
@@ -140,7 +145,7 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 							label : "Query",
 							type : "string"
 						} ];
-						angular.forEach($scope.states, function(r, i2) {
+						angular.forEach($scope.data.states, function(a, r) {
 							cols.push( {
 							id : r,
 							label : r,
@@ -149,21 +154,26 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 						});
 						 
 						var rows=[];
-						angular.forEach($scope.queries, function(q, i) {
-							var d = [ {
-								v : q 
-							} ];
-							angular.forEach($scope.states, function(r, i2) {
-								var t=$scope.getRuns(r,q);
-								//console.log(">>>",r,q,t)
+						
+						function row(q,index){
+							var d=[{v:q}];
+							angular.forEach($scope.data.states, function(a,state) {
+								var runs=$scope.getRuns(state,q);
 								d.push({
-									v : t[0].runtime
+									v : runs[index].runtime
 								});
 							});
+							return d;
+						};
+						for(i=0;i<3;i++){
+						angular.forEach($scope.data.queries, function(a, q) {
+							var d = row(q,i);
 							rows.push({
 								c : d
 							});
 						});
+						};
+						
 						var options={
 								title:'BenchX: library',
 								 vAxis: {title: 'Time (sec)'},

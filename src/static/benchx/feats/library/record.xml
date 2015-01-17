@@ -40,7 +40,10 @@
         </button>
         <a href="../../benchx/api/library/{{benchmark.id}}?format=xml"  target="_blank" class="btn btn-default" title="Download as XML">
 <i class="glyphicon glyphicon-save"></i>XML
-</a>        
+</a>     
+  <a href="#/suite/{{benchmark.suite}}/session?view=run"   class="btn btn-default" title="Re run the timings">
+<i class="glyphicon glyphicon-forward"></i>Re Run
+</a>           
         <button class="btn  btn-warning" ng-click="drop()" title="Remove data">
             <i class="glyphicon glyphicon-trash"></i>
             Delete
@@ -50,9 +53,13 @@
 </div>
 	<div class="animate-switch-container" ng-switch="view">
 		<div class="animate-switch" ng-switch-when="graph">
-
+<div class="panel  panel-info panel-body col-md-10">
 			<div google-chart="google-chart" chart="chartObject" onReady="chartReady"
 				style="height:400px; width:100%;" ></div>
+				</div>
+				<div class="panel  panel-info panel-body col-md-2">
+				Stuff here
+				</div>
 		</div>
 		<div class="animate-switch " ng-switch-when="env">
 			<div class="panel  panel-info panel-body col-md-6">
@@ -95,12 +102,12 @@
                <table class="table table-striped">
                <thead>
                <th>Query</th>
-               <th ng-repeat="state in states">{{state}}</th>
+               <th ng-repeat="state in keys(data.states)">{{state}}</th>
                </thead>
                <tbody>
-               <tr ng-repeat="query in queries">
+               <tr ng-repeat="query in keys(data.queries)">
                 <td>{{query}}</td>
-                <td ng-repeat="state in states">
+                <td ng-repeat="state in keys(data.states)">
                 <div ng-repeat="run in xx=getRuns(state,query)" class="runtime"
                         title="{{run.created}}  {{run.mode}}{{run.factor}} ">
                         <span title="{{run.runtime}} secs" class="pull-right">{{run.runtime}}</span>

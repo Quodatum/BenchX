@@ -11,7 +11,7 @@ angular
 						'ngLogging', 'angularMoment', 'googlechart',
 						'log.ex.uo', 'googlechart', 'dialog', 'ngStorage',
 						'BenchX.api', 'BenchX.services', 'BenchX.results',
-						'BenchX.library',
+						'BenchX.library','BenchX.benchmark',
 						'services.httpRequestTracker' ])
 
 		.config(
@@ -138,7 +138,7 @@ angular
 							    activesuite: "xmark"
 							});
 							$rootScope.setTitle = function(t) {
-								$window.document.title = t + " BenchX v0.6.4";
+								$window.document.title = t + " BenchX v0.6.6";
 							};
 							$rootScope.results=results;
 							$rootScope.tasks=taskqueue;

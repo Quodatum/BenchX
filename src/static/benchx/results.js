@@ -12,13 +12,15 @@ angular.module('BenchX.results', [])
 	console.log("init results----------------------------");
 	var _called = 0;
 	return {
-		suite : function(){return_activesuite},
+		suite : function(){return _activesuite},
 		
 		promise : function(suite) {
 			if (_activesuite != suite) {
 				_activesuite = suite;
 				var p = api.suite(suite);
-				p.then(function(d){_data=d;});
+				p.then(function(d){
+					_data=d;
+					});
 				return p;
 			}else{
 				var p= $q.defer();
