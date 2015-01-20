@@ -103,13 +103,17 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 					console.log("benchmark: ",$scope.benchmark);
 					//@TODO Extract names of factor
 					$scope.data={
+						//{state:[{run}]}
 						states: _.groupBy(data.benchmark.runs,function(run){return run.mode + run.factor;}),
+						//{query
 						queries: _.groupBy(data.benchmark.runs,function(run){return run.name;})
 					};
 					
+					// array of key names from groupby object
 					$scope.keys=function(obj){
 						return _.map(obj,function(v,key){return key;})
 					};
+					
 					$scope.getRuns=function(state,query){
 						return _.filter(data.benchmark.runs,function(run){
 									var r= (run.name==query) && (state==run.mode + run.factor);
@@ -140,54 +144,20 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 					};
 					
 					function genChart(){
-						var cols = [ {
-							id : "t",
-							label : "Query",
-							type : "string"
-						} ];
-						angular.forEach($scope.data.states, function(a, r) {
-							cols.push( {
-							id : r,
-							label : r,
-							type : "number"
-							});
-						});
-						 
-						var rows=[];
-						
-						function row(q,index){
-							var d=[{v:q}];
-							angular.forEach($scope.data.states, function(a,state) {
-								var runs=$scope.getRuns(state,q);
-								d.push({
-									v : runs[index].runtime
-								});
-							});
-							return d;
-						};
-						for(i=0;i<3;i++){
-						angular.forEach($scope.data.queries, function(a, q) {
-							var d = row(q,i);
-							rows.push({
-								c : d
-							});
-						});
-						};
-						
+						var session=_.map($scope.data.queries,
+								function(v,key){return {
+												"name":key,
+												"runs":_.sortBy(v,['mode', 'factor'])
+												}
+								;});
 						var options={
-								title:'BenchX: library',
+								title:'BenchX: ' + $scope.benchmark.suite + " " + $scope.benchmark.meta.description,
 								 vAxis: {title: 'Time (sec)'},
 								 hAxis: {title: 'Query'}
 								 };
+						console.log("SESSION:",session);
+						return utils.gchart(session,options);
 								 
-						return {
-								type : "ColumnChart",
-								options : options,
-								data : {
-									"cols" : cols,
-									"rows" : rows
-								}
-							};
 					};
 					$scope.chartObject=genChart();
 					$scope.setView($routeParams.view ? $routeParams.view: "grid");
