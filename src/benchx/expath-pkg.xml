@@ -7,11 +7,9 @@
 	<dependency name="lodash" version="2.4.1" />
 	<dependency name="angularjs" version="1.2.14" />
 	<dependency name="angular-ui-bootstrap" version="0.10.0" />
-	<dependency name="d3" version="3.4.6" />
 	<dependency name="ngStorage" version="0.3.0" />
 	<dependency name="angular-hotkeys" version="0.3.0" />
 	<dependency name="ng-google-chart" version="0.0.9" />
-	<dependency name="saxon-he" version="9.5.1.5" />
 	<dependency name="async" version="0.8.0" />
 	<dependency name="stacktrace" version="0.6.0" />
 	<dependency name="FileSaver" />

@@ -38,10 +38,6 @@
 		</div>
 		<strong> Action:</strong>
 		<div class="btn-group btn-group-sm">
-			<button class="btn  btn-default" ng-click="saveAs()" title="Download as csv">
-				<i class="glyphicon glyphicon-save"></i>
-				CSV
-			</button>
 			<a href="../../benchx/api/library/{{benchmark.id}}?format=xml"
 				target="_blank" class="btn btn-default" title="Download as XML">
 				<i class="glyphicon glyphicon-save"></i>
@@ -79,6 +75,7 @@
 					</small>
 				</div>
 				<div>{{benchmark.meta.description}}</div>
+				<div>More...</div>
 			</div>
 		</div>
 		<div class="animate-switch " ng-switch-when="env">
@@ -108,18 +105,21 @@
 			<pre>{{ benchmark | json }}</pre>
 		</div>
 		<div class="animate-switch" ng-switch-default="ng-switch-default">
-			<h3>
-				<small>
-					<a href="#/suite/{{benchmark.suite}}" class="label label-info">{{benchmark.suite}}
-					</a>
-				</small>
-				{{benchmark.meta.description}}
-				<small>
-					Created:
-					<span am-time-ago="benchmark.meta.created" title="{{benchmark.meta.created}}"></span>
-					<span>, Runs:{{benchmark.runs.length}}</span>
-				</small>
-			</h3>
+			<div class="row">
+			<div>
+                    <small>
+                        <a href="#/suite/{{benchmark.suite}}" class="label label-info">{{benchmark.suite}}
+                        </a>
+                    </small>
+                    
+                    <small>
+                        Created:
+                        <span am-time-ago="benchmark.meta.created" title="{{benchmark.meta.created}}"></span>
+                        <span>, Runs:{{benchmark.runs.length}}</span>
+                    </small>
+                </div>
+                <div>{{benchmark.meta.description}}</div>
+			</div>
 			<div class="row">
 				<table class="table table-striped">
 					<thead>

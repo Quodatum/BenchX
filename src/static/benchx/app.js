@@ -138,7 +138,7 @@ angular
 							    activesuite: "xmark"
 							});
 							$rootScope.setTitle = function(t) {
-								$window.document.title = t + " BenchX v0.6.6";
+								$window.document.title = t + " BenchX v0.6.7";
 							};
 							$rootScope.results=results;
 							$rootScope.tasks=taskqueue;
@@ -153,10 +153,11 @@ angular
 							
 							
 						} ])
-		.run(['hotkeys','$location',function(hotkeys,$location){
-			hotkeys.add("l", "Go to library",function(){return $location.path("/library")});
-			hotkeys.add("e", "Go to environments",function(){return $location.path("/environment")});
-			hotkeys.add("s", "Go to suites",function(){return $location.path("/suite")});
+		.run(['hotkeys','$location','$rootScope',function(hotkeys,$location,$rootScope){
+			hotkeys.add("l", "Go to library",function(){return $location.path("/library");});
+			hotkeys.add("e", "Go to environments",function(){return $location.path("/environment");});
+			hotkeys.add("s", "Go to suites",function(){return $location.path("/suite");});
+			hotkeys.add("r", "Go to run",function(){return $location.path("/suite/"+$rootScope.activesuite+"/session?view=run");});
 		}])
 
 		.controller(
@@ -267,7 +268,8 @@ angular
 							$scope.save = function() {
 								var d = new api.session();
 								d.save($scope.meta).$promise.then(function(a) {
-									$rootScope.logmsg = "Saved to library.";
+									$rootScope.logmsg = "Saved to library: "+a.id;
+									$location.path("/library/item/"+a.id);
 								}, function(e) {
 									alert("FAILED: " + e.data);
 								});
@@ -381,6 +383,7 @@ angular
 								 vAxis: {title: 'Time (sec)'},
 								 hAxis: {title: 'Query'}
 								 };
+							    console.log("CHART ",$scope.session.queries);
 								return $scope.session?utils.gchart($scope.session.queries,options):null;
 							}
 							;

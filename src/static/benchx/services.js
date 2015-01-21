@@ -5,6 +5,7 @@
  * @date 2014
  * @licence Apache 2
  */
+'use strict';
 angular.module('BenchX.services', [ 'log.ex.uo' ])
 
 // human size
@@ -41,6 +42,7 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 					type : "number"
 				});
 			});
+			// each row [query,times..]
 			var rows = [];
 			angular.forEach(session, function(q, i) {
 				var d = [ {
@@ -94,7 +96,7 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 			promise = $rootScope.execute(task.data);
 			break;
 		case "state":
-			$rootScope.logmsg = 'Starting set state';
+			$rootScope.logmsg = 'Setting state: '+task.data.mode+task.data.factor;
 			promise = $rootScope.setState(task.data);
 			break;
 
