@@ -154,10 +154,15 @@ angular
 							
 						} ])
 		.run(['hotkeys','$location','$rootScope',function(hotkeys,$location,$rootScope){
-			hotkeys.add("l", "Go to library",function(){return $location.path("/library");});
-			hotkeys.add("e", "Go to environments",function(){return $location.path("/environment");});
-			hotkeys.add("s", "Go to suites",function(){return $location.path("/suite");});
-			hotkeys.add("r", "Go to run",function(){return $location.path("/suite/"+$rootScope.activesuite+"/session?view=run");});
+			hotkeys.add("l", "Go to library",function(){
+										return $location.url("/library");});
+			hotkeys.add("e", "Go to environments",function(){
+										return $location.url("/environment");});
+			hotkeys.add("s", "Go to suites",function(){
+										return $location.url("/suite");});
+			hotkeys.add("r", "Go to run",function(){
+										console.log("@@@","/suite/"+$rootScope.activesuite+"/session?view=run");
+										return $location.url("/suite/"+$rootScope.activesuite+"/session?view=run");});
 		}])
 
 		.controller(
