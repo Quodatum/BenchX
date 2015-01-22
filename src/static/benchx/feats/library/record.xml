@@ -75,7 +75,8 @@
 					</small>
 				</div>
 				<div>{{benchmark.meta.description}}</div>
-				<div>More...</div>
+				<div><div ng-repeat="state in keys(data.states)">{{state}}</div></div>
+				<div>max:{{data.max.runtime}} {{data.max.factor}}</div>
 			</div>
 		</div>
 		<div class="animate-switch " ng-switch-when="env">

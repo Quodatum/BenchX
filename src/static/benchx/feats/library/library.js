@@ -98,15 +98,18 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 				"$dialog",
 				function($scope, $rootScope, data, $routeParams, $location,
 						utils,api,$dialog) {
+					var state=function(run){return run.mode + run.factor;};
 					$scope.setTitle("Record");
 					$scope.benchmark = data.benchmark;
 					console.log("benchmark: ",$scope.benchmark);
 					//@TODO Extract names of factor
 					$scope.data={
 						//{state:[{run}]}
-						states: _.groupBy(data.benchmark.runs,function(run){return run.mode + run.factor;}),
-						//{query
-						queries: _.groupBy(data.benchmark.runs,function(run){return run.name;})
+						states: _.groupBy(data.benchmark.runs,state),
+						//{query:[{run}]
+						queries: _.groupBy(data.benchmark.runs,function(run){return run.name;}),
+						// run with max time
+						max: _.max(data.benchmark.runs,function(run){return run.runtime;})
 					};
 					
 					// array of key names from groupby object
@@ -143,22 +146,36 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 										});
 					};
 					
+					// json data for google bar chart
 					function genChart(){
+						var colors=["#3366cc","#dc3912","#ff9900","#109618","#990099","#0099c6","#dd4477","#66aa00","#b82e2e","#316395","#994499","#22aa99","#aaaa11","#6633cc","#e67300","#8b0707","#651067","#329262","#5574a6","#3b3eac","#b77322","#16d620","#b91383","#f4359e","#9c5935","#a9c413","#2a778d","#668d1c","#bea413","#0c5922","#743411"];
+						var states=_.map($scope.data.states,function(runs,state){return state;});
+					
 						var session=_.map($scope.data.queries,
 								function(v,key){return {
 												"name":key,
-												"runs":_.sortBy(v,['mode', 'factor'])
+												"runs":_.sortBy(v,state)
 												}
 								;});
+						console.log("!!!",session[0]);
+						var c=_.map(session[0].runs,function(run,index){
+									var state=run.mode + run.factor;
+									var pos=states.indexOf(state);
+									//console.log("££",state,pos);
+									return colors[pos];
+						});
+						c=_.flatten(c);
 						var options={
-								title:'BenchX: ' + $scope.benchmark.suite + " " + $scope.benchmark.meta.description,
-								 vAxis: {title: 'Time (sec)'},
-								 hAxis: {title: 'Query'}
+								 title:'BenchX: ' + $scope.benchmark.suite + " " + $scope.benchmark.meta.description,
+								 vAxis: {title: 'Time (sec)'}
+								 ,hAxis: {title: 'Query'}
+								 ,colors: c
 								 };
-						console.log("SESSION:",session);
+						console.log("col: ",c);
 						return utils.gchart(session,options);
 								 
 					};
+					
 					$scope.chartObject=genChart();
 					$scope.setView($routeParams.view ? $routeParams.view: "grid");
 				} ]);
