@@ -1,3 +1,45 @@
-<div >
-Compare todo
+<div>
+	<div class="row ">
+		<ol class="breadcrumb navbar-left qcrumb">
+			<li>
+				<a href="#/about" title="home">
+					<i class="glyphicon glyphicon-home"></i>
+				</a>
+			</li>
+			<li>
+				<a href="#/library" title="library">library
+				</a>
+			</li>
+			<li>
+				<a href="#/library/item/{{route.id}}" title="record">{{route.id}}
+				</a>
+			</li>
+			<li class="active">compare query: {{route.query}},state: {{route.state}}
+			</li>
+			<li>
+
+			</li>
+		</ol>
+	</div>
+
+	<div class="row">
+		<div class="col-md-8">
+			<table class="table table-condensed table-striped table-bordered ">
+				<thead>
+					<th>id</th>
+					<th>time</th>
+                    <th>Extra</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="r in compare.hit | orderBy: runtime ">
+					<td>{{r.id}}
+					<span ng-show="r.id=route.id">####</span>
+					</td>
+					<td>{{r.runtime}}</td>
+					<td>{{r | json}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>

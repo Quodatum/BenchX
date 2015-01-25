@@ -47,5 +47,7 @@ Key is mode+factor+serverid
 # generate xquery documentation
 \workspace\benchmark.xq\src>xquerydoc -x benchx -o static/doc/server
 
+## difference
+ ((V2 - V1) / |V1|) * 100
 
 ## logging

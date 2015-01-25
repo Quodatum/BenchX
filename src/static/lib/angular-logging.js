@@ -65,7 +65,7 @@ angular.module('ngLogging', [])
 		enabled : false, //@todo
 		logs : []
 	};
-
+    var MAXLOG=20; //entries
 	var log = function() {
 
 		args = [];
@@ -87,14 +87,16 @@ angular.module('ngLogging', [])
 		};
 		
 		service.logs.push(logItem);
-
+		if (service.logs.length > MAXLOG) {
+			service.logs.length.length = MAXLOG; 
+		};
 		var _$rootScope = $injector.get('$rootScope');
 		var _$timeout = $injector.get('$timeout');
 		_$timeout(function() {
 			_$rootScope.$broadcast('log', logItem);
 		}, 0);
 		
-		console.log("MYLOG",service.logs);
+		console.log("MYLOG",logItem);
 	};
 
 	return service;

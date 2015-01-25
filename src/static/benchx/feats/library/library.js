@@ -69,17 +69,17 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 
 .controller(
 		'CompareController',
-		[ "$scope", "$rootScope", "data", "$log",
-				function($scope, $rootScope, data, $log) {
+		[ "$scope", "$rootScope","$routeParams","$location", "data", "$log",
+				function($scope, $rootScope,$routeParams,$location, data, $log) {
 					$scope.setTitle("Compare");
-					$scope.docs = data;
-					
+					$scope.compare = data;
+					$scope.route=$routeParams; //id,query,state
 				} ])
 				
 .controller(
 		'EnvController',
-		[ "$scope", "$rootScope","data",  "$log",
-				function($scope, $rootScope,data, $log) {
+		[ "$scope", "$rootScope","$routeParams","$location","data",  "$log",
+				function($scope, $rootScope,$routeParams,$location,data, $log) {
 					$scope.setTitle("Environments");
 					$scope.environments=data;
 					console.log("ENVS",data);
@@ -96,11 +96,23 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 				"utils",
 				"api",
 				"$dialog",
+				"benchmark",
 				function($scope, $rootScope, data, $routeParams, $location,
-						utils,api,$dialog) {
+						utils,api,$dialog,benchmark) {
 					var state=function(run){return run.mode + run.factor;};
+
 					$scope.setTitle("Record");
+					$scope.formData={average:$location.search().avg,
+							         relative:$location.search().rel};
+					var b=benchmark.set(data.benchmark);
 					$scope.benchmark = data.benchmark;
+					if($scope.formData.average){
+						console.log("average");
+						var a=_.groupBy($scope.benchmark.runs,function(run){return run.name+run.mode + run.factor;});
+					};
+					if($scope.formData.relative){
+						console.log("relative");
+					};
 					console.log("benchmark: ",$scope.benchmark);
 					//@TODO Extract names of factor
 					$scope.data={
@@ -146,6 +158,12 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 										});
 					};
 					
+					$scope.onformData=function(){
+						$location.search("avg",$scope.formData.average);
+						$location.search("rel",$scope.formData.relative);
+						//console.log("formData.average",$scope.formData.average);
+					};
+					
 					// json data for google bar chart
 					function genChart(){
 						var colors=["#3366cc","#dc3912","#ff9900","#109618","#990099","#0099c6","#dd4477","#66aa00","#b82e2e","#316395","#994499","#22aa99","#aaaa11","#6633cc","#e67300","#8b0707","#651067","#329262","#5574a6","#3b3eac","#b77322","#16d620","#b91383","#f4359e","#9c5935","#a9c413","#2a778d","#668d1c","#bea413","#0c5922","#743411"];
@@ -157,7 +175,6 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 												"runs":_.sortBy(v,state)
 												}
 								;});
-						console.log("!!!",session[0]);
 						var c=_.map(session[0].runs,function(run,index){
 									var state=run.mode + run.factor;
 									var pos=states.indexOf(state);
@@ -169,9 +186,9 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 								 title:'BenchX: ' + $scope.benchmark.suite + " " + $scope.benchmark.meta.description,
 								 vAxis: {title: 'Time (sec)'}
 								 ,hAxis: {title: 'Query'}
+								// ,legend: 'none'
 								 ,colors: c
 								 };
-						console.log("col: ",c);
 						return utils.gchart(session,options);
 								 
 					};

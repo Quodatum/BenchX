@@ -8,6 +8,7 @@
 angular.module('BenchX.benchmark', [])
 
 .factory("benchmark", [  function() {
+	var state=function(run){return run.mode + run.factor;};
 	var _data;  //the data
 	
 	return {

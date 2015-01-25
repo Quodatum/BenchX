@@ -127,7 +127,9 @@ declare function json($b as element(benchmark)
  declare function environment($benchmark as element(benchmark)) 
  as element(_)*{
      <_ type="object">{
-     $benchmark/environment/*[fn:not(self::runtime.freeMemory | self::runtime.totalMemory)]
+     $benchmark/environment/*[fn:not(self::runtime.freeMemory 
+                                    | self::runtime.totalMemory
+                                    | self::runtime.maxMemory)]
      }</_>
  };
  

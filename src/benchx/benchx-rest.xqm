@@ -168,15 +168,24 @@ declare
 %output:method("json")
 function compare($id,$query,$state,$format) 
 {
-    let $b:=$lib:benchmarks[
-        runs/run/name=$query and
-        runs/run!(mode || factor)=$state
-    ]
+    let $hits:=$lib:benchmarks/runs/run[
+                     name=$query and
+                    (mode || factor)=$state
+                ]
     let $_:=<json objects="json _">
-<total type="number">{fn:count($b)}</total>
-<id>{$id}</id>
-<query>{$query}</query>
-</json> 
+                <total type="number">{fn:count($hits)}</total>
+                <id>{$id}</id>
+                <query>{$query}</query>
+                <hit type="array">
+                    {for $hit in $hits
+                    let $b:=$hit/ancestor::benchmark
+                    return <_>{        
+                    $hit/runtime,
+                    $b/id}
+                    </_>
+                    }
+                </hit>
+            </json> 
     return $_
 };
 
@@ -272,8 +281,7 @@ declare
 %output:method("json")  
 function env() 
 {
-<json type="array" >
-    
+<json type="array" >   
     {lib:environments()}
 </json>
 }; 

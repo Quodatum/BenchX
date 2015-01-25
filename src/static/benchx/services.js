@@ -27,6 +27,7 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 .factory('utils', function() {
 	return {
 		// create google chart data structure
+		// @param session [{name:query, runs:[]}]
 		gchart : function(session, options) {
 			if (!session)
 				return;

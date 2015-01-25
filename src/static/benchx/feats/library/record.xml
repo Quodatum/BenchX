@@ -11,10 +11,20 @@
 				</a>
 			</li>
 			<li class="active">{{benchmark.id}}</li>
+			<li>
+			 <div class="btn-group btn-group-sm" >
+        <label >
+             <input type="checkbox" ng-model="formData.average" ng-change="onformData()"/>Average
+        </label>
+        <label >
+            <input type="checkbox" ng-model="formData.relative" ng-change="onformData()"/>Relative
+        </label>
+    </div>
+    </li>
 		</ol>
-		<strong> View:</strong>
+		 <strong> View:</strong>
 		<div class="btn-group btn-group-sm">
-
+           
 			<button ng-click="setView('grid')" class="btn btn-default "
 				ng-class="{'btn-primary':view=='grid'}">
 				<i class="glyphicon glyphicon-th"></i>
@@ -35,6 +45,9 @@
 				<i class="glyphicon glyphicon-leaf"></i>
 				Json
 			</button>
+			
+   
+    
 		</div>
 		<strong> Action:</strong>
 		<div class="btn-group btn-group-sm">
@@ -52,7 +65,10 @@
 				<i class="glyphicon glyphicon-trash"></i>
 				Delete
 			</button>
+            
 
+
+                
 		</div>
 	</div>
 	<div class="animate-switch-container" ng-switch="view">
@@ -77,6 +93,7 @@
 				<div>{{benchmark.meta.description}}</div>
 				<div><div ng-repeat="state in keys(data.states)">{{state}}</div></div>
 				<div>max:{{data.max.runtime}} {{data.max.factor}}</div>
+				
 			</div>
 		</div>
 		<div class="animate-switch " ng-switch-when="env">
