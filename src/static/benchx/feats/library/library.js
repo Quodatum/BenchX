@@ -34,13 +34,7 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 		resolve : {
 			data : function(api, $route) {
 				var id = $route.current.params.id;
-				var q="q01.xq";var state="F0";
-				console.log("LOC",q);
-				return api.compare(id).get({
-					id : id,
-					query:q,
-					state:state
-				}).$promise;
+				return api.compare(id).get($route.current.params).$promise;
 			}
 		}
 

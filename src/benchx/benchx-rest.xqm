@@ -168,7 +168,8 @@ declare
 %output:method("json")
 function compare($id,$query,$state,$format) 
 {
-    let $hits:=$lib:benchmarks/runs/run[
+    let $suite as xs:string:=$lib:benchmarks[id=$id]/suite/fn:string()
+	let $hits:=$lib:benchmarks[suite=$suite]/runs/run[
                      name=$query and
                     (mode || factor)=$state
                 ]
@@ -179,8 +180,10 @@ function compare($id,$query,$state,$format)
                 <hit type="array">
                     {for $hit in $hits
                     let $b:=$hit/ancestor::benchmark
+					order by fn:number($hit/runtime)
                     return <_>{        
                     $hit/runtime,
+					$b/server/hostname,
                     $b/id}
                     </_>
                     }

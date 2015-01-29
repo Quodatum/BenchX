@@ -28,14 +28,15 @@
 				<thead>
 					<th>id</th>
 					<th>time</th>
+					<th>Hostname</th>
                     <th>Extra</th>
 				</thead>
 				<tbody>
-					<tr ng-repeat="r in compare.hit | orderBy: runtime ">
-					<td>{{r.id}}
-					<span ng-show="r.id=route.id">####</span>
+					<tr ng-repeat="r in compare.hit | orderBy: runtime " ng-class="{'bg-primary':r.id===route.id}">
+					<td><a href="#/library/item/{{r.id}}"  >{{r.id}}</a>
 					</td>
 					<td>{{r.runtime}}</td>
+					<td>{{r.hostname}}</td>
 					<td>{{r | json}}</td>
 					</tr>
 				</tbody>
