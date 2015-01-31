@@ -148,18 +148,21 @@
 						<tr ng-repeat="query in keys(data.queries)">
 							<td>{{query}}</td>
 							<td ng-repeat="state in keys(data.states)">
+							    <div>Runs: <span  class="badge">{{xx.length}}</span>
+							    <a class="pull-right"
+                                    href="#/library/item/{{benchmark.id}}/compare?query={{query}}&amp;state={{state}}"
+                                    title="compare with other similar runs from the library">
+                                    <i class="glyphicon glyphicon-transfer">
+                                    </i>
+                                </a>
+							    </div>
 								<div ng-repeat="run in xx=getRuns(state,query)" class="runtime"
 									title="{{run.created}}  {{run.mode}}{{run.factor}} ">
 									<span title="{{run.runtime}} secs" class="pull-right">{{run.runtime}}
 									</span>
 								</div>
-								<a
-									href="#/library/item/{{benchmark.id}}/compare?query={{query}}&amp;state={{state}}"
-									title="compare">
-									<i class="glyphicon glyphicon-transfer">
-									</i>
-									{{xx.length}}
-								</a>
+								
+								
 							</td>
 						</tr>
 					</tbody>

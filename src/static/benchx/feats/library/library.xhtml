@@ -15,9 +15,10 @@
 		</div>
 		
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-10">
 				<table class="table table-condensed table-striped table-bordered ">
 					<thead>
+					<tr>
 						<th>Title</th>
 						<th>Suite</th>
 						<th>BaseX</th>
@@ -27,10 +28,14 @@
 						<th>OS Arch</th>
 						<th>Created</th>
 						<th>Runs</th>
+						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="doc in docs">
-							<td><a href="#/library/item/{{doc.id}}">{{doc.description}}</a></td>
+							<td>
+							<a href="#/library/item/{{doc.id}}">{{doc.description}}</a>
+							<small>{{doc["id"]}}</small>
+							</td>
 							<td><a href="#/suite/{{doc.suite}}">{{doc.suite}}</a></td>
 							<td>{{doc["basex.version"]}}</td>
 							<td>{{doc["java.version"]}}</td>

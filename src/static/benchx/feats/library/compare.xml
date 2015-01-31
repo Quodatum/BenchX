@@ -14,28 +14,32 @@
 				<a href="#/library/item/{{route.id}}" title="record">{{route.id}}
 				</a>
 			</li>
-			<li class="active">compare query: {{route.query}},state: {{route.state}}
-			</li>
-			<li>
-
-			</li>
+			<li class="active">compare </li>
+			
 		</ol>
 	</div>
 
 	<div class="row">
 		<div class="col-md-8">
-			<table class="table table-condensed table-striped table-bordered ">
+		     <div>suite: <span class="label label-info">{{route.suite}}</span>
+		     , query: <span class="label label-info">{{route.query}}</span>
+		     , state: <span class="label label-info">{{route.state}}</span>
+		    </div>
+			<table class="table table-condensed table-bordered ">
 				<thead>
-					<th>id</th>
-					<th>time</th>
+				<th>Runtime</th>
+					<th>Title</th>
+					
 					<th>Hostname</th>
                     <th>Extra</th>
 				</thead>
 				<tbody>
-					<tr ng-repeat="r in compare.hit | orderBy: runtime " ng-class="{'bg-primary':r.id===route.id}">
-					<td><a href="#/library/item/{{r.id}}"  >{{r.id}}</a>
+					<tr ng-repeat="r in compare.hit | orderBy: runtime " >
+					<td ng-class="{'bg-primary':r.id===route.id}">{{r.runtime}}</td>
+					<td>{{r.description}}
+					<a href="#/library/item/{{r.id}}"  >{{r.id}}</a>
 					</td>
-					<td>{{r.runtime}}</td>
+					
 					<td>{{r.hostname}}</td>
 					<td>{{r | json}}</td>
 					</tr>

@@ -111,17 +111,6 @@ function state-post($mode,$factor as xs:double)
 
 
 (:~
- : list of library files
- :)
-declare 
-%rest:GET %rest:path("benchx/api/library")
-%output:method("json")   
-function library() 
-{
-    lib:list(())
-}; 
-
-(:~
  : save session timing data as a new library file
  :)
 declare %updating
@@ -141,6 +130,17 @@ declare
 function session-delete() 
 {
  s:clear()
+}; 
+
+(:~
+ : list of library files
+ :)
+declare 
+%rest:GET %rest:path("benchx/api/library")
+%output:method("json")   
+function library() 
+{
+    lib:list(())
 }; 
 
 (:~
@@ -184,7 +184,9 @@ function compare($id,$query,$state,$format)
                     return <_>{        
                     $hit/runtime,
 					$b/server/hostname,
-                    $b/id}
+					$b/meta/description,
+                    $b/id
+                    }
                     </_>
                     }
                 </hit>
