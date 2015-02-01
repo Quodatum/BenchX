@@ -62,20 +62,22 @@
           vertical-align:text-top;
           }
         </style><script src="lib/prettify.js" type="text/javascript"> </script><script src="lib/lang-xq.js" type="text/javascript"> </script><link rel="stylesheet" type="text/css" href="lib/prettify.css"/></head><body class="home"><div id="main"><h1><span class="namespace">apb.benchx.rest</span>  error module </h1><div id="variables"><h3>Variables</h3><div id="var_bm_timeout"><h4><pre class="prettyprint lang-xq"><u>Variable</u>: $bm:timeout as xs:integer</pre></h4><p>max time for execution of query</p></div></div><div id="functions"><h3>Functions</h3><div id="func_benchmark_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: benchmark(
-)</pre></h4><p>Benchmark html application entry point. Will create db if required</p></div><div id="func_error_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: error($description
-)</pre></h4><h5>Params</h5><ul><li>description as </li></ul></div><div id="func_execute_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: execute($body
-)</pre></h4><p>Execute one test</p><h5>Params</h5><ul><li>body as  name and suite</li></ul></div><div id="func_state_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: state(
+)</pre></h4><p>Benchmark html application entry point. Will create db if required</p></div><div id="func_error_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: error($description,$additional
+)</pre></h4><h5>Params</h5><ul><li>description as </li><li>additional as </li></ul></div><div id="func_execute_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: execute($body
+)</pre></h4><p>Execute one test and store to session</p><h5>Params</h5><ul><li>body as  name and suite</li></ul></div><div id="func_state_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: state(
 )</pre></h4><p>get information about application state</p></div><div id="func_state-post_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: state-post($mode,$factor as xs:double
-)</pre></h4><p>set application state mode and factor</p><h5>Params</h5><ul><li>mode as </li><li>factor as xs:double</li></ul></div><div id="func_state-delete_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: state-delete(
-)</pre></h4><p>clear any session state</p></div><div id="func_library_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: library(
-)</pre></h4><p>list of library files</p></div><div id="func_addrecord_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: addrecord($body
-)</pre></h4><p>post new record</p><h5>Params</h5><ul><li>body as </li></ul></div><div id="func_record_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: record($id,$format
-)</pre></h4><p>get record as json (default) or xml</p><h5>Params</h5><ul><li>id as </li><li>format as </li></ul></div><div id="func_record-delete_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: record-delete($id,$password
-)</pre></h4><p>delete record</p><h5>Params</h5><ul><li>id as </li><li>password as </li></ul></div><div id="func_testbed_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: testbed(
-)</pre></h4><p>testbed not part of app, use this for experiments</p></div><div id="func_suites_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: suites(
+)</pre></h4><p>set application state mode and factor</p><h5>Params</h5><ul><li>mode as </li><li>factor as xs:double</li></ul></div><div id="func_addrecord_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: addrecord($body
+)</pre></h4><p>save session timing data as a new library file</p><h5>Params</h5><ul><li>body as </li></ul></div><div id="func_session-delete_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: session-delete(
+)</pre></h4><p>clear any session timing data</p></div><div id="func_library_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: library(
+)</pre></h4><p>list of library files</p></div><div id="func_record_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: record($id,$format
+)</pre></h4><p>get record as json (default) or xml</p><h5>Params</h5><ul><li>id as </li><li>format as </li></ul></div><div id="func_compare_4"><h4><pre class="prettyprint lang-xq"><u>Function</u>: compare($id,$query,$state,$format
+)</pre></h4><p>get compare data for state like D0</p><h5>Params</h5><ul><li>id as </li><li>query as </li><li>state as </li><li>format as </li></ul></div><div id="func_record-delete_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: record-delete($id as xs:string,$password
+)</pre></h4><p>delete record</p><h5>Params</h5><ul><li>id as xs:string</li><li>password as </li></ul></div><div id="func_suites_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: suites(
 )</pre></h4><p>list of suites</p></div><div id="func_queries_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: queries($suite as xs:string
-)</pre></h4><p>Get list of tests in suite</p><h5>Params</h5><ul><li>suite as xs:string name of suite</li></ul></div><div id="func_env_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: env(
-)</pre></h4><p>Information about the server platform, Java version etc.</p></div></div><div><h3>Original Source Code</h3><pre class="prettyprint lang-xq">(:~ 
+)</pre></h4><p>Get list of tests in suite</p><h5>Params</h5><ul><li>suite as xs:string name of suite</li></ul></div><div id="func_about_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: about(
+)</pre></h4><p>Information about the server platform, Java version etc.</p></div><div id="func_env_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: env(
+)</pre></h4><p>distinct environments from the library.</p></div><div id="func_testbed_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: testbed(
+)</pre></h4><p>testbed not part of app, use this for experiments</p></div></div><div><h3>Original Source Code</h3><pre class="prettyprint lang-xq">(:~ 
  : A RESTXQ interface for running benchmarks against BaseX
  :@author Andy Bunce
  :@version 0.1
@@ -88,8 +90,7 @@ import module namespace s='apb.benchx.state' at 'state.xqm';
 import module namespace lib='apb.benchx.library' at 'library.xqm';
 
 import module namespace dbtools = 'apb.dbtools' at 'lib.xq/dbtools.xqm';
-import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
-import module namespace doc = 'apb.doc' at 'lib.xq/doctools.xqm';
+import module namespace env = 'quodatum.basex.env' at 'lib.xq/basex-env.xqm';
 import module namespace web = 'apb.web.utils3' at 'lib.xq/webutils.xqm';
 
 (:~
@@ -122,17 +123,16 @@ function benchmark()
 
 
 declare %rest:error("*")
-%rest:error-param("description", "{$description}") 
+%rest:error-param("description", "{$description}")
+%rest:error-param("additional","{$additional}") (: error stack trace  :)
 %output:method("text")  
-function error($description) {
-    (web:status(500,"Server error "),$description)
+function error($description,$additional) {
+    (web:status(500,"Server error $%^%Â£$ "),$additional)
 };
 
 
 (:~
- : Execute one test
- : @param name the test to run
- : @param time
+ : Execute one test and store to session
  : @param body name and suite
  : @return information about the result, including runtime
  :)
@@ -187,13 +187,26 @@ function state-post($mode,$factor as xs:double)
      )
 }; 
 
+
+
 (:~
- : clear any session state
+ : save session timing data as a new library file
+ :)
+declare %updating
+%rest:POST("{$body}") %rest:path("benchx/api/session")
+%output:method("json")   
+function addrecord($body) 
+{
+    lib:add-session($body,s:benchmark())  
+};
+
+(:~
+ : clear any session timing data
  :)
 declare 
-%rest:DELETE %rest:path("benchx/api/state")
+%rest:DELETE %rest:path("benchx/api/session")
 %output:method("json")   
-function state-delete() 
+function session-delete() 
 {
  s:clear()
 }; 
@@ -210,17 +223,6 @@ function library()
 }; 
 
 (:~
- : post new record
- :)
-declare %updating
-%rest:POST("{$body}") %rest:path("benchx/api/library")
-%output:method("json")   
-function addrecord($body) 
-{
-    lib:add-session($body,s:benchmark())  
-};
-
-(:~
  : get record as json (default) or xml
  :)
 declare 
@@ -229,47 +231,62 @@ declare
 %output:method("json")
 function record($id,$format) 
 {
-    let $b:=lib:id($id)
+    let $b:=lib:get($id)
     return if($format="json") then lib:json($b)
             else (web:download-response("xml",$id || ".xml"),$b) 
 };
 
 (:~
- : delete record
+ : get compare data for state like D0
  :)
 declare 
+%rest:GET %rest:path("benchx/api/library/{$id}/compare")
+%restxq:query-param("format", "{$format}","json")
+%restxq:query-param("query", "{$query}","")
+%restxq:query-param("state", "{$state}","")
+%output:method("json")
+function compare($id,$query,$state,$format) 
+{
+    let $suite as xs:string:=$lib:benchmarks[id=$id]/suite/fn:string()
+	let $hits:=$lib:benchmarks[suite=$suite]/runs/run[
+                     name=$query and
+                    (mode || factor)=$state
+                ]
+    let $_:=&lt;json objects="json _"&gt;
+                &lt;total type="number"&gt;{fn:count($hits)}&lt;/total&gt;
+                &lt;id&gt;{$id}&lt;/id&gt;
+                &lt;query&gt;{$query}&lt;/query&gt;
+                &lt;hit type="array"&gt;
+                    {for $hit in $hits
+                    let $b:=$hit/ancestor::benchmark
+					order by fn:number($hit/runtime)
+                    return &lt;_&gt;{        
+                    $hit/runtime,
+					$b/server/hostname,
+					$b/meta/description,
+                    $b/id
+                    }
+                    &lt;/_&gt;
+                    }
+                &lt;/hit&gt;
+            &lt;/json&gt; 
+    return $_
+};
+
+(:~
+ : delete record
+ :)
+declare %updating
 %rest:DELETE %rest:path("benchx/api/library/{$id}")
 %restxq:form-param("password", "{$password}")
 %output:method("json")   
-function record-delete($id,$password) 
+function record-delete($id as xs:string,$password) 
 {
-    &lt;json objects="json"&gt;
+   (db:output( &lt;json objects="json"&gt;
     &lt;todo&gt;password: {$password}&lt;/todo&gt;
-    &lt;/json&gt; 
+    &lt;/json&gt;),lib:delete($id) )
 };
  
-(:~
- : testbed not part of app, use this for experiments
- :)
-declare 
-%rest:GET %rest:path("benchx/api/~testbed")
-%output:method("json")   
-function testbed() 
-{
-   &lt;json  objects="json doc _" arrays="docs "&gt;
-   &lt;docs&gt;
-   {for $doc in $lib:benchmarks
-   order by $doc/meta/created
-   return &lt;_&gt;
-   {$doc/id,
-    $doc/server/suite,
-    $doc/server/description,
-    $doc/meta/description,
-    $doc/meta/created
-       }&lt;/_&gt;
-   }&lt;/docs&gt;&lt;/json&gt;    
-}; 
-
  
 (:~
  : list of suites
@@ -330,13 +347,48 @@ function queries($suite as xs:string)
  : @return json env array
  :)
 declare 
-%rest:GET %rest:path("benchx/api/environment")
+%rest:GET %rest:path("benchx/api/thisenv")
 %output:method("json")  
-function env() 
+function about() 
 {
 &lt;json type="object" &gt;
     {env:xml()/*}
 &lt;/json&gt;
+}; 
+
+(:~
+ : distinct environments from the library.
+ : @return json env array
+ :)
+declare 
+%rest:GET %rest:path("benchx/api/environment")
+%output:method("json")  
+function env() 
+{
+&lt;json type="array" &gt;   
+    {lib:environments()}
+&lt;/json&gt;
+}; 
+(:~
+ : testbed not part of app, use this for experiments
+ :)
+declare 
+%rest:GET %rest:path("benchx/api/~testbed")
+%output:method("json")   
+function testbed() 
+{
+   &lt;json  objects="json doc _" arrays="docs "&gt;
+   &lt;docs&gt;
+   {for $doc in $lib:benchmarks
+   order by $doc/meta/created
+   return &lt;_&gt;
+   {$doc/id,
+    $doc/server/suite,
+    $doc/server/description,
+    $doc/meta/description,
+    $doc/meta/created
+       }&lt;/_&gt;
+   }&lt;/docs&gt;&lt;/json&gt;    
 }; 
 
 </pre></div><br/><div class="footer"><p style="text-align:right"><i/> |

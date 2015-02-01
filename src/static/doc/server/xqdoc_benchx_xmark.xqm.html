@@ -127,8 +127,9 @@ as xs:string*{
  : run xmark query
  :)
 declare function time-xmark(
-  $query as xs:string,$timeout as xs:double
-) {
+  $query as xs:string,
+  $timeout as xs:double)
+ {
   let $xq:=get-xmark($query)
   let $xq:= 'declare base-uri "' || fn:static-base-uri() ||'";&amp;#10;' || $xq 
  
@@ -147,8 +148,8 @@ declare function time($xq as xs:string,$timeout as xs:double)
 as item()*{
  let $bindings:=map{}
  let $opts:=map {
-     "permission" := "create",
-     "timeout":=$timeout
+     "permission" : "create",
+     "timeout": $timeout
   }
   return try{
        let $t1:=prof:current-ms()

@@ -9,7 +9,8 @@ angular
 				'BenchX',
 				[ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
 						'ngLogging', 'angularMoment', 'googlechart',
-						'log.ex.uo', 'googlechart', 'dialog', 'ngStorage',
+						'log.ex.uo', 'googlechart', 'dialog',
+						'ngStorage','smart-table',
 						'BenchX.api', 'BenchX.services', 'BenchX.results',
 						'BenchX.library','BenchX.benchmark',
 						'services.httpRequestTracker' ])

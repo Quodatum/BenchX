@@ -68,6 +68,11 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 					$scope.setTitle("Compare");
 					$scope.compare = data;
 					$scope.route=$routeParams; //id,query,state
+					$scope.setView = function(v) {
+						$scope.view = v;
+						$location.search("view", v);
+					};
+					$scope.setView($routeParams.view ? $routeParams.view: "grid");
 				} ])
 				
 .controller(

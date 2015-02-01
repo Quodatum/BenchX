@@ -86,7 +86,7 @@ declare default function namespace 'apb.benchx.state';
 
 import module namespace xm='apb.xmark.test' at 'xmark.xqm';
 import module namespace lib='apb.benchx.library' at 'library.xqm';
-import module namespace env = 'apb.basex.env' at 'lib.xq/basex-env.xqm';
+import module namespace env = 'quodatum.basex.env' at 'lib.xq/basex-env.xqm';
 
 import module namespace session = "http://basex.org/modules/session";
 import module namespace sessions = "http://basex.org/modules/sessions";
@@ -146,12 +146,14 @@ declare function mode() as xs:string{
 (:~ set mode to file or database
  :)
 declare %updating function mode($mode as xs:string){
-    if($mode=mode()) then ()
-    else switch ($mode)
-        case "F" return db:drop("benchx-db")
-        case "D" return db:create("benchx-db"
+     switch ($mode)
+        case "F" return if(db:exists("benchx-db")) 
+                        then db:drop("benchx-db") else ()
+        case "D" return (
+                         db:create("benchx-db"
                             ,$xm:base-dir ||"benchx-db/auction.xml"
                             ,"auction.xml")
+                            )
         default return ()
 };
 

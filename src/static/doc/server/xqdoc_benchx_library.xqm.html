@@ -61,13 +61,18 @@
           width:50%;
           vertical-align:text-top;
           }
-        </style><script src="lib/prettify.js" type="text/javascript"> </script><script src="lib/lang-xq.js" type="text/javascript"> </script><link rel="stylesheet" type="text/css" href="lib/prettify.css"/></head><body class="home"><div id="main"><h1><span class="namespace">apb.benchx.library</span>  error module </h1><div id="variables"><h3>Variables</h3><div id="var_lib_new"><h4><pre class="prettyprint lang-xq"><u>Variable</u>: $lib:new as element(benchmark)</pre></h4><p>get new doc defaults</p></div><div id="var_lib_benchmarks"><h4><pre class="prettyprint lang-xq"><u>Variable</u>: $lib:benchmarks as element(benchmark)*</pre></h4></div></div><div id="functions"><h3>Functions</h3><div id="func_id_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: id($id
-) as element(benchmark)</pre></h4><p>get doc with given id</p><h5>Params</h5><ul><li>id as </li></ul><h5>Returns</h5><ul><li>element(benchmark)</li></ul></div><div id="func_add-session_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: add-session($data,
+        </style><script src="lib/prettify.js" type="text/javascript"> </script><script src="lib/lang-xq.js" type="text/javascript"> </script><link rel="stylesheet" type="text/css" href="lib/prettify.css"/></head><body class="home"><div id="main"><h1><span class="namespace">apb.benchx.library</span>  error module </h1><div id="variables"><h3>Variables</h3><div id="var_lib_new"><h4><pre class="prettyprint lang-xq"><u>Variable</u>: $lib:new as element(benchmark)</pre></h4><p>get new doc defaults</p></div><div id="var_lib_benchmarks"><h4><pre class="prettyprint lang-xq"><u>Variable</u>: $lib:benchmarks as element(benchmark)*</pre></h4></div></div><div id="functions"><h3>Functions</h3><div id="func_get_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: get($id as xs:string
+) as element(benchmark)</pre></h4><p>get benchmark doc with given id</p><h5>Params</h5><ul><li>id as xs:string</li></ul><h5>Returns</h5><ul><li>element(benchmark)</li></ul></div><div id="func_exists_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: exists($id as xs:string
+) as xs:boolean</pre></h4><h5>Params</h5><ul><li>id as xs:string</li></ul><h5>Returns</h5><ul><li>xs:boolean</li></ul></div><div id="func_add-session_2"><h4><pre class="prettyprint lang-xq"><u>Function</u>: add-session($data,
                 $session as element(benchmark)
-)</pre></h4><p>add session data to library</p><h5>Params</h5><ul><li>data as </li><li>session as element(benchmark)</li></ul></div><div id="func_store_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: store($results as element(benchmark)
-)</pre></h4><p>store in library</p><h5>Params</h5><ul><li>results as element(benchmark)</li></ul></div><div id="func_list_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: list($suite
+)</pre></h4><p>add session data to library</p><h5>Params</h5><ul><li>data as  json has title used for description</li><li>session as element(benchmark) has benchmark element</li></ul></div><div id="func_store_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: store($results as element(benchmark)
+)</pre></h4><p>store in library</p><h5>Params</h5><ul><li>results as element(benchmark)</li></ul></div><div id="func_delete_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: delete($id as xs:string
+)</pre></h4><p>delete id from library</p><h5>Params</h5><ul><li>id as xs:string</li></ul></div><div id="func_id_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: id($results as element(benchmark)
+) as xs:string</pre></h4><p>get id from XML</p><h5>Params</h5><ul><li>results as element(benchmark)</li></ul><h5>Returns</h5><ul><li>xs:string</li></ul></div><div id="func_list_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: list($suite
 )</pre></h4><p>list all in library</p><h5>Params</h5><ul><li>suite as </li></ul></div><div id="func_json_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: json($b as element(benchmark)
-) as element(json)</pre></h4><p>Prepare benchmark for json</p><h5>Params</h5><ul><li>b as element(benchmark) results of a run.</li></ul><h5>Returns</h5><ul><li>element(json): json style xml for serialization.</li></ul></div></div><div><h3>Original Source Code</h3><pre class="prettyprint lang-xq">(:~ 
+) as element(json)</pre></h4><p>Prepare benchmark for json</p><h5>Params</h5><ul><li>b as element(benchmark) results of a run.</li></ul><h5>Returns</h5><ul><li>element(json): json style xml for serialization.</li></ul></div><div id="func_environment_1"><h4><pre class="prettyprint lang-xq"><u>Function</u>: environment($benchmark as element(benchmark)
+) as element(_)*</pre></h4><p>environment from benchmark</p><h5>Params</h5><ul><li>benchmark as element(benchmark)</li></ul><h5>Returns</h5><ul><li>element(_)*</li></ul></div><div id="func_environments_0"><h4><pre class="prettyprint lang-xq"><u>Function</u>: environments(
+) as element(_)*</pre></h4><p>unique environments from docs</p><h5>Returns</h5><ul><li>element(_)*</li></ul></div></div><div><h3>Original Source Code</h3><pre class="prettyprint lang-xq">(:~ 
  : library handling for benchx
  :@author Andy Bunce
  :@version 0.1
@@ -84,15 +89,22 @@ declare variable $lib:new as element(benchmark)
 declare variable $lib:benchmarks as element(benchmark)*
              :=fn:collection("benchx/library")/benchmark;
 (:~
- : get doc with given id
+ : get benchmark doc with given id
  :)
-declare function id($id) as element(benchmark)
+declare function get($id as xs:string) as element(benchmark)
 {
-  $lib:benchmarks[id=$id]
+  let $b:=$lib:benchmarks[id=$id] (:@TODO use name? :)
+  return if($b) then $b else fn:error((),"Bad id")
 };
 
+declare function exists($id as xs:string) as xs:boolean
+{
+  $lib:benchmarks[id=$id] (:@TODO use name? :)
+};
 (:~
  : add session data to library
+ : @param $data json has title used for description
+ : @param $session has benchmark element
  :)
 declare %updating function add-session(
                 $data,
@@ -100,10 +112,12 @@ declare %updating function add-session(
 ){
     let $data:=fn:trace($data,"ADD ")
     let $desc:=$data/json/title/fn:string()
+    let $suite:=$data/json/suite/fn:string()
     let $id:=random:uuid()
     let $new:=copy $d:=$session
             modify (
             replace value of node $d/id with $id,
+            replace value of node $d/suite with $suite,
             replace value of node $d/meta/created with fn:current-dateTime(),
             replace value of node $d/meta/description with $desc
                  )
@@ -111,7 +125,7 @@ declare %updating function add-session(
           
     return (
             store($new), 
-            db:output(&lt;json objects="json"&gt;&lt;todo&gt;{$id}&lt;/todo&gt;&lt;/json&gt;)
+            db:output(&lt;json objects="json"&gt;&lt;id&gt;{$id}&lt;/id&gt;&lt;/json&gt;)
             )
 };
 
@@ -125,6 +139,20 @@ declare %updating function store($results as element(benchmark))
 };
 
 (:~
+ : delete id from library
+ :)
+declare %updating function delete($id as xs:string)
+{
+    db:delete("benchx", "library/" || $id || ".xml" )
+};
+
+(:~
+ : get id from XML
+ :)
+declare function id($results as element(benchmark)) as xs:string{
+    $results/id/fn:string()
+};
+(:~
  : list all in library
  :)
 declare function list($suite){
@@ -135,13 +163,15 @@ return &lt;json  objects="_" arrays="json "&gt;
    order by $doc/meta/created descending
    return &lt;_&gt;{$doc/id,
     $doc/suite,
+    $doc/environment/basex.version,
     $doc/server/description,
     $doc/meta/description,
     $doc/meta/created,
     $doc/environment/os.name,
     $doc/environment/os.arch,
     $doc/environment/java.version,
-    $doc/server/hostname
+    $doc/server/hostname,
+    &lt;runs type="number"&gt;{fn:count($doc/runs/run)}&lt;/runs&gt;
    }&lt;/_&gt;
    }&lt;/json&gt;
  };
@@ -155,15 +185,43 @@ return &lt;json  objects="_" arrays="json "&gt;
 declare function json($b as element(benchmark)
 )as element(json)
 {
-&lt;json objects="json benchmark meta server environment run"&gt;{
+&lt;json objects="json benchmark meta server environment "&gt;{
     copy $d:=$b
     modify (for $n in $d//*[@type="array"]/* 
-            return replace node $n with &lt;_ type="object"&gt;{$n}&lt;/_&gt;,
+            return replace node $n with &lt;_ type="object"&gt;{$n/*}&lt;/_&gt;,
             delete node $d//comment()
             )
     return $d
 }&lt;/json&gt;
-};</pre></div><br/><div class="footer"><p style="text-align:right"><i/> |
+};
+
+(:~
+ : environment from  benchmark
+ :)
+ declare function environment($benchmark as element(benchmark)) 
+ as element(_)*{
+     &lt;_ type="object"&gt;{
+     $benchmark/environment/*[fn:not(self::runtime.freeMemory 
+                                    | self::runtime.totalMemory
+                                    | self::runtime.maxMemory)]
+     }&lt;/_&gt;
+ };
+ 
+(:~
+ : unique environments from  docs
+ :)
+ declare function environments() 
+ as element(_)*{
+ fn:fold-left($lib:benchmarks,
+              (),
+               function($seq,$item){
+                      let $env:=lib:environment($item)
+                      return if(some $e in $seq satisfies fn:deep-equal($e,$env)) 
+                             then $seq 
+                             else ($env,$seq)
+              }
+              )
+ };</pre></div><br/><div class="footer"><p style="text-align:right"><i/> |
           generated by xquerydoc <a href="https://github.com/xquery/xquerydoc" target="xquerydoc">https://github.com/xquery/xquerydoc</a></p></div></div><script type="application/javascript">
 	  window.onload = function(){ prettyPrint(); }
 	</script></body></html>

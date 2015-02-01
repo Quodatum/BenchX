@@ -15,10 +15,59 @@
 				</a>
 			</li>
 			<li class="active">compare </li>
-			
+			<li>
+             <div class="btn-group btn-group-sm" >
+        <label >
+             <input type="checkbox" ng-model="formData.average" ng-change="onformData()"/>Average
+        </label>
+        
+    </div>
+    </li>
 		</ol>
+		 <strong> View:</strong>
+        <div class="btn-group btn-group-sm">
+           
+            <button ng-click="setView('grid')" class="btn btn-default "
+                ng-class="{'btn-primary':view=='grid'}">
+                <i class="glyphicon glyphicon-th"></i>
+                Grid
+            </button>
+            <button class="btn btn-default" ng-click="setView('graph')"
+                ng-class="{'btn-primary':view=='graph'}">
+                <i class="glyphicon glyphicon-signal"></i>
+                Graph
+            </button>
+            </div>
 	</div>
 
+	
+	<div class="animate-switch-container" ng-switch="view">
+        <div class="animate-switch" ng-switch-when="graph">
+        
+            <div class="panel  panel-info panel-body col-md-10">
+                <div google-chart="google-chart" chart="chartObject" onReady="chartReady"
+                    style="height:400px; width:100%;"></div>
+            </div>
+            <div class="panel  panel-info panel-body col-md-2">
+                <div>
+                    <small>
+                        <a href="#/suite/{{benchmark.suite}}" class="label label-info">{{benchmark.suite}}
+                        </a>
+                    </small>
+                    
+                    <small>
+                        Created:
+                        <span am-time-ago="benchmark.meta.created" title="{{benchmark.meta.created}}"></span>
+                        <span>, Runs:{{benchmark.runs.length}}</span>
+                    </small>
+                </div>
+                <div>{{benchmark.meta.description}}</div>
+                <div><div ng-repeat="state in keys(data.states)">{{state}}</div></div>
+                <div>max:{{data.max.runtime}} {{data.max.factor}}</div>
+                
+            </div>
+        </div>
+	<div class="animate-switch" ng-switch-default="ng-switch-default">
 	<div class="row">
 		<div class="col-md-8">
 		     <div>suite: <span class="label label-info">{{route.suite}}</span>
@@ -47,4 +96,5 @@
 			</table>
 		</div>
 	</div>
+    </div>
 </div>
