@@ -1,5 +1,5 @@
 <div>
-	<div class="container-fluid" ng-include="'templates/sessionbar.xml'"></div>
+	<div class="container-fluid" ng-include="'feats/suite/sessionbar.xml'"></div>
 	
 	<div class="animate-switch-container" ng-switch="view">
 	
@@ -9,7 +9,7 @@
 		</div>
 		
 		<div class="animate-switch " ng-switch-when="run"> 
-			<div ng-include="'templates/schedule.xml'">loading..</div>
+			<div ng-include="'feats/suite/schedule.xml'">loading..</div>
 		</div>
 		
 		<div class="animate-switch well" ng-switch-when="save">

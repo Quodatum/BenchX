@@ -125,6 +125,7 @@
 		<div class="animate-switch" ng-switch-default="ng-switch-default">
 			<div class="row">
 			<div>
+			Results:
                     <small>
                         <a href="#/suite/{{benchmark.suite}}" class="label label-info">{{benchmark.suite}}
                         </a>
@@ -139,7 +140,7 @@
                 <div>{{benchmark.meta.description}}</div>
 			</div>
 			<div class="row">
-				<table class="table table-striped">
+				<table class="table table-bordered table-hover">
 					<thead>
 						<th>Query</th>
 						<th ng-repeat="state in keys(data.states)">{{state}}</th>
