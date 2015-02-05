@@ -198,11 +198,14 @@
                                     </i>
                                 </a>
 							    </div>
-								<div ng-repeat="run in xx=getRuns(state,query)" class="runtime"
+								<div ng-repeat="run in xx=getRuns(state,query)" 
+								 class="runtime"
 									title="{{run.created}}  {{run.mode}}{{run.factor}} ">
+									<div >
 									<span title="{{run.runtime}} secs, status: {{run.status}}" 
-									ng-class="{'bg-danger':run.status.length}" class="pull-right">{{run.runtime}}
+									 ng-class="{'bg-danger':run.status.length}" class="pull-right">{{run.runtime}}
 									</span>
+									</div>
 								</div>
 								
 								

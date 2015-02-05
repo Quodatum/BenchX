@@ -5,8 +5,9 @@
  * @licence Apache 2
  */
 angular.module('BenchX.results', [])
-
-.factory("results", [ "api","$q", function(api,$q) {
+// r.suite() name of suite
+// r.data()
+.factory("results", [ "api","$q","$rootScope", function(api,$q,$rootScope) {
 	var _data;  //the data
 	var _activesuite = "";
 	console.log("init results----------------------------");
@@ -33,6 +34,7 @@ angular.module('BenchX.results', [])
 		
 		addRun:function(index,run){
 			_data.queries[index].runs.push(run);
+			$rootScope.$broadcast("session");
 		},
 		
 		addcall : function() {
@@ -48,6 +50,7 @@ angular.module('BenchX.results', [])
 							v) {
 						v.runs = [];
 					});
+			$rootScope.$broadcast("session");
 		}
 	};
 } ]);

@@ -112,7 +112,6 @@ angular
    hotkeys.add("s", "Go to suites",function(){
           return $location.url("/suite");});
    hotkeys.add("r", "Go to run",function(){
-          console.log("@@@","/suite/"+$rootScope.activesuite+"/session?view=run");
           return $location.url("/suite/"+$rootScope.activesuite+"/session?view=run");});
   }])
 
@@ -145,7 +144,7 @@ angular
          size : $rootScope.state.size
         }).then(function(res) {
          results.addRun(index, res.run);
-         $rootScope.$broadcast("session");
+         
         }, function(reason) {
          alert("Execution error" + reason.data);
         });

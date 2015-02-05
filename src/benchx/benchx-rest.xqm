@@ -95,7 +95,7 @@ function state()
  :)
 declare %updating
 %rest:POST %rest:path("benchx/api/state")
-%restxq:query-param("mode", "{$mode}")
+%restxq:query-param("mode", "{$mode}","D")
 %restxq:query-param("factor", "{$factor}")
 %output:method("json")   
 function state-post($mode,$factor as xs:double) 

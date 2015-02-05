@@ -1,0 +1,132 @@
+<benchmark>
+  <id>30a2a185-d0f6-4de4-b08e-66393c887c15</id>
+  <suite>sample1</suite>
+  <meta>
+    <created>2015-02-05T22:10:31.277Z</created>
+    <description>file vs db</description>
+  </meta>
+  <server>
+    <id/>
+    <hostname>(unknown)</hostname>
+    <description/>
+  </server>
+  <environment>
+    <basex.version>8.0 beta e0c62ce</basex.version>
+    <java.vendor>Oracle Corporation</java.vendor>
+    <java.version>1.7.0_60</java.version>
+    <java.vm.version>24.60-b09</java.vm.version>
+    <os.arch>amd64</os.arch>
+    <os.name>Windows 8.1</os.name>
+    <os.version>6.3</os.version>
+    <runtime.availableProcessors>4</runtime.availableProcessors>
+    <runtime.freeMemory>421 MB</runtime.freeMemory>
+    <runtime.maxMemory>455 MB</runtime.maxMemory>
+    <runtime.totalMemory>438 MB</runtime.totalMemory>
+  </environment>
+  <runs type="array">
+    <!-- 
+		<run>
+			<name>q1.xqm</name>
+			<runtime>124</runtime>
+			<factor>0</factor>
+			<mode>F</mode>
+		</run>
+		 -->
+    <run>
+      <runtime type="number">0.218</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-05T22:08:54.795Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.11</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-05T22:08:55.749Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.179</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-05T22:08:58.111Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-05T22:08:59.048Z</created>
+    </run>
+    <run>
+      <runtime type="number">2.687</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-05T22:09:03.922Z</created>
+    </run>
+    <run>
+      <runtime type="number">2.626</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-05T22:09:07.397Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.19</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-05T22:09:17.986Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.13</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-05T22:09:19.625Z</created>
+    </run>
+    <run>
+      <runtime type="number">5.34</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-05T22:09:27.875Z</created>
+    </run>
+    <run>
+      <runtime type="number">5.054</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-05T22:09:33.954Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.235</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-05T22:09:56.579Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.154</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-05T22:09:57.567Z</created>
+    </run>
+  </runs>
+</benchmark>

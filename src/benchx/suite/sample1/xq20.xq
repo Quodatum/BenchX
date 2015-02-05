@@ -1,4 +1,4 @@
-for $ppl in doc('benchx-db/auction.xml')//people/person 
+for $ppl in collection("benchx-db")//people/person 
 let $ic := $ppl/profile/@income
 let $income :=  if($ic < 30000) then
                    "challenge"

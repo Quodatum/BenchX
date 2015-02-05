@@ -1,4 +1,4 @@
-let $auction := doc("benchx-db/auction.xml") return
+let $auction := collection("benchx-db") return
 for $b in $auction/site/open_auctions/open_auction
 where
   some $pr1 in $b/bidder/personref[@person = "person20"],

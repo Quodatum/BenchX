@@ -1,4 +1,4 @@
-let $auction := doc("benchx-db/auction.xml") return
+let $auction := collection("benchx-db") return
 <result>
   <preferred>
     {count($auction/site/people/person/profile[@income >= 100000])}

@@ -1,4 +1,4 @@
-let $auction := doc("benchx-db/auction.xml") return
+let $auction := collection("benchx-db") return
 for $i in
   distinct-values($auction/site/people/person/profile/interest/@category)
 let $p :=

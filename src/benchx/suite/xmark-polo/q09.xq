@@ -1,4 +1,4 @@
-let $auction := doc("benchx-db/auction.xml") return
+let $auction := collection("benchx-db") return
 let $ca := $auction/site/closed_auctions/closed_auction return
 let
     $ei := $auction/site/regions/europe/item

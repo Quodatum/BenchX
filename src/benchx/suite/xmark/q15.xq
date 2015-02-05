@@ -1,4 +1,4 @@
-let $auction := doc("benchx-db/auction.xml") return
+let $auction := collection("benchx-db") return
 for $a in
   $auction/site/closed_auctions/closed_auction/annotation/description/parlist/
    listitem/
