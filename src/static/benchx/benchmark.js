@@ -14,7 +14,7 @@ angular.module('BenchX.benchmark', [])
 	return {
 		set : function(data){
 			_data=data;
-			console.log("TODO BenchX.benchmark",data)
+			//console.log("TODO BenchX.benchmark",data)
 			return data;
 			},
 		

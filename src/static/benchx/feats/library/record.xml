@@ -13,10 +13,10 @@
 			<li class="active">{{benchmark.id}}</li>
 			<li>
 			 <div class="btn-group btn-group-sm" >
-        <label >
+        <label title="Average" >
              <input type="checkbox" ng-model="formData.average" ng-change="onformData()"/>Average
         </label>
-        <label >
+        <label title="Not implemented">
             <input type="checkbox" ng-model="formData.relative" ng-change="onformData()"/>Relative
         </label>
     </div>
@@ -190,7 +190,7 @@
 						<tr ng-repeat="query in keys(data.queries)">
 							<td>{{query}}</td>
 							<td ng-repeat="state in keys(data.states)">
-							    <div>Runs: <span  class="badge">{{xx.length}}</span>
+							    <div>Runs: <span  class="badge">{{runs.length}}</span>
 							    <a class="pull-right"
                                     href="#/library/item/{{benchmark.id}}/compare?query={{query}}&amp;state={{state}}"
                                     title="compare with other similar runs from the library">
@@ -198,10 +198,11 @@
                                     </i>
                                 </a>
 							    </div>
-								<div ng-repeat="run in xx=getRuns(state,query)" 
+								<div ng-repeat="run in runs=getRuns(state,query)" 
 								 class="runtime"
 									title="{{run.created}}  {{run.mode}}{{run.factor}} ">
 									<div >
+									<span ng-show="run.count">{{run.count}}</span>
 									<span title="{{run.runtime}} secs, status: {{run.status}}" 
 									 ng-class="{'bg-danger':run.status.length}" class="pull-right">{{run.runtime}}
 									</span>

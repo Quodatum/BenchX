@@ -137,10 +137,11 @@ function session-delete()
  :)
 declare 
 %rest:GET %rest:path("benchx/api/library")
+%restxq:query-param("suite", "{$suite}")
 %output:method("json")   
-function library() 
+function library($suite) 
 {
-    lib:list(())
+    lib:list($suite)
 }; 
 
 (:~
@@ -176,6 +177,7 @@ function compare($id,$query,$state,$format)
     let $_:=<json objects="json _">
                 <total type="number">{fn:count($hits)}</total>
                 <id>{$id}</id>
+                <suite>{$suite}</suite>
                 <query>{$query}</query>
                 <hit type="array">
                     {for $hit in $hits

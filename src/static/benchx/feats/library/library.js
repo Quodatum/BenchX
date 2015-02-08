@@ -7,12 +7,14 @@
 angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 
 .config([ '$routeProvider', function($routeProvider) {
+  
 	$routeProvider.when('/library', {
 		templateUrl : '/static/benchx/feats/library/library.xhtml',
 		controller : "LibraryController",
 		resolve : {
-			data : function(api) {
-				return api.library().query().$promise;
+			data : function(api,$route) {
+			    var suite = $route.current.params.suite;
+				return api.library().query({suite:suite}).$promise;
 			}
 		}
 
@@ -66,13 +68,61 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 		[ "$scope", "$rootScope","$routeParams","$location", "data", "$log",
 				function($scope, $rootScope,$routeParams,$location, data, $log) {
 					$scope.setTitle("Compare");
+					// data =
 					$scope.compare = data;
+					console.log("compare",data);
 					$scope.route=$routeParams; //id,query,state
 					$scope.setView = function(v) {
 						$scope.view = v;
 						$location.search("view", v);
 					};
 					$scope.setView($routeParams.view ? $routeParams.view: "grid");
+					// json data for google bar chart
+                    function genChart(){            
+                        var cols = [ {
+                          id : "t",
+                          label : "host",
+                          type : "string"
+                      } ];
+                      angular.forEach(data.hit, function(v, index) {
+                          cols.push({
+                              id : "R" + index,
+                              label : v.hostname,
+                              type : "number"
+                          });
+                      });
+                      var rows = [];
+                      angular.forEach(data.hit, function(q, i) {
+                          var d = [ {
+                              v : q.name
+                          } ];
+                          angular.forEach(data.hit, function(r, i2) {
+                              d.push({
+                                  v : r.runtime
+                              });
+                          });
+                          rows.push({
+                              c : d
+                          });
+                      });
+                        var options={
+                                 title:'Compare: ' + data.suite + " " + data.query,
+                                 vAxis: {title: 'Time (sec)'}
+                                 ,hAxis: {title: 'System'}
+                                // ,legend: 'none'
+                                 };
+                       return {
+                          type : "ColumnChart",
+                          options : options,
+                          data : {
+                              "cols" : cols,
+                              "rows" : rows
+                          }
+                      };
+                    };
+                    var c=genChart();
+                    console.log("chart",c);
+                    $scope.chartObject=c;
 				} ])
 				
 .controller(
@@ -106,13 +156,22 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 					var b=benchmark.set(data.benchmark);
 					$scope.benchmark = data.benchmark;
 					if($scope.formData.average){
-						console.log("average");
-						var a=_.groupBy($scope.benchmark.runs,function(run){return run.name+run.mode + run.factor;});
+					     // create averaged run for each state
+					    // states has keys for each states
+						var states=_.groupBy($scope.benchmark.runs,function(run){return run.name+run.mode + run.factor;});
+						var r2=_.map(states,function(runs){
+                						  var r=runs[0];
+                						  r.count=runs.length;
+                						  var t=_.reduce(runs,function(sum,run){return sum+run.runtime;},0);
+                						  r.runtime=(t/r.count).toFixed(3);
+                						  return r;
+                						});
+						$scope.benchmark.runs=r2;
 					};
 					if($scope.formData.relative){
 						console.log("relative");
 					};
-					console.log("benchmark: ",$scope.benchmark);
+					//console.log("benchmark: ",$scope.benchmark);
 					//@TODO Extract names of factor
 					$scope.data={
 						//{state:[{run}]}

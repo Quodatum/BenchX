@@ -17,7 +17,7 @@
 			<li class="active">compare </li>
 			<li>
 				<div class="btn-group btn-group-sm">
-					<label>
+					<label title="Not implemented">
 						<input type="checkbox" ng-model="formData.average"
 							ng-change="onformData()" />
 						Average
@@ -74,10 +74,10 @@
 				<div class="col-md-8">
 					<h3>Compare: 
 						suite:
-						<span class="label label-info">{{route.suite}}</span>
-						, query:
+						<span class="label label-info">{{compare.suite}}</span>
+						  query:
 						<span class="label label-info">{{route.query}}</span>
-						, state:
+						  state:
 						<span class="label label-info">{{route.state}}</span>
 					</h3>
 					<table class="table  table-bordered table-hover">
