@@ -91,7 +91,7 @@ declare function factor($factor as xs:double){
     else xm:xmlgen($factor)
 };
 
-declare %updating function make($mode,$factor as xs:double){
+declare %updating function make($mode as xs:string,$factor as xs:double){
     let $x:=fn:trace(($mode,$factor),"MAKE")
     let $x:=factor($factor)
     return (mode($mode),set-state($mode,$factor))

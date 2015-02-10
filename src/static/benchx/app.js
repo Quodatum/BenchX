@@ -88,7 +88,7 @@ angular
            activesuite: "xmark"
        });
        $rootScope.setTitle = function(t) {
-        $window.document.title = t + " BenchX v0.7.0";
+        $window.document.title = t + " BenchX v0.7.2";
        };
        $rootScope.results=results;
        $rootScope.tasks=taskqueue;
@@ -243,7 +243,7 @@ angular
       function($scope, $rootScope, api, $localStorage, $log) {
        // return array of tasks to set state then run each
                             // query
-       function makerun(mode, factor) {
+       function makerun(mode, factor,repeat) {
         var tasks = [ {
          cmd : "state",
          data : {
@@ -253,14 +253,15 @@ angular
         } ];
         angular.forEach($rootScope.results.data().queries,
           function(v, index) {
+          for (var i = 0; i < repeat; i++) {
            tasks.push({
             cmd : "run",
             data : index
            });
-          });
+          };
+       });
         return tasks;
-       }
-       ;
+       };
        $scope.$storage = $localStorage.$default({
         settings : {
          mode : "F",
@@ -276,11 +277,10 @@ angular
        $scope.executeAll = function() {
         var settings = $scope.$storage.settings;
         var q=$rootScope.tasks.q;
-        for (var i = 0; i < settings.repeat; i++) {
          var f = settings.factor;
          do {
           var m = settings.mode;
-          q.push(makerun(m, f));
+          q.push(makerun(m, f,settings.repeat));
           if (settings.allmodes) {
            m = (m == "F") ? "D" : "F";
            q.push( makerun(m, f));
@@ -289,8 +289,7 @@ angular
           f += settings.incr;
          } while (settings.doIncr
            && f <= settings.maxfactor);
-        }
-        ;
+        
         $scope.setView("graph");
        };
        $scope.setNow = function() {
