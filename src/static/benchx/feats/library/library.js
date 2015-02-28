@@ -233,13 +233,16 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 												"runs":_.sortBy(v,state)
 												}
 								;});
-						var c=_.map(session[0].runs,function(run,index){
+						var c=[];
+						if(session.length){
+						  c=_.map(session[0].runs,function(run,index){
 									var state=run.mode + run.factor;
 									var pos=states.indexOf(state);
 									//console.log("££",state,pos);
 									return colors[pos];
-						});
-						c=_.flatten(c);
+    						});
+    						c=_.flatten(c);
+						};
 						var options={
 								 title:'BenchX: ' + $scope.benchmark.suite + " " + $scope.benchmark.meta.description,
 								 vAxis: {title: 'Time (sec)'}

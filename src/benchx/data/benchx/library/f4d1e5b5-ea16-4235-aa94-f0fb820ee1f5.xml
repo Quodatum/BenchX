@@ -1,0 +1,2628 @@
+<benchmark>
+  <id>f4d1e5b5-ea16-4235-aa94-f0fb820ee1f5</id>
+  <suite>xmark-polo</suite>
+  <meta>
+    <created>2015-02-27T22:12:38.602Z</created>
+    <description>sliced d0-1</description>
+  </meta>
+  <server>
+    <id>f0bde6ea-adb4-40c2-89d8-c9a896be92a2</id>
+    <hostname>redfish</hostname>
+    <description/>
+  </server>
+  <environment>
+    <basex.version>8.0</basex.version>
+    <java.vendor>Oracle Corporation</java.vendor>
+    <java.version>1.7.0_60</java.version>
+    <java.vm.version>24.60-b09</java.vm.version>
+    <os.arch>amd64</os.arch>
+    <os.name>Windows 8.1</os.name>
+    <os.version>6.3</os.version>
+    <runtime.availableProcessors>4</runtime.availableProcessors>
+    <runtime.freeMemory>447 MB</runtime.freeMemory>
+    <runtime.maxMemory>465 MB</runtime.maxMemory>
+    <runtime.totalMemory>465 MB</runtime.totalMemory>
+  </environment>
+  <runs type="array">
+    <!-- 
+		<run>
+			<name>q1.xqm</name>
+			<runtime>124</runtime>
+			<factor>0</factor>
+			<mode>F</mode>
+		</run>
+		 -->
+    <run>
+      <runtime type="number">0.161</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:04.644Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.128</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:05.715Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:06.64Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.11</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:07.516Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.105</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:08.443Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:09.314Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:10.178Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:11.039Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:11.907Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:12.769Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:13.644Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:14.517Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.124</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:15.4Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.11</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:16.3Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:17.214Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.117</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:18.365Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:19.246Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:20.086Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:20.918Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:21.759Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:22.587Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:23.437Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:24.265Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:25.131Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.114</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:25.971Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:26.837Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:27.667Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:28.52Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:29.35Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.105</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:30.186Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:31.01Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:31.847Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.11</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:32.688Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.11</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:33.539Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.114</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:34.394Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:35.248Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.117</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:36.093Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:36.941Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:37.772Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:38.617Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:39.438Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:40.272Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.11</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:41.149Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:42.016Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:42.864Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.105</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:43.723Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:44.557Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:45.392Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:46.226Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:47.043Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.105</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:47.864Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:48.731Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:49.576Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.105</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>F</mode>
+      <factor>0</factor>
+      <created>2015-02-27T21:38:50.425Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.122</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:38:56.998Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:38:58.072Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.119</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:38:58.964Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.121</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:38:59.844Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.119</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:00.704Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.251</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:01.577Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.119</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:02.553Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.118</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:03.433Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.138</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:04.286Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.124</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:05.236Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.119</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:06.136Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.126</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:06.987Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:07.85Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:08.725Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.123</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:09.583Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:10.442Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.126</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:11.278Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.122</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:12.174Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.125</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:13.124Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.122</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:14.006Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.126</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:14.9Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:15.745Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.121</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:16.585Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.118</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:17.429Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:18.269Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.125</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:19.175Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.132</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:20.103Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.121</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:20.998Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.124</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:21.851Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.122</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:22.751Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.121</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:23.614Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.132</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:24.489Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.127</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:25.356Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.122</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:26.237Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:27.122Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.122</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:27.995Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:28.887Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.122</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:29.754Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.124</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:30.617Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.121</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:31.477Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:32.318Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.119</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:33.155Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:34Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.121</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:34.86Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.124</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:35.738Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.126</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:36.603Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.121</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:37.485Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.125</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:38.357Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:39.2Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.118</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:40.051Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.122</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:40.887Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.122</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:41.744Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.123</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:42.611Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.127</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>F</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T21:39:43.504Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.136</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:03.864Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.134</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:05.146Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.136</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:06.44Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.164</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:07.969Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.132</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:09.811Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.134</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:10.683Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:11.719Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.143</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:12.615Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.257</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:13.517Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.134</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:14.55Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:15.41Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.136</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:16.275Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.134</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:17.136Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:18.006Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.134</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:18.885Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.133</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:19.755Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.134</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:20.611Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.132</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:21.473Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.133</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:22.327Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.131</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:23.186Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.131</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:24.038Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:24.915Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.136</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:25.782Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.132</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:26.649Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.133</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:27.494Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.136</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:28.361Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:29.228Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.137</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:30.096Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.137</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:30.952Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:31.823Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.137</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:32.677Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.132</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:33.533Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.132</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:34.383Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:35.246Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.134</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:36.104Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:36.963Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.133</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:37.827Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.137</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:38.687Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.137</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:39.562Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.136</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:40.458Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.143</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:41.345Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.134</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:42.239Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:43.122Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:44.001Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.132</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:44.862Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.132</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:45.722Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.141</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:46.679Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.144</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:47.586Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.139</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:48.506Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.133</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:49.414Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.133</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:50.311Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.133</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:51.172Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.132</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:52.034Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>F</mode>
+      <factor>1</factor>
+      <created>2015-02-27T21:40:52.902Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.136</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:07:52.498Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:07:53.412Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:07:54.248Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.11</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:07:55.096Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:07:55.957Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:07:56.795Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:07:57.642Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:07:58.505Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:07:59.364Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:00.252Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:01.127Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.11</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:02Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:02.851Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:03.692Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:04.524Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:05.365Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:06.193Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:07.039Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:07.882Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.117</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:08.791Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:09.672Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.11</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:10.542Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:11.383Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.114</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:12.217Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:13.06Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.11</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:13.913Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:14.742Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:15.6Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:16.451Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:17.33Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.113</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:18.197Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:19.06Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:19.905Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.113</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:20.738Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.113</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:21.598Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:22.446Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:23.293Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.116</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:24.242Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.114</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:25.138Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.115</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:26.002Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:26.875Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:27.72Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:28.581Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:29.416Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:30.29Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.124</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:31.145Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:32.007Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:32.848Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.11</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:33.718Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.119</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:34.574Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:35.434Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:36.27Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:37.137Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-02-27T22:08:38.011Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.115</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:08:55.822Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.113</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:08:56.695Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:08:57.633Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.255</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:08:58.499Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.175</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:08:59.499Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.139</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:00.424Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.278</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:01.298Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.219</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:02.301Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.183</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:03.235Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.195</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:04.151Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.162</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:05.085Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.172</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:05.989Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.136</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:06.921Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.138</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:07.836Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:08.71Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.144</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:09.563Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.142</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:10.425Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.146</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:11.282Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.366</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:12.143Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.358</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:13.255Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.358</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:14.342Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.797</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:15.42Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.576</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:16.944Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.619</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:18.242Z</created>
+    </run>
+    <run>
+      <runtime type="number">10</runtime>
+      <status>bxerr:BXXQ0004</status>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:19.567Z</created>
+    </run>
+    <run>
+      <runtime type="number">10</runtime>
+      <status>bxerr:BXXQ0004</status>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:30.402Z</created>
+    </run>
+    <run>
+      <runtime type="number">10</runtime>
+      <status>bxerr:BXXQ0004</status>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:41.222Z</created>
+    </run>
+    <run>
+      <runtime type="number">1.377</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:52.057Z</created>
+    </run>
+    <run>
+      <runtime type="number">1.292</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:54.218Z</created>
+    </run>
+    <run>
+      <runtime type="number">1.329</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:56.239Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.179</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:58.319Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.166</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:09:59.232Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.198</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:00.149Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.446</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:01.118Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.422</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:02.329Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.462</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:03.494Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.13</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:04.704Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.122</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:05.559Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.124</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:06.402Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.123</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:07.25Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.123</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:08.108Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.128</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:08.989Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.141</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:09.876Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.138</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:10.77Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.142</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:11.625Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.195</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:12.485Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.181</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:13.4Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.148</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:14.305Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.347</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:15.165Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.368</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:16.231Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.318</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:17.358Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.199</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:18.424Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.179</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:19.447Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.175</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0.5</factor>
+      <created>2015-02-27T22:10:20.376Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.117</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:10:49.504Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:10:50.374Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:10:51.308Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.179</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:10:52.294Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.173</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:10:53.229Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.172</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:10:54.127Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.246</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:10:55.035Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.236</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:10:56.008Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.236</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:10:56.966Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.194</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:10:57.954Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.192</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:10:58.884Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.195</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:10:59.806Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.151</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:00.728Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.149</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:01.595Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.15</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:02.481Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.173</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:03.354Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.171</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:04.283Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.173</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:05.181Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.589</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:06.086Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.591</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:07.394Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.585</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:08.725Z</created>
+    </run>
+    <run>
+      <runtime type="number">1.115</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:10.027Z</created>
+    </run>
+    <run>
+      <runtime type="number">1.094</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:11.851Z</created>
+    </run>
+    <run>
+      <runtime type="number">1.088</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:13.665Z</created>
+    </run>
+    <run>
+      <runtime type="number">10</runtime>
+      <status>bxerr:BXXQ0004</status>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:15.481Z</created>
+    </run>
+    <run>
+      <runtime type="number">10</runtime>
+      <status>bxerr:BXXQ0004</status>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:26.347Z</created>
+    </run>
+    <run>
+      <runtime type="number">10</runtime>
+      <status>bxerr:BXXQ0004</status>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:37.208Z</created>
+    </run>
+    <run>
+      <runtime type="number">2.673</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:48.08Z</created>
+    </run>
+    <run>
+      <runtime type="number">2.811</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:51.471Z</created>
+    </run>
+    <run>
+      <runtime type="number">2.684</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:55.007Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.225</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:58.443Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.222</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:11:59.401Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.248</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:00.36Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.725</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:01.326Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.712</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:02.773Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.717</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:04.208Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:05.655Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.138</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:06.512Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.137</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:07.373Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.148</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:08.225Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:09.095Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.137</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:09.939Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.169</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:10.794Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.168</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:11.694Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.17</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:12.585Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.18</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:13.471Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.176</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:14.39Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.174</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:15.302Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.482</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:16.241Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.481</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:17.49Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.5</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:18.713Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.238</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:19.95Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.24</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:20.914Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.239</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-02-27T22:12:21.875Z</created>
+    </run>
+  </runs>
+</benchmark>

@@ -29,7 +29,7 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
 		// create google chart data structure
 		// @param session [{name:query, runs:[]}]
 		gchart : function(session, options) {
-			if (!session)
+			if (!angular.isArray(session) || 0==session.length)
 				return;
 			var cols = [ {
 				id : "t",

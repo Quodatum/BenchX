@@ -9,6 +9,7 @@ declare default function namespace 'apb.benchx.rest';
 import module namespace xm='apb.xmark.test' at 'xmark.xqm';
 import module namespace s='apb.benchx.state' at 'state.xqm';
 import module namespace lib='apb.benchx.library' at 'library.xqm';
+import module namespace suite='apb.benchx.suite' at 'suite.xqm';
 
 import module namespace dbtools = 'apb.dbtools' at 'lib.xq/dbtools.xqm';
 import module namespace env = 'quodatum.basex.env' at 'lib.xq/basex-env.xqm';
@@ -28,9 +29,9 @@ declare %updating
 %output:method("html")   
 function benchmark()
 {
-    if(fn:not(env:basex-minversion("7.8.2"))) then      
+    if(fn:not(env:basex-minversion("8.0"))) then      
             db:output(
-            (web:status(500,"Server error")," BaseX min ver 7.8.2 required")
+            (web:status(500,"Server error")," BaseX min ver 8.0 required")
             )
     else
         (s:init(),
@@ -51,6 +52,43 @@ function error($description,$additional) {
     (web:status(500,"Server error $%^%£$ "),$additional)
 };
 
+(:~
+ : run xmark query
+ :)
+declare function time-xmark(
+  $xq as xs:string,
+  $timeout as xs:double)
+ {
+  let $xq:= 'declare base-uri "' || fn:static-base-uri() ||'";&#10;' || $xq 
+ 
+  let $res:= time($xq,$timeout)
+  return (<runtime type="number">{$res[1]}</runtime>,
+         <status>{$res[2]}</status>)
+};
+
+
+(:~
+ : @param $xq xquery to evaluate 
+ : @param $timeout stop execution after this time in seconds
+ : @return two item sequence(execution time of $xq ,error code or "")
+ :) 
+declare function time($xq as xs:string,$timeout as xs:double)
+as item()*{
+ let $bindings:=map{}
+ let $opts:=map {
+     "permission" : "create",
+     "timeout": $timeout
+  }
+  return try{
+       let $t1:=prof:current-ms()
+       let $x:= xquery:eval($xq,$bindings,$opts)
+       let $t:=(prof:current-ms()-$t1) div 1000
+       return ($t,"")
+      }catch * 
+      {
+        ($timeout ,$err:code)
+      }
+};
 
 (:~
  : Execute one test and store to session
@@ -64,7 +102,8 @@ function execute($body)
 {
 let $name:=$body/json/name/fn:string()
 let $suite:=$body/json/suite/fn:string()
-let $time:=xm:time-xmark($suite || "/" || $name,$bm:timeout)
+let $xq:=suite:get-query($suite || "/" || $name)
+let $time:=time-xmark($xq,$bm:timeout)
 let $run:= <run>
         {$time}
         <name>{$name}</name>
@@ -220,10 +259,10 @@ declare
 %output:method("json")   
 function suites() 
 {
-    let $suites:=xm:list-suites()
+    let $suites:=suite:list()
     return <json type="array">{
     for $suite in $suites
-    let $desc:=xm:describe( $suite)
+    let $desc:=suite:describe( $suite)
     return <_ type="object">
             <name>{$suite}</name>
             <href>#/suite/{$suite}</href>
@@ -231,7 +270,7 @@ function suites()
             <session>#/suite/{$suite}/session</session>
             <library>#/suite/{$suite}/library</library>
             <results type="number">{fn:count($lib:benchmarks[suite=$suite])}</results>
-            <queries type="array">{ for  $file in xm:queries( $suite )
+            <queries type="array">{ for  $file in suite:queries( $suite )
                     return <_>{$file}</_>
             }</queries>
             </_>
@@ -254,10 +293,10 @@ function queries($suite as xs:string)
      <session>#/suite/{$suite}/session</session>
     <library>#/suite/{$suite}/library</library>
     <queries>
-    { for  $file in xm:queries( $suite )
+    { for  $file in suite:queries( $suite )
             return <_>
                 <name>{$file}</name>
-                <src>{xm:get-xmark($suite || "/" || $file)}</src>
+                <src>{suite:get-query($suite || "/" || $file)}</src>
                 <runs />
                 </_>
     }

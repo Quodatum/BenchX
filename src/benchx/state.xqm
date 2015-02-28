@@ -14,6 +14,7 @@ import module namespace env = 'quodatum.basex.env' at 'lib.xq/basex-env.xqm';
 import module namespace session = "http://basex.org/modules/session";
 import module namespace sessions = "http://basex.org/modules/sessions";
 
+declare variable $s:session:="benchx.values";
 declare variable $s:root:=fn:doc(fn:resolve-uri("state.xml"))/root;
 
 declare  function benchmark() as element(benchmark)
@@ -26,15 +27,19 @@ declare  function benchmark() as element(benchmark)
     return $s
 };
 
+(:~
+ : get session or new
+ :)
 declare %private function _benchmark() as element(benchmark)
 {
-  let $s:=session:get("benchmark.values")
+  let $s:=session:get($s:session)
   return if(fn:empty($s)) then $lib:new else $s
 };
 
+(:~ save to session :)
 declare function benchmark($newValue as element(benchmark))
  as element(benchmark){
- session:set("benchmark.values",$lib:new)
+ session:set($s:session,$lib:new)
 };
 
 (:~ add new result to session 
@@ -44,14 +49,14 @@ declare function add($result as element(run))
     let $new:=copy $d:=_benchmark()
               modify insert node $result into $d/runs
               return $d        
-    return session:set("benchmark.values",$new)
+    return session:set($s:session,$new)
 };
 
 (:~ delete session values 
  :)
 declare function clear()
 {
-    session:delete("benchmark.values")
+    session:delete($s:session)
 };
 
 (:~
@@ -74,8 +79,8 @@ declare %updating function mode($mode as xs:string){
                         then db:drop("benchx-db") else ()
         case "D" return (
                          db:create("benchx-db"
-                            ,$xm:base-dir ||"benchx-db/auction.xml"
-                            ,"auction.xml")
+                            ,$xm:base-dir ||"benchx-db",
+                            "",map{"createfilter":"*"})
                             )
         default return ()
 };
