@@ -243,10 +243,11 @@ angular
       function($scope, $rootScope, api, $localStorage, $log) {
        // return array of tasks to set state then run each
                             // query
-       function makerun(mode, factor,repeat) {
+       function makerun(generator,mode, factor,repeat) {
         var tasks = [ {
          cmd : "state",
          data : {
+           generator : generator, 
           mode : mode,
           factor : factor
          }
@@ -286,10 +287,10 @@ angular
          var f = settings.factor;
          do {
           var m = settings.mode;
-          q.push(makerun(m, f,settings.repeat));
+          q.push(makerun(settings.generator,m, f,settings.repeat));
           if (settings.allmodes) {
            m = (m == "F") ? "D" : "F";
-           q.push( makerun(m, f));
+           q.push( makerun(settings.generator,m, f));
           }
           ;
           f += settings.incr;
