@@ -6,7 +6,6 @@
 module namespace bm = 'apb.benchx.rest';
 declare default function namespace 'apb.benchx.rest'; 
 
-import module namespace xm='apb.xmark.test' at 'xmark.xqm';
 import module namespace s='apb.benchx.state' at 'state.xqm';
 import module namespace lib='apb.benchx.library' at 'library.xqm';
 import module namespace suite='apb.benchx.suite' at 'suite.xqm';
@@ -15,10 +14,7 @@ import module namespace dbtools = 'apb.dbtools' at 'lib.xq/dbtools.xqm';
 import module namespace env = 'quodatum.basex.env' at 'lib.xq/basex-env.xqm';
 import module namespace web = 'apb.web.utils3' at 'lib.xq/webutils.xqm';
 
-(:~
- : max time for execution of query
- :)
-declare variable $bm:timeout as xs:integer:=10;
+
 
 (:~
  : Benchmark html application entry point.
@@ -103,7 +99,7 @@ function execute($body)
 let $name:=$body/json/name/fn:string()
 let $suite:=$body/json/suite/fn:string()
 let $xq:=suite:get-query($suite || "/" || $name)
-let $time:=time-xmark($xq,$bm:timeout)
+let $time:=time-xmark($xq,s:timeout())
 let $run:= <run>
         {$time}
         <name>{$name}</name>
@@ -136,14 +132,17 @@ declare %updating
 %rest:POST %rest:path("benchx/api/state")
 %restxq:query-param("mode", "{$mode}","D")
 %restxq:query-param("factor", "{$factor}")
+%restxq:query-param("generator", "{$generator}","xmlgen")
 %output:method("json")   
-function state-post($mode,$factor as xs:double) 
+function state-post($mode,
+                    $factor as xs:double,
+                    $generator) 
 {
     (: @TODO o/p new rather than current state :)
     let $factor:=fn:trace($factor,"factor:")
     return (
         db:output(<json objects="json state">{s:state()}</json>),
-        s:make($mode,$factor)
+        s:make($mode,$factor,$generator)
      )
 }; 
 

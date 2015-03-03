@@ -17,6 +17,15 @@
 						</div>
 					</div>
 					<div class="form-group">
+                        <label>
+                            Generator:
+                    <select  ng-model="$storage.settings.generator" 
+                     ng-options="opt.value as opt.label for opt in generators">  
+                    </select>
+                    </label>
+                    </div>
+                    
+					<div class="form-group">
 						<label>
 							Factor:
 							<input class="input-sm in8" type="number" ng-model="$storage.settings.factor"
@@ -24,9 +33,11 @@
 							({{$storage.settings.factor | factorBytes | readablizeBytes}})
 						</label>
 					</div>
+					<div class="alert alert-warning" role="alert">Factors above 1 with generator "xmlgen" may cause an out of 
+                    memory when setting database mode.</div>
 					<button class="btn btn-info  btn-sm pull-right" ng-click="setNow()"
 						title="Set now">Set now</button>
-                    <p>Factors above 1 may cause an out of memory when setting database mode.</p>
+                    
 				</div>
 			</div>
 			<div class="panel  panel-info panel-body col-md-4">

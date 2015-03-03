@@ -7,7 +7,7 @@
 module namespace s = 'apb.benchx.state';
 declare default function namespace 'apb.benchx.state'; 
 
-import module namespace xm='apb.xmark.test' at 'xmark.xqm';
+import module namespace xm='apb.xmark.xmlgen' at 'xmlgen.xqm';
 import module namespace lib='apb.benchx.library' at 'library.xqm';
 import module namespace env = 'quodatum.basex.env' at 'lib.xq/basex-env.xqm';
 
@@ -15,7 +15,7 @@ import module namespace session = "http://basex.org/modules/session";
 import module namespace sessions = "http://basex.org/modules/sessions";
 
 declare variable $s:session:="benchx.values";
-declare variable $s:root:=fn:doc(fn:resolve-uri("state.xml"))/root;
+declare variable $s:root:=fn:doc(fn:resolve-uri("data/benchx/state.xml"))/root;
 
 declare  function benchmark() as element(benchmark)
 {
@@ -71,6 +71,12 @@ declare function mode() as xs:string{
     if (db:exists("benchx-db")) then "D" else "F"
 };
 
+(:~
+ : max time for execution of query
+ :)
+declare function timeout() as xs:double{
+    $s:root/state/timeout
+};
 (:~ set mode to file or database
  :)
 declare %updating function mode($mode as xs:string){
@@ -89,17 +95,23 @@ declare function factor() as xs:double{
     $s:root/state/factor/fn:number()
 };
 
+declare function generator() as xs:string{
+    $s:root/state/generator
+};
+
 (:~ set mode to file or database
  :)
 declare function factor($factor as xs:double){
     if($factor=factor())then ()
-    else xm:xmlgen($factor)
+    else xm:set($factor,fn:false())
 };
 
-declare %updating function make($mode as xs:string,$factor as xs:double){
+declare %updating function make($mode as xs:string,
+                                $factor as xs:double,
+                                $generator as xs:string){
     let $x:=fn:trace(($mode,$factor),"MAKE")
     let $x:=factor($factor)
-    return (mode($mode),set-state($mode,$factor))
+    return (mode($mode),save-state($mode,$factor,$generator))
 };
 
 
@@ -121,16 +133,17 @@ declare %updating function init()
        return fn:put($x,fn:base-uri($s:root))     
 };
 
-declare %updating function set-state($mode)
+declare %updating function save-state($mode)
 {
-    set-state($mode,())
+    save-state($mode,(),"xmlgen")
 };
 
-declare %updating function set-state($mode,$factor)
+declare %updating function save-state($mode,$factor,$generator)
 {
    let $x:= copy $d:=$s:root
             modify (replace value of node $d/state/mode with $mode,
-                    replace value of node $d/state/factor with $factor
+                    replace value of node $d/state/factor with $factor,
+                    replace value of node $d/state/generator with $generator
                     )
             return $d                              
    return fn:put($x,fn:base-uri($s:root))     
@@ -142,8 +155,7 @@ declare function state() as element(state)
 <state>
         <sessions type="number">{fn:count(sessions:ids())}</sessions>
         <session>{session:id()}</session>
-        <mode>{s:mode()}</mode>
-        <factor>{$s:root/state/factor/fn:string()}</factor>
+        {$s:root/state}
         <size>{prof:human(s:file-size())}</size>
          {$s:root/server/*}
     </state>

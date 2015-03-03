@@ -1,11 +1,13 @@
-<root>	
+<root>
 	<server>
-		<id/>
-		<hostname>?unknown?</hostname>
-		<description>e.g. Acer e1-571</description>
+		<id />
+		<hostname>(unknown)</hostname>
+		<description />
 	</server>
 	<state>
-        <mode>F</mode>
-        <factor>0</factor>
-    </state>
+		<timeout>10</timeout>
+		<generator>xmlgen</generator>
+		<mode>F</mode>
+		<factor>0</factor>
+	</state>
 </root>

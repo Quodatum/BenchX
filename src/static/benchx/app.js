@@ -270,10 +270,16 @@ angular
          doIncr : false,
          incr : 0.25,
          repeat : 1,
-         maxfactor : 1
+         maxfactor : 1,
+         generator:"xmlgen"
         }
        });
-
+       
+       $scope.generators=[
+         {value:"xmlgen",label:"xmlgen"},
+         {value:"xmlgen400",label:"xmlgen /s400"}
+       ];
+       
        $scope.executeAll = function() {
         var settings = $scope.$storage.settings;
         var q=$rootScope.tasks.q;
@@ -304,6 +310,7 @@ angular
 
        };
       } ])
+      
   .controller('envController',
     [ "$scope", "data", function($scope, data) {
      $scope.setTitle("Environment");
