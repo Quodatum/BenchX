@@ -304,7 +304,8 @@ angular
          cmd : "state",
          data : {
           mode : settings.mode,
-          factor : settings.factor
+          factor : settings.factor,
+          generator : settings.generator
          }
         });
 

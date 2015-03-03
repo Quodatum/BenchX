@@ -17,7 +17,8 @@ angular.module('BenchX.api', [ 'ngResource','log.ex.uo' ])
 		stateSave : function(data) {
 			return $resource(apiRoot + 'state', {
 				mode: "@mode",
-				factor : "@factor"
+				factor : "@factor",
+				generator: "@generator",
 			}).save(data).$promise;
 		},
 		xmlgen : function(factor) {
