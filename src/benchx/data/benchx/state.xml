@@ -5,9 +5,14 @@
 		<description />
 	</server>
 	<state>
-		<timeout>10</timeout>
+		<timeout type="number">10</timeout>
 		<generator>xmlgen</generator>
 		<mode>F</mode>
 		<factor>0</factor>
+		<filesize></filesize>
 	</state>
+	<session>
+		<id></id>
+		<sessions type="number"></sessions>
+	</session>
 </root>

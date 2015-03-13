@@ -1,4 +1,4 @@
-<benchmark>
+<benchmark xmlns="https://github.com/Quodatum/BenchX/results">
   <id>55a49392-9324-4d6e-9c25-5faf164dc75f</id>
   <suite>xmark-polo</suite>
   <meta>

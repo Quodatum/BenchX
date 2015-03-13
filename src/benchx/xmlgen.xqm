@@ -4,8 +4,8 @@
  : @author Andy Bunce
  : @since March 2014
  :)
-module namespace xm = 'apb.xmark.xmlgen';
-declare default function namespace 'apb.xmark.xmlgen'; 
+module namespace xm = 'quodatum.benchx.xmlgen';
+declare default function namespace 'quodatum.benchx.xmlgen'; 
 
 
 

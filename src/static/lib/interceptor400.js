@@ -1,6 +1,8 @@
 // global 400 handler
 //	http://stackoverflow.com/questions/11971213/error-401-handling-with-angularjs
-angular.module('Error', []).config(function($httpProvider) {
+angular.module('Error', [])
+
+.config(function($httpProvider) {
 	$httpProvider.responseInterceptors.push('Interceptor400');
 })
 // register the interceptor as a service, intercepts ALL angular ajax http calls

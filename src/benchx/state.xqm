@@ -1,14 +1,15 @@
 (:~ 
  : restxq session for benchmark
  :@author Andy Bunce
+ :@copyright quodatum
  :@version 0.1
- :
+ :@licence apache 2
  :)
 module namespace s = 'apb.benchx.state';
 declare default function namespace 'apb.benchx.state'; 
 
-import module namespace xm='apb.xmark.xmlgen' at 'xmlgen.xqm';
-import module namespace lib='apb.benchx.library' at 'library.xqm';
+import module namespace xm='quodatum.benchx.xmlgen' at 'xmlgen.xqm';
+import module namespace lib='quodatum.benchx.library' at 'library.xqm';
 import module namespace env = 'quodatum.basex.env' at 'lib.xq/basex-env.xqm';
 
 import module namespace session = "http://basex.org/modules/session";
@@ -150,13 +151,12 @@ declare %updating function save-state($mode,$factor,$generator)
 };
 
  
-declare function state() as element(state)
+declare function state() as element(root)
 {
-<state>
-        <sessions type="number">{fn:count(sessions:ids())}</sessions>
-        <session>{session:id()}</session>
-        {$s:root/state}
-        <size>{prof:human(s:file-size())}</size>
-         {$s:root/server/*}
-    </state>
+    copy $d:=$s:root
+    modify (replace value of node $d/session/id with session:id(),
+            replace value of node $d/session/sessions with fn:count(sessions:ids()),
+            replace value of node $d/state/filesize with prof:human(s:file-size())
+            )
+    return $d      
 };

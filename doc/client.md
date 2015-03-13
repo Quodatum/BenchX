@@ -48,4 +48,6 @@ Key is mode+factor+serverid
 ## difference
  ((V2 - V1) / |V1|) * 100
 
-## logging
+## task queue
+$rootScope.tasksscope.set
+taskqueue defined in services. calls root.setState root.execute

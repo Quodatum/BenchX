@@ -13,7 +13,7 @@ angular
       'ngStorage','smart-table',
       'BenchX.api', 'BenchX.services', 'BenchX.results',
       'BenchX.library','BenchX.suite','BenchX.benchmark',
-      'services.httpRequestTracker' ])
+      'services.httpRequestTracker','Error' ])
 
   .config(
     [
@@ -88,7 +88,7 @@ angular
            activesuite: "xmark"
        });
        $rootScope.setTitle = function(t) {
-        $window.document.title = t + " BenchX v0.7.4";
+        $window.document.title = t + " BenchX v0.8.0";
        };
        $rootScope.results=results;
        $rootScope.tasks=taskqueue;
@@ -125,7 +125,7 @@ angular
       function($rootScope, api, utils, $log) {
        function updateStatus(data) {
         $log.log("update status:", data);
-        $rootScope.state = data.state;
+        $rootScope.state = data.state.state;
        }
 
        $rootScope.$watch("session", function() {
@@ -217,7 +217,7 @@ angular
            }, function(e) {
             alert("FAILED: " + e.data);
            }); 
-           }
+           };
           });
        };
        
@@ -276,9 +276,10 @@ angular
         }
        });
        
-       $scope.generators=[
+       $scope.generators=[        
          {value:"xmlgen",label:"xmlgen"},
-         {value:"xmlgen400",label:"xmlgen /s400"}
+         {value:"xmlgen400",label:"xmlgen /s400"},
+         {value:"-",label:"(use found)"}
        ];
        
        $scope.executeAll = function() {

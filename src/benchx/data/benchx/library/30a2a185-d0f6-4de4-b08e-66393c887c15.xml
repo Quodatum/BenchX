@@ -1,4 +1,4 @@
-<benchmark>
+<benchmark xmlns="https://github.com/Quodatum/BenchX/results">
   <id>30a2a185-d0f6-4de4-b08e-66393c887c15</id>
   <suite>sample1</suite>
   <meta>

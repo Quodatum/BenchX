@@ -5,9 +5,10 @@
  :)
 module namespace bm = 'apb.benchx.rest';
 declare default function namespace 'apb.benchx.rest'; 
+declare namespace res="https://github.com/Quodatum/BenchX/results";
 
 import module namespace s='apb.benchx.state' at 'state.xqm';
-import module namespace lib='apb.benchx.library' at 'library.xqm';
+import module namespace lib='quodatum.benchx.library' at 'library.xqm';
 import module namespace suite='apb.benchx.suite' at 'suite.xqm';
 
 import module namespace dbtools = 'apb.dbtools' at 'lib.xq/dbtools.xqm';
@@ -120,9 +121,7 @@ declare
 %output:method("json")   
 function state() 
 {
-<json objects="json _ state" >
-    {s:state()}
-</json>
+    s:state()=>web:fixup()
 }; 
 
 (:~
@@ -141,7 +140,7 @@ function state-post($mode,
     (: @TODO o/p new rather than current state :)
     let $factor:=fn:trace($factor,"factor:")
     return (
-        db:output(<json objects="json state">{s:state()}</json>),
+        s:state()=>web:fixup()=>db:output(),
         s:make($mode,$factor,$generator)
      )
 }; 
@@ -192,7 +191,7 @@ declare
 function record($id,$format) 
 {
     let $b:=lib:get($id)
-    return if($format="json") then lib:json($b)
+    return if($format="json") then web:fixup($b)
             else (web:download-response("xml",$id || ".xml"),$b) 
 };
 
@@ -207,10 +206,10 @@ declare
 %output:method("json")
 function compare($id,$query,$state,$format) 
 {
-    let $suite as xs:string:=$lib:benchmarks[id=$id]/suite/fn:string()
-	let $hits:=$lib:benchmarks[suite=$suite]/runs/run[
-                     name=$query and
-                    (mode || factor)=$state
+    let $suite as xs:string:=$lib:benchmarks[res:id=$id]/res:suite/fn:string()
+	let $hits:=$lib:benchmarks[res:suite=$suite]/res:runs/res:run[
+                     res:name=$query and
+                    (res:mode || res:factor)=$state
                 ]
     let $_:=<json objects="json _">
                 <total type="number">{fn:count($hits)}</total>
@@ -219,13 +218,13 @@ function compare($id,$query,$state,$format)
                 <query>{$query}</query>
                 <hit type="array">
                     {for $hit in $hits
-                    let $b:=$hit/ancestor::benchmark
-					order by fn:number($hit/runtime)
+                    let $b:=$hit/ancestor::res:benchmark
+					order by fn:number($hit/res:runtime)
                     return <_>{        
-                    $hit/runtime,
-					$b/server/hostname,
-					$b/meta/description,
-                    $b/id
+                    $hit/res:runtime,
+					$b/res:server/res:hostname,
+					$b/res:meta/res:description,
+                    $b/res:id
                     }
                     </_>
                     }
@@ -268,7 +267,7 @@ function suites()
             <describe>{$desc}</describe>
             <session>#/suite/{$suite}/session</session>
             <library>#/suite/{$suite}/library</library>
-            <results type="number">{fn:count($lib:benchmarks[suite=$suite])}</results>
+            <results type="number">{fn:count($lib:benchmarks[res:suite=$suite])}</results>
             <queries type="array">{ for  $file in suite:queries( $suite )
                     return <_>{$file}</_>
             }</queries>
@@ -340,15 +339,6 @@ function testbed()
 {
    <json  objects="json doc _" arrays="docs ">
    <docs>
-   {for $doc in $lib:benchmarks
-   order by $doc/meta/created
-   return <_>
-   {$doc/id,
-    $doc/server/suite,
-    $doc/server/description,
-    $doc/meta/description,
-    $doc/meta/created
-       }</_>
-   }</docs></json>    
+  </docs></json>    
 }; 
 
