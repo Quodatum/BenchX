@@ -33,9 +33,9 @@
 				</li>
 				<li>
 					<p class="navbar-text " 
-						title="state Active suite={{activesuite}}, Mode={{state.mode}}, Factor={{state.factor}} ({{state.size}}).">
-						<span class="label  label-success">{{state.mode}}</span>
-						<span class="label  label-info">{{state.factor}}</span>
+						title="state Active suite={{activesuite}}, Mode={{serverstate.state.mode}}, Factor={{serverstate.state.factor}} ({{serverstate.state.size}}).">
+						<span class="label  label-success">{{serverstate.state.mode}}</span>
+						<span class="label  label-info">{{serverstate.state.factor}}</span>
 						<span class="label  label-default">{{activesuite}}</span> 
 					</p>
 				</li>
@@ -61,9 +61,9 @@
 				<li>
 
 					<p class="navbar-text label"
-						ng-class="{'bg-danger':1&gt;state.sessions}" style="width: 3em"
+						ng-class="{'bg-danger':1&gt;serverstate.session.sessions}" style="width: 3em"
 						title="Session count">
-						<i class="glyphicon glyphicon-user"></i> {{state.sessions}}
+						<i class="glyphicon glyphicon-user"></i> {{serverstate.session.sessions}}
 					</p>
 				</li>
 				<li class="dropdown" dropdown="dropdown" ><a href="#" class="dropdown-toggle"
@@ -73,7 +73,7 @@
 						<li><a href="#/thisenv" tabindex="-1"> <i
 								class="glyphicon glyphicon-picture"></i> Environment
 						</a></li>
-						<li><a href="/doc/#/data/app/doc/wadl" target="docs" tabindex="-1"> <i
+						<li><a href="/doc/#/data/app/benchx/wadl" target="docs" tabindex="-1"> <i
 								class="glyphicon glyphicon-eye-open"></i> Documentation
 						</a></li>
 

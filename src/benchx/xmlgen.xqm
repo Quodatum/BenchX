@@ -1,6 +1,6 @@
 (:~ 
  :  interface for running [xmlgen](http://www.xml-benchmark.org) benchmark.
- :  create source file using xmlgen, windows or unix
+ :  to create XMark source data file using xmlgen, windows or unix
  : @author Andy Bunce
  : @since March 2014
  :)

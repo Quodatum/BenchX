@@ -108,8 +108,7 @@ let $run:= <run>
         <factor>{$s:root/state/factor/fn:string()}</factor>
         <created>{fn:current-dateTime()}</created>
     </run>
- return db:output((<json objects="json run">{$run}</json>,
-        s:add($run)))
+ return (db:output(web:fixup($run)),s:add($run))
 };
 
 
@@ -191,8 +190,8 @@ declare
 function record($id,$format) 
 {
     let $b:=lib:get($id)
-    return if($format="json") then web:fixup($b)
-            else (web:download-response("xml",$id || ".xml"),$b) 
+    return if($format="json") then web:fixup(<json>{$b}</json>)
+            else (web:method("xml"),$b) 
 };
 
 (:~
@@ -324,6 +323,20 @@ declare
 %rest:GET %rest:path("benchx/api/environment")
 %output:method("json")  
 function env() 
+{
+<json type="array" >   
+    {lib:environments()}
+</json>
+};
+
+(:~
+ : validate the library. @TODO
+ : @return json env array
+ :)
+declare 
+%rest:GET %rest:path("benchx/api/validate")
+%output:method("json")  
+function validate() 
 {
 <json type="array" >   
     {lib:environments()}

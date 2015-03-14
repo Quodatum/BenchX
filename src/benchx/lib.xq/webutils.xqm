@@ -91,8 +91,10 @@ declare function method($method as xs:string){
     </output:serialization-parameters>
 </restxq:response>
 };
+
 (:~ headers for download  :) 
 declare function download-response($method,$filename){
+
 <restxq:response>
     <output:serialization-parameters>
         <output:method value="{$method}"/>

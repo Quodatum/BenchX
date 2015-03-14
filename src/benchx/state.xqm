@@ -7,6 +7,7 @@
  :)
 module namespace s = 'apb.benchx.state';
 declare default function namespace 'apb.benchx.state'; 
+declare namespace res="https://github.com/Quodatum/BenchX/results";
 
 import module namespace xm='quodatum.benchx.xmlgen' at 'xmlgen.xqm';
 import module namespace lib='quodatum.benchx.library' at 'library.xqm';
@@ -18,12 +19,19 @@ import module namespace sessions = "http://basex.org/modules/sessions";
 declare variable $s:session:="benchx.values";
 declare variable $s:root:=fn:doc(fn:resolve-uri("data/benchx/state.xml"))/root;
 
-declare  function benchmark() as element(benchmark)
+(: list of data generators :)
+declare variable $s:generators:=map{ 
+    "xmlgen":   xm:set(?,fn:false()),
+    "xmlgen400":xm:set(?,fn:true()),
+    "-":        function($f){()}
+ };
+
+declare  function benchmark() as element(res:benchmark)
 {
     copy $s:=_benchmark()
     modify(
-        replace node $s/environment with env:xml(),
-        replace node $s/server with $s:root/server
+        replace node $s/res:environment with env:xml(),
+        replace node $s/res:server with $s:root/server
     )
     return $s
 };
@@ -31,15 +39,15 @@ declare  function benchmark() as element(benchmark)
 (:~
  : get session or new
  :)
-declare %private function _benchmark() as element(benchmark)
+declare %private function _benchmark() as element(res:benchmark)
 {
   let $s:=session:get($s:session)
   return if(fn:empty($s)) then $lib:new else $s
 };
 
 (:~ save to session :)
-declare function benchmark($newValue as element(benchmark))
- as element(benchmark){
+declare function benchmark($newValue as element(res:benchmark))
+ as element(res:benchmark){
  session:set($s:session,$lib:new)
 };
 
@@ -48,7 +56,7 @@ declare function benchmark($newValue as element(benchmark))
 declare function add($result as element(run))
 {
     let $new:=copy $d:=_benchmark()
-              modify insert node $result into $d/runs
+              modify insert node $result into $d/res:runs
               return $d        
     return session:set($s:session,$new)
 };
@@ -64,7 +72,7 @@ declare function clear()
  : @return filesize of auction.xml
  :)
 declare function file-size(){
-    let $f:=$xm:base-dir ||"benchx-db/auction.xml"
+    let $f:=$xm:base-dir ||"benchx-db/auction"
     return if(file:exists($f)) then file:size($f) else 0
  };
  
@@ -111,7 +119,7 @@ declare %updating function make($mode as xs:string,
                                 $factor as xs:double,
                                 $generator as xs:string){
     let $x:=fn:trace(($mode,$factor),"MAKE")
-    let $x:=factor($factor)
+    let $x:=$s:generators($generator)($factor)
     return (mode($mode),save-state($mode,$factor,$generator))
 };
 

@@ -50,12 +50,6 @@ angular
             templateUrl : '/static/benchx/templates/log.xhtml'
            })
          
-         .when(
-           '/doc/:view',
-           {
-            templateUrl : '/static/benchx/templates/doc.xhtml',
-            controller : "DocController"
-           })
            
          .when(
            '/404',
@@ -88,7 +82,7 @@ angular
            activesuite: "xmark"
        });
        $rootScope.setTitle = function(t) {
-        $window.document.title = t + " BenchX v0.8.0";
+        $window.document.title = t + " BenchX v0.8.1";
        };
        $rootScope.results=results;
        $rootScope.tasks=taskqueue;
@@ -125,7 +119,7 @@ angular
       function($rootScope, api, utils, $log) {
        function updateStatus(data) {
         $log.log("update status:", data);
-        $rootScope.state = data.state.state;
+        $rootScope.serverstate = data;
        }
 
        $rootScope.$watch("session", function() {
@@ -140,10 +134,10 @@ angular
         return api.execute({
          suite : $rootScope.activesuite,
          name : q.name,
-         mode : $rootScope.state.mode,
-         size : $rootScope.state.size
+         mode : $rootScope.serverstate.state.mode,
+         size : $rootScope.serverstate.state.size
         }).then(function(res) {
-         results.addRun(index, res.run);
+         results.addRun(index, res);
          
         }, function(reason) {
          alert("Execution error" + reason.data);
@@ -358,32 +352,4 @@ angular
        $scope.chartObject = genChart();
       } ])
 
-  .controller(
-    'DocController',
-    [
-      "$scope",
-      "$routeParams",
-      "$location",
-      "$anchorScroll",
-      "$log",
-      function($scope, $routeParams, $location,
-        $anchorScroll, $log) {
-       $log.log("View:", $routeParams.view);
-       var map = {
-        "xqdoc" : '/doc/app/benchx/server/xqdoc',
-        "wadl" : '/doc/app/benchx/server/wadl',
-        "components" : '/doc/app/benchx/client/components',
-        "templates" : '/doc/app/benchx/client/templates',
-        "xqdoc2" : 'doc/server'
-       };
-       $scope.view = $routeParams.view;
-       $scope.inc = map[$routeParams.view];
-       $scope.setTitle("docs");
-       $scope.scrollTo = function(id) {
-        $log.log("DDDD", id);
-        $location.hash(id);
-        // call $anchorScroll()
-        $anchorScroll();
-       };
-      } ])
-      ;
+  

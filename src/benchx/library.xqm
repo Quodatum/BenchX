@@ -11,7 +11,7 @@ declare namespace res="https://github.com/Quodatum/BenchX/results";
  : get new doc defaults
  :)
 declare variable $lib:new as element(res:benchmark)
-             :=db:open("benchx","benchmark.xml")/benchmark;
+             :=db:open("benchx","benchmark.xml")/res:benchmark;
 
 declare variable $lib:benchmarks as element(res:benchmark)*
              :=fn:collection("benchx/library")/res:benchmark;
@@ -104,23 +104,6 @@ return <json  objects="_" arrays="json ">
  };
 
  
- (:~ 
- : Prepare benchmark for json
- : @param b results of a run.
- : @return json style xml for serialization.
-:)
-declare function json($b as element(res:benchmark)
-)as element(json)
-{
-<json objects="json benchmark meta server environment ">{
-    copy $d:=$b
-    modify (for $n in $d//*[@type="array"]/* 
-            return replace node $n with <_ type="object">{$n/*}</_>,
-            delete node $d//comment()
-            )
-    return $d
-}</json>
-};
 
 (:~
  : environment from  benchmark
