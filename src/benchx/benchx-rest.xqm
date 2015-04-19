@@ -13,8 +13,10 @@ import module namespace suite='apb.benchx.suite' at 'suite.xqm';
 
 import module namespace dbtools = 'apb.dbtools' at 'lib.xq/dbtools.xqm';
 import module namespace env = 'quodatum.basex.env' at 'lib.xq/basex-env.xqm';
-import module namespace web = 'apb.web.utils3' at 'lib.xq/webutils.xqm';
 
+import module namespace txq = 'quodatum.txq' at "lib.xq/txq.xqm";
+import module namespace dice = 'quodatum.web.dice/v2' at "lib.xq/dice.xqm";
+import module namespace web = 'quodatum.web.utils3' at 'lib.xq/webutils.xqm';
 
 
 (:~
@@ -36,7 +38,7 @@ function benchmark()
         else 
             dbtools:sync-from-path("benchx",fn:resolve-uri("data/benchx"))
             ,
-            db:output(<rest:forward>/static/benchx</rest:forward>)
+            db:output(render("main.xq",map{}))
          )
 };
 
@@ -46,7 +48,7 @@ declare %rest:error("*")
 %rest:error-param("additional","{$additional}") (: error stack trace  :)
 %output:method("text")  
 function error($description,$additional) {
-    (web:status(500,"Server error $%^%£$ "),$additional)
+    (web:status(500,"Benchx Server error: "),$additional)
 };
 
 (:~
@@ -174,10 +176,16 @@ function session-delete()
 declare 
 %rest:GET %rest:path("benchx/api/library")
 %restxq:query-param("suite", "{$suite}")
+%restxq:query-param("format", "{$format}","json")
 %output:method("json")   
-function library($suite) 
+function library($suite,$format) 
 {
-    lib:list($suite)
+    if($format="json") then 
+        lib:list($suite) 
+    else 
+        let $a:=lib:collection()
+        let $zip:= archive:create($a!db:path(.),$a!fn:serialize(.))
+        return web:zip-download("library.zip",$zip)
 }; 
 
 (:~
@@ -354,4 +362,21 @@ function testbed()
    <docs>
   </docs></json>    
 }; 
+
+(:~
+ : html rendering
+ :) 
+declare function render($template,$map){
+    let $defaults:=map{
+                        "version":"0.8.4",
+                        "static":"/static/benchx/"
+                    }
+    let $map:=map:merge(($map,$defaults))
+    return (web:method("html"),txq:render(
+                fn:resolve-uri("./templates/" || $template)
+                ,$map
+                ,fn:resolve-uri("./templates/layout.xq")
+                )
+            )
+};
 

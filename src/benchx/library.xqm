@@ -132,3 +132,10 @@ return <json  objects="_" arrays="json ">
               }
               )
  };
+ 
+ (:~
+  : all library documents
+  :)
+  declare function collection(){
+fn:collection("benchx/library")
+  };

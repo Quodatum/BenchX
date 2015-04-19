@@ -8,11 +8,14 @@
 		</ol>
 		<strong> Action:</strong>
 		<div class="btn-group btn-group-sm">
-		<a class="btn btn-default btn-sm" target="benchx-xsd" href="benchmark.xsd">
+		<a class="btn btn-default btn-sm" target="benchx-xsd" href="schema/benchmark.xsd">
 				<i class="glyphicon glyphicon-save"></i> Schema (xsd)
 			</a>
+			<a class="btn btn-default btn-sm"  ng-click="libzip()">
+                <i class="glyphicon glyphicon-save"></i> library.zip
+            </a>
 		<a class="btn btn-default btn-sm"  ng-click="validate()">
-                <i class="glyphicon glyphicon-save"></i> Validate
+                <i class="glyphicon glyphicon-thumbs-up"></i> Validate
             </a>	
 		</div>
 		</div>
@@ -56,27 +59,7 @@
 				</table>
 
 			</div>
-			<div class="panel  panel-info panel-body col-md-2">
-				<div class="panel-heading">
-					<h3 class="panel-title">Filter (@TODO)</h3>
-				</div>
-				<div class="panel-body table-responsive">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Value</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="e in envs">
-								<td>{{e.name}}</td>
-								<td>{{e.value}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
+			
 		</div>
 
 	</div>

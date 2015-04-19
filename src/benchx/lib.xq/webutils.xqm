@@ -4,8 +4,8 @@
 : @since oct 2012
 :)
 
-module namespace web = 'apb.web.utils3';
-declare default function namespace 'apb.web.utils3'; 
+module namespace web = 'quodatum.web.utils3';
+declare default function namespace 'quodatum.web.utils3'; 
 
 declare namespace rest = 'http://exquery.org/ns/restxq';
 import module namespace session ="http://basex.org/modules/session";

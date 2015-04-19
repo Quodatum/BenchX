@@ -37,8 +37,9 @@ angular.module('BenchX.api', [ 'ngResource','log.ex.uo' ])
 			return $resource(apiRoot + 'session');
 		},
 		
-		library : function() {
+		library : function(format) {
 			return $resource(apiRoot + 'library/:id', {
+			    format:format,
 				id : "@id"
 			});
 		},
