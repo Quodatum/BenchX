@@ -1,6 +1,6 @@
 declare  variable $body external :="{body}";
 declare  variable $version external :="{verson}";
-declare variable $base external :="/static/benchx/";
+declare variable $base external :="/benchx/";
 declare variable $static external :="/static/benchx/";
 
 

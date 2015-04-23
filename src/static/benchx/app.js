@@ -14,7 +14,11 @@ angular
       'BenchX.api', 'BenchX.services', 'BenchX.results',
       'BenchX.library','BenchX.suite','BenchX.benchmark',
       'services.httpRequestTracker','Error' ])
-
+      
+//  .config(['$locationProvider',function($locationProvider){
+//      $locationProvider.html5Mode(true);
+//    }])
+    
   .config(
     [
       '$routeProvider',
@@ -82,7 +86,7 @@ angular
            activesuite: "xmark"
        });
        $rootScope.setTitle = function(t) {
-        $window.document.title = t + " BenchX v0.8.5";
+        $window.document.title = t + " BenchX v0.8.6";
        };
        $rootScope.results=results;
        $rootScope.tasks=taskqueue;
