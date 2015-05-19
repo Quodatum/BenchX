@@ -8,10 +8,10 @@
 		</ol>
 		<strong> Action:</strong>
 		<div class="btn-group btn-group-sm">
-		<a class="btn btn-default btn-sm" target="benchx-xsd" href="schema/benchmark.xsd">
+		<a class="btn btn-default btn-sm" target="benchx-xsd" ng-href="{{staticRoot}}schema/benchmark.xsd">
 				<i class="glyphicon glyphicon-save"></i> Schema (xsd)
 			</a>
-			<a class="btn btn-default btn-sm"  ng-click="libzip()">
+			<a class="btn btn-default btn-sm"  target="_blank" ng-href="{{apiRoot}}library?format=zip">
                 <i class="glyphicon glyphicon-save"></i> library.zip
             </a>
 		<a class="btn btn-default btn-sm"  ng-click="validate()">

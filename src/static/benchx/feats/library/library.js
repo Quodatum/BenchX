@@ -54,14 +54,10 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 
 .controller(
 		'LibraryController',
-		[ "$scope", "$rootScope", "data", "$log","api",
-				function($scope, $rootScope, data, $log,api) {
+		[ "$scope", "$rootScope", "data", "$log",
+				function($scope, $rootScope, data, $log) {
 					$scope.setTitle("Library");
 					$scope.docs = data;
-					$scope.libzip = function() {
-						alert("libzip TODO");
-						api.library("zip").get().$promise;
-					};
 					$scope.validate = function() {
                       alert("validate TODO");
                   };

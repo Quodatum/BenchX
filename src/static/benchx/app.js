@@ -86,8 +86,10 @@ angular
            activesuite: "xmark"
        });
        $rootScope.setTitle = function(t) {
-        $window.document.title = t + " BenchX v0.8.6";
+        $window.document.title = t + " BenchX v0.8.7";
        };
+       $rootScope.staticRoot="/static/benchx/";
+       $rootScope.apiRoot="../../benchx/api/";
        $rootScope.results=results;
        $rootScope.tasks=taskqueue;
        $rootScope.setTitle("BenchX");

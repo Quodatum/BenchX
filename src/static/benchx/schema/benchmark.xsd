@@ -45,9 +45,14 @@
 			<xs:element name="run" maxOccurs="unbounded" minOccurs="0">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element type="res:runtime-type" name="runtime" />
-						<xs:element type="xs:string" name="status" />
+						<xs:element type="res:runtime-type"
+							name="runtime" />
+						<xs:element type="xs:string" name="status"
+							maxOccurs="1" minOccurs="0" />
 						<xs:element type="xs:string" name="name" />
+						<xs:element name="generator"
+							type="xs:string" minOccurs="0">
+						</xs:element>
 						<xs:element type="xs:string" name="mode" />
 						<xs:element type="xs:float" name="factor" />
 						<xs:element type="xs:dateTime" name="created" />

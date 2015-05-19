@@ -13,6 +13,7 @@ set by $rootScope.session = api.suite(name) in rootController
 Manages the session run times.
 
 ##$rootScope
+.staticbase path to static root eg /static/benchx
 .suites[] is set to array as below
 
 {   name:"xmark",

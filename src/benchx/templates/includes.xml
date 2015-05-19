@@ -1,0 +1,54 @@
+<includes>
+	<css>
+		<link
+			href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css"
+			rel="stylesheet" type="text/css" />
+		<link
+			href="//cdnjs.cloudflare.com/ajax/libs/angular-hotkeys/1.4.5/hotkeys.css"
+			rel="stylesheet" type="text/css" />
+	</css>
+	<js>
+		<script
+			src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+		<script
+			src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-resource.min.js"></script>
+		<script
+			src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-cookies.min.js"></script>
+		<script
+			src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-sanitize.min.js"></script>
+		<script
+			src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js"></script>
+		<script
+			src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.min.js"></script>
+		<script
+			src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-touch.min.js"></script>
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/async/0.8.0/async.js"></script>
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment-with-langs.min.js"></script>
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.7.0/angular-moment.min.js"></script>
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/stacktrace.js/0.6.0/stacktrace.min.js"></script>
+		<script
+			src="//cdnjs.cloudflare.com/ajax/libs/angular-hotkeys/1.4.5/hotkeys.js"></script>
+
+
+		<script src="/static/lib/ngStorage/0.3.0/ngStorage.js"></script>
+		<script
+			src="/static/lib/AngularLogExtender/0.0.10/log-ex-unobtrusive.min.js"></script>
+		<script src="/static/lib/angular-logging.js"></script>
+
+		<script src="/static/lib/smart-table/1.4.9/smart-table.min.js"></script>
+		<script src="/static/lib/googlechart/0.0.11/ng-google-chart.js"></script>
+
+		<script src="/static/lib/httpRequestTracker.js"></script>
+		<script src="/static/lib/interceptor400.js"></script>
+		<script src="/static/lib/FileSaver.js"></script>
+		<script src="/static/lib/dialog.js"></script>
+
+	</js>
+</includes>

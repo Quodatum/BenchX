@@ -33,10 +33,12 @@
 				</li>
 				<li>
 					<p class="navbar-text " 
-						title="state Active suite={{activesuite}}, Mode={{serverstate.state.mode}}, Factor={{serverstate.state.factor}} ({{serverstate.state.size}}).">
-						<span class="label  label-success">{{serverstate.state.mode}}</span>
+						title="state Active suite={{activesuite}}, Mode={{serverstate.state.mode}}, Generator: {{serverstate.state.generator}},Factor={{serverstate.state.factor}} ({{serverstate.state.size}}).">
+						<span class="label  label-success">{{activesuite}}</span> 				
+						<span class="label  label-info">{{serverstate.state.generator}}</span>
+						<span class="label  label-info">{{serverstate.state.mode}}</span>
 						<span class="label  label-info">{{serverstate.state.factor}}</span>
-						<span class="label  label-default">{{activesuite}}</span> 
+
 					</p>
 				</li>
 			</ul>

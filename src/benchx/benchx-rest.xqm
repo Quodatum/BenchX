@@ -106,6 +106,7 @@ let $time:=time-xmark($xq,s:timeout())
 let $run:= <run>
         {$time}
         <name>{$name}</name>
+         <generator>{s:generator()}</generator>
         <mode>{s:mode()}</mode>
         <factor>{$s:root/state/factor/fn:string()}</factor>
         <created>{fn:current-dateTime()}</created>
@@ -367,9 +368,12 @@ function testbed()
  : html rendering
  :) 
 declare function render($template,$map){
+    let $incl:=fn:doc("./templates/includes.xml")/includes
     let $defaults:=map{
-                        "version":"0.8.4",
-                        "static":"/static/benchx/"
+                        "version":"0.8.5",
+                        "static":"/static/benchx/",
+                        "incl-css":$incl/css/*,
+                        "incl-js":$incl/js/*
                     }
     let $map:=map:merge(($map,$defaults))
     return (web:method("html"),txq:render(
