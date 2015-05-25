@@ -1,18 +1,18 @@
 <root>
-	<server>
-		<id />
-		<hostname>(unknown)</hostname>
-		<description />
-	</server>
-	<state>
-		<timeout type="number">10</timeout>
-		<generator>xmlgen</generator>
-		<mode>F</mode>
-		<factor>0</factor>
-		<filesize></filesize>
-	</state>
-	<session>
-		<id></id>
-		<sessions type="number"></sessions>
-	</session>
+  <server>
+    <id>f07f7a84-bcc2-4022-8b97-2c3e2e86e67a</id>
+    <hostname>LNGLONL7032656</hostname>
+    <description/>
+  </server>
+  <state>
+    <timeout type="number">10</timeout>
+    <generator>xmlgen</generator>
+    <mode>D</mode>
+    <factor>1</factor>
+    <filesize/>
+  </state>
+  <session>
+    <id/>
+    <sessions type="number"/>
+  </session>
 </root>

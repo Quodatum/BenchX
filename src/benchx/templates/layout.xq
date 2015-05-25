@@ -40,7 +40,7 @@ declare variable $incl-js as element()* external :=();
     <script src="{$static}api.js"></script>
     <script src="{$static}services.js"></script>
     <script src="{$static}feats/library/library.js"></script>
-    <script src="{$static}feats/suite/suite.js"></script>
+    <script src="{$static}feats/suite/suite.js"></script> 
     <script src="{$static}results.js"></script>
     <script src="{$static}benchmark.js"></script>
 </body>

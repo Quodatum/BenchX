@@ -370,7 +370,7 @@ function testbed()
 declare function render($template,$map){
     let $incl:=fn:doc("./templates/includes.xml")/includes
     let $defaults:=map{
-                        "version":"0.8.5",
+                        "version":"?",
                         "static":"/static/benchx/",
                         "incl-css":$incl/css/*,
                         "incl-js":$incl/js/*

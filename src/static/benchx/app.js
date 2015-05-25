@@ -7,13 +7,13 @@
 angular
   .module(
     'BenchX',
-    [ 'ngRoute', 'ngTouch', 'ui.bootstrap', 'cfp.hotkeys',
+    [  'ngTouch', 'ui.bootstrap', 'ui.router','cfp.hotkeys',
       'ngLogging', 'angularMoment', 'googlechart',
       'log.ex.uo', 'googlechart', 'dialog',
       'ngStorage','smart-table',
       'BenchX.api', 'BenchX.services', 'BenchX.results',
-      'BenchX.library','BenchX.suite','BenchX.benchmark',
-      'services.httpRequestTracker','Error' ])
+      'BenchX.library','BenchX.benchmark', 'BenchX.suite',
+      'services.httpRequestTracker' ])
       
 //  .config(['$locationProvider',function($locationProvider){
 //      $locationProvider.html5Mode(true);
@@ -21,18 +21,13 @@ angular
     
   .config(
     [
-      '$routeProvider',
-      "$injector",
-      function($routeProvider, $injector) {
-       $routeProvider
-         .when('/', {
-          redirectTo : '/about'
-
-         })
-         
-         .when(
-           '/thisenv',
+      '$stateProvider','$urlRouterProvider',
+      function($stateProvider,$urlRouterProvider) {
+	  $stateProvider
+         .state(
+           'thisenv',
            {
+		    url: "/thisenv",
             templateUrl : '/static/benchx/templates/environment.xhtml',
             controller : "envController",
             resolve : {
@@ -43,31 +38,49 @@ angular
             }
            })
            
-         .when(
-           '/about',
+         .state(
+           'about',
            {
+		    url: "/about",
             templateUrl : '/static/benchx/templates/about.xhtml'
            })
-         .when(
-           '/log',
+		   
+         .state(
+           'log',
            {
+		    url: "/log",
             templateUrl : '/static/benchx/templates/log.xhtml'
            })
          
-           
-         .when(
-           '/404',
+         .state(
+           '404',
            {
+		    url: "/404",
             templateUrl : '/static/benchx/templates/404.xhtml'
-           }).otherwise({
-          redirectTo : '/404'
-         });
+           });
+		   
+		 $urlRouterProvider.when('', '/about');  
+		 $urlRouterProvider.otherwise('/404');  
+		   
       } ])
 
   .config([ 'logExProvider', function(logExProvider) {
    logExProvider.enableLogging(true);
   } ])
+  
+.run(
+  [          '$rootScope', '$state', '$stateParams',
+    function ($rootScope,   $state,   $stateParams) {
 
+    // It's very handy to add references to $state and $stateParams to the $rootScope
+    // so that you can access them from any scope within your applications.For example,
+    // <li ng-class="{ active: $state.includes('contacts.list') }"> will set the <li>
+    // to active whenever 'contacts.list' or one of its decendents is active.
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+    }
+  ]
+)
   // .config([ 'Logging', function(Logging) {
   // Logging.enabled=true;
   // } ])
@@ -86,7 +99,7 @@ angular
            activesuite: "xmark"
        });
        $rootScope.setTitle = function(t) {
-        $window.document.title = t + " BenchX v0.8.7";
+        $window.document.title = t + " BenchX v0.8.9";
        };
        $rootScope.staticRoot="/static/benchx/";
        $rootScope.apiRoot="../../benchx/api/";
@@ -99,7 +112,13 @@ angular
        $rootScope.meta = {
         title : ""
        };
-       
+    // ui-router
+       $rootScope.$on('$stateNotFound', 
+       function(event, unfoundState, fromState, fromParams){ 
+           console.log(unfoundState.to); // "lazy.state"
+           console.log(unfoundState.toParams); // {a:1, b:2}
+           console.log(unfoundState.options); // {inherit:false} + default options
+       })
        
        
       } ])

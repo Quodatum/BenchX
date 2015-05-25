@@ -20,13 +20,13 @@
                 </a>
                     <ul class="dropdown-menu">
                        
-				<li><a href="#/suite" title="Suites"><i
+				<li><a ui-sref="suite.index"  title="Suites"><i
 						class="glyphicon glyphicon-expand"></i> Suites 
 				</a></li>
-				 <li><a href="#/environment" tabindex="-1"> <i
+				 <li><a ui-sref="environment" tabindex="-1"> <i
                                 class="glyphicon glyphicon-globe"></i> Environments
                         </a></li>
-				<li><a href="#/library" title="Timings"> <i
+				<li><a ui-sref="library" title="Timings"> <i
 						class="glyphicon glyphicon-book"></i> Library
 				</a></li>
 				</ul>
@@ -40,15 +40,17 @@
 						<span class="label  label-info">{{serverstate.state.factor}}</span>
 
 					</p>
+					 
 				</li>
 			</ul>
 
 			<p class="navbar-text bg-success logmsg ">
-				<a href="#/log" title="Log messages"> <i
+				<a ui-sref="log" title="Log messages"> <i
 					class="glyphicon glyphicon-calendar"></i> {{logmsg}}
 				</a>
 
 			</p>
+			<p ui-view="hint" class="navbar-text pull-right">£</p>
 			<ul class="nav navbar-nav navbar-right">
 
 				<li>
@@ -72,7 +74,7 @@
 					data-toggle="dropdown" dropdown-toggle="dropdown-toggle"> About <b class="caret"></b>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a href="#/thisenv" tabindex="-1"> <i
+						<li><a   ui-sref="thisenv" tabindex="-1"> <i
 								class="glyphicon glyphicon-picture"></i> Environment
 						</a></li>
 						<li><a href="/doc/#/data/app/benchx/wadl" target="docs" tabindex="-1"> <i
@@ -80,7 +82,7 @@
 						</a></li>
 
 						<li class="divider"></li>
-						<li><a href="#/about" tabindex="-1"> <i
+						<li><a ui-sref="about"  tabindex="-1"> <i
 								class="glyphicon glyphicon-info-sign"></i> About BenchX
 						</a></li>
 					</ul></li>

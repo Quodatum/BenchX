@@ -4,43 +4,47 @@
  * @date 2014
  * @licence Apache 2
  */
-angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
+angular.module('BenchX.library', [ 'ngResource','ui.router','BenchX.api' ])
 
-.config([ '$routeProvider', function($routeProvider) {
+.config([ '$stateProvider', function($stateProvider) {
   
-	$routeProvider.when('/library', {
+	$stateProvider.state('library', {
+	    url: "/library",
 		templateUrl : '/static/benchx/feats/library/library.xhtml',
 		controller : "LibraryController",
 		resolve : {
-			data : function(api,$route) {
-			    var suite = $route.current.params.suite;
+			data : function(api,$stateParams) {
+			    var suite = $stateParams.suite;
 				return api.library().query({suite:suite}).$promise;
 			}
 		}
 
-	}).when('/library/item/:id', {
+	}).state('library.id', {
+	    url: "/library/item/:id",
 		templateUrl : '/static/benchx/feats/library/record.xml',
 		controller : "RecordController",
 		resolve : {
-			data : function(api, $route) {
-				var id = $route.current.params.id;
+			data : function(api, $stateParams) {
+				var id = $stateParams.id;
 				return api.library().get({
 					id : id
 				}).$promise;
 			}
 		}
 
-	}).when('/library/item/:id/compare', {
+	}).state('library.id.compare', {
+	    url: "/library/item/:id/compare",
 		templateUrl : '/static/benchx/feats/library/compare.xml',
 		controller : "CompareController",
 		resolve : {
-			data : function(api, $route) {
-				var id = $route.current.params.id;
-				return api.compare(id).get($route.current.params).$promise;
+			data : function(api, $stateParams) {
+				var id = $stateParams.id;
+				return api.compare(id).get($stateParams).$promise;
 			}
 		}
 
-	}).when('/environment', {
+	}).state('environment', {
+	    url: "/environment",
 		templateUrl : '/static/benchx/feats/library/env.xml',
 		controller : "EnvController",
 		resolve : {
@@ -66,17 +70,17 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 .controller(
 		'CompareController',
 		[ "$scope", "$rootScope","$routeParams","$location", "data", "$log",
-				function($scope, $rootScope,$routeParams,$location, data, $log) {
+				function($scope, $rootScope,$stateParams,$location, data, $log) {
 					$scope.setTitle("Compare");
 					// data =
 					$scope.compare = data;
 					console.log("compare",data);
-					$scope.route=$routeParams; //id,query,state
+					$scope.route=$stateParams; //id,query,state
 					$scope.setView = function(v) {
 						$scope.view = v;
 						$location.search("view", v);
 					};
-					$scope.setView($routeParams.view ? $routeParams.view: "grid");
+					$scope.setView($stateParams.view ? $stateParams.view: "grid");
 					// json data for google bar chart
                     function genChart(){            
                         var cols = [ {
@@ -127,8 +131,8 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 				
 .controller(
 		'EnvController',
-		[ "$scope", "$rootScope","$routeParams","$location","data",  "$log",
-				function($scope, $rootScope,$routeParams,$location,data, $log) {
+		[ "$scope", "$rootScope","$stateParams","$location","data",  "$log",
+				function($scope, $rootScope,$stateParams,$location,data, $log) {
 					$scope.setTitle("Environments");
 					$scope.environments=data;
 					console.log("ENVS",data);
@@ -140,13 +144,13 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 				"$scope",
 				"$rootScope",
 				"data",
-				"$routeParams",
+				"$stateParams",
 				"$location",
 				"utils",
 				"api",
 				"$dialog",
 				"benchmark",
-				function($scope, $rootScope, data, $routeParams, $location,
+				function($scope, $rootScope, data, $stateParams, $location,
 						utils,api,$dialog,benchmark) {
 					var state=function(run){return run.mode + run.factor;};
 
@@ -238,7 +242,7 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 						  c=_.map(session[0].runs,function(run,index){
 									var state=run.mode + run.factor;
 									var pos=states.indexOf(state);
-									//console.log("££",state,pos);
+									//console.log("ï¿½ï¿½",state,pos);
 									return colors[pos];
     						});
     						c=_.flatten(c);
@@ -255,5 +259,5 @@ angular.module('BenchX.library', [ 'ngResource','ngRoute','BenchX.api' ])
 					};
 					
 					$scope.chartObject=genChart();
-					$scope.setView($routeParams.view ? $routeParams.view: "grid");
+					$scope.setView($stateParams.view ? $stateParams.view: "grid");
 				} ]);

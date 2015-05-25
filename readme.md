@@ -1,8 +1,11 @@
 # BenchX
 
 A Web App packaging of the [XMark](http://www.xml-benchmark.org) benchmark for BaseX.
-Version 8.0 or greater of BaseX is required.
-
+Version 8.2 or greater of BaseX is required. And:
+````
+  # Local Options
+  MIXUPDATES = true
+````
 # Installation
 
 1. copy the contents of the `src` folder to your `webapp` folder
