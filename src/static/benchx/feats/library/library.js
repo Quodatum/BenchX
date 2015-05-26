@@ -8,8 +8,16 @@ angular.module('BenchX.library', [ 'ngResource','ui.router','BenchX.api' ])
 
 .config([ '$stateProvider', function($stateProvider) {
   
-	$stateProvider.state('library', {
-	    url: "/library",
+	$stateProvider
+	
+	.state('library', {
+      url: "/library",
+      abstract: true,
+      template: '<ui-view>library</ui-view>'
+  })
+  
+	.state('library.index', {
+	    url: "",
 		templateUrl : '/static/benchx/feats/library/library.xhtml',
 		controller : "LibraryController",
 		resolve : {
@@ -19,8 +27,16 @@ angular.module('BenchX.library', [ 'ngResource','ui.router','BenchX.api' ])
 			}
 		}
 
-	}).state('library.id', {
-	    url: "/library/item/:id",
+	})
+	
+	.state('library.id', {
+        url: "/item/:id",
+        abstract: true,
+        template: '<ui-view>item</ui-view>'
+    })
+    
+	.state('library.id.item', {
+	    url: "",
 		templateUrl : '/static/benchx/feats/library/record.xml',
 		controller : "RecordController",
 		resolve : {
@@ -32,8 +48,10 @@ angular.module('BenchX.library', [ 'ngResource','ui.router','BenchX.api' ])
 			}
 		}
 
-	}).state('library.id.compare', {
-	    url: "/library/item/:id/compare",
+	})
+	
+	.state('library.id.compare', {
+	    url: "/compare",
 		templateUrl : '/static/benchx/feats/library/compare.xml',
 		controller : "CompareController",
 		resolve : {
@@ -43,7 +61,9 @@ angular.module('BenchX.library', [ 'ngResource','ui.router','BenchX.api' ])
 			}
 		}
 
-	}).state('environment', {
+	})
+	
+	.state('environment', {
 	    url: "/environment",
 		templateUrl : '/static/benchx/feats/library/env.xml',
 		controller : "EnvController",
@@ -69,13 +89,13 @@ angular.module('BenchX.library', [ 'ngResource','ui.router','BenchX.api' ])
 
 .controller(
 		'CompareController',
-		[ "$scope", "$rootScope","$routeParams","$location", "data", "$log",
+		[ "$scope", "$rootScope","$stateParams","$location", "data", "$log",
 				function($scope, $rootScope,$stateParams,$location, data, $log) {
 					$scope.setTitle("Compare");
 					// data =
 					$scope.compare = data;
 					console.log("compare",data);
-					$scope.route=$stateParams; //id,query,state
+					$scope.route=$stateParams; // id,query,state
 					$scope.setView = function(v) {
 						$scope.view = v;
 						$location.search("view", v);
@@ -175,12 +195,12 @@ angular.module('BenchX.library', [ 'ngResource','ui.router','BenchX.api' ])
 					if($scope.formData.relative){
 						console.log("relative");
 					};
-					//console.log("benchmark: ",$scope.benchmark);
-					//@TODO Extract names of factor
+					// console.log("benchmark: ",$scope.benchmark);
+					// @TODO Extract names of factor
 					$scope.data={
-						//{state:[{run}]}
+						// {state:[{run}]}
 						states: _.groupBy(data.benchmark.runs,state),
-						//{query:[{run}]
+						// {query:[{run}]
 						queries: _.groupBy(data.benchmark.runs,function(run){return run.name;}),
 						// run with max time
 						max: _.max(data.benchmark.runs,function(run){return run.runtime;})
@@ -194,7 +214,7 @@ angular.module('BenchX.library', [ 'ngResource','ui.router','BenchX.api' ])
 					$scope.getRuns=function(state,query){
 						return _.filter(data.benchmark.runs,function(run){
 									var r= (run.name==query) && (state==run.mode + run.factor);
-								//	console.log("**",run.name,query,run.mode,state);
+								// console.log("**",run.name,query,run.mode,state);
 									return r;
 									});
 						};
@@ -223,7 +243,7 @@ angular.module('BenchX.library', [ 'ngResource','ui.router','BenchX.api' ])
 					$scope.onformData=function(){
 						$location.search("avg",$scope.formData.average);
 						$location.search("rel",$scope.formData.relative);
-						//console.log("formData.average",$scope.formData.average);
+						// console.log("formData.average",$scope.formData.average);
 					};
 					
 					// json data for google bar chart
@@ -242,7 +262,7 @@ angular.module('BenchX.library', [ 'ngResource','ui.router','BenchX.api' ])
 						  c=_.map(session[0].runs,function(run,index){
 									var state=run.mode + run.factor;
 									var pos=states.indexOf(state);
-									//console.log("��",state,pos);
+									// console.log("��",state,pos);
 									return colors[pos];
     						});
     						c=_.flatten(c);

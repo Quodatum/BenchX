@@ -15,9 +15,9 @@ angular
       'BenchX.library','BenchX.benchmark', 'BenchX.suite',
       'services.httpRequestTracker' ])
       
-//  .config(['$locationProvider',function($locationProvider){
-//      $locationProvider.html5Mode(true);
-//    }])
+// .config(['$locationProvider',function($locationProvider){
+// $locationProvider.html5Mode(true);
+// }])
     
   .config(
     [
@@ -67,17 +67,31 @@ angular
   .config([ 'logExProvider', function(logExProvider) {
    logExProvider.enableLogging(true);
   } ])
-  
+ 
+// ui-router
 .run(
-  [          '$rootScope', '$state', '$stateParams',
+  [ '$rootScope', '$state', '$stateParams',
     function ($rootScope,   $state,   $stateParams) {
 
-    // It's very handy to add references to $state and $stateParams to the $rootScope
-    // so that you can access them from any scope within your applications.For example,
-    // <li ng-class="{ active: $state.includes('contacts.list') }"> will set the <li>
+    // It's very handy to add references to $state and $stateParams to the
+    // $rootScope
+    // so that you can access them from any scope within your applications.For
+    // example,
+    // <li ng-class="{ active: $state.includes('contacts.list') }"> will set the
+    // <li>
     // to active whenever 'contacts.list' or one of its decendents is active.
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
+    
+
+    $rootScope.$on('$stateNotFound', 
+    function(event, unfoundState, fromState, fromParams){ 
+        console.log(unfoundState.to); // "lazy.state"
+        console.log(unfoundState.toParams); // {a:1, b:2}
+        console.log(unfoundState.options); // {inherit:false} + default options
+    });
+    
+    $rootScope.$on("$stateChangeError", console.log.bind(console));
     }
   ]
 )
@@ -99,7 +113,7 @@ angular
            activesuite: "xmark"
        });
        $rootScope.setTitle = function(t) {
-        $window.document.title = t + " BenchX v0.8.9";
+        $window.document.title = t + " BenchX v0.8.10";
        };
        $rootScope.staticRoot="/static/benchx/";
        $rootScope.apiRoot="../../benchx/api/";
@@ -112,13 +126,7 @@ angular
        $rootScope.meta = {
         title : ""
        };
-    // ui-router
-       $rootScope.$on('$stateNotFound', 
-       function(event, unfoundState, fromState, fromParams){ 
-           console.log(unfoundState.to); // "lazy.state"
-           console.log(unfoundState.toParams); // {a:1, b:2}
-           console.log(unfoundState.options); // {inherit:false} + default options
-       })
+  
        
        
       } ])
@@ -195,62 +203,7 @@ angular
 
       } ])
 
-  .controller(
-    'SessionController',
-    [
-      "$scope",
-      '$rootScope',
-      '$routeParams',
-      "$location",
-      "$dialog",
-      "api",
-      "data",
-      function($scope,$rootScope, $routeParams, $location, $dialog, api,
-        data) {
-       console.log("SessionController", data);
-       $scope.session = data;
-       $scope.setTitle("Session: " + $scope.activesuite);
-       $scope.meta = {
-        title : "",
-        suite:$scope.activesuite
-        }; 
-       
-
-       $scope.setView = function(v) {
-        $scope.view = v;
-        $location.search("view", v);
-       };
-       $scope
-         .setView($routeParams.view ? $routeParams.view
-           : "grid");
-
-       $scope.clearAll = function() {
-        var msg = "Remove timing data for runs in the current session?";
-        $dialog.messageBox("clear all", msg, [],
-          function(result) {
-           if (result === 'OK') {
-           var d = new api.session();
-           d.delete().$promise.then(function(a) {
-            $rootScope.results.clear();
-            $rootScope.logmsg = "session data deleted.";
-           }, function(e) {
-            alert("FAILED: " + e.data);
-           }); 
-           };
-          });
-       };
-       
-       $scope.save = function() {
-        var d = new api.session();
-        d.save($scope.meta).$promise.then(function(a) {
-         $rootScope.logmsg = "Saved to library: "+a.id;
-         $location.path("/library/item/"+a.id);
-        }, function(e) {
-         alert("FAILED: " + e.data);
-        });
-       };
-      } ])
-
+ 
   .controller(
     'ScheduleController',
     [
