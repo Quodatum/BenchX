@@ -292,42 +292,6 @@ angular
      $scope.environment = data;
     } ])
 
-  .controller(
-    "ChartController",
-    [
-      '$scope',
-      '$rootScope',
-      '$window',
-      'utils',
-      function($scope, $rootScope, $window, utils) {
-       $scope.setTitle("Graph");
-       $scope.session = $rootScope.results.data();
-       function genChart() {
-           var options={
-        title:'BenchX: ' + $scope.session.name + " " + $rootScope.meta.title,
-         vAxis: {title: 'Time (sec)'},
-         hAxis: {title: 'Query'}
-         };
-           console.log("CHART ",$scope.session.queries);
-        return $scope.session?utils.gchart($scope.session.queries,options):null;
-       }
-       ;
 
-       $scope.chartReady = function(chartWrapper) {
-        // not working!!
-        $window.google.visualization.events
-          .addListener(
-            chartWrapper,
-            'select',
-            function() {
-             $log
-               .log('select event fired!');
-            });
-       };
-       $scope.$on("session", function() {
-        $scope.chartObject = genChart();
-       });
-       $scope.chartObject = genChart();
-      } ])
 
   

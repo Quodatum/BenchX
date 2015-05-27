@@ -17,12 +17,12 @@
 			</li>
 			<li>
 				<div class="btn-group  btn-group-sm navbar-btn">
-					<button ng-click="setView('grid')" class="btn btn-default "
+					<button ui-sref=".grid" class="btn btn-default "
 						title="view data as grid" ng-class="{'btn-primary':view=='grid'}">
 						<i class="glyphicon glyphicon-th"></i>
 						Grid
 					</button>
-					<button class="btn btn-default" ng-click="setView('graph')"
+					<button class="btn btn-default" ui-sref=".graph"
 						title="view data as chart" ng-class="{'btn-primary':view=='graph'}">
 						<i class="glyphicon glyphicon-signal"></i>
 						Graph
@@ -35,12 +35,12 @@
 
 		<div class="btn-group  btn-group-sm navbar-btn">
 			<button class="btn  "> Action:</button>
-			<button class="btn btn-default" ng-click="setView('run')"
+			<button class="btn btn-default"  ui-sref=".run"
 				title="setup a timing run" ng-class="{'btn-primary':view=='run'}">
 				<i class="glyphicon glyphicon-forward"></i>
 				Run
 			</button>
-			<button class="btn btn-default" ng-click="setView('save')"
+			<button class="btn btn-default" ui-sref=".save"
 				title="save timing data to library" ng-class="{'btn-primary':view=='save'}">
 				<i class="glyphicon glyphicon-saved"></i>
 				Save

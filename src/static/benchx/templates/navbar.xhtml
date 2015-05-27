@@ -26,7 +26,7 @@
 				 <li><a ui-sref="environment" tabindex="-1"> <i
                                 class="glyphicon glyphicon-globe"></i> Environments
                         </a></li>
-				<li><a ui-sref="library" title="Timings"> <i
+				<li><a ui-sref="library.index" title="Timings"> <i
 						class="glyphicon glyphicon-book"></i> Library
 				</a></li>
 				</ul>
@@ -42,15 +42,18 @@
 					</p>
 					 
 				</li>
+				<li>
+					<p class="navbar-text bg-success logmsg ">
+						<a ui-sref="log" title="Log messages"> <i
+							class="glyphicon glyphicon-calendar"></i> {{logmsg}}
+						</a>
+					</p>
+				</li>
+				<li><p class="navbar-text" title="{{$stateParams}}">{{$state.current.name}}</p></li>
 			</ul>
 
-			<p class="navbar-text bg-success logmsg ">
-				<a ui-sref="log" title="Log messages"> <i
-					class="glyphicon glyphicon-calendar"></i> {{logmsg}}
-				</a>
-
-			</p>
-			<p ui-view="hint" class="navbar-text pull-right">£</p>
+			
+			
 			<ul class="nav navbar-nav navbar-right">
 
 				<li>

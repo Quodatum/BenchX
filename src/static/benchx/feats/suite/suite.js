@@ -4,7 +4,7 @@
  * @date 2014
  * @licence Apache 2
  */
-angular.module('BenchX.suite', [ 'ngResource', 'ui.router', 'BenchX.api' ])
+angular.module('BenchX.suite', [ 'ngResource', 'ui.router', 'BenchX.api','BenchX.services' ])
     .config(
         [ '$stateProvider', '$urlRouterProvider',
             function($stateProvider, $urlRouterProvider) {
@@ -29,7 +29,7 @@ angular.module('BenchX.suite', [ 'ngResource', 'ui.router', 'BenchX.api' ])
               })
               
                .state('suite.id', {
-                url : '/:id',
+                url : '/:suite',
                 abstract: true,
                 template: '<ui-view>suite</ui-view>'
               })
@@ -41,7 +41,7 @@ angular.module('BenchX.suite', [ 'ngResource', 'ui.router', 'BenchX.api' ])
                 resolve : {
                   data : function(api, $stateParams) {
                     console.log("suite");
-                    return api.suite($stateParams.id);
+                    return api.suite($stateParams.suite);
                   }
                 }
               })
@@ -56,7 +56,11 @@ angular.module('BenchX.suite', [ 'ngResource', 'ui.router', 'BenchX.api' ])
                   }
                 }
               })
-              
+               .state('suite.id.session.grid', {
+                url : '/grid',
+                templateUrl : '/static/benchx/feats/suite/grid.xml',
+              })
+			  
               .state('suite.id.session.save', {
                 url : '/save',
                 templateUrl : '/static/benchx/feats/suite/save.xml',
@@ -67,7 +71,16 @@ angular.module('BenchX.suite', [ 'ngResource', 'ui.router', 'BenchX.api' ])
                   }
                 }
               })
-
+              .state('suite.id.session.run', {
+                url : '/run',
+                templateUrl : '/static/benchx/feats/suite/schedule.xml',
+              })
+			  
+			  .state('suite.id.session.graph', {
+                url : '/graph',
+                templateUrl : '/static/benchx/feats/suite/graph.xml',
+                controller:"ChartController"
+                })
               .state('suite.id.library', {
                 url : '/library',
                 templateUrl : '/static/benchx/templates/library.xhtml',
@@ -154,5 +167,43 @@ angular.module('BenchX.suite', [ 'ngResource', 'ui.router', 'BenchX.api' ])
        };
       } ])
       
+      
+   .controller(
+    "ChartController",
+    [
+      '$scope',
+      '$rootScope',
+      '$window',
+      'utils',
+      function($scope, $rootScope, $window, utils) {
+       $scope.setTitle("Graph");
+       $scope.session = $rootScope.results.data();
+       function genChart() {
+           var options={
+        title:'BenchX: ' + $scope.session.name + " " + $rootScope.meta.title,
+         vAxis: {title: 'Time (sec)'},
+         hAxis: {title: 'Query'}
+         };
+           console.log("CHART ",$scope.session.queries);
+        return $scope.session?utils.gchart($scope.session.queries,options):null;
+       }
+       ;
+
+       $scope.chartReady = function(chartWrapper) {
+        // not working!!
+        $window.google.visualization.events
+          .addListener(
+            chartWrapper,
+            'select',
+            function() {
+             $log
+               .log('select event fired!');
+            });
+       };
+       $scope.$on("session", function() {
+        $scope.chartObject = genChart();
+       });
+       $scope.chartObject = genChart();
+      } ])     
             
             ;

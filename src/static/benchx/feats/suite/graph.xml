@@ -1,0 +1,3 @@
+<div  chart="chartObject" onReady="chartReady"
+	style="height:400px; width:100%;" ng-controller="ChartController"></div>
+	 

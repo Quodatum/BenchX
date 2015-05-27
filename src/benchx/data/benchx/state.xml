@@ -7,8 +7,8 @@
   <state>
     <timeout type="number">10</timeout>
     <generator>xmlgen</generator>
-    <mode>D</mode>
-    <factor>1</factor>
+    <mode>F</mode>
+    <factor>0.1</factor>
     <filesize/>
   </state>
   <session>
