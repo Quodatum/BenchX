@@ -176,6 +176,8 @@ angular.module('BenchX.suite', [ 'ngResource', 'ui.router', 'BenchX.api','BenchX
       '$window',
       'utils',
       function($scope, $rootScope, $window, utils) {
+        console.log("Chart controler");
+       
        $scope.setTitle("Graph");
        $scope.session = $rootScope.results.data();
        function genChart() {
@@ -188,7 +190,7 @@ angular.module('BenchX.suite', [ 'ngResource', 'ui.router', 'BenchX.api','BenchX
         return $scope.session?utils.gchart($scope.session.queries,options):null;
        }
        ;
-
+       
        $scope.chartReady = function(chartWrapper) {
         // not working!!
         $window.google.visualization.events
@@ -204,6 +206,7 @@ angular.module('BenchX.suite', [ 'ngResource', 'ui.router', 'BenchX.api','BenchX
         $scope.chartObject = genChart();
        });
        $scope.chartObject = genChart();
+       
       } ])     
             
             ;
