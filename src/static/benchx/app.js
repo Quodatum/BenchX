@@ -131,15 +131,15 @@ angular
        
       } ])
       
-  .run(['hotkeys','$location','$rootScope',function(hotkeys,$location,$rootScope){
+  .run(['hotkeys','$state','$rootScope',function(hotkeys,$state,$rootScope){
    hotkeys.add("l", "Go to library",function(){
-          return $location.url("/library");});
+          return $state.go("library.index");});
    hotkeys.add("e", "Go to environments",function(){
-          return $location.url("/environment");});
+          return $state.go("environment");});
    hotkeys.add("s", "Go to suites",function(){
-          return $location.url("/suite");});
+          return $state.go("suite.index");});
    hotkeys.add("r", "Go to run",function(){
-          return $location.url("/suite/"+$rootScope.activesuite+"/session?view=run");});
+          return $state.go("suite.id.session.run",{suite:$rootScope.activesuite});});
   }])
 
   .controller(

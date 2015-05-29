@@ -117,13 +117,14 @@ angular.module('BenchX.suite', [ 'ngResource', 'ui.router', 'BenchX.api','BenchX
       "$scope",
       '$rootScope',
       '$stateParams',
-      "$location",
+      "$state",
       "$dialog",
       "api",
       "data",
-      function($scope,$rootScope, $stateParams, $location, $dialog, api,
+      function($scope,$rootScope, $stateParams, $state, $dialog, api,
         data) {
-       console.log("SessionController", data);
+       console.log("SessionController", $state,$scope);
+       $rootScope.activesuite=$stateParams.suite;
        $scope.session = data;
        $scope.setTitle("Session: " + $scope.activesuite);
        $scope.meta = {
@@ -134,11 +135,10 @@ angular.module('BenchX.suite', [ 'ngResource', 'ui.router', 'BenchX.api','BenchX
 
        $scope.setView = function(v) {
         $scope.view = v;
-        $location.search("view", v);
+        $state.go($state.current,{view: v});
        };
        $scope
-         .setView($stateParams.view ? $stateParams.view
-           : "grid");
+         .setView($state.params.view ? $state.params.view : "grid");
 
        $scope.clearAll = function() {
         var msg = "Remove timing data for runs in the current session?";
@@ -160,7 +160,7 @@ angular.module('BenchX.suite', [ 'ngResource', 'ui.router', 'BenchX.api','BenchX
         var d = new api.session();
         d.save($scope.meta).$promise.then(function(a) {
          $rootScope.logmsg = "Saved to library: "+a.id;
-         $location.path("/library/item/"+a.id);
+         $state.go("library.id.item",{id:a.id});
         }, function(e) {
          alert("FAILED: " + e.data);
         });
