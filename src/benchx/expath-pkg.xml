@@ -15,4 +15,5 @@
 	<dependency name="FileSaver" />
 	<dependency name="AngularLogExtender" version="0.0.10"/>
 	<dependency name="smart-table" version="1.4.9"/>
+	<dependency name="angular-ui-router" version="0.2.15"/>
 </package>
