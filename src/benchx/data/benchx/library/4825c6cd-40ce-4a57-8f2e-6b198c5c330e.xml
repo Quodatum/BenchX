@@ -1,0 +1,132 @@
+<benchmark xmlns="https://github.com/Quodatum/BenchX/results">
+  <id>4825c6cd-40ce-4a57-8f2e-6b198c5c330e</id>
+  <suite>sample1</suite>
+  <meta>
+    <created>2015-03-14T21:52:41.952Z</created>
+    <description>sav</description>
+  </meta>
+  <server>
+    <id/>
+    <hostname>(unknown)</hostname>
+    <description/>
+  </server>
+  <environment>
+    <basex.version>8.0.2</basex.version>
+    <java.vendor>Oracle Corporation</java.vendor>
+    <java.version>1.8.0_40</java.version>
+    <java.vm.version>25.40-b25</java.vm.version>
+    <os.arch>amd64</os.arch>
+    <os.name>Windows 8.1</os.name>
+    <os.version>6.3</os.version>
+    <runtime.availableProcessors>4</runtime.availableProcessors>
+    <runtime.freeMemory>123 MB</runtime.freeMemory>
+    <runtime.maxMemory>456 MB</runtime.maxMemory>
+    <runtime.totalMemory>142 MB</runtime.totalMemory>
+  </environment>
+  <runs type="array">
+    <!-- 
+		<run>
+			<name>q1.xqm</name>
+			<runtime>124</runtime>
+			<factor>0</factor>
+			<mode>F</mode>
+		</run>
+		 -->
+    <res:run xmlns:res="https://github.com/Quodatum/BenchX/results">
+      <runtime type="number">0.277</runtime>
+      <status/>
+      <res:name>q20.xq</res:name>
+      <res:mode>F</res:mode>
+      <res:factor>0</res:factor>
+      <res:created>2015-03-14T21:20:06.304Z</res:created>
+    </res:run>
+    <res:run xmlns:res="https://github.com/Quodatum/BenchX/results">
+      <runtime type="number">0.154</runtime>
+      <status/>
+      <res:name>q20.xq</res:name>
+      <res:mode>F</res:mode>
+      <res:factor>0</res:factor>
+      <res:created>2015-03-14T21:20:07.64Z</res:created>
+    </res:run>
+    <res:run xmlns:res="https://github.com/Quodatum/BenchX/results">
+      <runtime type="number">0.101</runtime>
+      <status/>
+      <res:name>q20.xq</res:name>
+      <res:mode>F</res:mode>
+      <res:factor>0</res:factor>
+      <res:created>2015-03-14T21:20:08.904Z</res:created>
+    </res:run>
+    <res:run xmlns:res="https://github.com/Quodatum/BenchX/results">
+      <runtime type="number">0.081</runtime>
+      <status/>
+      <res:name>xq20.xq</res:name>
+      <res:mode>F</res:mode>
+      <res:factor>0</res:factor>
+      <res:created>2015-03-14T21:20:09.993Z</res:created>
+    </res:run>
+    <res:run xmlns:res="https://github.com/Quodatum/BenchX/results">
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <res:name>xq20.xq</res:name>
+      <res:mode>F</res:mode>
+      <res:factor>0</res:factor>
+      <res:created>2015-03-14T21:20:11.044Z</res:created>
+    </res:run>
+    <res:run xmlns:res="https://github.com/Quodatum/BenchX/results">
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <res:name>xq20.xq</res:name>
+      <res:mode>F</res:mode>
+      <res:factor>0</res:factor>
+      <res:created>2015-03-14T21:20:12.137Z</res:created>
+    </res:run>
+    <res:run xmlns:res="https://github.com/Quodatum/BenchX/results">
+      <runtime type="number">0.152</runtime>
+      <status/>
+      <res:name>q20.xq</res:name>
+      <res:mode>F</res:mode>
+      <res:factor>0</res:factor>
+      <res:created>2015-03-14T21:52:27.652Z</res:created>
+    </res:run>
+    <res:run xmlns:res="https://github.com/Quodatum/BenchX/results">
+      <runtime type="number">0.159</runtime>
+      <status/>
+      <res:name>q20.xq</res:name>
+      <res:mode>F</res:mode>
+      <res:factor>0</res:factor>
+      <res:created>2015-03-14T21:52:28.78Z</res:created>
+    </res:run>
+    <res:run xmlns:res="https://github.com/Quodatum/BenchX/results">
+      <runtime type="number">0.104</runtime>
+      <status/>
+      <res:name>q20.xq</res:name>
+      <res:mode>F</res:mode>
+      <res:factor>0</res:factor>
+      <res:created>2015-03-14T21:52:29.891Z</res:created>
+    </res:run>
+    <res:run xmlns:res="https://github.com/Quodatum/BenchX/results">
+      <runtime type="number">0.091</runtime>
+      <status/>
+      <res:name>xq20.xq</res:name>
+      <res:mode>F</res:mode>
+      <res:factor>0</res:factor>
+      <res:created>2015-03-14T21:52:30.941Z</res:created>
+    </res:run>
+    <res:run xmlns:res="https://github.com/Quodatum/BenchX/results">
+      <runtime type="number">0.113</runtime>
+      <status/>
+      <res:name>xq20.xq</res:name>
+      <res:mode>F</res:mode>
+      <res:factor>0</res:factor>
+      <res:created>2015-03-14T21:52:32.002Z</res:created>
+    </res:run>
+    <res:run xmlns:res="https://github.com/Quodatum/BenchX/results">
+      <runtime type="number">0.089</runtime>
+      <status/>
+      <res:name>xq20.xq</res:name>
+      <res:mode>F</res:mode>
+      <res:factor>0</res:factor>
+      <res:created>2015-03-14T21:52:33.016Z</res:created>
+    </res:run>
+  </runs>
+</benchmark>

@@ -18,7 +18,7 @@
     <os.arch>i386</os.arch>
     <os.name>Linux</os.name>
     <os.version>2.6.37.6.RNx86_64.2.4</os.version>
-    <runtime.availableProcessors>4</runtime.availableProcessors>
+     <runtime.availableProcessors>4</runtime.availableProcessors>
     <runtime.freeMemory>162 MB</runtime.freeMemory>
     <runtime.maxMemory>495 MB</runtime.maxMemory>
     <runtime.totalMemory>170 MB</runtime.totalMemory>

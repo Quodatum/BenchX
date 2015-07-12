@@ -1,0 +1,1476 @@
+<benchmark xmlns="https://github.com/Quodatum/BenchX/results">
+  <id>4d2f93ec-e4fc-4315-a1f2-392a9b366cbf</id>
+  <suite>xmark-polo</suite>
+  <meta>
+    <created>2015-04-06T11:35:09.522+01:00</created>
+    <description>d0 slice and no slice</description>
+  </meta>
+  <server>
+    <id>443f908b-c28d-434c-8133-cd4351407c2b</id>
+    <hostname>redfish</hostname>
+    <description/>
+  </server>
+  <environment>
+    <basex.version>8.1</basex.version>
+    <java.vendor>Oracle Corporation</java.vendor>
+    <java.version>1.8.0_40</java.version>
+    <java.vm.version>25.40-b25</java.vm.version>
+    <os.arch>amd64</os.arch>
+    <os.name>Windows 8.1</os.name>
+    <os.version>6.3</os.version>
+    <runtime.availableProcessors>4</runtime.availableProcessors>
+    <runtime.freeMemory>395 MB</runtime.freeMemory>
+    <runtime.maxMemory>456 MB</runtime.maxMemory>
+    <runtime.totalMemory>413 MB</runtime.totalMemory>
+  </environment>
+  <runs type="array">
+    <!-- 
+		<run>
+			<name>q1.xqm</name>
+			<runtime>124</runtime>
+			<factor>0</factor>
+			<mode>F</mode>
+		</run>
+		 -->
+    <run>
+      <runtime type="number">0.117</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:36.288+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.136</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:37.2+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:38.119+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:39.035+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.115</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:39.927+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:40.851+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.096</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:41.745+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.095</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:42.666+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.095</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:43.593+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:44.487+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.102</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:45.443+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:46.41+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.099</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:47.417+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.096</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:48.354+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.104</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:49.275+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.113</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:50.199+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:51.114+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.101</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:52.123+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:53.055+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.114</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:53.986+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.11</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:55.004+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:56.017+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.096</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:57.274+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:58.164+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:59.105+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.159</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:31:59.98+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.122</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:01.045+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.113</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:02.004+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:02.963+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:03.879+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.096</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:04.794+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.102</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:05.681+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:06.56+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:07.49+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.097</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:08.412+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:09.308+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.102</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:10.206+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.119</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:11.076+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:11.968+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:12.94+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:13.872+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.097</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:14.782+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.101</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:15.681+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.104</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:16.613+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:17.503+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:18.391+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:19.288+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.103</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:20.211+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:21.109+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.116</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:21.99+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.102</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:22.913+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.105</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:23.832+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:24.712+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:25.615+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.099</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:26.527+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:27.414+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.097</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:28.294+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:29.198+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:30.108+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:30.981+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:31.854+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.104</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:32.818+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.121</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:33.901+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.114</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:35.207+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.099</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:36.384+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:37.319+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:38.237+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.113</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:39.161+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.114</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:40.094+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.105</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:41.174+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.116</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:42.071+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.119</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:43.328+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:44.293+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:45.36+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.103</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:46.334+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:47.261+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.115</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:48.155+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.118</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:49.072+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.119</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:50.078+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:51.109+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.119</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:52.049+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:53.381+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.097</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:54.407+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:55.367+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.096</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:56.311+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.105</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:57.229+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.13</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:58.119+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.118</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:32:59.131+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.136</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:00.059+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:01.062+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:19.735+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.102</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:20.795+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:21.781+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:22.774+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q01.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:23.725+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:24.657+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:25.596+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.102</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:26.503+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:27.417+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q02.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:28.445+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.105</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:29.503+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:30.504+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:31.504+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.097</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:32.462+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q03.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:33.43+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.097</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:34.357+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:35.274+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.116</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:36.193+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:37.177+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.121</runtime>
+      <status/>
+      <name>q04.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:38.127+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:39.414+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:40.537+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:41.521+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.099</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:42.51+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.099</runtime>
+      <status/>
+      <name>q05.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:43.461+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.096</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:44.381+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.099</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:45.295+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.102</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:46.223+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:47.115+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.115</runtime>
+      <status/>
+      <name>q06.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:48.388+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.121</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:49.483+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:50.535+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.099</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:51.512+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.101</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:52.471+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.099</runtime>
+      <status/>
+      <name>q07.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:53.428+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.102</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:54.35+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:55.301+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.108</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:56.22+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.116</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:57.138+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q08.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:58.389+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.12</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:33:59.443+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:00.597+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.097</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:01.611+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.096</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:02.595+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q09.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:03.551+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:04.491+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:05.466+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.096</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:06.403+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.117</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:07.35+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q10.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:08.432+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.115</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:09.459+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.121</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:10.481+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.114</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:11.5+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.099</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:12.468+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q13.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:13.444+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:14.456+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.097</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:15.391+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:16.376+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:17.301+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.122</runtime>
+      <status/>
+      <name>q14.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:18.234+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.111</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:19.406+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.109</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:20.538+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.103</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:21.558+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.112</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:22.518+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.107</runtime>
+      <status/>
+      <name>q15.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:23.499+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.099</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:24.452+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:25.426+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.101</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:26.381+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:27.325+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.11</runtime>
+      <status/>
+      <name>q16.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:28.311+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:29.47+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:30.516+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.098</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:31.506+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.102</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:32.446+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.097</runtime>
+      <status/>
+      <name>q17.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:33.456+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.096</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:34.417+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.097</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:35.355+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.118</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:36.278+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.103</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:37.208+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.113</runtime>
+      <status/>
+      <name>q18.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:38.135+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.115</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:39.379+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.106</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:40.616+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.099</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:41.705+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.103</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:42.705+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.1</runtime>
+      <status/>
+      <name>q19.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:43.69+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.101</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:44.621+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.099</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:45.513+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.103</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:46.495+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.099</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:47.414+01:00</created>
+    </run>
+    <run>
+      <runtime type="number">0.103</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>0</factor>
+      <created>2015-04-06T11:34:48.332+01:00</created>
+    </run>
+  </runs>
+</benchmark>

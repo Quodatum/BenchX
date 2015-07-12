@@ -1,0 +1,164 @@
+<benchmark xmlns="https://github.com/Quodatum/BenchX/results">
+  <id>e725f570-3133-423c-abd3-5f17effe1a42</id>
+  <suite>sample1</suite>
+  <meta>
+    <created>2015-03-17T23:03:50.407Z</created>
+    <description>/400</description>
+  </meta>
+  <server>
+    <id/>
+    <hostname>(unknown)</hostname>
+    <description/>
+  </server>
+  <environment>
+    <basex.version>8.0.2</basex.version>
+    <java.vendor>Oracle Corporation</java.vendor>
+    <java.version>1.8.0_40</java.version>
+    <java.vm.version>25.40-b25</java.vm.version>
+    <os.arch>amd64</os.arch>
+    <os.name>Windows 8.1</os.name>
+    <os.version>6.3</os.version>
+    <runtime.availableProcessors>4</runtime.availableProcessors>
+    <runtime.freeMemory>413 MB</runtime.freeMemory>
+    <runtime.maxMemory>456 MB</runtime.maxMemory>
+    <runtime.totalMemory>431 MB</runtime.totalMemory>
+  </environment>
+  <runs type="array">
+    <!-- 
+		<run>
+			<name>q1.xqm</name>
+			<runtime>124</runtime>
+			<factor>0</factor>
+			<mode>F</mode>
+		</run>
+		 -->
+    <run>
+      <runtime type="number">0.228</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T22:59:23.62Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.222</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T22:59:24.635Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.317</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:43.554Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.202</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:44.885Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.201</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:45.838Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.207</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:46.783Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.201</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:47.725Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.208</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:48.753Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.203</runtime>
+      <status/>
+      <name>q20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:49.707Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.153</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:50.65Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.163</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:51.556Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.135</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:52.463Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.14</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:53.362Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.143</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:54.339Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.14</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:55.353Z</created>
+    </run>
+    <run>
+      <runtime type="number">0.127</runtime>
+      <status/>
+      <name>xq20.xq</name>
+      <mode>D</mode>
+      <factor>1</factor>
+      <created>2015-03-17T23:02:56.225Z</created>
+    </run>
+  </runs>
+</benchmark>

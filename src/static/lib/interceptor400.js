@@ -24,7 +24,18 @@ angular.module('Error', [])
 				$location.path("/404")
 				alert("Error (code=404) : " + response.data);
 				// ErrorCtrl.logError(response.data);
-			}
+			};
+			if (status == 500) {
+              var deferred = $q.defer();
+              var req = {
+                  config : response.config,
+                  deferred : deferred
+              }
+              err = response.data
+              $location.path("/404")
+              alert("Error (code="+status+") : " + response.data);
+              // ErrorCtrl.logError(response.data);
+          }
 			// otherwise
 			return $q.reject(response);
 		});
