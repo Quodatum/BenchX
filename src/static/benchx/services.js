@@ -231,5 +231,33 @@ angular.module('BenchX.services', [ 'log.ex.uo' ])
  * 
  * return $delegate; }); })
  */
+// set height on element to extend to window
+// http://stackoverflow.com/questions/14703517/angular-js-set-element-height-on-page-load
+.directive('fillheight', function ($window) {
+    return function (scope, element) {
+        var w = angular.element($window);
+        scope.getWindowDimensions = function () {
+             var x=element.getBoundingClientRect().top;
+            // console.log("--",element,"xxxxx:",x);
+            return { 'h': w.height(), 'w': w.width(),"top":x };
+        };
+        
+        scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+            scope.windowHeight = newValue.h;
+            scope.windowWidth = newValue.w;
+            scope.style = function () {
+                return { 
+                    'height': (newValue.h - newValue.top -10) + 'px',
+                    'min-height': '200px' 
+                    
+                };
+            };
 
+        }, true);
+
+        w.bind('resize', function () {
+            scope.$apply();
+        });
+    }
+})
 ;

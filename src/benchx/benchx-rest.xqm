@@ -131,9 +131,9 @@ function state()
  :)
 declare %updating
 %rest:POST %rest:path("benchx/api/state")
-%restxq:query-param("mode", "{$mode}","D")
-%restxq:query-param("factor", "{$factor}")
-%restxq:query-param("generator", "{$generator}","xmlgen")
+%rest:query-param("mode", "{$mode}","D")
+%rest:query-param("factor", "{$factor}")
+%rest:query-param("generator", "{$generator}","xmlgen")
 %output:method("json")   
 function state-post($mode,
                     $factor as xs:double,
@@ -176,8 +176,8 @@ function session-delete()
  :)
 declare 
 %rest:GET %rest:path("benchx/api/library")
-%restxq:query-param("suite", "{$suite}")
-%restxq:query-param("format", "{$format}","json")
+%rest:query-param("suite", "{$suite}")
+%rest:query-param("format", "{$format}","json")
 %output:method("json")   
 function library($suite,$format) 
 {
@@ -194,7 +194,7 @@ function library($suite,$format)
  :)
 declare 
 %rest:GET %rest:path("benchx/api/library/{$id}")
-%restxq:query-param("format", "{$format}","json")
+%rest:query-param("format", "{$format}","json")
 %output:method("json")
 function record($id,$format) 
 {
@@ -208,9 +208,9 @@ function record($id,$format)
  :)
 declare 
 %rest:GET %rest:path("benchx/api/library/{$id}/compare")
-%restxq:query-param("format", "{$format}","json")
-%restxq:query-param("query", "{$query}","")
-%restxq:query-param("state", "{$state}","")
+%rest:query-param("format", "{$format}","json")
+%rest:query-param("query", "{$query}","")
+%rest:query-param("state", "{$state}","")
 %output:method("json")
 function compare($id,$query,$state,$format) 
 {
@@ -246,7 +246,7 @@ function compare($id,$query,$state,$format)
  :)
 declare %updating
 %rest:DELETE %rest:path("benchx/api/library/{$id}")
-%restxq:form-param("password", "{$password}")
+%rest:form-param("password", "{$password}")
 %output:method("json")   
 function record-delete($id as xs:string,$password) 
 {

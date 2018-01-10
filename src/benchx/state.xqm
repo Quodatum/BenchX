@@ -53,7 +53,7 @@ declare function benchmark($newValue as element(res:benchmark))
 
 (:~ add new result to session 
  :)
-declare function add($result as element(run))
+declare %updating function add($result as element(run))
 {
     let $new:=copy $d:=_benchmark()
               modify insert node $result into $d/res:runs

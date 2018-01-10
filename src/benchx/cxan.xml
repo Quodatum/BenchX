@@ -1,0 +1,11 @@
+<package xmlns="http://cxan.org/ns/package" id="benchxq">
+	<abstract>Benchmark BaseX using XMark</abstract>
+	<author id="abunce">Andy Bunce</author>
+	<maintainer id="abunce">Andy Bunce</maintainer>
+	<home>https://github.com/Quodatum/benchxq</home>
+	<category id="apps">Applications</category>
+	<tag>basex</tag>
+	<tag>benchmark</tag>
+	<tag>graph</tag>
+	<tag>xmark</tag>
+</package>

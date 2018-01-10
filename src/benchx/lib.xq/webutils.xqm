@@ -68,14 +68,14 @@ declare function http-created($location,$response){
 
 (:~ CORS header with download option :) 
 declare function headers($attachment,$response){
-(<restxq:response>
+(<rest:response>
     <http:response>
         <http:header name="Access-Control-Allow-Origin" value="*"/>
     {if($attachment)
     then <http:header name="Content-Disposition" value='attachment;filename="{$attachment}"'/>
     else ()}
     </http:response>
-</restxq:response>, $response)
+</rest:response>, $response)
 };
 
 (:~ download as zip file :) 
@@ -85,24 +85,24 @@ declare function zip-download($zipname,$data){
 
 (:~ headers for download  :) 
 declare function method($method as xs:string){
-<restxq:response>
+<rest:response>
     <output:serialization-parameters>
         <output:method value="{$method}"/>
     </output:serialization-parameters>
-</restxq:response>
+</rest:response>
 };
 
 (:~ headers for download  :) 
 declare function download-response($method,$filename){
 
-<restxq:response>
+<rest:response>
     <output:serialization-parameters>
         <output:method value="{$method}"/>
     </output:serialization-parameters>
    <http:response>
        <http:header name="Content-Disposition" value='attachment;filename="{$filename}"'/> 
     </http:response>
-</restxq:response>
+</rest:response>
 };
 
 (:~

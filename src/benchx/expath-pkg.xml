@@ -1,5 +1,5 @@
 <package abbrev="benchx" name="urn:quodatum.basex.benchx"
-	version="0.1" spec="1.0" xmlns="http://expath.org/ns/pkg">
+	version="0.2.0" spec="1.0" xmlns="http://expath.org/ns/pkg">
 	<title>BenchX</title>
 	<dependency name="twitter-bootstrap-css" version="3.3.4" />
 	<dependency name="moment" version="2.6.0" />
